@@ -41,3 +41,8 @@ add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
 add_test(NAME 26_test COMMAND 26)
+
+add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
+target_link_libraries(80 lc)
+target_link_libraries(80 gtest_main)
+add_test(NAME 80_test COMMAND 80)
