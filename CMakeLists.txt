@@ -42,6 +42,11 @@ target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
 add_test(NAME 26_test COMMAND 26)
 
+add_executable(33 test/search-in-rotated-sorted-array.cpp)
+target_link_libraries(33 lc)
+target_link_libraries(33 gtest_main)
+add_test(NAME 33_test COMMAND 33)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
