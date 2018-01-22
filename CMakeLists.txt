@@ -37,6 +37,11 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif ()
 
 # Now simply link against gtest or gtest_main as needed. Eg
+add_executable(4 test/median-of-two-sorted-arrays.cpp)
+target_link_libraries(4 lc)
+target_link_libraries(4 gtest_main)
+add_test(NAME 4_test COMMAND 4)
+
 add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
