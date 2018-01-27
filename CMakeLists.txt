@@ -61,3 +61,8 @@ add_executable(81 test/search-in-rotated-sorted-array-ii.cpp)
 target_link_libraries(81 lc)
 target_link_libraries(81 gtest_main)
 add_test(NAME 81_test COMMAND 81)
+
+add_executable(128 test/longest-consecutive-sequence.cpp)
+target_link_libraries(128 lc)
+target_link_libraries(128 gtest_main)
+add_test(NAME 128_test COMMAND 128)
