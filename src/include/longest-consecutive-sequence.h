@@ -16,4 +16,9 @@
  */
 int longestConsecutive_128_1(int *nums, int numsSize);
 
+/**
+ * Use hashmap, O(n)
+ */
+int longestConsecutive_128_2(int *nums, int numsSize);
+
 #endif //LEETCODE_LONGEST_CONSECUTIVE_SEQUENCE_H
