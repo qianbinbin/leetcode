@@ -52,6 +52,11 @@ target_link_libraries(15 lc)
 target_link_libraries(15 gtest_main)
 add_test(NAME 15_test COMMAND 15)
 
+add_executable(16 test/3sum-closest.cpp)
+target_link_libraries(16 lc)
+target_link_libraries(16 gtest_main)
+add_test(NAME 16_test COMMAND 16)
+
 add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
