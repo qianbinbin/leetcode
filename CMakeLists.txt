@@ -47,6 +47,11 @@ target_link_libraries(4 lc)
 target_link_libraries(4 gtest_main)
 add_test(NAME 4_test COMMAND 4)
 
+add_executable(15 test/3sum.cpp)
+target_link_libraries(15 lc)
+target_link_libraries(15 gtest_main)
+add_test(NAME 15_test COMMAND 15)
+
 add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
