@@ -67,6 +67,11 @@ target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
 add_test(NAME 26_test COMMAND 26)
 
+add_executable(27 test/remove-element.cpp)
+target_link_libraries(27 lc)
+target_link_libraries(27 gtest_main)
+add_test(NAME 27_test COMMAND 27)
+
 add_executable(33 test/search-in-rotated-sorted-array.cpp)
 target_link_libraries(33 lc)
 target_link_libraries(33 gtest_main)
