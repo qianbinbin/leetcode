@@ -72,6 +72,11 @@ target_link_libraries(27 lc)
 target_link_libraries(27 gtest_main)
 add_test(NAME 27_test COMMAND 27)
 
+add_executable(31 test/next-permutation.cpp)
+target_link_libraries(31 lc)
+target_link_libraries(31 gtest_main)
+add_test(NAME 31_test COMMAND 31)
+
 add_executable(33 test/search-in-rotated-sorted-array.cpp)
 target_link_libraries(33 lc)
 target_link_libraries(33 gtest_main)
