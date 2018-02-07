@@ -82,6 +82,11 @@ target_link_libraries(33 lc)
 target_link_libraries(33 gtest_main)
 add_test(NAME 33_test COMMAND 33)
 
+add_executable(60 test/permutation-sequence.cpp)
+target_link_libraries(60 lc)
+target_link_libraries(60 gtest_main)
+add_test(NAME 60_test COMMAND 60)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
