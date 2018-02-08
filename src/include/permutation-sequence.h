@@ -24,4 +24,9 @@
  */
 char *getPermutation_60_1(int n, int k);
 
+/**
+ * O(n)
+ */
+char *getPermutation_60_2(int n, int k);
+
 #endif //LEETCODE_PERMUTATION_SEQUENCE_H
