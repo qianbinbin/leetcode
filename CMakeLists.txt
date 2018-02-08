@@ -82,6 +82,11 @@ target_link_libraries(33 lc)
 target_link_libraries(33 gtest_main)
 add_test(NAME 33_test COMMAND 33)
 
+add_executable(36 test/valid-sudoku.cpp)
+target_link_libraries(36 lc)
+target_link_libraries(36 gtest_main)
+add_test(NAME 36_test COMMAND 36)
+
 add_executable(60 test/permutation-sequence.cpp)
 target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
