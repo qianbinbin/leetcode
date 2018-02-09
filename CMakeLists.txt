@@ -87,6 +87,11 @@ target_link_libraries(36 lc)
 target_link_libraries(36 gtest_main)
 add_test(NAME 36_test COMMAND 36)
 
+add_executable(42 test/trapping-rain-water.cpp)
+target_link_libraries(42 lc)
+target_link_libraries(42 gtest_main)
+add_test(NAME 42_test COMMAND 42)
+
 add_executable(60 test/permutation-sequence.cpp)
 target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
