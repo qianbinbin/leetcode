@@ -27,3 +27,28 @@ int trap_42_1(int *height, int heightSize) {
     }
     return sum;
 }
+
+int trap_42_2(int *height, int heightSize) {
+    if (height == NULL || heightSize < 0) return -1;
+    if (heightSize == 0) return 0;
+
+    int peak = 0;
+    for (int i = 0; i < heightSize; ++i) {
+        if (height[i] > height[peak]) peak = i;
+    }
+
+    int left_max = height[0];
+    int capacity, sum = 0;
+    for (int i = 1; i < peak; ++i) {
+        capacity = left_max - height[i];
+        if (capacity > 0) sum += capacity;
+        left_max = left_max > height[i] ? left_max : height[i];
+    }
+    int right_max = height[heightSize - 1];
+    for (int i = heightSize - 2; i > peak; --i) {
+        capacity = right_max - height[i];
+        if (capacity > 0) sum += capacity;
+        right_max = right_max > height[i] ? right_max : height[i];
+    }
+    return sum;
+}

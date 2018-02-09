@@ -9,4 +9,6 @@
  */
 int trap_42_1(int *height, int heightSize);
 
+int trap_42_2(int *height, int heightSize);
+
 #endif //LEETCODE_TRAPPING_RAIN_WATER_H
