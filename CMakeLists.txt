@@ -107,6 +107,11 @@ target_link_libraries(66 lc)
 target_link_libraries(66 gtest_main)
 add_test(NAME 66_test COMMAND 66)
 
+add_executable(70 test/climbing-stairs.cpp)
+target_link_libraries(70 lc)
+target_link_libraries(70 gtest_main)
+add_test(NAME 70_test COMMAND 70)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
