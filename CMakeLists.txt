@@ -112,6 +112,11 @@ target_link_libraries(70 lc)
 target_link_libraries(70 gtest_main)
 add_test(NAME 70_test COMMAND 70)
 
+add_executable(73 test/set-matrix-zeroes.cpp)
+target_link_libraries(73 lc)
+target_link_libraries(73 gtest_main)
+add_test(NAME 73_test COMMAND 73)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
