@@ -122,6 +122,11 @@ target_link_libraries(81 lc)
 target_link_libraries(81 gtest_main)
 add_test(NAME 81_test COMMAND 81)
 
+add_executable(89 test/gray-code.cpp)
+target_link_libraries(89 lc)
+target_link_libraries(89 gtest_main)
+add_test(NAME 89_test COMMAND 89)
+
 add_executable(128 test/longest-consecutive-sequence.cpp)
 target_link_libraries(128 lc)
 target_link_libraries(128 gtest_main)
