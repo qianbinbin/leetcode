@@ -141,3 +141,8 @@ add_executable(134 test/gas-station.cpp)
 target_link_libraries(134 lc)
 target_link_libraries(134 gtest_main)
 add_test(NAME 134_test COMMAND 134)
+
+add_executable(135 test/candy.cpp)
+target_link_libraries(135 lc)
+target_link_libraries(135 gtest_main)
+add_test(NAME 135_test COMMAND 135)
