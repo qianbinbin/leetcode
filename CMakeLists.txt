@@ -136,3 +136,8 @@ add_executable(128 test/longest-consecutive-sequence.cpp)
 target_link_libraries(128 lc)
 target_link_libraries(128 gtest_main)
 add_test(NAME 128_test COMMAND 128)
+
+add_executable(134 test/gas-station.cpp)
+target_link_libraries(134 lc)
+target_link_libraries(134 gtest_main)
+add_test(NAME 134_test COMMAND 134)
