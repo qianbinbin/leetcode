@@ -151,3 +151,8 @@ add_executable(136 test/single-number.cpp)
 target_link_libraries(136 lc)
 target_link_libraries(136 gtest_main)
 add_test(NAME 136_test COMMAND 136)
+
+add_executable(137 test/single-number-ii.cpp)
+target_link_libraries(137 lc)
+target_link_libraries(137 gtest_main)
+add_test(NAME 137_test COMMAND 137)
