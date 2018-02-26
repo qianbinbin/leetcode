@@ -146,3 +146,8 @@ add_executable(135 test/candy.cpp)
 target_link_libraries(135 lc)
 target_link_libraries(135 gtest_main)
 add_test(NAME 135_test COMMAND 135)
+
+add_executable(136 test/single-number.cpp)
+target_link_libraries(136 lc)
+target_link_libraries(136 gtest_main)
+add_test(NAME 136_test COMMAND 136)
