@@ -20,3 +20,14 @@ int singleNumber_137_1(int *nums, int numsSize) {
     }
     return ret;
 }
+
+int singleNumber_137_2(int *nums, int numsSize) {
+    assert(nums != NULL && numsSize > 0 && numsSize % 3 != 0);
+
+    int one = 0, two = 0;
+    for (int i = 0; i < numsSize; ++i) {
+        one = (one ^ nums[i]) & ~two;
+        two = (two ^ nums[i]) & ~one;
+    }
+    return one;
+}

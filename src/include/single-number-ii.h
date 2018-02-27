@@ -9,4 +9,6 @@
  */
 int singleNumber_137_1(int *nums, int numsSize);
 
+int singleNumber_137_2(int *nums, int numsSize);
+
 #endif //LEETCODE_SINGLE_NUMBER_II_H
