@@ -42,6 +42,11 @@ target_link_libraries(1 lc)
 target_link_libraries(1 gtest_main)
 add_test(NAME 1_test COMMAND 1)
 
+add_executable(2 test/add-two-numbers.cpp)
+target_link_libraries(2 lc)
+target_link_libraries(2 gtest_main)
+add_test(NAME 2_test COMMAND 2)
+
 add_executable(4 test/median-of-two-sorted-arrays.cpp)
 target_link_libraries(4 lc)
 target_link_libraries(4 gtest_main)
