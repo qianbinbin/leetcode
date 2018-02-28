@@ -132,6 +132,11 @@ target_link_libraries(81 lc)
 target_link_libraries(81 gtest_main)
 add_test(NAME 81_test COMMAND 81)
 
+add_executable(82 test/remove-duplicates-from-sorted-list-ii.cpp)
+target_link_libraries(82 lc)
+target_link_libraries(82 gtest_main)
+add_test(NAME 82_test COMMAND 82)
+
 add_executable(83 test/remove-duplicates-from-sorted-list.cpp)
 target_link_libraries(83 lc)
 target_link_libraries(83 gtest_main)
