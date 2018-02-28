@@ -107,6 +107,11 @@ target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
 add_test(NAME 60_test COMMAND 60)
 
+add_executable(61 test/rotate-list.cpp)
+target_link_libraries(61 lc)
+target_link_libraries(61 gtest_main)
+add_test(NAME 61_test COMMAND 61)
+
 add_executable(66 test/plus-one.cpp)
 target_link_libraries(66 lc)
 target_link_libraries(66 gtest_main)
