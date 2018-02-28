@@ -132,6 +132,11 @@ target_link_libraries(81 lc)
 target_link_libraries(81 gtest_main)
 add_test(NAME 81_test COMMAND 81)
 
+add_executable(86 test/partition-list.cpp)
+target_link_libraries(86 lc)
+target_link_libraries(86 gtest_main)
+add_test(NAME 86_test COMMAND 86)
+
 add_executable(89 test/gray-code.cpp)
 target_link_libraries(89 lc)
 target_link_libraries(89 gtest_main)
