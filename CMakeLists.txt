@@ -201,3 +201,8 @@ add_executable(137 test/single-number-ii.cpp)
 target_link_libraries(137 lc)
 target_link_libraries(137 gtest_main)
 add_test(NAME 137_test COMMAND 137)
+
+add_executable(138 test/copy-list-with-random-pointer.cpp)
+target_link_libraries(138 lc)
+target_link_libraries(138 gtest_main)
+add_test(NAME 138_test COMMAND 138)
