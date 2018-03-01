@@ -211,3 +211,8 @@ add_executable(141 test/linked-list-cycle.cpp)
 target_link_libraries(141 lc)
 target_link_libraries(141 gtest_main)
 add_test(NAME 141_test COMMAND 141)
+
+add_executable(142 test/linked-list-cycle-ii.cpp)
+target_link_libraries(142 lc)
+target_link_libraries(142 gtest_main)
+add_test(NAME 142_test COMMAND 142)
