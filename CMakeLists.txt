@@ -72,6 +72,11 @@ target_link_libraries(19 lc)
 target_link_libraries(19 gtest_main)
 add_test(NAME 19_test COMMAND 19)
 
+add_executable(24 test/swap-nodes-in-pairs.cpp)
+target_link_libraries(24 lc)
+target_link_libraries(24 gtest_main)
+add_test(NAME 24_test COMMAND 24)
+
 add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
