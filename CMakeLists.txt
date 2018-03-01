@@ -206,3 +206,8 @@ add_executable(138 test/copy-list-with-random-pointer.cpp)
 target_link_libraries(138 lc)
 target_link_libraries(138 gtest_main)
 add_test(NAME 138_test COMMAND 138)
+
+add_executable(141 test/linked-list-cycle.cpp)
+target_link_libraries(141 lc)
+target_link_libraries(141 gtest_main)
+add_test(NAME 141_test COMMAND 141)
