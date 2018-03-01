@@ -77,6 +77,11 @@ target_link_libraries(24 lc)
 target_link_libraries(24 gtest_main)
 add_test(NAME 24_test COMMAND 24)
 
+add_executable(25 test/reverse-nodes-in-k-group.cpp)
+target_link_libraries(25 lc)
+target_link_libraries(25 gtest_main)
+add_test(NAME 25_test COMMAND 25)
+
 add_executable(26 test/remove-duplicates-from-sorted-array.cpp)
 target_link_libraries(26 lc)
 target_link_libraries(26 gtest_main)
