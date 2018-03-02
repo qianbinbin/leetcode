@@ -216,3 +216,8 @@ add_executable(142 test/linked-list-cycle-ii.cpp)
 target_link_libraries(142 lc)
 target_link_libraries(142 gtest_main)
 add_test(NAME 142_test COMMAND 142)
+
+add_executable(143 test/reorder-list.cpp)
+target_link_libraries(143 lc)
+target_link_libraries(143 gtest_main)
+add_test(NAME 143_test COMMAND 143)
