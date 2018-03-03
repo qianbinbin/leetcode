@@ -221,3 +221,8 @@ add_executable(143 test/reorder-list.cpp)
 target_link_libraries(143 lc)
 target_link_libraries(143 gtest_main)
 add_test(NAME 143_test COMMAND 143)
+
+add_executable(146 test/lru-cache.cpp)
+target_link_libraries(146 lc)
+target_link_libraries(146 gtest_main)
+add_test(NAME 146_test COMMAND 146)
