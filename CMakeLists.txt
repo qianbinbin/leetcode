@@ -92,6 +92,11 @@ target_link_libraries(27 lc)
 target_link_libraries(27 gtest_main)
 add_test(NAME 27_test COMMAND 27)
 
+add_executable(28 test/implement-strstr.cpp)
+target_link_libraries(28 lc)
+target_link_libraries(28 gtest_main)
+add_test(NAME 28_test COMMAND 28)
+
 add_executable(31 test/next-permutation.cpp)
 target_link_libraries(31 lc)
 target_link_libraries(31 gtest_main)
