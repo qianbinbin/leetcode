@@ -177,6 +177,11 @@ target_link_libraries(92 lc)
 target_link_libraries(92 gtest_main)
 add_test(NAME 92_test COMMAND 92)
 
+add_executable(125 test/valid-palindrome.cpp)
+target_link_libraries(125 lc)
+target_link_libraries(125 gtest_main)
+add_test(NAME 125_test COMMAND 125)
+
 add_executable(128 test/longest-consecutive-sequence.cpp)
 target_link_libraries(128 lc)
 target_link_libraries(128 gtest_main)
