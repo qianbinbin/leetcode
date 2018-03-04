@@ -52,6 +52,11 @@ target_link_libraries(4 lc)
 target_link_libraries(4 gtest_main)
 add_test(NAME 4_test COMMAND 4)
 
+add_executable(5 test/longest-palindromic-substring.cpp)
+target_link_libraries(5 lc)
+target_link_libraries(5 gtest_main)
+add_test(NAME 5_test COMMAND 5)
+
 add_executable(8 test/string-to-integer-atoi.cpp)
 target_link_libraries(8 lc)
 target_link_libraries(8 gtest_main)
