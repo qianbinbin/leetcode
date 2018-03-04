@@ -52,6 +52,11 @@ target_link_libraries(4 lc)
 target_link_libraries(4 gtest_main)
 add_test(NAME 4_test COMMAND 4)
 
+add_executable(8 test/string-to-integer-atoi.cpp)
+target_link_libraries(8 lc)
+target_link_libraries(8 gtest_main)
+add_test(NAME 8_test COMMAND 8)
+
 add_executable(15 test/3sum.cpp)
 target_link_libraries(15 lc)
 target_link_libraries(15 gtest_main)
