@@ -142,6 +142,11 @@ target_link_libraries(66 lc)
 target_link_libraries(66 gtest_main)
 add_test(NAME 66_test COMMAND 66)
 
+add_executable(67 test/add-binary.cpp)
+target_link_libraries(67 lc)
+target_link_libraries(67 gtest_main)
+add_test(NAME 67_test COMMAND 67)
+
 add_executable(70 test/climbing-stairs.cpp)
 target_link_libraries(70 lc)
 target_link_libraries(70 gtest_main)
