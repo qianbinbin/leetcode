@@ -25,4 +25,9 @@
  */
 char *longestPalindrome_5_1(char *s);
 
+/**
+ * Dynamic programming, O(n^2), O(n^2)
+ */
+char *longestPalindrome_5_2(char *s);
+
 #endif //LEETCODE_LONGEST_PALINDROMIC_SUBSTRING_H
