@@ -62,6 +62,11 @@ target_link_libraries(8 lc)
 target_link_libraries(8 gtest_main)
 add_test(NAME 8_test COMMAND 8)
 
+add_executable(10 test/regular-expression-matching.cpp)
+target_link_libraries(10 lc)
+target_link_libraries(10 gtest_main)
+add_test(NAME 10_test COMMAND 10)
+
 add_executable(15 test/3sum.cpp)
 target_link_libraries(15 lc)
 target_link_libraries(15 gtest_main)
