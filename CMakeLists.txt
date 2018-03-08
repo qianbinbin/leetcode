@@ -67,6 +67,11 @@ target_link_libraries(10 lc)
 target_link_libraries(10 gtest_main)
 add_test(NAME 10_test COMMAND 10)
 
+add_executable(14 test/longest-common-prefix.cpp)
+target_link_libraries(14 lc)
+target_link_libraries(14 gtest_main)
+add_test(NAME 14_test COMMAND 14)
+
 add_executable(15 test/3sum.cpp)
 target_link_libraries(15 lc)
 target_link_libraries(15 gtest_main)
