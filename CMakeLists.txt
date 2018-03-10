@@ -72,6 +72,11 @@ target_link_libraries(12 lc)
 target_link_libraries(12 gtest_main)
 add_test(NAME 12_test COMMAND 12)
 
+add_executable(13 test/roman-to-integer.cpp)
+target_link_libraries(13 lc)
+target_link_libraries(13 gtest_main)
+add_test(NAME 13_test COMMAND 13)
+
 add_executable(14 test/longest-common-prefix.cpp)
 target_link_libraries(14 lc)
 target_link_libraries(14 gtest_main)
