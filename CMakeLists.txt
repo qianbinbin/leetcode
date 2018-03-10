@@ -142,6 +142,11 @@ target_link_libraries(36 lc)
 target_link_libraries(36 gtest_main)
 add_test(NAME 36_test COMMAND 36)
 
+add_executable(38 test/count-and-say.cpp)
+target_link_libraries(38 lc)
+target_link_libraries(38 gtest_main)
+add_test(NAME 38_test COMMAND 38)
+
 add_executable(42 test/trapping-rain-water.cpp)
 target_link_libraries(42 lc)
 target_link_libraries(42 gtest_main)
