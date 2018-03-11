@@ -162,6 +162,11 @@ target_link_libraries(48 lc)
 target_link_libraries(48 gtest_main)
 add_test(NAME 48_test COMMAND 48)
 
+add_executable(49 test/group-anagrams.cpp)
+target_link_libraries(49 lc)
+target_link_libraries(49 gtest_main)
+add_test(NAME 49_test COMMAND 49)
+
 add_executable(60 test/permutation-sequence.cpp)
 target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
