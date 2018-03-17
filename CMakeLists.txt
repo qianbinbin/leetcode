@@ -197,6 +197,11 @@ target_link_libraries(70 lc)
 target_link_libraries(70 gtest_main)
 add_test(NAME 70_test COMMAND 70)
 
+add_executable(71 test/simplify-path.cpp)
+target_link_libraries(71 lc)
+target_link_libraries(71 gtest_main)
+add_test(NAME 71_test COMMAND 71)
+
 add_executable(73 test/set-matrix-zeroes.cpp)
 target_link_libraries(73 lc)
 target_link_libraries(73 gtest_main)
