@@ -102,6 +102,11 @@ target_link_libraries(19 lc)
 target_link_libraries(19 gtest_main)
 add_test(NAME 19_test COMMAND 19)
 
+add_executable(20 test/valid-parentheses.cpp)
+target_link_libraries(20 lc)
+target_link_libraries(20 gtest_main)
+add_test(NAME 20_test COMMAND 20)
+
 add_executable(24 test/swap-nodes-in-pairs.cpp)
 target_link_libraries(24 lc)
 target_link_libraries(24 gtest_main)
