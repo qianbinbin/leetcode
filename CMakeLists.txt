@@ -167,6 +167,11 @@ target_link_libraries(49 lc)
 target_link_libraries(49 gtest_main)
 add_test(NAME 49_test COMMAND 49)
 
+add_executable(58 test/length-of-last-word.cpp)
+target_link_libraries(58 lc)
+target_link_libraries(58 gtest_main)
+add_test(NAME 58_test COMMAND 58)
+
 add_executable(60 test/permutation-sequence.cpp)
 target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
