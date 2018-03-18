@@ -137,6 +137,11 @@ target_link_libraries(31 lc)
 target_link_libraries(31 gtest_main)
 add_test(NAME 31_test COMMAND 31)
 
+add_executable(32 test/longest-valid-parentheses.cpp)
+target_link_libraries(32 lc)
+target_link_libraries(32 gtest_main)
+add_test(NAME 32_test COMMAND 32)
+
 add_executable(33 test/search-in-rotated-sorted-array.cpp)
 target_link_libraries(33 lc)
 target_link_libraries(33 gtest_main)
