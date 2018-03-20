@@ -14,4 +14,9 @@
  */
 int longestValidParentheses_32_1(char *s);
 
+/**
+ * Using stack, O(n)
+ */
+int longestValidParentheses_32_2(char *s);
+
 #endif //LEETCODE_LONGEST_VALID_PARENTHESES_H
