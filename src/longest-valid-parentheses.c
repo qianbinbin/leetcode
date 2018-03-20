@@ -88,3 +88,43 @@ int longestValidParentheses_32_3(char *s) {
     }
     return longest;
 }
+
+int longestValidParentheses_32_4(char *s) {
+    if (s == NULL) return 0;
+
+    int longest = 0;
+    int top = -1;
+    int start = -1;
+    const int len = strlen(s);
+    for (int i = 0; i < len; ++i) {
+        if (s[i] == '(') {
+            ++top;
+        } else if (s[i] == ')') {
+            if (top == -1) {
+                start = i;
+            } else {
+                --top;
+                if (top == -1) {
+                    longest = (i - start) > longest ? (i - start) : longest;
+                }
+            }
+        }
+    }
+    top = -1;
+    start = len;
+    for (int i = len - 1; i >= 0; --i) {
+        if (s[i] == ')') {
+            ++top;
+        } else if (s[i] == '(') {
+            if (top == -1) {
+                start = i;
+            } else {
+                --top;
+                if (top == -1) {
+                    longest = (start - i) > longest ? (start - i) : longest;
+                }
+            }
+        }
+    }
+    return longest;
+}
