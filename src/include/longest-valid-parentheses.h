@@ -19,4 +19,9 @@ int longestValidParentheses_32_1(char *s);
  */
 int longestValidParentheses_32_2(char *s);
 
+/**
+ * Dynamic programming, O(n)
+ */
+int longestValidParentheses_32_3(char *s);
+
 #endif //LEETCODE_LONGEST_VALID_PARENTHESES_H
