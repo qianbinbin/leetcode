@@ -242,6 +242,11 @@ target_link_libraries(83 lc)
 target_link_libraries(83 gtest_main)
 add_test(NAME 83_test COMMAND 83)
 
+add_executable(84 test/largest-rectangle-in-histogram.cpp)
+target_link_libraries(84 lc)
+target_link_libraries(84 gtest_main)
+add_test(NAME 84_test COMMAND 84)
+
 add_executable(86 test/partition-list.cpp)
 target_link_libraries(86 lc)
 target_link_libraries(86 gtest_main)
