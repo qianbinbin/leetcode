@@ -316,3 +316,8 @@ add_executable(146 test/lru-cache.cpp)
 target_link_libraries(146 lc)
 target_link_libraries(146 gtest_main)
 add_test(NAME 146_test COMMAND 146)
+
+add_executable(150 test/evaluate-reverse-polish-notation.cpp)
+target_link_libraries(150 lc)
+target_link_libraries(150 gtest_main)
+add_test(NAME 150_test COMMAND 150)
