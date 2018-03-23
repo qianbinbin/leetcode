@@ -33,4 +33,9 @@
  */
 int *preorderTraversal_144_1(struct TreeNode *root, int *returnSize);
 
+/**
+ * Using stack
+ */
+int *preorderTraversal_144_2(struct TreeNode *root, int *returnSize);
+
 #endif //LEETCODE_BINARY_TREE_PREORDER_TRAVERSAL_H
