@@ -34,3 +34,38 @@ int *inorderTraversal_94_1(struct TreeNode *root, int *returnSize) {
     free(right);
     return ret;
 }
+
+int *inorderTraversal_94_2(struct TreeNode *root, int *returnSize) {
+    if (root == NULL || returnSize == NULL) return NULL;
+
+    int ret_capacity = 64;
+    int *ret = (int *) malloc(ret_capacity * sizeof(int));
+    *returnSize = 0;
+
+    int stack_capicity = 64;
+    struct TreeNode **stack = (struct TreeNode **) malloc(stack_capicity * sizeof(struct TreeNode *));
+    int top = -1;
+
+    struct TreeNode *p = root;
+    while (top != -1 || p != NULL) {
+        if (p != NULL) {
+            if (top + 1 >= stack_capicity) {
+                stack_capicity *= 2;
+                stack = (struct TreeNode **) realloc(stack, stack_capicity * sizeof(struct TreeNode *));
+            }
+            stack[++top] = p;
+            p = p->left;
+        } else {
+            p = stack[top--];
+            if (*returnSize >= ret_capacity) {
+                ret_capacity *= 2;
+                ret = (int *) realloc(ret, ret_capacity * sizeof(int));
+            }
+            ret[(*returnSize)++] = p->val;
+            p = p->right;
+        }
+    }
+    free(stack);
+    ret = (int *) realloc(ret, (*returnSize) * sizeof(int));
+    return ret;
+}

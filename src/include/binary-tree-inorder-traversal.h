@@ -33,4 +33,9 @@
  */
 int *inorderTraversal_94_1(struct TreeNode *root, int *returnSize);
 
+/**
+ * Using stack
+ */
+int *inorderTraversal_94_2(struct TreeNode *root, int *returnSize);
+
 #endif //LEETCODE_BINARY_TREE_INORDER_TRAVERSAL_H
