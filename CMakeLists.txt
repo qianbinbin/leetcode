@@ -322,6 +322,11 @@ target_link_libraries(144 lc)
 target_link_libraries(144 gtest_main)
 add_test(NAME 144_test COMMAND 144)
 
+add_executable(145 test/binary-tree-postorder-traversal.cpp)
+target_link_libraries(145 lc)
+target_link_libraries(145 gtest_main)
+add_test(NAME 145_test COMMAND 145)
+
 add_executable(146 test/lru-cache.cpp)
 target_link_libraries(146 lc)
 target_link_libraries(146 gtest_main)
