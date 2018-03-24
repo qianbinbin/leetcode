@@ -36,4 +36,9 @@
  */
 int *postorderTraversal_145_1(struct TreeNode *root, int *returnSize);
 
+/**
+ * Using stack
+ */
+int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize);
+
 #endif //LEETCODE_BINARY_TREE_POSTORDER_TRAVERSAL_H

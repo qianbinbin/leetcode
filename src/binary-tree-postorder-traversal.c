@@ -33,3 +33,43 @@ int *postorderTraversal_145_1(struct TreeNode *root, int *returnSize) {
     free(right);
     return ret;
 }
+
+int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize) {
+    if (root == NULL || returnSize == NULL) return NULL;
+
+    int ret_capacity = 64;
+    int *ret = (int *) malloc(ret_capacity * sizeof(int));
+    *returnSize = 0;
+
+    int stack_capacity = 64;
+    struct TreeNode **stack = (struct TreeNode **) malloc(stack_capacity * sizeof(struct TreeNode *));
+    int top = -1;
+
+    struct TreeNode *p = root, *top_node, *last_visited = NULL;
+    while (top != -1 || p != NULL) {
+        if (p != NULL) {
+            if (top + 1 >= stack_capacity) {
+                stack_capacity *= 2;
+                stack = (struct TreeNode **) realloc(stack, stack_capacity * sizeof(struct TreeNode *));
+            }
+            stack[++top] = p;
+            p = p->left;
+        } else {
+            top_node = stack[top];
+            if (top_node->right != NULL && top_node->right != last_visited) {
+                p = top_node->right;
+            } else {
+                if (*returnSize >= ret_capacity) {
+                    ret_capacity *= 2;
+                    ret = (int *) realloc(ret, ret_capacity * sizeof(int));
+                }
+                ret[(*returnSize)++] = top_node->val;
+                last_visited = top_node;
+                --top;
+            }
+        }
+    }
+    free(stack);
+    ret = (int *) realloc(ret, (*returnSize) * sizeof(int));
+    return ret;
+}
