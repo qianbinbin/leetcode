@@ -267,6 +267,11 @@ target_link_libraries(94 lc)
 target_link_libraries(94 gtest_main)
 add_test(NAME 94_test COMMAND 94)
 
+add_executable(102 test/binary-tree-level-order-traversal.cpp)
+target_link_libraries(102 lc)
+target_link_libraries(102 gtest_main)
+add_test(NAME 102_test COMMAND 102)
+
 add_executable(125 test/valid-palindrome.cpp)
 target_link_libraries(125 lc)
 target_link_libraries(125 gtest_main)
