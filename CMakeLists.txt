@@ -272,6 +272,11 @@ target_link_libraries(102 lc)
 target_link_libraries(102 gtest_main)
 add_test(NAME 102_test COMMAND 102)
 
+add_executable(103 test/binary-tree-zigzag-level-order-traversal.cpp)
+target_link_libraries(103 lc)
+target_link_libraries(103 gtest_main)
+add_test(NAME 103_test COMMAND 103)
+
 add_executable(107 test/binary-tree-level-order-traversal-ii.cpp)
 target_link_libraries(107 lc)
 target_link_libraries(107 gtest_main)
