@@ -1,20 +1,18 @@
 #ifndef LEETCODE_COMMON_H
 #define LEETCODE_COMMON_H
 
-void print_array(int *nums, int numsSize);
+void array_print(int *nums, int numsSize);
 
 struct ListNode {
     int val;
     struct ListNode *next;
 };
 
-void print_list(struct ListNode *p);
+void list_print(struct ListNode *head);
 
-struct ListNode *append_list(struct ListNode *p, int val);
+struct ListNode *list_from_array(int *nums, int numsSize);
 
-struct ListNode *array_to_list(int *nums, int numsSize);
-
-void free_list(struct ListNode *p);
+void list_free(struct ListNode *head);
 
 #include <limits.h>
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_array(int *nums, int numsSize) {
+void array_print(int *nums, int numsSize) {
     if (nums == NULL) return;
     printf("{");
     for (int i = 0; i < numsSize; ++i) {
@@ -12,16 +12,16 @@ void print_array(int *nums, int numsSize) {
     printf("}\n");
 }
 
-void print_list(struct ListNode *p) {
-    while (p != NULL) {
-        if (p->next != NULL) printf("%d->", p->val);
-        else printf("%d", p->val);
-        p = p->next;
+void list_print(struct ListNode *head) {
+    while (head != NULL) {
+        if (head->next != NULL) printf("%d -> ", head->val);
+        else printf("%d", head->val);
+        head = head->next;
     }
     printf("\n");
 }
 
-struct ListNode *append_list(struct ListNode *p, int val) {
+static struct ListNode *list_append(struct ListNode *p, int val) {
     struct ListNode *tmp = (struct ListNode *) malloc(sizeof(struct ListNode));
     tmp->val = val;
     tmp->next = NULL;
@@ -29,24 +29,24 @@ struct ListNode *append_list(struct ListNode *p, int val) {
     return tmp;
 }
 
-struct ListNode *array_to_list(int *nums, int numsSize) {
+struct ListNode *list_from_array(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return NULL;
 
     struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
     struct ListNode *p = list;
     for (int i = 0; i < numsSize; ++i) {
-        p = append_list(p, nums[i]);
+        p = list_append(p, nums[i]);
     }
     p = list->next;
     free(list);
     return p;
 }
 
-void free_list(struct ListNode *p) {
+void list_free(struct ListNode *head) {
     struct ListNode *pre;
-    while (p != NULL) {
-        pre = p;
-        p = pre->next;
+    while (head != NULL) {
+        pre = head;
+        head = pre->next;
         free(pre);
     }
 }

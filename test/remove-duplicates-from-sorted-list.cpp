@@ -6,9 +6,9 @@ extern "C" {
 
 TEST(leetcode_83, normal) {
     int nums[] = {1, 1, 2, 3, 3};
-    struct ListNode *head = array_to_list(nums, 5);
-    print_list(head);
+    struct ListNode *head = list_from_array(nums, 5);
+    list_print(head);
     deleteDuplicates_83(head);
-    print_list(head);
-    free_list(head);
+    list_print(head);
+    list_free(head);
 }

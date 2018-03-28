@@ -15,14 +15,14 @@ TEST(leetcode_48, normal) {
         matrix[i] = nums;
     }
     for (int i = 0; i < 3; ++i) {
-        print_array(matrix[i], 3);
+        array_print(matrix[i], 3);
     }
     printf("\n");
 
     int n = 3;
     rotate_48(matrix, n, &n);
     for (int i = 0; i < 3; ++i) {
-        print_array(matrix[i], 3);
+        array_print(matrix[i], 3);
         free(matrix[i]);
     }
     free(matrix);

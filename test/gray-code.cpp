@@ -8,6 +8,6 @@ extern "C" {
 TEST(leetcode_89, normal) {
     int size = 0;
     int *result = grayCode_89(3, &size);
-    print_array(result, size);
+    array_print(result, size);
     free(result);
 }

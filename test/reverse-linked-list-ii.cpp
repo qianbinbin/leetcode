@@ -6,9 +6,9 @@ extern "C" {
 
 TEST(leetcode_92, normal) {
     int nums[] = {1, 2, 3, 4, 5};
-    struct ListNode *l = array_to_list(nums, 5);
-    print_list(l);
+    struct ListNode *l = list_from_array(nums, 5);
+    list_print(l);
     l = reverseBetween_92(l, 2, 4);
-    print_list(l);
-    free_list(l);
+    list_print(l);
+    list_free(l);
 }

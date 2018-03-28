@@ -9,7 +9,7 @@ TEST(leetcode_94_1, normal) {
     struct TreeNode *tree = tree_create(nums, 7);
     int size = 0;
     int *ret = inorderTraversal_94_1(tree, &size);
-    print_array(ret, size);
+    array_print(ret, size);
     free(ret);
     tree_free(tree);
 }
@@ -19,7 +19,7 @@ TEST(leetcode_94_2, normal) {
     struct TreeNode *tree = tree_create(nums, 7);
     int size = 0;
     int *ret = inorderTraversal_94_2(tree, &size);
-    print_array(ret, size);
+    array_print(ret, size);
     free(ret);
     tree_free(tree);
 }

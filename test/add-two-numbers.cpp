@@ -7,17 +7,17 @@ extern "C" {
 
 TEST(leetcode_2, normal) {
     int nums1[] = {2, 4, 3};
-    struct ListNode *l1 = array_to_list(nums1, 3);
-    print_list(l1);
+    struct ListNode *l1 = list_from_array(nums1, 3);
+    list_print(l1);
 
     int nums2[] = {5, 6, 4};
-    struct ListNode *l2 = array_to_list(nums2, 3);
-    print_list(l2);
+    struct ListNode *l2 = list_from_array(nums2, 3);
+    list_print(l2);
 
     struct ListNode *l = addTwoNumbers_2(l1, l2);
-    print_list(l);
+    list_print(l);
 
-    free_list(l1);
-    free_list(l2);
-    free_list(l);
+    list_free(l1);
+    list_free(l2);
+    list_free(l);
 }

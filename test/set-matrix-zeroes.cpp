@@ -21,13 +21,13 @@ TEST(leetcode_73, normal) {
         }
     }
     for (int i = 0; i < 5; ++i) {
-        print_array(matrix[i], 4);
+        array_print(matrix[i], 4);
     }
     printf("\n");
 
     setZeroes_73(matrix, 5, 4);
     for (int i = 0; i < 5; ++i) {
-        print_array(matrix[i], 4);
+        array_print(matrix[i], 4);
         free(matrix[i]);
     }
     free(matrix);

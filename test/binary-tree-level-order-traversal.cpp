@@ -11,7 +11,7 @@ TEST(leetcode_102, normal) {
     int *columnSizes = (int *) malloc(sizeof(int));
     int **ret = levelOrder_102(tree, &columnSizes, &size);
     for (int i = 0; i < size; ++i) {
-        print_array(ret[i], columnSizes[i]);
+        array_print(ret[i], columnSizes[i]);
         free(ret[i]);
     }
     free(ret);
