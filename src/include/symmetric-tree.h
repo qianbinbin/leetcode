@@ -38,4 +38,9 @@
  */
 bool isSymmetric_101_1(struct TreeNode *root);
 
+/**
+ * Using stack
+ */
+bool isSymmetric_101_2(struct TreeNode *root);
+
 #endif //LEETCODE_SYMMETRIC_TREE_H
