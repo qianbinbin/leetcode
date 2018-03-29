@@ -277,6 +277,11 @@ target_link_libraries(100 lc)
 target_link_libraries(100 gtest_main)
 add_test(NAME 100_test COMMAND 100)
 
+add_executable(101 test/symmetric-tree.cpp)
+target_link_libraries(101 lc)
+target_link_libraries(101 gtest_main)
+add_test(NAME 101_test COMMAND 101)
+
 add_executable(102 test/binary-tree-level-order-traversal.cpp)
 target_link_libraries(102 lc)
 target_link_libraries(102 gtest_main)
