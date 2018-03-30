@@ -45,4 +45,9 @@
  */
 void flatten_114_1(struct TreeNode *root);
 
+/**
+ * Using stack
+ */
+void flatten_114_2(struct TreeNode *root);
+
 #endif //LEETCODE_FLATTEN_BINARY_TREE_TO_LINKED_LIST_H
