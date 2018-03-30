@@ -297,6 +297,11 @@ target_link_libraries(107 lc)
 target_link_libraries(107 gtest_main)
 add_test(NAME 107_test COMMAND 107)
 
+add_executable(110 test/balanced-binary-tree.cpp)
+target_link_libraries(110 lc)
+target_link_libraries(110 gtest_main)
+add_test(NAME 110_test COMMAND 110)
+
 add_executable(125 test/valid-palindrome.cpp)
 target_link_libraries(125 lc)
 target_link_libraries(125 gtest_main)
