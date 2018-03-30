@@ -45,4 +45,6 @@
 
 bool isBalanced_110_1(struct TreeNode *root);
 
+bool isBalanced_110_2(struct TreeNode *root);
+
 #endif //LEETCODE_BALANCED_BINARY_TREE_H
