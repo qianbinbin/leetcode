@@ -302,6 +302,11 @@ target_link_libraries(110 lc)
 target_link_libraries(110 gtest_main)
 add_test(NAME 110_test COMMAND 110)
 
+add_executable(114 test/flatten-binary-tree-to-linked-list.cpp)
+target_link_libraries(114 lc)
+target_link_libraries(114 gtest_main)
+add_test(NAME 114_test COMMAND 114)
+
 add_executable(125 test/valid-palindrome.cpp)
 target_link_libraries(125 lc)
 target_link_libraries(125 gtest_main)
