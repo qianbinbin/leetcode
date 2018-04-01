@@ -292,6 +292,11 @@ target_link_libraries(103 lc)
 target_link_libraries(103 gtest_main)
 add_test(NAME 103_test COMMAND 103)
 
+add_executable(105 test/construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
+target_link_libraries(105 lc)
+target_link_libraries(105 gtest_main)
+add_test(NAME 105_test COMMAND 105)
+
 add_executable(107 test/binary-tree-level-order-traversal-ii.cpp)
 target_link_libraries(107 lc)
 target_link_libraries(107 gtest_main)
