@@ -277,6 +277,11 @@ target_link_libraries(96 lc)
 target_link_libraries(96 gtest_main)
 add_test(NAME 96_test COMMAND 96)
 
+add_executable(98 test/validate-binary-search-tree.cpp)
+target_link_libraries(98 lc)
+target_link_libraries(98 gtest_main)
+add_test(NAME 98_test COMMAND 98)
+
 add_executable(99 test/recover-binary-search-tree.cpp)
 target_link_libraries(99 lc)
 target_link_libraries(99 gtest_main)
