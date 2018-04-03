@@ -267,6 +267,11 @@ target_link_libraries(94 lc)
 target_link_libraries(94 gtest_main)
 add_test(NAME 94_test COMMAND 94)
 
+add_executable(95 test/unique-binary-search-trees-ii.cpp)
+target_link_libraries(95 lc)
+target_link_libraries(95 gtest_main)
+add_test(NAME 95_test COMMAND 95)
+
 add_executable(96 test/unique-binary-search-trees.cpp)
 target_link_libraries(96 lc)
 target_link_libraries(96 gtest_main)
