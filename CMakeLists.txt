@@ -337,6 +337,11 @@ target_link_libraries(110 lc)
 target_link_libraries(110 gtest_main)
 add_test(NAME 110_test COMMAND 110)
 
+add_executable(111 test/minimum-depth-of-binary-tree.cpp)
+target_link_libraries(111 lc)
+target_link_libraries(111 gtest_main)
+add_test(NAME 111_test COMMAND 111)
+
 add_executable(114 test/flatten-binary-tree-to-linked-list.cpp)
 target_link_libraries(114 lc)
 target_link_libraries(114 gtest_main)
