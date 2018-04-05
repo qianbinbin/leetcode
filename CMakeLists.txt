@@ -352,6 +352,11 @@ target_link_libraries(112 lc)
 target_link_libraries(112 gtest_main)
 add_test(NAME 112_test COMMAND 112)
 
+add_executable(113 test/path-sum-ii.cpp)
+target_link_libraries(113 lc)
+target_link_libraries(113 gtest_main)
+add_test(NAME 113_test COMMAND 113)
+
 add_executable(114 test/flatten-binary-tree-to-linked-list.cpp)
 target_link_libraries(114 lc)
 target_link_libraries(114 gtest_main)
