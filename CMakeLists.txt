@@ -307,6 +307,11 @@ target_link_libraries(103 lc)
 target_link_libraries(103 gtest_main)
 add_test(NAME 103_test COMMAND 103)
 
+add_executable(104 test/maximum-depth-of-binary-tree.cpp)
+target_link_libraries(104 lc)
+target_link_libraries(104 gtest_main)
+add_test(NAME 104_test COMMAND 104)
+
 add_executable(105 test/construct-binary-tree-from-preorder-and-inorder-traversal.cpp)
 target_link_libraries(105 lc)
 target_link_libraries(105 gtest_main)
