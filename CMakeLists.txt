@@ -327,6 +327,11 @@ target_link_libraries(108 lc)
 target_link_libraries(108 gtest_main)
 add_test(NAME 108_test COMMAND 108)
 
+add_executable(109 test/convert-sorted-list-to-binary-search-tree.cpp)
+target_link_libraries(109 lc)
+target_link_libraries(109 gtest_main)
+add_test(NAME 109_test COMMAND 109)
+
 add_executable(110 test/balanced-binary-tree.cpp)
 target_link_libraries(110 lc)
 target_link_libraries(110 gtest_main)
