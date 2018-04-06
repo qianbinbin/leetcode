@@ -252,6 +252,11 @@ target_link_libraries(86 lc)
 target_link_libraries(86 gtest_main)
 add_test(NAME 86_test COMMAND 86)
 
+add_executable(88 test/merge-sorted-array.cpp)
+target_link_libraries(88 lc)
+target_link_libraries(88 gtest_main)
+add_test(NAME 88_test COMMAND 88)
+
 add_executable(89 test/gray-code.cpp)
 target_link_libraries(89 lc)
 target_link_libraries(89 gtest_main)
