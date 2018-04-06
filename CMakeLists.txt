@@ -367,6 +367,11 @@ target_link_libraries(117 lc)
 target_link_libraries(117 gtest_main)
 add_test(NAME 117_test COMMAND 117)
 
+add_executable(124 test/binary-tree-maximum-path-sum.cpp)
+target_link_libraries(124 lc)
+target_link_libraries(124 gtest_main)
+add_test(NAME 124_test COMMAND 124)
+
 add_executable(125 test/valid-palindrome.cpp)
 target_link_libraries(125 lc)
 target_link_libraries(125 gtest_main)
