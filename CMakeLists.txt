@@ -362,6 +362,11 @@ target_link_libraries(114 lc)
 target_link_libraries(114 gtest_main)
 add_test(NAME 114_test COMMAND 114)
 
+add_executable(116 test/populating-next-right-pointers-in-each-node.cpp)
+target_link_libraries(116 lc)
+target_link_libraries(116 gtest_main)
+add_test(NAME 116_test COMMAND 116)
+
 add_executable(117 test/populating-next-right-pointers-in-each-node-ii.cpp)
 target_link_libraries(117 lc)
 target_link_libraries(117 gtest_main)
