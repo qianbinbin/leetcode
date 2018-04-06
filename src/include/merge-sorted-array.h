@@ -10,4 +10,6 @@
 
 void merge_88_1(int *nums1, int m, int *nums2, int n);
 
+void merge_88_2(int *nums1, int m, int *nums2, int n);
+
 #endif //LEETCODE_MERGE_SORTED_ARRAY_H
