@@ -49,4 +49,9 @@ struct TreeLinkNode {
  */
 void connect_116_1(struct TreeLinkNode *root);
 
+/**
+ * Iterate
+ */
+void connect_116_2(struct TreeLinkNode *root);
+
 #endif //LEETCODE_POPULATING_NEXT_RIGHT_POINTERS_IN_EACH_NODE_H

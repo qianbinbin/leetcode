@@ -11,3 +11,18 @@ void connect_116_1(struct TreeLinkNode *root) {
     connect_116_1(root->left);
     connect_116_1(root->right);
 }
+
+void connect_116_2(struct TreeLinkNode *root) {
+    if (root == NULL) return;
+    struct TreeLinkNode *leading = root, *p = NULL;
+    while (leading->left != NULL) {
+        p = leading;
+        leading = leading->left;
+        while (p != NULL) {
+            p->left->next = p->right;
+            if (p->next != NULL)
+                p->right->next = p->next->left;
+            p = p->next;
+        }
+    }
+}
