@@ -387,6 +387,11 @@ target_link_libraries(128 lc)
 target_link_libraries(128 gtest_main)
 add_test(NAME 128_test COMMAND 128)
 
+add_executable(129 test/sum-root-to-leaf-numbers.cpp)
+target_link_libraries(129 lc)
+target_link_libraries(129 gtest_main)
+add_test(NAME 129_test COMMAND 129)
+
 add_executable(134 test/gas-station.cpp)
 target_link_libraries(134 lc)
 target_link_libraries(134 gtest_main)
