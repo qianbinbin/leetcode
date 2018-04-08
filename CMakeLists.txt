@@ -112,6 +112,11 @@ target_link_libraries(21 lc)
 target_link_libraries(21 gtest_main)
 add_test(NAME 21_test COMMAND 21)
 
+add_executable(23 test/merge-k-sorted-lists.cpp)
+target_link_libraries(23 lc)
+target_link_libraries(23 gtest_main)
+add_test(NAME 23_test COMMAND 23)
+
 add_executable(24 test/swap-nodes-in-pairs.cpp)
 target_link_libraries(24 lc)
 target_link_libraries(24 gtest_main)
