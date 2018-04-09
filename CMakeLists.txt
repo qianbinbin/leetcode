@@ -167,6 +167,11 @@ target_link_libraries(38 lc)
 target_link_libraries(38 gtest_main)
 add_test(NAME 38_test COMMAND 38)
 
+add_executable(41 test/first-missing-positive.cpp)
+target_link_libraries(41 lc)
+target_link_libraries(41 gtest_main)
+add_test(NAME 41_test COMMAND 41)
+
 add_executable(42 test/trapping-rain-water.cpp)
 target_link_libraries(42 lc)
 target_link_libraries(42 gtest_main)
