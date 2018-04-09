@@ -467,6 +467,11 @@ target_link_libraries(147 lc)
 target_link_libraries(147 gtest_main)
 add_test(NAME 147_test COMMAND 147)
 
+add_executable(148 test/sort-list.cpp)
+target_link_libraries(148 lc)
+target_link_libraries(148 gtest_main)
+add_test(NAME 148_test COMMAND 148)
+
 add_executable(150 test/evaluate-reverse-polish-notation.cpp)
 target_link_libraries(150 lc)
 target_link_libraries(150 gtest_main)
