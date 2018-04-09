@@ -237,6 +237,11 @@ target_link_libraries(73 lc)
 target_link_libraries(73 gtest_main)
 add_test(NAME 73_test COMMAND 73)
 
+add_executable(75 test/sort-colors.cpp)
+target_link_libraries(75 lc)
+target_link_libraries(75 gtest_main)
+add_test(NAME 75_test COMMAND 75)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
