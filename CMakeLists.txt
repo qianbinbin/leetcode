@@ -162,6 +162,11 @@ target_link_libraries(34 lc)
 target_link_libraries(34 gtest_main)
 add_test(NAME 34_test COMMAND 34)
 
+add_executable(35 test/search-insert-position.cpp)
+target_link_libraries(35 lc)
+target_link_libraries(35 gtest_main)
+add_test(NAME 35_test COMMAND 35)
+
 add_executable(36 test/valid-sudoku.cpp)
 target_link_libraries(36 lc)
 target_link_libraries(36 gtest_main)
