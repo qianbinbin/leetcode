@@ -247,6 +247,11 @@ target_link_libraries(73 lc)
 target_link_libraries(73 gtest_main)
 add_test(NAME 73_test COMMAND 73)
 
+add_executable(74 test/search-a-2d-matrix.cpp)
+target_link_libraries(74 lc)
+target_link_libraries(74 gtest_main)
+add_test(NAME 74_test COMMAND 74)
+
 add_executable(75 test/sort-colors.cpp)
 target_link_libraries(75 lc)
 target_link_libraries(75 gtest_main)
