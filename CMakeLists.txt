@@ -302,6 +302,11 @@ target_link_libraries(89 lc)
 target_link_libraries(89 gtest_main)
 add_test(NAME 89_test COMMAND 89)
 
+add_executable(90 test/subsets-ii.cpp)
+target_link_libraries(90 lc)
+target_link_libraries(90 gtest_main)
+add_test(NAME 90_test COMMAND 90)
+
 add_executable(92 test/reverse-linked-list-ii.cpp)
 target_link_libraries(92 lc)
 target_link_libraries(92 gtest_main)
