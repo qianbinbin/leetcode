@@ -197,6 +197,11 @@ target_link_libraries(46 lc)
 target_link_libraries(46 gtest_main)
 add_test(NAME 46_test COMMAND 46)
 
+add_executable(47 test/permutations-ii.cpp)
+target_link_libraries(47 lc)
+target_link_libraries(47 gtest_main)
+add_test(NAME 47_test COMMAND 47)
+
 add_executable(48 test/rotate-image.cpp)
 target_link_libraries(48 lc)
 target_link_libraries(48 gtest_main)
