@@ -92,6 +92,11 @@ target_link_libraries(16 lc)
 target_link_libraries(16 gtest_main)
 add_test(NAME 16_test COMMAND 16)
 
+add_executable(17 test/letter-combinations-of-a-phone-number.cpp)
+target_link_libraries(17 lc)
+target_link_libraries(17 gtest_main)
+add_test(NAME 17_test COMMAND 17)
+
 add_executable(18 test/4sum.cpp)
 target_link_libraries(18 lc)
 target_link_libraries(18 gtest_main)
