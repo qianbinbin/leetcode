@@ -267,6 +267,11 @@ target_link_libraries(75 lc)
 target_link_libraries(75 gtest_main)
 add_test(NAME 75_test COMMAND 75)
 
+add_executable(77 test/combinations.cpp)
+target_link_libraries(77 lc)
+target_link_libraries(77 gtest_main)
+add_test(NAME 77_test COMMAND 77)
+
 add_executable(78 test/subsets.cpp)
 target_link_libraries(78 lc)
 target_link_libraries(78 gtest_main)
