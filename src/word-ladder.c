@@ -199,3 +199,96 @@ int ladderLength_127_1(char *beginWord, char *endWord, char **wordList, int word
 
     return 0;
 }
+
+int ladderLength_127_2(char *beginWord, char *endWord, char **wordList, int wordListSize) {
+    if (beginWord == NULL || endWord == NULL || wordList == NULL || wordListSize < 0) return 0;
+
+    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
+    hashmap_init(map);
+    for (int i = 0; i < wordListSize; ++i)
+        hashmap_put(map, wordList[i]);
+    if (hashmap_get(map, endWord) == NULL) {
+        hashmap_uninit(map);
+        free(map);
+        return 0;
+    }
+    hashmap_remove(map, beginWord);
+    hashmap_remove(map, endWord);
+
+    queue *q1 = (queue *) malloc(sizeof(queue));
+    queue_init(q1);
+    queue_enq(q1, beginWord);
+    hashmap *m1 = (hashmap *) malloc(sizeof(hashmap));
+    hashmap_init(m1);
+    hashmap_put(m1, beginWord);
+
+    queue *q2 = (queue *) malloc(sizeof(queue));
+    queue_init(q2);
+    queue_enq(q2, endWord);
+    hashmap *m2 = (hashmap *) malloc(sizeof(hashmap));
+    hashmap_init(m2);
+    hashmap_put(m2, endWord);
+
+    const size_t len = strlen(beginWord);
+    char *word = (char *) malloc(len + 1);
+
+    int depth = 0;
+    while (!queue_empty(q1) && !queue_empty(q2)) {
+        ++depth;
+        if (q1->size > q2->size) {
+            queue *q = q1;
+            q1 = q2;
+            q2 = q;
+            hashmap *m = m1;
+            m1 = m2;
+            m2 = m;
+        }
+
+        for (int size = q1->size; size > 0; --size) {
+            strcpy(word, queue_deq(q1));
+            hashmap_remove(m1, word);
+            for (int i = 0; i < len; ++i) {
+                const char c = word[i];
+                for (char j = 'a'; j <= 'z'; ++j) {
+                    if (j == c) continue;
+                    word[i] = j;
+                    if (hashmap_get(m2, word) != NULL) {
+                        free(word);
+                        hashmap_uninit(m2);
+                        free(m2);
+                        queue_uninit(q2);
+                        free(q2);
+                        hashmap_uninit(m1);
+                        free(m1);
+                        queue_uninit(q1);
+                        free(q1);
+                        hashmap_uninit(map);
+                        free(map);
+                        return depth + 1;
+                    }
+                    char *find = hashmap_get(map, word);
+                    if (find != NULL) {
+                        queue_enq(q1, find);
+                        hashmap_put(m1, find);
+                        hashmap_remove(map, find);
+                    }
+                }
+                word[i] = c;
+            }
+        }
+    }
+
+    free(word);
+    hashmap_uninit(m2);
+    free(m2);
+    queue_uninit(q2);
+    free(q2);
+    hashmap_uninit(m1);
+    free(m1);
+    queue_uninit(q1);
+    free(q1);
+    hashmap_uninit(map);
+    free(map);
+
+    return 0;
+}

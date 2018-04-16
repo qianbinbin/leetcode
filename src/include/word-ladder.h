@@ -31,4 +31,9 @@
  */
 int ladderLength_127_1(char *beginWord, char *endWord, char **wordList, int wordListSize);
 
+/**
+ * Using two queues
+ */
+int ladderLength_127_2(char *beginWord, char *endWord, char **wordList, int wordListSize);
+
 #endif //LEETCODE_WORD_LADDER_H
