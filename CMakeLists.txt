@@ -452,6 +452,11 @@ target_link_libraries(125 lc)
 target_link_libraries(125 gtest_main)
 add_test(NAME 125_test COMMAND 125)
 
+add_executable(126 test/word-ladder-ii.cpp)
+target_link_libraries(126 lc)
+target_link_libraries(126 gtest_main)
+add_test(NAME 126_test COMMAND 126)
+
 add_executable(127 test/word-ladder.cpp)
 target_link_libraries(127 lc)
 target_link_libraries(127 gtest_main)
