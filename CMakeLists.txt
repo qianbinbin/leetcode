@@ -472,6 +472,11 @@ target_link_libraries(129 lc)
 target_link_libraries(129 gtest_main)
 add_test(NAME 129_test COMMAND 129)
 
+add_executable(130 test/surrounded-regions.cpp)
+target_link_libraries(130 lc)
+target_link_libraries(130 gtest_main)
+add_test(NAME 130_test COMMAND 130)
+
 add_executable(134 test/gas-station.cpp)
 target_link_libraries(134 lc)
 target_link_libraries(134 gtest_main)
