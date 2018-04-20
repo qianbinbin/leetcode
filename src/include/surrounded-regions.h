@@ -26,4 +26,9 @@
  */
 void solve_130_1(char **board, int boardRowSize, int boardColSize);
 
+/**
+ * Breadth-first search, time limit exceeded
+ */
+void solve_130_2(char **board, int boardRowSize, int boardColSize);
+
 #endif //LEETCODE_SURROUNDED_REGIONS_H
