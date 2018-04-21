@@ -477,6 +477,11 @@ target_link_libraries(130 lc)
 target_link_libraries(130 gtest_main)
 add_test(NAME 130_test COMMAND 130)
 
+add_executable(131 test/palindrome-partitioning.cpp)
+target_link_libraries(131 lc)
+target_link_libraries(131 gtest_main)
+add_test(NAME 131_test COMMAND 131)
+
 add_executable(134 test/gas-station.cpp)
 target_link_libraries(134 lc)
 target_link_libraries(134 gtest_main)
