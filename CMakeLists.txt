@@ -232,6 +232,11 @@ target_link_libraries(61 lc)
 target_link_libraries(61 gtest_main)
 add_test(NAME 61_test COMMAND 61)
 
+add_executable(62 test/unique-paths.cpp)
+target_link_libraries(62 lc)
+target_link_libraries(62 gtest_main)
+add_test(NAME 62_test COMMAND 62)
+
 add_executable(65 test/valid-number.cpp)
 target_link_libraries(65 lc)
 target_link_libraries(65 gtest_main)
