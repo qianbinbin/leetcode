@@ -25,4 +25,9 @@
  */
 char ***partition_131_1(char *s, int **columnSizes, int *returnSize);
 
+/**
+ * Dynamic programming
+ */
+char ***partition_131_2(char *s, int **columnSizes, int *returnSize);
+
 #endif //LEETCODE_PALINDROME_PARTITIONING_H

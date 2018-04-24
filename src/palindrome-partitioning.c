@@ -71,3 +71,138 @@ char ***partition_131_1(char *s, int **columnSizes, int *returnSize) {
 
     return ret;
 }
+
+typedef struct {
+    int *starts;
+    int *ends;
+    int size;
+    int capacity;
+} path;
+
+static path *path_create() {
+    path *new = (path *) malloc(sizeof(path));
+    new->capacity = 16;
+    new->starts = (int *) malloc(new->capacity * sizeof(int));
+    new->ends = (int *) malloc(new->capacity * sizeof(int));
+    new->size = 0;
+    return new;
+}
+
+static void path_append(path *p, int start, int end) {
+    if (p->size >= p->capacity) {
+        p->capacity *= 2;
+        p->starts = (int *) realloc(p->starts, p->capacity * sizeof(int));
+        p->ends = (int *) realloc(p->ends, p->capacity * sizeof(int));
+    }
+    p->starts[p->size] = start;
+    p->ends[p->size] = end;
+    ++p->size;
+}
+
+static path *path_new_prepend(path *p, int start, int end) {
+    path *new = (path *) malloc(sizeof(path));
+    if (p->size >= p->capacity)
+        new->capacity = 2 * p->capacity;
+    else
+        new->capacity = p->capacity;
+    new->starts = (int *) malloc(new->capacity * sizeof(int));
+    new->ends = (int *) malloc(new->capacity * sizeof(int));
+    memcpy(new->starts + 1, p->starts, p->size * sizeof(int));
+    memcpy(new->ends + 1, p->ends, p->size * sizeof(int));
+    new->starts[0] = start;
+    new->ends[0] = end;
+    new->size = p->size + 1;
+    return new;
+}
+
+static void path_free(path *p) {
+    free(p->starts);
+    free(p->ends);
+    free(p);
+}
+
+typedef struct {
+    void **data;
+    int size;
+    int capacity;
+} array;
+
+static array *array_create() {
+    array *new = (array *) malloc(sizeof(array));
+    new->capacity = 16;
+    new->data = (void **) malloc(new->capacity * sizeof(void *));
+    new->size = 0;
+    return new;
+}
+
+static void array_append(array *arr, void *p) {
+    if (arr->size >= arr->capacity) {
+        arr->capacity *= 2;
+        arr->data = (void **) realloc(arr->data, arr->capacity * sizeof(void *));
+    }
+    arr->data[arr->size++] = p;
+}
+
+static void array_free(array *arr) {
+    free(arr->data);
+    free(arr);
+}
+
+char ***partition_131_2(char *s, int **columnSizes, int *returnSize) {
+    if (s == NULL || columnSizes == NULL || returnSize == NULL) return NULL;
+
+    const int len = strlen(s);
+    bool **dp = (bool **) malloc(len * sizeof(bool *));
+    for (int i = 0; i < len; ++i)
+        dp[i] = (bool *) calloc(len, sizeof(bool));
+
+    array **paths_array = (array **) malloc(len * sizeof(array *));
+    for (int i = 0; i < len; ++i)
+        paths_array[i] = array_create();
+
+    for (int i = len - 1; i >= 0; --i) {
+        for (int j = i; j < len; ++j) {
+            if (s[i] == s[j] && (j - i < 2 || dp[i + 1][j - 1])) {
+                dp[i][j] = true;
+                if (j == len - 1) {
+                    path *p = path_create();
+                    path_append(p, i, j);
+                    array_append(paths_array[i], p);
+                } else {
+                    path **next_paths = (path **) paths_array[j + 1]->data;
+                    const int size = paths_array[j + 1]->size;
+                    for (int k = 0; k < size; ++k) {
+                        array_append(paths_array[i], path_new_prepend(next_paths[k], i, j));
+                    }
+                }
+            }
+        }
+    }
+    for (int i = 0; i < len; ++i)
+        free(dp[i]);
+    free(dp);
+
+    *returnSize = paths_array[0]->size;
+    *columnSizes = (int *) malloc((*returnSize) * sizeof(int));
+    char ***ret = (char ***) malloc((*returnSize) * sizeof(char **));
+    for (int i = 0; i < *returnSize; ++i) {
+        path *p = paths_array[0]->data[i];
+        (*columnSizes)[i] = p->size;
+        char **str_path = (char **) malloc(p->size * sizeof(char *));
+        for (int j = 0; j < p->size; ++j) {
+            str_path[j] = new_string(s, p->starts[j], p->ends[j]);
+        }
+        ret[i] = str_path;
+    }
+
+    for (int i = 0; i < len; ++i) {
+        path **paths = (path **) paths_array[i]->data;
+        for (int j = 0; j < paths_array[i]->size; ++j) {
+            path_free(paths[j]);
+        }
+        array_free(paths_array[i]);
+    }
+    free(paths_array);
+
+    return ret;
+}
