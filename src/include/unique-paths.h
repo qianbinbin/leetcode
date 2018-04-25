@@ -40,4 +40,9 @@ int uniquePaths_62_1(int m, int n);
  */
 int uniquePaths_62_2(int m, int n);
 
+/**
+ * Combination
+ */
+int uniquePaths_62_3(int m, int n);
+
 #endif //LEETCODE_UNIQUE_PATHS_H
