@@ -35,4 +35,9 @@
  */
 int uniquePathsWithObstacles_63_1(int **obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize);
 
+/**
+ * Dynamic programming
+ */
+int uniquePathsWithObstacles_63_2(int **obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize);
+
 #endif //LEETCODE_UNIQUE_PATHS_II_H
