@@ -35,4 +35,9 @@
  */
 int uniquePaths_62_1(int m, int n);
 
+/**
+ * Dynamic programming
+ */
+int uniquePaths_62_2(int m, int n);
+
 #endif //LEETCODE_UNIQUE_PATHS_H
