@@ -217,6 +217,11 @@ target_link_libraries(49 lc)
 target_link_libraries(49 gtest_main)
 add_test(NAME 49_test COMMAND 49)
 
+add_executable(51 test/n-queens.cpp)
+target_link_libraries(51 lc)
+target_link_libraries(51 gtest_main)
+add_test(NAME 51_test COMMAND 51)
+
 add_executable(58 test/length-of-last-word.cpp)
 target_link_libraries(58 lc)
 target_link_libraries(58 gtest_main)
