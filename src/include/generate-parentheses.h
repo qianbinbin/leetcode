@@ -20,4 +20,6 @@
 
 char **generateParenthesis_22_1(int n, int *returnSize);
 
+char **generateParenthesis_22_2(int n, int *returnSize);
+
 #endif //LEETCODE_GENERATE_PARENTHESES_H
