@@ -187,6 +187,11 @@ target_link_libraries(39 lc)
 target_link_libraries(39 gtest_main)
 add_test(NAME 39_test COMMAND 39)
 
+add_executable(40 test/combination-sum-ii.cpp)
+target_link_libraries(40 lc)
+target_link_libraries(40 gtest_main)
+add_test(NAME 40_test COMMAND 40)
+
 add_executable(41 test/first-missing-positive.cpp)
 target_link_libraries(41 lc)
 target_link_libraries(41 gtest_main)
