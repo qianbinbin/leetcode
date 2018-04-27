@@ -117,6 +117,11 @@ target_link_libraries(21 lc)
 target_link_libraries(21 gtest_main)
 add_test(NAME 21_test COMMAND 21)
 
+add_executable(22 test/generate-parentheses.cpp)
+target_link_libraries(22 lc)
+target_link_libraries(22 gtest_main)
+add_test(NAME 22_test COMMAND 22)
+
 add_executable(23 test/merge-k-sorted-lists.cpp)
 target_link_libraries(23 lc)
 target_link_libraries(23 gtest_main)
