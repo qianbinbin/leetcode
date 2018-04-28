@@ -182,6 +182,11 @@ target_link_libraries(36 lc)
 target_link_libraries(36 gtest_main)
 add_test(NAME 36_test COMMAND 36)
 
+add_executable(37 test/sudoku-solver.cpp)
+target_link_libraries(37 lc)
+target_link_libraries(37 gtest_main)
+add_test(NAME 37_test COMMAND 37)
+
 add_executable(38 test/count-and-say.cpp)
 target_link_libraries(38 lc)
 target_link_libraries(38 gtest_main)
