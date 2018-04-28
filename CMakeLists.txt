@@ -322,6 +322,11 @@ target_link_libraries(78 lc)
 target_link_libraries(78 gtest_main)
 add_test(NAME 78_test COMMAND 78)
 
+add_executable(79 test/word-search.cpp)
+target_link_libraries(79 lc)
+target_link_libraries(79 gtest_main)
+add_test(NAME 79_test COMMAND 79)
+
 add_executable(80 test/remove-duplicates-from-sorted-array-ii.cpp)
 target_link_libraries(80 lc)
 target_link_libraries(80 gtest_main)
