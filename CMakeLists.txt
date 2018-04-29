@@ -237,6 +237,11 @@ target_link_libraries(49 lc)
 target_link_libraries(49 gtest_main)
 add_test(NAME 49_test COMMAND 49)
 
+add_executable(50 test/powx-n.cpp)
+target_link_libraries(50 lc)
+target_link_libraries(50 gtest_main)
+add_test(NAME 50_test COMMAND 50)
+
 add_executable(51 test/n-queens.cpp)
 target_link_libraries(51 lc)
 target_link_libraries(51 gtest_main)
