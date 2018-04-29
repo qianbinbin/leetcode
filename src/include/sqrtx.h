@@ -25,4 +25,9 @@
  */
 int mySqrt_69_1(int x);
 
+/**
+ * Newton's method
+ */
+int mySqrt_69_2(int x);
+
 #endif //LEETCODE_SQRTX_H
