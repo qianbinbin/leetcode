@@ -292,6 +292,11 @@ target_link_libraries(67 lc)
 target_link_libraries(67 gtest_main)
 add_test(NAME 67_test COMMAND 67)
 
+add_executable(69 test/sqrtx.cpp)
+target_link_libraries(69 lc)
+target_link_libraries(69 gtest_main)
+add_test(NAME 69_test COMMAND 69)
+
 add_executable(70 test/climbing-stairs.cpp)
 target_link_libraries(70 lc)
 target_link_libraries(70 gtest_main)
