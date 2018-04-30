@@ -252,6 +252,11 @@ target_link_libraries(52 lc)
 target_link_libraries(52 gtest_main)
 add_test(NAME 52_test COMMAND 52)
 
+add_executable(55 test/jump-game.cpp)
+target_link_libraries(55 lc)
+target_link_libraries(55 gtest_main)
+add_test(NAME 55_test COMMAND 55)
+
 add_executable(58 test/length-of-last-word.cpp)
 target_link_libraries(58 lc)
 target_link_libraries(58 gtest_main)
