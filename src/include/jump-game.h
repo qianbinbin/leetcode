@@ -28,4 +28,9 @@
  */
 bool canJump_55_1(int *nums, int numsSize);
 
+/**
+ * Dynamic programming
+ */
+bool canJump_55_2(int *nums, int numsSize);
+
 #endif //LEETCODE_JUMP_GAME_H
