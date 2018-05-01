@@ -72,6 +72,11 @@ target_link_libraries(10 lc)
 target_link_libraries(10 gtest_main)
 add_test(NAME 10_test COMMAND 10)
 
+add_executable(11 test/container-with-most-water.cpp)
+target_link_libraries(11 lc)
+target_link_libraries(11 gtest_main)
+add_test(NAME 11_test COMMAND 11)
+
 add_executable(12 test/integer-to-roman.cpp)
 target_link_libraries(12 lc)
 target_link_libraries(12 gtest_main)
