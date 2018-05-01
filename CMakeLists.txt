@@ -217,6 +217,11 @@ target_link_libraries(44 lc)
 target_link_libraries(44 gtest_main)
 add_test(NAME 44_test COMMAND 44)
 
+add_executable(45 test/jump-game-ii.cpp)
+target_link_libraries(45 lc)
+target_link_libraries(45 gtest_main)
+add_test(NAME 45_test COMMAND 45)
+
 add_executable(46 test/permutations.cpp)
 target_link_libraries(46 lc)
 target_link_libraries(46 gtest_main)
