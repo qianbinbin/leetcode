@@ -512,6 +512,11 @@ target_link_libraries(117 lc)
 target_link_libraries(117 gtest_main)
 add_test(NAME 117_test COMMAND 117)
 
+add_executable(121 test/best-time-to-buy-and-sell-stock.cpp)
+target_link_libraries(121 lc)
+target_link_libraries(121 gtest_main)
+add_test(NAME 121_test COMMAND 121)
+
 add_executable(124 test/binary-tree-maximum-path-sum.cpp)
 target_link_libraries(124 lc)
 target_link_libraries(124 gtest_main)
