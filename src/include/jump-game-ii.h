@@ -25,4 +25,9 @@
  */
 int jump_45_1(int *nums, int numsSize);
 
+/**
+ * Greedy
+ */
+int jump_45_2(int *nums, int numsSize);
+
 #endif //LEETCODE_JUMP_GAME_II_H
