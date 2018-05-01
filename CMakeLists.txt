@@ -47,6 +47,11 @@ target_link_libraries(2 lc)
 target_link_libraries(2 gtest_main)
 add_test(NAME 2_test COMMAND 2)
 
+add_executable(3 test/longest-substring-without-repeating-characters.cpp)
+target_link_libraries(3 lc)
+target_link_libraries(3 gtest_main)
+add_test(NAME 3_test COMMAND 3)
+
 add_executable(4 test/median-of-two-sorted-arrays.cpp)
 target_link_libraries(4 lc)
 target_link_libraries(4 gtest_main)
