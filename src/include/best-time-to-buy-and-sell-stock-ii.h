@@ -32,4 +32,9 @@
 
 int maxProfit_122_1(int *prices, int pricesSize);
 
+/**
+ * Greedy
+ */
+int maxProfit_122_2(int *prices, int pricesSize);
+
 #endif //LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H

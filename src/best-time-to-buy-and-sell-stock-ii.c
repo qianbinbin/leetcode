@@ -17,3 +17,15 @@ int maxProfit_122_1(int *prices, int pricesSize) {
     }
     return max_profit;
 }
+
+int maxProfit_122_2(int *prices, int pricesSize) {
+    if (prices == NULL || pricesSize < 0) return -1;
+    if (pricesSize < 2) return 0;
+
+    int max_profit = 0;
+    for (int i = 1; i < pricesSize; ++i) {
+        if (prices[i] > prices[i - 1])
+            max_profit += prices[i] - prices[i - 1];
+    }
+    return max_profit;
+}
