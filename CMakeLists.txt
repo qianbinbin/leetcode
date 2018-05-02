@@ -522,6 +522,11 @@ target_link_libraries(117 lc)
 target_link_libraries(117 gtest_main)
 add_test(NAME 117_test COMMAND 117)
 
+add_executable(120 test/triangle.cpp)
+target_link_libraries(120 lc)
+target_link_libraries(120 gtest_main)
+add_test(NAME 120_test COMMAND 120)
+
 add_executable(121 test/best-time-to-buy-and-sell-stock.cpp)
 target_link_libraries(121 lc)
 target_link_libraries(121 gtest_main)
