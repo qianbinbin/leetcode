@@ -20,4 +20,9 @@
  */
 int maxSubArray_53_1(int *nums, int numsSize);
 
+/**
+ * Divide and conquer
+ */
+int maxSubArray_53_2(int *nums, int numsSize);
+
 #endif //LEETCODE_MAXIMUM_SUBARRAY_H
