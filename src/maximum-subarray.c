@@ -57,3 +57,17 @@ int maxSubArray_53_2(int *nums, int numsSize) {
     free(arr);
     return ret;
 }
+
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+int maxSubArray_53_3(int *nums, int numsSize) {
+    if (nums == NULL || numsSize < 1) return INT_MIN;
+
+    int max = INT_MIN, min_with_beginning = 0, sum = 0;
+    for (int i = 0; i < numsSize; ++i) {
+        sum += nums[i];
+        max = MAX(max, sum - min_with_beginning);
+        min_with_beginning = MIN(min_with_beginning, sum);
+    }
+    return max;
+}

@@ -25,4 +25,9 @@ int maxSubArray_53_1(int *nums, int numsSize);
  */
 int maxSubArray_53_2(int *nums, int numsSize);
 
+/**
+ * Greedy
+ */
+int maxSubArray_53_3(int *nums, int numsSize);
+
 #endif //LEETCODE_MAXIMUM_SUBARRAY_H
