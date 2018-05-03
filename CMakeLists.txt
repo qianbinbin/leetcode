@@ -387,6 +387,11 @@ target_link_libraries(84 lc)
 target_link_libraries(84 gtest_main)
 add_test(NAME 84_test COMMAND 84)
 
+add_executable(85 test/maximal-rectangle.cpp)
+target_link_libraries(85 lc)
+target_link_libraries(85 gtest_main)
+add_test(NAME 85_test COMMAND 85)
+
 add_executable(86 test/partition-list.cpp)
 target_link_libraries(86 lc)
 target_link_libraries(86 gtest_main)
