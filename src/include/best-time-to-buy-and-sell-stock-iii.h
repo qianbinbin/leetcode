@@ -35,4 +35,9 @@
  */
 int maxProfit_123_1(int *prices, int pricesSize);
 
+/**
+ * Dynamic programming version 2
+ */
+int maxProfit_123_2(int *prices, int pricesSize);
+
 #endif //LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H

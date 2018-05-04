@@ -33,3 +33,20 @@ int maxProfit_123_1(int *prices, int pricesSize) {
     free(f);
     return max;
 }
+
+int maxProfit_123_2(int *prices, int pricesSize) {
+    if (prices == NULL || pricesSize < 0) return -1;
+    if (pricesSize < 2) return 0;
+
+    int buy_1 = -prices[0];
+    int sell_1 = 0;
+    int buy_2 = -prices[0];
+    int sell_2 = 0;
+    for (int i = 1; i < pricesSize; ++i) {
+        sell_2 = MAX(sell_2, buy_2 + prices[i]);
+        buy_2 = MAX(buy_2, sell_1 - prices[i]);
+        sell_1 = MAX(sell_1, buy_1 + prices[i]);
+        buy_1 = MAX(buy_1, -prices[i]);
+    }
+    return sell_2;
+}
