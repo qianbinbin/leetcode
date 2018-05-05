@@ -302,6 +302,11 @@ target_link_libraries(63 lc)
 target_link_libraries(63 gtest_main)
 add_test(NAME 63_test COMMAND 63)
 
+add_executable(64 test/minimum-path-sum.cpp)
+target_link_libraries(64 lc)
+target_link_libraries(64 gtest_main)
+add_test(NAME 64_test COMMAND 64)
+
 add_executable(65 test/valid-number.cpp)
 target_link_libraries(65 lc)
 target_link_libraries(65 gtest_main)
