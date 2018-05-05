@@ -397,6 +397,11 @@ target_link_libraries(86 lc)
 target_link_libraries(86 gtest_main)
 add_test(NAME 86_test COMMAND 86)
 
+add_executable(87 test/scramble-string.cpp)
+target_link_libraries(87 lc)
+target_link_libraries(87 gtest_main)
+add_test(NAME 87_test COMMAND 87)
+
 add_executable(88 test/merge-sorted-array.cpp)
 target_link_libraries(88 lc)
 target_link_libraries(88 gtest_main)
