@@ -437,6 +437,11 @@ target_link_libraries(96 lc)
 target_link_libraries(96 gtest_main)
 add_test(NAME 96_test COMMAND 96)
 
+add_executable(97 test/interleaving-string.cpp)
+target_link_libraries(97 lc)
+target_link_libraries(97 gtest_main)
+add_test(NAME 97_test COMMAND 97)
+
 add_executable(98 test/validate-binary-search-tree.cpp)
 target_link_libraries(98 lc)
 target_link_libraries(98 gtest_main)
