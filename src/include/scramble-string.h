@@ -60,4 +60,9 @@
  */
 bool isScramble_87_1(char *s1, char *s2);
 
+/**
+ * Dynamic programming
+ */
+bool isScramble_87_2(char *s1, char *s2);
+
 #endif //LEETCODE_SCRAMBLE_STRING_H
