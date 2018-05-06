@@ -547,6 +547,11 @@ target_link_libraries(114 lc)
 target_link_libraries(114 gtest_main)
 add_test(NAME 114_test COMMAND 114)
 
+add_executable(115 test/distinct-subsequences.cpp)
+target_link_libraries(115 lc)
+target_link_libraries(115 gtest_main)
+add_test(NAME 115_test COMMAND 115)
+
 add_executable(116 test/populating-next-right-pointers-in-each-node.cpp)
 target_link_libraries(116 lc)
 target_link_libraries(116 gtest_main)
