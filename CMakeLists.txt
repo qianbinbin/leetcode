@@ -337,6 +337,11 @@ target_link_libraries(71 lc)
 target_link_libraries(71 gtest_main)
 add_test(NAME 71_test COMMAND 71)
 
+add_executable(72 test/edit-distance.cpp)
+target_link_libraries(72 lc)
+target_link_libraries(72 gtest_main)
+add_test(NAME 72_test COMMAND 72)
+
 add_executable(73 test/set-matrix-zeroes.cpp)
 target_link_libraries(73 lc)
 target_link_libraries(73 gtest_main)
