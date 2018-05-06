@@ -48,4 +48,9 @@
  */
 int numDistinct_115_1(char *s, char *t);
 
+/**
+ * Depth-first search, time limit exceeded
+ */
+int numDistinct_115_2(char *s, char *t);
+
 #endif //LEETCODE_DISTINCT_SUBSEQUENCES_H

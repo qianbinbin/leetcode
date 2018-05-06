@@ -30,3 +30,27 @@ int numDistinct_115_1(char *s, char *t) {
     free(dp);
     return ret;
 }
+
+static void num_distinct_dfs(char *s, const size_t len1, size_t i1,
+                             char *t, const size_t len2, size_t i2, int *count) {
+    if (i2 == len2) {
+        ++(*count);
+        return;
+    }
+    if (i1 == len1) return;
+    for (size_t i = i1; i < len1; ++i) {
+        if (s[i] == t[i2]) {
+            num_distinct_dfs(s, len1, i + 1, t, len2, i2 + 1, count);
+        }
+    }
+}
+
+int numDistinct_115_2(char *s, char *t) {
+    if (s == NULL || t == NULL) return -1;
+    const size_t len1 = strlen(s), len2 = strlen(t);
+    if (len1 < 1 || len2 < 1 || len1 < len2) return 0;
+
+    int count = 0;
+    num_distinct_dfs(s, len1, 0, t, len2, 0, &count);
+    return count;
+}
