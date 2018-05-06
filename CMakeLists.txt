@@ -427,6 +427,11 @@ target_link_libraries(90 lc)
 target_link_libraries(90 gtest_main)
 add_test(NAME 90_test COMMAND 90)
 
+add_executable(91 test/decode-ways.cpp)
+target_link_libraries(91 lc)
+target_link_libraries(91 gtest_main)
+add_test(NAME 91_test COMMAND 91)
+
 add_executable(92 test/reverse-linked-list-ii.cpp)
 target_link_libraries(92 lc)
 target_link_libraries(92 gtest_main)
