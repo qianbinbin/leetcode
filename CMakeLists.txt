@@ -657,6 +657,11 @@ target_link_libraries(139 lc)
 target_link_libraries(139 gtest_main)
 add_test(NAME 139_test COMMAND 139)
 
+add_executable(140 test/word-break-ii.cpp)
+target_link_libraries(140 lc)
+target_link_libraries(140 gtest_main)
+add_test(NAME 140_test COMMAND 140)
+
 add_executable(141 test/linked-list-cycle.cpp)
 target_link_libraries(141 lc)
 target_link_libraries(141 gtest_main)
