@@ -627,6 +627,11 @@ target_link_libraries(132 lc)
 target_link_libraries(132 gtest_main)
 add_test(NAME 132_test COMMAND 132)
 
+add_executable(133 test/clone-graph.cpp)
+target_link_libraries(133 lc)
+target_link_libraries(133 gtest_main)
+add_test(NAME 133_test COMMAND 133)
+
 add_executable(134 test/gas-station.cpp)
 target_link_libraries(134 lc)
 target_link_libraries(134 gtest_main)
