@@ -62,6 +62,11 @@ target_link_libraries(5 lc)
 target_link_libraries(5 gtest_main)
 add_test(NAME 5_test COMMAND 5)
 
+add_executable(7 test/reverse-integer.cpp)
+target_link_libraries(7 lc)
+target_link_libraries(7 gtest_main)
+add_test(NAME 7_test COMMAND 7)
+
 add_executable(8 test/string-to-integer-atoi.cpp)
 target_link_libraries(8 lc)
 target_link_libraries(8 gtest_main)
