@@ -72,6 +72,11 @@ target_link_libraries(8 lc)
 target_link_libraries(8 gtest_main)
 add_test(NAME 8_test COMMAND 8)
 
+add_executable(9 test/palindrome-number.cpp)
+target_link_libraries(9 lc)
+target_link_libraries(9 gtest_main)
+add_test(NAME 9_test COMMAND 9)
+
 add_executable(10 test/regular-expression-matching.cpp)
 target_link_libraries(10 lc)
 target_link_libraries(10 gtest_main)
