@@ -287,6 +287,11 @@ target_link_libraries(55 lc)
 target_link_libraries(55 gtest_main)
 add_test(NAME 55_test COMMAND 55)
 
+add_executable(57 test/insert-interval.cpp)
+target_link_libraries(57 lc)
+target_link_libraries(57 gtest_main)
+add_test(NAME 57_test COMMAND 57)
+
 add_executable(58 test/length-of-last-word.cpp)
 target_link_libraries(58 lc)
 target_link_libraries(58 gtest_main)
