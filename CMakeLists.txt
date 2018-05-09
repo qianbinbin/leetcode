@@ -287,6 +287,11 @@ target_link_libraries(55 lc)
 target_link_libraries(55 gtest_main)
 add_test(NAME 55_test COMMAND 55)
 
+add_executable(56 test/merge-intervals.cpp)
+target_link_libraries(56 lc)
+target_link_libraries(56 gtest_main)
+add_test(NAME 56_test COMMAND 56)
+
 add_executable(57 test/insert-interval.cpp)
 target_link_libraries(57 lc)
 target_link_libraries(57 gtest_main)
