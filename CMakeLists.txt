@@ -232,6 +232,11 @@ target_link_libraries(42 lc)
 target_link_libraries(42 gtest_main)
 add_test(NAME 42_test COMMAND 42)
 
+add_executable(43 test/multiply-strings.cpp)
+target_link_libraries(43 lc)
+target_link_libraries(43 gtest_main)
+add_test(NAME 43_test COMMAND 43)
+
 add_executable(44 test/wildcard-matching.cpp)
 target_link_libraries(44 lc)
 target_link_libraries(44 gtest_main)
