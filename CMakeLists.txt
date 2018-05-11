@@ -377,6 +377,11 @@ target_link_libraries(75 lc)
 target_link_libraries(75 gtest_main)
 add_test(NAME 75_test COMMAND 75)
 
+add_executable(76 test/minimum-window-substring.cpp)
+target_link_libraries(76 lc)
+target_link_libraries(76 gtest_main)
+add_test(NAME 76_test COMMAND 76)
+
 add_executable(77 test/combinations.cpp)
 target_link_libraries(77 lc)
 target_link_libraries(77 gtest_main)
