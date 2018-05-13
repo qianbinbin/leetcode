@@ -597,6 +597,11 @@ target_link_libraries(117 lc)
 target_link_libraries(117 gtest_main)
 add_test(NAME 117_test COMMAND 117)
 
+add_executable(118 test/pascals-triangle.cpp)
+target_link_libraries(118 lc)
+target_link_libraries(118 gtest_main)
+add_test(NAME 118_test COMMAND 118)
+
 add_executable(120 test/triangle.cpp)
 target_link_libraries(120 lc)
 target_link_libraries(120 gtest_main)
