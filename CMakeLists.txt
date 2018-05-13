@@ -172,6 +172,11 @@ target_link_libraries(28 lc)
 target_link_libraries(28 gtest_main)
 add_test(NAME 28_test COMMAND 28)
 
+add_executable(30 test/substring-with-concatenation-of-all-words.cpp)
+target_link_libraries(30 lc)
+target_link_libraries(30 gtest_main)
+add_test(NAME 30_test COMMAND 30)
+
 add_executable(31 test/next-permutation.cpp)
 target_link_libraries(31 lc)
 target_link_libraries(31 gtest_main)
