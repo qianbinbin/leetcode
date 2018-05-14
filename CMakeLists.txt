@@ -317,6 +317,11 @@ target_link_libraries(58 lc)
 target_link_libraries(58 gtest_main)
 add_test(NAME 58_test COMMAND 58)
 
+add_executable(59 test/spiral-matrix-ii.cpp)
+target_link_libraries(59 lc)
+target_link_libraries(59 gtest_main)
+add_test(NAME 59_test COMMAND 59)
+
 add_executable(60 test/permutation-sequence.cpp)
 target_link_libraries(60 lc)
 target_link_libraries(60 gtest_main)
