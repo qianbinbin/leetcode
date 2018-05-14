@@ -292,6 +292,11 @@ target_link_libraries(53 lc)
 target_link_libraries(53 gtest_main)
 add_test(NAME 53_test COMMAND 53)
 
+add_executable(54 test/spiral-matrix.cpp)
+target_link_libraries(54 lc)
+target_link_libraries(54 gtest_main)
+add_test(NAME 54_test COMMAND 54)
+
 add_executable(55 test/jump-game.cpp)
 target_link_libraries(55 lc)
 target_link_libraries(55 gtest_main)
