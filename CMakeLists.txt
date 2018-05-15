@@ -372,6 +372,11 @@ target_link_libraries(67 lc)
 target_link_libraries(67 gtest_main)
 add_test(NAME 67_test COMMAND 67)
 
+add_executable(68 test/text-justification.cpp)
+target_link_libraries(68 lc)
+target_link_libraries(68 gtest_main)
+add_test(NAME 68_test COMMAND 68)
+
 add_executable(69 test/sqrtx.cpp)
 target_link_libraries(69 lc)
 target_link_libraries(69 gtest_main)
