@@ -177,6 +177,11 @@ target_link_libraries(28 lc)
 target_link_libraries(28 gtest_main)
 add_test(NAME 28_test COMMAND 28)
 
+add_executable(29 test/divide-two-integers.cpp)
+target_link_libraries(29 lc)
+target_link_libraries(29 gtest_main)
+add_test(NAME 29_test COMMAND 29)
+
 add_executable(30 test/substring-with-concatenation-of-all-words.cpp)
 target_link_libraries(30 lc)
 target_link_libraries(30 gtest_main)
