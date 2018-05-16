@@ -777,6 +777,11 @@ target_link_libraries(148 lc)
 target_link_libraries(148 gtest_main)
 add_test(NAME 148_test COMMAND 148)
 
+add_executable(149 test/max-points-on-a-line.cpp)
+target_link_libraries(149 lc)
+target_link_libraries(149 gtest_main)
+add_test(NAME 149_test COMMAND 149)
+
 add_executable(150 test/evaluate-reverse-polish-notation.cpp)
 target_link_libraries(150 lc)
 target_link_libraries(150 gtest_main)
