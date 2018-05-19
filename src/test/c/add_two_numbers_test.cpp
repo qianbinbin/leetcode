@@ -7,11 +7,11 @@ extern "C" {
 
 TEST(leetcode_2, normal) {
     int nums1[] = {2, 4, 3};
-    struct ListNode *l1 = list_from_array(nums1, 3);
+    struct ListNode *l1 = list_create(nums1, 3);
     list_print(l1);
 
     int nums2[] = {5, 6, 4};
-    struct ListNode *l2 = list_from_array(nums2, 3);
+    struct ListNode *l2 = list_create(nums2, 3);
     list_print(l2);
 
     struct ListNode *l = addTwoNumbers_2(l1, l2);

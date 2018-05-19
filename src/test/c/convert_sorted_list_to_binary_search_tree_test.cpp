@@ -6,7 +6,7 @@ extern "C" {
 
 TEST(leetcode_109, normal) {
     int nums[] = {-10, -3, 0, 5, 9};
-    struct ListNode *head = list_from_array(nums, 5);
+    struct ListNode *head = list_create(nums, 5);
     list_print(head);
     struct TreeNode *tree = sortedListToBST_109(head);
     tree_preorder_print(tree);

@@ -1,6 +1,10 @@
 #ifndef LEETCODE_COMMON_H
 #define LEETCODE_COMMON_H
 
+#include <limits.h>
+
+#define INT_NULL_TREE_NODE INT_MIN
+
 void array_print(int *nums, int numsSize);
 
 struct ListNode {
@@ -10,21 +14,15 @@ struct ListNode {
 
 void list_print(struct ListNode *head);
 
-struct ListNode *list_from_array(int *nums, int numsSize);
+struct ListNode *list_create(int *nums, int numsSize);
 
 void list_free(struct ListNode *head);
-
-#include <limits.h>
-
-#define INT_NULL_TREE_NODE INT_MIN
 
 struct TreeNode {
     int val;
     struct TreeNode *left;
     struct TreeNode *right;
 };
-
-struct TreeNode *tree_create_node(int val);
 
 /**
  * Create a binary tree from an array

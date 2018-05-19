@@ -1,45 +1,44 @@
-#include <common.h>
+#include "common.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 void array_print(int *nums, int numsSize) {
     if (nums == NULL) return;
-    printf("{");
-    for (int i = 0; i < numsSize; ++i) {
-        if (i < numsSize - 1) printf("%d, ", nums[i]);
-        else printf("%d", nums[numsSize - 1]);
+    printf("[");
+    if (numsSize > 0) {
+        printf("%d", nums[0]);
+        for (int i = 1; i < numsSize; ++i) {
+            printf(",%d", nums[i]);
+        }
     }
-    printf("}\n");
+    printf("]\n");
 }
 
 void list_print(struct ListNode *head) {
-    while (head != NULL) {
-        if (head->next != NULL) printf("%d -> ", head->val);
-        else printf("%d", head->val);
+    if (head == NULL) return;
+    printf("%d", head->val);
+    while (head->next != NULL) {
+        printf("->%d", head->next->val);
         head = head->next;
     }
     printf("\n");
 }
 
-static struct ListNode *list_append(struct ListNode *p, int val) {
-    struct ListNode *tmp = (struct ListNode *) malloc(sizeof(struct ListNode));
-    tmp->val = val;
-    tmp->next = NULL;
-    p->next = tmp;
-    return tmp;
-}
-
-struct ListNode *list_from_array(int *nums, int numsSize) {
+struct ListNode *list_create(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return NULL;
 
-    struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
-    struct ListNode *p = list;
-    for (int i = 0; i < numsSize; ++i) {
-        p = list_append(p, nums[i]);
+    struct ListNode *head = (struct ListNode *) malloc(sizeof(struct ListNode));
+    head->val = nums[0];
+    struct ListNode *tail = head;
+    for (int i = 1; i < numsSize; ++i) {
+        struct ListNode *tmp = (struct ListNode *) malloc(sizeof(struct ListNode));
+        tmp->val = nums[i];
+        tail->next = tmp;
+        tail = tail->next;
     }
-    p = list->next;
-    free(list);
-    return p;
+    tail->next = NULL;
+    return head;
 }
 
 void list_free(struct ListNode *head) {
@@ -51,44 +50,40 @@ void list_free(struct ListNode *head) {
     }
 }
 
-struct TreeNode *tree_create_node(int val) {
+static struct TreeNode *tree_node_create(int val) {
     if (val == INT_NULL_TREE_NODE) return NULL;
 
-    struct TreeNode *ret = (struct TreeNode *) malloc(sizeof(struct TreeNode));
-    ret->val = val;
-    ret->left = NULL;
-    ret->right = NULL;
-    return ret;
+    struct TreeNode *node = (struct TreeNode *) malloc(sizeof(struct TreeNode));
+    node->val = val;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
-static struct TreeNode **tree_nodes_from_array(int *nums, int numsSize) {
-    if (nums == NULL || numsSize < 1) return NULL;
-
-    struct TreeNode **ret = (struct TreeNode **) malloc(numsSize * sizeof(struct TreeNode *));
+static struct TreeNode **tree_node_array(int *nums, int numsSize) {
+    struct TreeNode **array = (struct TreeNode **) malloc(numsSize * sizeof(struct TreeNode *));
     for (int i = 0; i < numsSize; ++i) {
-        ret[i] = tree_create_node(nums[i]);
+        array[i] = tree_node_create(nums[i]);
     }
-    return ret;
+    return array;
 }
 
-static struct TreeNode *tree_create_from_nodes(struct TreeNode **nodes, int size) {
-    if (nodes == NULL || size < 1) return NULL;
-
-    for (int i = 0; i < size; ++i) {
+static struct TreeNode *tree_create_from_array(int *nums, int numsSize) {
+    struct TreeNode **nodes = tree_node_array(nums, numsSize);
+    for (int i = 0; i < numsSize; ++i) {
         if (nodes[i] != NULL) {
-            nodes[i]->left = (2 * i + 1 < size) ? nodes[2 * i + 1] : NULL;
-            nodes[i]->right = (2 * i + 2 < size) ? nodes[2 * i + 2] : NULL;
+            nodes[i]->left = (2 * i + 1 < numsSize) ? nodes[2 * i + 1] : NULL;
+            nodes[i]->right = (2 * i + 2 < numsSize) ? nodes[2 * i + 2] : NULL;
         }
     }
-    struct TreeNode *ret = nodes[0];
+    struct TreeNode *root = nodes[0];
     free(nodes);
-    return ret;
+    return root;
 }
 
 struct TreeNode *tree_create(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return NULL;
-    struct TreeNode **nodes = tree_nodes_from_array(nums, numsSize);
-    return tree_create_from_nodes(nodes, numsSize);
+    return tree_create_from_array(nums, numsSize);
 }
 
 static void tree_preorder(struct TreeNode *root) {
