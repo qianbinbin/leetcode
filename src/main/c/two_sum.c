@@ -1,99 +1,101 @@
+#include "two_sum.h"
+
+#include <limits.h>
+#include <stdbool.h>
 #include <stdlib.h>
-#include <two_sum.h>
 
-#define HASH_MAP_SIZE 1024
+#define HASH_MAP_SIZE 256
 
-struct Entry {
+typedef struct Entry {
     int key;
     int value;
     struct Entry *next;
-} entries[HASH_MAP_SIZE];
+} entry;
 
-int hashcode(int key) {
-    return abs(key) % HASH_MAP_SIZE;
+typedef struct {
+    entry entries[HASH_MAP_SIZE];
+} hashmap;
+
+static int hash_code(int key) {
+    return key;
 }
 
-void hashmap_init() {
+static hashmap *hashmap_create() {
+    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
     for (int i = 0; i < HASH_MAP_SIZE; ++i)
-        entries[i].next = NULL;
+        (map->entries + i)->next = NULL;
+    return map;
 }
 
-int hashmap_put(int key, int value) {
-    struct Entry *p = entries + hashcode(key);
-    while (p->next != NULL) {
-        if (p->next->key == key) {
-            p->next->value = value;
-            return 0;
+static void hashmap_put(hashmap *map, int key, int value) {
+    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
+    entry *e = map->entries + index;
+    while (e->next != NULL) {
+        if (e->next->key == key) {
+            e->next->value = value;
+            return;
         }
-        p = p->next;
+        e = e->next;
     }
 
-    p->next = (struct Entry *) malloc(sizeof(struct Entry));
-    if (p->next != NULL) {
-        p->next->key = key;
-        p->next->value = value;
-        p->next->next = NULL;
-        return 0;
-    }
-    return -1;
+    entry *new = (struct Entry *) malloc(sizeof(struct Entry));
+    new->key = key;
+    new->value = value;
+    new->next = NULL;
+    e->next = new;
 }
 
-int hashmap_get(int key, int *value) {
-    if (value == NULL) return -2;
-
-    struct Entry *p = entries + hashcode(key);
-    while (p->next != NULL) {
-        if (p->next->key == key) {
-            *value = p->next->value;
-            return 0;
+static bool hashmap_constains(hashmap *map, int key) {
+    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
+    entry *e = map->entries + index;
+    while (e->next != NULL) {
+        if (e->next->key == key) {
+            return true;
         }
-        p = p->next;
+        e = e->next;
     }
-    return -1;
+    return false;
 }
 
-int hashmap_remove(int key) {
-    struct Entry *p = entries + hashcode(key);
-    while (p->next != NULL) {
-        if (p->next->key == key) {
-            struct Entry *q = p->next;
-            p->next = q->next;
-            free(q);
-            return 0;
+static int hashmap_get(hashmap *map, int key) {
+    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
+    entry *e = map->entries + index;
+    while (e->next != NULL) {
+        if (e->next->key == key) {
+            return e->next->value;
         }
-        p = p->next;
+        e = e->next;
     }
-    return -1;
+    return INT_MIN;
 }
 
-void hashmap_uninit() {
-    struct Entry *p;
+static void hashmap_free(hashmap *map) {
+    entry *e, *tmp;
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        while (entries[i].next != NULL) {
-            p = entries[i].next;
-            entries[i].next = p->next;
-            free(p);
+        e = map->entries + i;
+        while (e->next != NULL) {
+            tmp = e->next;
+            e->next = tmp->next;
+            free(tmp);
         }
     }
+    free(map);
 }
 
-int *twoSum_1(int *nums, int numsSize, int target) {
+int *twoSum_1_1(int *nums, int numsSize, int target) {
     if (nums == NULL || numsSize < 2) return NULL;
 
-    hashmap_init();
+    int *ret = NULL;
+    hashmap *map = hashmap_create();
     for (int i = 0; i < numsSize; ++i) {
-        hashmap_put(nums[i], i);
-    }
-    int index = 0;
-    for (int i = 0; i < numsSize; ++i) {
-        if (hashmap_get(target - nums[i], &index) == 0 && i != index) {
-            int *result = (int *) malloc(2 * sizeof(int));
-            if (result == NULL) return NULL;
-            result[0] = i;
-            result[1] = index;
-            return result;
+        if (hashmap_constains(map, target - nums[i])) {
+            ret = (int *) malloc(2 * sizeof(int));
+            ret[0] = hashmap_get(map, target - nums[i]);
+            ret[1] = i;
+            break;
         }
+        hashmap_put(map, nums[i], i);
     }
-    hashmap_uninit();
-    return NULL;
+    hashmap_free(map);
+    return ret;
 }
