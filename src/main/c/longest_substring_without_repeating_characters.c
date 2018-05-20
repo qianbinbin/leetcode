@@ -1,22 +1,26 @@
-#include <longest_substring_without_repeating_characters.h>
+#include "longest_substring_without_repeating_characters.h"
+
 #include <string.h>
 
-int lengthOfLongestSubstring_3(char *s) {
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int lengthOfLongestSubstring_3_1(char *s) {
     if (s == NULL) return 0;
+    const int len = (const int) strlen(s);
+    if (len == 0) return 0;
 
-    const int len = strlen(s);
-    int index[256];
-    for (int i = 0; i < 256; ++i)
-        index[i] = -1;
-
+    int map[256];
+    memset(map, -1, 256 * sizeof(int));
+    map[s[0] + 128] = 0;
     int start = 0;
-    int longest = 0;
-    for (int i = 0; i < len; ++i) {
-        if (index[s[i] + 128] >= start) {
-            start = index[s[i] + 128] + 1;
+    int longest = 1;
+    for (int i = 1; i < len; ++i) {
+        if (map[s[i] + 128] >= start) {
+            longest = MAX(longest, i - start);
+            start = map[s[i] + 128] + 1;
         }
-        longest = i - start + 1 > longest ? i - start + 1 : longest;
-        index[s[i] + 128] = i;
+        map[s[i] + 128] = i;
     }
+    longest = MAX(longest, len - start);
     return longest;
 }
