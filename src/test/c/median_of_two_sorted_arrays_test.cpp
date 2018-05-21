@@ -1,23 +1,20 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <median_of_two_sorted_arrays.h>
+#include "median_of_two_sorted_arrays.h"
 }
 
-TEST(leetcode_4, empty) {
-    int nums1[] = {1, 2, 3, 4};
-    array_print(nums1, 4);
-    int nums2[] = {};
-    array_print(nums2, 0);
-    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4(nums1, 4, nums2, 0), 2.5);
-    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4(nums2, 0, nums1, 4), 2.5);
+TEST(median_of_two_sorted_arrays_test, findMedianSortedArrays_4_1) {
+    int nums1[] = {1, 3};
+    int nums2[] = {2};
+    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4_1(nums1, 2, nums2, 1), 2);
+    int nums3[] = {1, 2};
+    int nums4[] = {3, 4};
+    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4_1(nums3, 2, nums4, 2), 2.5);
 }
 
-TEST(leetcode_4, normal) {
-    int nums1[] = {5, 6, 7, 8, 9};
-    array_print(nums1, 5);
-    int nums2[] = {1, 2, 3, 4, 5, 6};
-    array_print(nums2, 6);
-    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4(nums1, 5, nums2, 6), 5);
+TEST(median_of_two_sorted_arrays_test, findMedianSortedArrays_4_1_empty) {
+    int nums1[] = {};
+    int nums2[] = {1};
+    EXPECT_DOUBLE_EQ(findMedianSortedArrays_4_1(nums1, 0, nums2, 1), 1);
 }
