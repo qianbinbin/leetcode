@@ -1,7 +1,4 @@
-#ifndef LEETCODE_ZIGZAG_CONVERSION_H
-#define LEETCODE_ZIGZAG_CONVERSION_H
-
-/**
+/*
  * The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
  *
  * P   A   H   N
@@ -30,6 +27,10 @@
  * Y A   H R
  * P     I
  */
-char *convert_6(char *s, int numRows);
+
+#ifndef LEETCODE_ZIGZAG_CONVERSION_H
+#define LEETCODE_ZIGZAG_CONVERSION_H
+
+char *convert_6_1(char *s, int numRows);
 
 #endif //LEETCODE_ZIGZAG_CONVERSION_H
