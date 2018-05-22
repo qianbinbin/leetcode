@@ -1,8 +1,9 @@
-#include <reverse_integer.h>
+#include "reverse_integer.h"
+
 #include <limits.h>
 #include <stdint.h>
 
-int reverse_7(int x) {
+int reverse_7_1(int x) {
     int sign = x < 0 ? -1 : 1;
     int64_t n = x;
     n = n < 0 ? -n : n;
