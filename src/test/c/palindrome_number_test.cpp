@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <palindrome_number.h>
+#include "palindrome_number.h"
 }
 
-TEST(leetcode_9, normal) {
-    EXPECT_TRUE(isPalindrome_9(121));
-    EXPECT_FALSE(isPalindrome_9(-121));
-    EXPECT_FALSE(isPalindrome_9(10));
+TEST(palindrome_number_test, isPalindrome_9_1) {
+    EXPECT_TRUE(isPalindrome_9_1(121));
+    EXPECT_FALSE(isPalindrome_9_1(-121));
+    EXPECT_FALSE(isPalindrome_9_1(10));
 }

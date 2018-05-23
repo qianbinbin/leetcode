@@ -1,9 +1,4 @@
-#ifndef LEETCODE_PALINDROME_NUMBER_H
-#define LEETCODE_PALINDROME_NUMBER_H
-
-#include <stdbool.h>
-
-/**
+/*
  * Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
  *
  * Example 1:
@@ -27,6 +22,12 @@
  *
  * Coud you solve it without converting the integer to a string?
  */
-bool isPalindrome_9(int x);
+
+#ifndef LEETCODE_PALINDROME_NUMBER_H
+#define LEETCODE_PALINDROME_NUMBER_H
+
+#include <stdbool.h>
+
+bool isPalindrome_9_1(int x);
 
 #endif //LEETCODE_PALINDROME_NUMBER_H
