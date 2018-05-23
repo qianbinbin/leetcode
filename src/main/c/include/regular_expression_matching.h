@@ -61,4 +61,9 @@
  */
 bool isMatch_10_1(char *s, char *p);
 
+/**
+ * Dynamic programming
+ */
+bool isMatch_10_2(char *s, char *p);
+
 #endif //LEETCODE_REGULAR_EXPRESSION_MATCHING_H
