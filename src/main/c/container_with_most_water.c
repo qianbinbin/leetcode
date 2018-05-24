@@ -1,23 +1,24 @@
-#include <container_with_most_water.h>
+#include "container_with_most_water.h"
+
 #include <stddef.h>
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-int maxArea_11(int *height, int heightSize) {
+int maxArea_11_1(int *height, int heightSize) {
     if (height == NULL || heightSize < 0) return -1;
     if (heightSize < 2) return 0;
 
-    int max_area = 0;
-    int start = 0, end = heightSize - 1;
-    while (start < end) {
-        int area = (end - start) * MIN(height[start], height[end]);
-        max_area = MAX(area, max_area);
-        if (height[start] < height[end]) {
-            ++start;
+    int max = 0, area;
+    int i = 0, j = heightSize - 1;
+    while (i < j) {
+        if (height[i] < height[j]) {
+            area = (j - i) * height[i];
+            ++i;
         } else {
-            --end;
+            area = (j - i) * height[j];
+            --j;
         }
+        max = MAX(max, area);
     }
-    return max_area;
+    return max;
 }
