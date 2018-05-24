@@ -1,4 +1,5 @@
-#include <roman_to_integer.h>
+#include "roman_to_integer.h"
+
 #include <string.h>
 
 int map(char c) {
@@ -22,18 +23,19 @@ int map(char c) {
     }
 }
 
-int romanToInt_13(char *s) {
+int romanToInt_13_1(char *s) {
     if (s == NULL) return -1;
 
-    int num = 0, idx = 0;
-    while (idx < strlen(s)) {
-        if (map(s[idx]) < map(s[idx + 1])) {
-            num += map(s[idx + 1]) - map(s[idx]);
-            idx += 2;
+    const size_t len = strlen(s);
+    int value = 0;
+    for (size_t i = 0; i < len;) {
+        if (map(s[i]) < map(s[i + 1])) {
+            value += map(s[i + 1]) - map(s[i]);
+            i += 2;
         } else {
-            num += map(s[idx]);
-            ++idx;
+            value += map(s[i]);
+            ++i;
         }
     }
-    return num;
+    return value;
 }
