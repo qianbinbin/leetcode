@@ -1,8 +1,9 @@
-#include <longest_common_prefix.h>
+#include "longest_common_prefix.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-char *longestCommonPrefix_14(char **strs, int strsSize) {
+char *longestCommonPrefix_14_1(char **strs, int strsSize) {
     if (strs == NULL || strsSize < 0) return NULL;
     char *ret = NULL;
     if (strsSize == 0) {
@@ -11,8 +12,9 @@ char *longestCommonPrefix_14(char **strs, int strsSize) {
         return ret;
     }
 
-    for (int i = 0; i < strlen(strs[0]); ++i) {
-        for (int j = 1; j < strsSize; ++j) {
+    const size_t len = strlen(strs[0]);
+    for (size_t i = 0; i < len; ++i) {
+        for (size_t j = 1; j < strsSize; ++j) {
             if (strs[j][i] != strs[0][i]) {
                 ret = (char *) malloc(i + 1);
                 ret[i] = '\0';
@@ -21,8 +23,8 @@ char *longestCommonPrefix_14(char **strs, int strsSize) {
             }
         }
     }
-    ret = (char *) malloc(strlen(strs[0]) + 1);
-    ret[strlen(strs[0])] = '\0';
-    memcpy(ret, strs[0], strlen(strs[0]));
+    ret = (char *) malloc(len + 1);
+    ret[len] = '\0';
+    memcpy(ret, strs[0], len);
     return ret;
 }

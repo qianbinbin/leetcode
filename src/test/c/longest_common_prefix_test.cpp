@@ -1,19 +1,16 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <longest_common_prefix.h>
+#include "longest_common_prefix.h"
 }
 
-TEST(leetcode_14, empty) {
-    char *strs[0] = {};
-    char *ret = longestCommonPrefix_14(strs, 0);
-    EXPECT_STREQ(ret, "");
-    free(ret);
-}
-
-TEST(leetcode_14, normal) {
-    char *strs[2] = {"qwert", "qwesd"};
-    char *ret = longestCommonPrefix_14(strs, 2);
-    EXPECT_STREQ(ret, "qwe");
-    free(ret);
+TEST(longest_common_prefix_test, longestCommonPrefix_14_1) {
+    char *strs1[3] = {"flower", "flow", "flight"};
+    char *ret1 = longestCommonPrefix_14_1(strs1, 3);
+    EXPECT_STREQ(ret1, "fl");
+    free(ret1);
+    char *strs2[3] = {"dog", "racecar", "car"};
+    char *ret2 = longestCommonPrefix_14_1(strs2, 3);
+    EXPECT_STREQ(ret2, "");
+    free(ret2);
 }
