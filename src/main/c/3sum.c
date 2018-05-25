@@ -1,58 +1,47 @@
-#include <assert.h>
+#include "3sum.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include <3sum.h>
 
-int compare(const void *a, const void *b) {
+static int compare(const void *a, const void *b) {
     return *(int *) a - *(int *) b;
 }
 
-int **threeSum_15(int *nums, int numsSize, int *returnSize) {
-    if (nums == NULL || numsSize < 3) return NULL;
+int **threeSum_15_1(int *nums, int numsSize, int *returnSize) {
+    if (nums == NULL || numsSize < 0) return NULL;
+    if (numsSize < 3)
+        return (int **) malloc(0);
 
-    int *tmp = (int *) malloc(numsSize * sizeof(int));
-    assert(tmp != NULL);
-    memcpy(tmp, nums, numsSize * sizeof(int));
-    qsort(tmp, numsSize, sizeof(int), compare);
+    int *values = (int *) malloc(numsSize * sizeof(int));
+    memcpy(values, nums, numsSize * sizeof(int));
+    qsort(values, numsSize, sizeof(int), compare);
 
-    int max = numsSize * (numsSize - 1) * (numsSize - 2) / 6;
-    int **result = (int **) malloc(max * sizeof(int *));
-    assert(result != NULL);
-    int count = 0;
-    int sum;
+    const int capacity = numsSize * (numsSize - 1) * (numsSize - 2) / 6;
+    int **ret = (int **) malloc(capacity * sizeof(int *));
+    *returnSize = 0;
+
     int i, j, k;
-    for (i = 0; i < numsSize - 2; ++i) {
-        while (0 < i && i < numsSize - 2 && tmp[i] == tmp[i - 1]) ++i;
+    for (i = 0; i < numsSize - 2;) {
+        const int sum = 0 - values[i];
         j = i + 1, k = numsSize - 1;
         while (j < k) {
-            sum = tmp[i] + tmp[j] + tmp[k];
-            if (sum < 0) {
-                while (j < k && tmp[j] == tmp[j + 1]) ++j;
-                ++j;
-            } else if (sum > 0) {
-                while (j < k && tmp[k] == tmp[k - 1]) --k;
-                --k;
+            if (values[j] + values[k] < sum) {
+                do { ++j; } while (j < k && values[j] == values[j - 1]);
+            } else if (values[j] + values[k] > sum) {
+                do { --k; } while (j < k && values[k] == values[k + 1]);
             } else {
                 int *triplet = (int *) malloc(3 * sizeof(int));
-                assert(triplet != NULL);
-                triplet[0] = tmp[i];
-                triplet[1] = tmp[j];
-                triplet[2] = tmp[k];
-                result[count++] = triplet;
-                while (j < k && tmp[j] == tmp[j + 1]) ++j;
-                ++j;
-                while (j < k && tmp[k] == tmp[k - 1]) --k;
-                --k;
+                triplet[0] = values[i];
+                triplet[1] = values[j];
+                triplet[2] = values[k];
+                ret[(*returnSize)++] = triplet;
+                do { ++j; } while (j < k && values[j] == values[j - 1]);
+                do { --k; } while (j < k && values[k] == values[k + 1]);
             }
         }
+        do { ++i; } while (i < numsSize - 2 && values[i] == values[i - 1]);
     }
-    free(tmp);
-    if (count > 0) {
-        *returnSize = count;
-        result = realloc(result, count * sizeof(int *));
-        assert(result != NULL);
-        return result;
-    }
-    free(result);
-    return NULL;
+    free(values);
+    ret = realloc(ret, (*returnSize) * sizeof(int *));
+    return ret;
 }
