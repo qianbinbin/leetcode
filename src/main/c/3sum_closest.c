@@ -1,46 +1,39 @@
-#include <assert.h>
+#include "3sum_closest.h"
+
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
-#include <3sum_closest.h>
 
-int compare(const void *a, const void *b) {
+static int compare(const void *a, const void *b) {
     return *(int *) a - *(int *) b;
 }
 
-int threeSumClosest_16(int *nums, int numsSize, int target) {
-    if (nums == NULL || numsSize < 3) {
-        return INT_MAX;
-    }
+int threeSumClosest_16_1(int *nums, int numsSize, int target) {
+    if (nums == NULL || numsSize < 3)
+        return 0;
 
-    int *tmp = (int *) malloc(numsSize * sizeof(int));
-    assert(tmp != NULL);
-    memcpy(tmp, nums, numsSize * sizeof(int));
-    qsort(tmp, numsSize, sizeof(int), compare);
+    int *values = (int *) malloc(numsSize * sizeof(int));
+    memcpy(values, nums, numsSize * sizeof(int));
+    qsort(values, numsSize, sizeof(int), compare);
 
-    int sum;
-    int diff;
-    int ret = INT_MAX, pre_abs = INT_MAX;
+    int ret = values[0] + values[1] + values[2];
     int i, j, k;
-    for (i = 0; i < numsSize - 2; ++i) {
+    for (i = 0; i < numsSize - 2;) {
         j = i + 1, k = numsSize - 1;
         while (j < k) {
-            sum = tmp[i] + tmp[j] + tmp[k];
-            diff = sum - target;
-            ret = abs(diff) < pre_abs ? sum : ret;
-            pre_abs = abs(diff) < pre_abs ? abs(diff) : pre_abs;
-            if (diff < 0) {
-                while (j < k && tmp[j] == tmp[j + 1]) ++j;
-                ++j;
-            } else if (diff > 0) {
-                while (j < k && tmp[k] == tmp[k - 1]) --k;
-                --k;
+            const int sum = values[i] + values[j] + values[k];
+            if (abs(sum - target) < abs(ret - target))
+                ret = sum;
+            if (sum < target) {
+                do { ++j; } while (j < k && values[j] == values[j - 1]);
+            } else if (sum > target) {
+                do { --k; } while (j < k && values[k] == values[k + 1]);
             } else {
-                free(tmp);
-                return target;
+                free(values);
+                return ret;
             }
         }
+        do { ++i; } while (i < numsSize - 2 && values[i] == values[i - 1]);
     }
-    free(tmp);
+    free(values);
     return ret;
 }
