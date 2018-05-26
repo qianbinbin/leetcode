@@ -1,17 +1,14 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <4sum.h>
+#include "4sum.h"
+#include "common.h"
 }
 
-TEST(leetcode_18, normal) {
+TEST(four_sum_test, fourSum_18_1) {
     int nums[] = {1, 0, -1, 0, -2, 2};
-    array_print(nums, 6);
     int size = 0;
-    int **quadruplets = fourSum_18(nums, 6, 0, &size);
-    ASSERT_TRUE(quadruplets != NULL);
-    EXPECT_EQ(size, 3);
+    int **quadruplets = fourSum_18_1(nums, 6, 0, &size);
     for (int i = 0; i < size; ++i) {
         array_print(quadruplets[i], 4);
         free(quadruplets[i]);
