@@ -1,25 +1,12 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <letter_combinations_of_a_phone_number.h>
+#include "letter_combinations_of_a_phone_number.h"
 }
 
-TEST(leetcode_17, empty) {
-    char *digits = "";
+TEST(letter_combinations_of_a_phone_number_test, letterCombinations_17_1) {
     int size = 0;
-    char **combinations = letterCombinations_17(digits, &size);
-    printf("size=%d\n", size);
-    for (int i = 0; i < size; ++i) {
-        puts(combinations[i]);
-        free(combinations[i]);
-    }
-    free(combinations);
-}
-
-TEST(leetcode_17, normal) {
-    char *digits = "23";
-    int size = 0;
-    char **combinations = letterCombinations_17(digits, &size);
+    char **combinations = letterCombinations_17_1("23", &size);
     for (int i = 0; i < size; ++i) {
         puts(combinations[i]);
         free(combinations[i]);

@@ -1,29 +1,33 @@
-#include <letter_combinations_of_a_phone_number.h>
+#include "letter_combinations_of_a_phone_number.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-static void letter_combinations_dfs(char **map, int *digits, int digits_size, int depth,
-                                    char **combinations, int *c_size, char *path) {
-    if (depth == digits_size) {
-        combinations[*c_size] = (char *) malloc(depth + 1);
-        memcpy(combinations[*c_size], path, depth);
-        combinations[*c_size][depth] = '\0';
-        ++(*c_size);
+static void letter_combinations_dfs(char **map, int *digits, size_t digits_size, size_t index,
+                                    char ***combinations, size_t *size, size_t *capacity, char *path) {
+    if (index == digits_size) {
+        if (*size >= *capacity) {
+            *capacity *= 2;
+            *combinations = (char **) realloc(*combinations, (*capacity) * sizeof(char *));
+        }
+        (*combinations)[*size] = (char *) malloc(digits_size + 1);
+        strcpy((*combinations)[*size], path);
+        ++(*size);
         return;
     }
-    char *letters = map[digits[depth]];
-    int len = strlen(letters);
-    for (int i = 0; i < len; ++i) {
-        path[depth] = letters[i];
-        letter_combinations_dfs(map, digits, digits_size, depth + 1, combinations, c_size, path);
+    char *letters = map[digits[index]];
+    size_t len = strlen(letters);
+    for (size_t i = 0; i < len; ++i) {
+        path[index] = letters[i];
+        letter_combinations_dfs(map, digits, digits_size, index + 1, combinations, size, capacity, path);
     }
 }
 
-char **letterCombinations_17(char *digits, int *returnSize) {
+char **letterCombinations_17_1(char *digits, int *returnSize) {
     if (digits == NULL || returnSize == NULL) return NULL;
 
-    int d_size = strlen(digits);
-    if (d_size == 0) {
+    const size_t len = strlen(digits);
+    if (len == 0) {
         char **ret = (char **) malloc(0);
         *returnSize = 0;
         return ret;
@@ -31,19 +35,21 @@ char **letterCombinations_17(char *digits, int *returnSize) {
 
     char *map[10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-    int *int_digits = (int *) malloc(d_size * sizeof(int));
-    for (int i = 0; i < d_size; ++i)
+    int *int_digits = (int *) malloc(len * sizeof(int));
+    for (size_t i = 0; i < len; ++i)
         int_digits[i] = digits[i] - '0';
 
-    int capacity = 1 << (2 * d_size);
+    size_t capacity = 32;
     char **combinations = (char **) malloc(capacity * sizeof(char *));
-    *returnSize = 0;
+    size_t size = 0;
 
-    char *path = (char *) malloc(d_size);
+    char *path = (char *) malloc(len + 1);
+    path[len] = '\0';
 
-    letter_combinations_dfs(map, int_digits, d_size, 0, combinations, returnSize, path);
+    letter_combinations_dfs(map, int_digits, len, 0, &combinations, &size, &capacity, path);
 
     free(path);
-    combinations = (char **) realloc(combinations, (*returnSize) * sizeof(char *));
+    combinations = (char **) realloc(combinations, size * sizeof(char *));
+    *returnSize = (int) size;
     return combinations;
 }
