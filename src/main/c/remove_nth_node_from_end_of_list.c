@@ -1,27 +1,29 @@
-#include <remove_nth_node_from_end_of_list.h>
+#include "remove_nth_node_from_end_of_list.h"
+
 #include <stdlib.h>
 
-struct ListNode *removeNthFromEnd_19(struct ListNode *head, int n) {
+struct ListNode *removeNthFromEnd_19_1(struct ListNode *head, int n) {
     if (head == NULL || n < 1) return head;
 
-    struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
-    list->next = head;
-    struct ListNode *p1 = list, *p2 = head;
-    while (n-- > 0) {
-        if (p2 == NULL) {
-            free(list);
-            return NULL;
-        }
-        p2 = p2->next;
+    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
+    dummy->next = head;
+    struct ListNode *fast = dummy, *slow = dummy;
+    while (n >= 0 && fast != NULL) {
+        fast = fast->next;
+        --n;
     }
-    while (p2 != NULL) {
-        p1 = p1->next;
-        p2 = p2->next;
+    if (n >= 0) {
+        free(dummy);
+        return head;
     }
-    struct ListNode *rm = p1->next;
-    p1->next = rm->next;
+    while (fast != NULL) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    struct ListNode *rm = slow->next;
+    slow->next = rm->next;
     free(rm);
-    head = list->next;
-    free(list);
+    head = dummy->next;
+    free(dummy);
     return head;
 }
