@@ -1,8 +1,9 @@
-#include <valid_parentheses.h>
+#include "valid_parentheses.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-bool isValid_20(char *s) {
+bool isValid_20_1(char *s) {
     if (s == NULL) return false;
 
     char *stack = (char *) malloc(strlen(s));
@@ -12,41 +13,26 @@ bool isValid_20(char *s) {
             case '(':
                 stack[++top] = *s;
                 break;
+            case ')':
+                if (top == -1 || stack[top--] != '(') {
+                    free(stack);
+                    return false;
+                }
+                break;
             case '{':
                 stack[++top] = *s;
+                break;
+            case '}':
+                if (top == -1 || stack[top--] != '{') {
+                    free(stack);
+                    return false;
+                }
                 break;
             case '[':
                 stack[++top] = *s;
                 break;
-            case ')':
-                if (stack[top] != '(') {
-                    free(stack);
-                    return false;
-                }
-                --top;
-                if (top < -1) {
-                    free(stack);
-                    return false;
-                }
-                break;
-            case '}':
-                if (stack[top] != '{') {
-                    free(stack);
-                    return false;
-                }
-                --top;
-                if (top < -1) {
-                    free(stack);
-                    return false;
-                }
-                break;
             case ']':
-                if (stack[top] != '[') {
-                    free(stack);
-                    return false;
-                }
-                --top;
-                if (top < -1) {
+                if (top == -1 || stack[top--] != '[') {
                     free(stack);
                     return false;
                 }
