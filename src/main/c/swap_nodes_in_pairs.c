@@ -1,12 +1,13 @@
-#include <swap_nodes_in_pairs.h>
+#include "swap_nodes_in_pairs.h"
+
 #include <stdlib.h>
 
-struct ListNode *swapPairs_24(struct ListNode *head) {
+struct ListNode *swapPairs_24_1(struct ListNode *head) {
     if (head == NULL) return NULL;
 
-    struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
-    list->next = head;
-    struct ListNode *pre = list, *p = head;
+    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
+    dummy->next = head;
+    struct ListNode *pre = dummy, *p = head;
     while (p != NULL && p->next != NULL) {
         pre->next = p->next;
         p->next = pre->next->next;
@@ -14,7 +15,7 @@ struct ListNode *swapPairs_24(struct ListNode *head) {
         pre = p;
         p = p->next;
     }
-    head = list->next;
-    free(list);
+    head = dummy->next;
+    free(dummy);
     return head;
 }
