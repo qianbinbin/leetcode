@@ -19,4 +19,6 @@
 
 struct ListNode *mergeKLists_23_1(struct ListNode **lists, int listsSize);
 
+struct ListNode *mergeKLists_23_2(struct ListNode **lists, int listsSize);
+
 #endif //LEETCODE_MERGE_K_SORTED_LISTS_H
