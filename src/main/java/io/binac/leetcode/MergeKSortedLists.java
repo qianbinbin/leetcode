@@ -2,6 +2,9 @@ package io.binac.leetcode;
 
 import io.binac.leetcode.util.ListNode;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * <p>Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
  * <p>
@@ -47,6 +50,28 @@ public class MergeKSortedLists {
                     lists[i] = mergeTwoLists(lists[i], lists[i + interval]);
             }
             return lists[0];
+        }
+    }
+
+    public static class Solution2 {
+        public ListNode mergeKLists(ListNode[] lists) {
+            if (lists.length == 0)
+                return null;
+
+            PriorityQueue<ListNode> heap = new PriorityQueue<>(lists.length, Comparator.comparingInt(o -> o.val));
+            for (ListNode node : lists)
+                if (node != null)
+                    heap.offer(node);
+
+            ListNode dummy = new ListNode(0);
+            ListNode tail = dummy;
+            while (!heap.isEmpty()) {
+                tail.next = heap.poll();
+                tail = tail.next;
+                if (tail.next != null)
+                    heap.offer(tail.next);
+            }
+            return dummy.next;
         }
     }
 }

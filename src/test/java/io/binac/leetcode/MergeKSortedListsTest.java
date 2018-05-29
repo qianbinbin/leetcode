@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MergeKSortedListsTest {
     private final MergeKSortedLists.Solution1 solution1 = new MergeKSortedLists.Solution1();
 
+    private final MergeKSortedLists.Solution2 solution2 = new MergeKSortedLists.Solution2();
+
     @Test
     void test1() {
         ListNode lists[] = {
@@ -17,6 +19,18 @@ class MergeKSortedListsTest {
                 LinkedLists.asLinkedList(2, 6)
         };
         ListNode result = solution1.mergeKLists(lists);
+        ListNode expected = LinkedLists.asLinkedList(1, 1, 2, 3, 4, 4, 5, 6);
+        assertTrue(LinkedLists.equals(expected, result));
+    }
+
+    @Test
+    void test2() {
+        ListNode lists[] = {
+                LinkedLists.asLinkedList(1, 4, 5),
+                LinkedLists.asLinkedList(1, 3, 4),
+                LinkedLists.asLinkedList(2, 6)
+        };
+        ListNode result = solution2.mergeKLists(lists);
         ListNode expected = LinkedLists.asLinkedList(1, 1, 2, 3, 4, 4, 5, 6);
         assertTrue(LinkedLists.equals(expected, result));
     }
