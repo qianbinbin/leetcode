@@ -1,20 +1,21 @@
-#include <reverse_nodes_in_k_group.h>
+#include "reverse_nodes_in_k_group.h"
+
 #include <stdlib.h>
 
-struct ListNode *reverseKGroup_25(struct ListNode *head, int k) {
+struct ListNode *reverseKGroup_25_1(struct ListNode *head, int k) {
     if (head == NULL || k < 2) return head;
 
-    struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
-    list->next = head;
-    struct ListNode *pre = list, *p, *tail, *barrier;
-    int count;
+    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
+    dummy->next = head;
+    struct ListNode *pre = dummy, *tail, *p, *barrier;
+    int i;
     while (pre->next != NULL) {
         tail = pre->next;
         barrier = tail;
-        for (count = 0; count < k && barrier != NULL; ++count) {
+        for (i = 0; i < k && barrier != NULL; ++i)
             barrier = barrier->next;
-        }
-        if (barrier == NULL && count < k) break;
+        if (i < k)
+            break;
 
         p = tail->next;
         while (p != barrier) {
@@ -25,7 +26,7 @@ struct ListNode *reverseKGroup_25(struct ListNode *head, int k) {
         }
         pre = tail;
     }
-    head = list->next;
-    free(list);
+    head = dummy->next;
+    free(dummy);
     return head;
 }
