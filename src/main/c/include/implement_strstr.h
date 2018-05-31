@@ -1,8 +1,5 @@
-#ifndef LEETCODE_IMPLEMENT_STRSTR_H
-#define LEETCODE_IMPLEMENT_STRSTR_H
-
-/**
- * Implement strStr() (http://www.cplusplus.com/reference/cstring/strstr/).
+/*
+ * Implement strStr().
  *
  * Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
  *
@@ -15,11 +12,17 @@
  *
  * Input: haystack = "aaaaa", needle = "bba"
  * Output: -1
+ *
+ * Clarification:
+ *
+ * What should we return when needle is an empty string? This is a great question to ask during an interview.
+ *
+ * For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
  */
 
-/**
- * Brute force
- */
+#ifndef LEETCODE_IMPLEMENT_STRSTR_H
+#define LEETCODE_IMPLEMENT_STRSTR_H
+
 int strStr_28_1(char *haystack, char *needle);
 
 #endif //LEETCODE_IMPLEMENT_STRSTR_H
