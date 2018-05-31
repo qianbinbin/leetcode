@@ -25,4 +25,6 @@
 
 int strStr_28_1(char *haystack, char *needle);
 
+int strStr_28_2(char *haystack, char *needle);
+
 #endif //LEETCODE_IMPLEMENT_STRSTR_H
