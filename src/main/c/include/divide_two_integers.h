@@ -1,7 +1,4 @@
-#ifndef LEETCODE_DIVIDE_TWO_INTEGERS_H
-#define LEETCODE_DIVIDE_TWO_INTEGERS_H
-
-/**
+/*
  * Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
  *
  * Return the quotient after dividing dividend by divisor.
@@ -24,6 +21,10 @@
  * The divisor will never be 0.
  * Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.
  */
-int divide_29(int dividend, int divisor);
+
+#ifndef LEETCODE_DIVIDE_TWO_INTEGERS_H
+#define LEETCODE_DIVIDE_TWO_INTEGERS_H
+
+int divide_29_1(int dividend, int divisor);
 
 #endif //LEETCODE_DIVIDE_TWO_INTEGERS_H
