@@ -1,22 +1,20 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <substring_with_concatenation_of_all_words.h>
+#include "common.h"
+#include "substring_with_concatenation_of_all_words.h"
 }
 
-TEST(leetcode_30, normal) {
-    char *words[] = {"foo", "bar"};
-    int size = 0;
-    int *starts = findSubstring_30("barfoothefoobarman", words, 2, &size);
-    array_print(starts, size);
-    free(starts);
-}
+TEST(substring_with_concatenation_of_all_words_test, findSubstring_30_1) {
+    char *words1[] = {"foo", "bar"};
+    int size1 = 0;
+    int *result1 = findSubstring_30_1("barfoothefoobarman", words1, 2, &size1);
+    array_print(result1, size1);
+    free(result1);
 
-TEST(leetcode_30, empty) {
-    char *words[] = {"a"};
-    int size = 0;
-    int *starts = findSubstring_30("", words, 1, &size);
-    array_print(starts, size);
-    free(starts);
+    char *words2[] = {"word", "student"};
+    int size2 = 0;
+    int *result2 = findSubstring_30_1("wordgoodstudentgoodword", words2, 2, &size2);
+    array_print(result2, size2);
+    free(result2);
 }
