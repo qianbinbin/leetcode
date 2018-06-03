@@ -11,7 +11,7 @@ char *getPermutation_60_1(int n, int k) {
         nums[i] = i + 1;
     }
     for (int i = 0; i < k - 1; ++i) {
-        nextPermutation_31(nums, n);
+        nextPermutation_31_1(nums, n);
     }
     char *ret = (char *) malloc((n + 1) * sizeof(char));
     assert(ret != NULL);

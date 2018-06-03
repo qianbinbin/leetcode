@@ -1,24 +1,23 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <next_permutation.h>
+#include "common.h"
+#include "next_permutation.h"
 }
 
-TEST(leetcode_31, normal) {
-    int nums[] = {1, 2, 3};
-    array_print(nums, 3);
-    for (int i = 0; i < 5; ++i) {
-        nextPermutation_31(nums, 3);
-        array_print(nums, 3);
-    }
-}
+TEST(next_permutation_test, nextPermutation_31_1) {
+    int nums1[] = {1, 2, 3};
+    array_print(nums1, 3);
+    nextPermutation_31_1(nums1, 3);
+    array_print(nums1, 3);
 
-TEST(leetcode_31, duplicates) {
-    int nums[] = {1, 1, 5};
-    array_print(nums, 3);
-    nextPermutation_31(nums, 3);
-    array_print(nums, 3);
-    nextPermutation_31(nums, 3);
-    array_print(nums, 3);
+    int nums2[] = {3, 2, 1};
+    array_print(nums2, 3);
+    nextPermutation_31_1(nums2, 3);
+    array_print(nums2, 3);
+
+    int nums3[] = {1, 1, 5};
+    array_print(nums3, 3);
+    nextPermutation_31_1(nums3, 3);
+    array_print(nums3, 3);
 }
