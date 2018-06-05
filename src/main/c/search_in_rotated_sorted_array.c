@@ -1,7 +1,8 @@
-#include <stddef.h>
-#include <search_in_rotated_sorted_array.h>
+#include "search_in_rotated_sorted_array.h"
 
-int search_33(int *nums, int numsSize, int target) {
+#include <stddef.h>
+
+int search_33_1(int *nums, int numsSize, int target) {
     if (nums == NULL || numsSize < 0) return -2;
 
     int begin = 0, end = numsSize - 1;
