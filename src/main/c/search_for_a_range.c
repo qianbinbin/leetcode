@@ -1,29 +1,34 @@
-#include <search_for_a_range.h>
+#include "search_for_a_range.h"
+
+#include <stdbool.h>
 #include <stdlib.h>
 
-int *searchRange_34(int *nums, int numsSize, int target, int *returnSize) {
-    if (nums == NULL || numsSize < 0 || returnSize == NULL) return NULL;
-    *returnSize = 2;
-
-    int *ret = (int *) malloc(2 * sizeof(int));
-    int begin = 0, end = numsSize - 1, mid = 0;
+static int insert_index(int *array, int begin, int end, int value, bool before) {
+    --end;
+    int mid, mid_val;
     while (begin <= end) {
         mid = begin + (end - begin) / 2;
-        if (nums[mid] == target)
-            break;
-        else if (nums[mid] < target)
-            begin = mid + 1;
-        else
+        mid_val = array[mid];
+        if (mid_val > value || (before && mid_val == value))
             end = mid - 1;
+        else
+            begin = mid + 1;
     }
-    if (nums[mid] == target) {
-        ret[0] = mid;
-        while (ret[0] > 0 && nums[ret[0] - 1] == nums[mid]) --ret[0];
-        ret[1] = mid;
-        while (ret[1] < numsSize - 1 && nums[ret[1] + 1] == nums[mid]) ++ret[1];
-    } else {
+    return begin;
+}
+
+int *searchRange_34_1(int *nums, int numsSize, int target, int *returnSize) {
+    if (nums == NULL || numsSize < 0 || returnSize == NULL) return NULL;
+
+    *returnSize = 2;
+    int *ret = (int *) malloc(2 * sizeof(int));
+    int index = insert_index(nums, 0, numsSize, target, true);
+    if (index == numsSize || nums[index] != target) {
         ret[0] = -1;
         ret[1] = -1;
+    } else {
+        ret[0] = index;
+        ret[1] = insert_index(nums, index, numsSize, target, false) - 1;
     }
     return ret;
 }
