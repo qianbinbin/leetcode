@@ -1,7 +1,4 @@
-#ifndef LEETCODE_SEARCH_INSERT_POSITION_H
-#define LEETCODE_SEARCH_INSERT_POSITION_H
-
-/**
+/*
  * Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
  *
  * You may assume no duplicates in the array.
@@ -21,11 +18,15 @@
  * Input: [1,3,5,6], 7
  * Output: 4
  *
- * Example 1:
+ * Example 4:
  *
  * Input: [1,3,5,6], 0
  * Output: 0
  */
-int searchInsert_35(int *nums, int numsSize, int target);
+
+#ifndef LEETCODE_SEARCH_INSERT_POSITION_H
+#define LEETCODE_SEARCH_INSERT_POSITION_H
+
+int searchInsert_35_1(int *nums, int numsSize, int target);
 
 #endif //LEETCODE_SEARCH_INSERT_POSITION_H
