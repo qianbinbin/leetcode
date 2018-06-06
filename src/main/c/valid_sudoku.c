@@ -1,45 +1,23 @@
-#include <valid_sudoku.h>
+#include "valid_sudoku.h"
+
 #include <stddef.h>
 
-void reset(bool *used) {
-    for (int i = 0; i < 9; ++i) used[i] = false;
-}
-
-bool check(char ch, bool *used) {
-    if (used == NULL) return false;
-    if (ch == '.') return true;
-
-    if ('1' <= ch && ch <= '9' && !used[ch - '1']) {
-        used[ch - '1'] = true;
-        return true;
-    }
-    return false;
-}
-
-bool isValidSudoku_36(char **board, int boardRowSize, int boardColSize) {
+bool isValidSudoku_36_1(char **board, int boardRowSize, int boardColSize) {
     if (board == NULL || boardRowSize != 9 || boardColSize != 9) return false;
 
-    bool used[9];
-
-    for (int i = 0; i < 9; ++i) {
-        reset(used);
-        for (int j = 0; j < 9; ++j) {
-            if (!check(board[i][j], used)) return false;
-        }
-        reset(used);
-        for (int j = 0; j < 9; ++j) {
-            if (!check(board[j][i], used)) return false;
-        }
-    }
-
-    for (int base_i = 0; base_i < 9; base_i = base_i + 3) {
-        for (int base_j = 0; base_j < 9; base_j = base_j + 3) {
-            reset(used);
-            for (int i = base_i; i < base_i + 3; ++i) {
-                for (int j = base_j; j < base_j + 3; ++j) {
-                    if (!check(board[i][j], used)) return false;
-                }
-            }
+    bool row_used[9][9] = {0};
+    bool col_used[9][9] = {0};
+    bool block_used[9][9] = {0};
+    for (int row = 0; row < 9; ++row) {
+        for (int col = 0; col < 9; ++col) {
+            if (board[row][col] == '.') continue;
+            const int num = board[row][col] - '1';
+            const int block = row / 3 * 3 + col / 3;
+            if (row_used[row][num] || col_used[col][num] || block_used[block][num])
+                return false;
+            row_used[row][num] = true;
+            col_used[col][num] = true;
+            block_used[block][num] = true;
         }
     }
     return true;
