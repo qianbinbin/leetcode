@@ -1,7 +1,4 @@
-#ifndef LEETCODE_SUDOKU_SOLVER_H
-#define LEETCODE_SUDOKU_SOLVER_H
-
-/**
+/*
  * Write a program to solve a Sudoku puzzle by filling the empty cells.
  *
  * A sudoku solution must satisfy all of the following rules:
@@ -13,11 +10,9 @@
  * Empty cells are indicated by the character '.'.
  *
  * https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png
- *
  * A sudoku puzzle...
  *
  * https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png
- *
  * ...and its solution numbers marked in red.
  *
  * Note:
@@ -26,6 +21,10 @@
  * You may assume that the given Sudoku puzzle will have a single unique solution.
  * The given board size is always 9x9.
  */
-void solveSudoku_37(char **board, int boardRowSize, int boardColSize);
+
+#ifndef LEETCODE_SUDOKU_SOLVER_H
+#define LEETCODE_SUDOKU_SOLVER_H
+
+void solveSudoku_37_1(char **board, int boardRowSize, int boardColSize);
 
 #endif //LEETCODE_SUDOKU_SOLVER_H
