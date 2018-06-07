@@ -1,7 +1,4 @@
-#ifndef LEETCODE_COMBINATION_SUM_H
-#define LEETCODE_COMBINATION_SUM_H
-
-/**
+/*
  * Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
  *
  * The same repeated number may be chosen from candidates unlimited number of times.
@@ -29,11 +26,16 @@
  *   [2,3,3],
  *   [3,5]
  * ]
- *
+ */
+
+#ifndef LEETCODE_COMBINATION_SUM_H
+#define LEETCODE_COMBINATION_SUM_H
+
+/**
  * Return an array of arrays of size *returnSize.
  * The sizes of the arrays are returned as *columnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
-int **combinationSum_39(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize);
+int **combinationSum_39_1(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize);
 
 #endif //LEETCODE_COMBINATION_SUM_H

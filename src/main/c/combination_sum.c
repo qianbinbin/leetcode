@@ -1,4 +1,5 @@
-#include <combination_sum.h>
+#include "combination_sum.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -32,7 +33,7 @@ static void combination_sum_dfs(int *candidates, int c_size, int index, int targ
     }
 }
 
-int **combinationSum_39(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize) {
+int **combinationSum_39_1(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize) {
     if (candidates == NULL || candidatesSize < 1 || target < 1 || columnSizes == NULL || returnSize == NULL)
         return NULL;
 
