@@ -1,4 +1,5 @@
-#include <combination_sum_ii.h>
+#include "combination_sum_ii.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,11 +19,12 @@ static void combination_sum_dfs(int *sorted_candidates, int c_size, int index, i
         ++(*size);
         return;
     }
-    if (sum > target) return;
     int prev = -1;
     for (int i = index; i < c_size; ++i) {
-        if (sorted_candidates[i] == prev) continue;
-        prev = sorted_candidates[i];
+        const int val = sorted_candidates[i];
+        if (sum + val > target) break;
+        if (val == prev) continue;
+        prev = val;
         if (*path_size >= *path_capacity) {
             *path_capacity *= 2;
             *path = (int *) realloc(*path, *path_capacity * sizeof(int));
@@ -39,14 +41,13 @@ static int compare(const void *a, const void *b) {
     return *(int *) a - *(int *) b;
 }
 
-int **combinationSum2_40(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize) {
+int **combinationSum2_40_1(int *candidates, int candidatesSize, int target, int **columnSizes, int *returnSize) {
     if (candidates == NULL || candidatesSize < 1 || target < 1 || columnSizes == NULL || returnSize == NULL)
         return NULL;
 
-    int *nums = (int *) malloc(candidatesSize * sizeof(int));
-    memcpy(nums, candidates, candidatesSize * sizeof(int));
-    candidates = nums;
-    qsort(nums, candidatesSize, sizeof(int), compare);
+    int *sorted_candidates = (int *) malloc(candidatesSize * sizeof(int));
+    memcpy(sorted_candidates, candidates, candidatesSize * sizeof(int));
+    qsort(sorted_candidates, candidatesSize, sizeof(int), compare);
 
     int capacity = 64;
     int **ret = (int **) malloc(capacity * sizeof(int *));
@@ -57,7 +58,7 @@ int **combinationSum2_40(int *candidates, int candidatesSize, int target, int **
     int *path = (int *) malloc(path_capacity * sizeof(int));
     int path_size = 0;
 
-    combination_sum_dfs(candidates, candidatesSize, 0, target, 0,
+    combination_sum_dfs(sorted_candidates, candidatesSize, 0, target, 0,
                         &ret, &capacity, returnSize, columnSizes,
                         &path, &path_capacity, &path_size);
 
