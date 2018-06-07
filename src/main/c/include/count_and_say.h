@@ -1,7 +1,4 @@
-#ifndef LEETCODE_COUNT_AND_SAY_H
-#define LEETCODE_COUNT_AND_SAY_H
-
-/**
+/*
  * The count-and-say sequence is the sequence of integers with the first five terms as following:
  *
  * 1.     1
@@ -13,7 +10,6 @@
  * 1 is read off as "one 1" or 11.
  * 11 is read off as "two 1s" or 21.
  * 21 is read off as "one 2, then one 1" or 1211.
- *
  * Given an integer n, generate the nth term of the count-and-say sequence.
  *
  * Note: Each term of the sequence of integers will be represented as a string.
@@ -28,6 +24,10 @@
  * Input: 4
  * Output: "1211"
  */
-char *countAndSay_38(int n);
+
+#ifndef LEETCODE_COUNT_AND_SAY_H
+#define LEETCODE_COUNT_AND_SAY_H
+
+char *countAndSay_38_1(int n);
 
 #endif //LEETCODE_COUNT_AND_SAY_H
