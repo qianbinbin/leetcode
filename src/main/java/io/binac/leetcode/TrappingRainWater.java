@@ -32,4 +32,26 @@ public class TrappingRainWater {
             return result;
         }
     }
+
+    public static class Solution2 {
+        public int trap(int[] height) {
+            if (height.length < 3) return 0;
+
+            int result = 0;
+            int stack[] = new int[height.length];
+            int top = -1;
+            for (int i = 0; i < height.length; ++i) {
+                while (top != -1 && height[i] > height[stack[top]]) {
+                    int j = stack[top--];
+                    if (top == -1) break;
+                    int leftBound = stack[top];
+                    int length = i - leftBound - 1;
+                    int h = Math.min(height[i], height[leftBound]) - height[j];
+                    result += length * h;
+                }
+                stack[++top] = i;
+            }
+            return result;
+        }
+    }
 }
