@@ -1,15 +1,16 @@
-#include <multiply_strings.h>
+#include "multiply_strings.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-char *multiply_43(char *num1, char *num2) {
+char *multiply_43_1(char *num1, char *num2) {
     if (num1 == NULL || num2 == NULL) return NULL;
 
-    const int len1 = strlen(num1), len2 = strlen(num2);
+    const size_t len1 = strlen(num1), len2 = strlen(num2);
     const size_t max_len = len1 + len2;
     int *result = (int *) calloc(max_len, sizeof(int));
-    for (int i = len1 - 1; i >= 0; --i) {
-        for (int j = len2 - 1; j >= 0; --j) {
+    for (int i = (int) (len1 - 1); i >= 0; --i) {
+        for (int j = (int) (len2 - 1); j >= 0; --j) {
             int tmp = (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1];
             result[i + j + 1] = tmp % 10;
             result[i + j] += tmp / 10;
