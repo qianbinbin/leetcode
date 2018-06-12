@@ -78,4 +78,30 @@ public class WildcardMatching {
             return match[lenS][lenP];
         }
     }
+
+    public static class Solution2 {
+        public boolean isMatch(String s, String p) {
+            final int lenS = s.length(), lenP = p.length();
+
+            int i = 0, j = 0;
+            int star = -1, lastStr = -1;
+            while (i < lenS) {
+                final char ch = j < lenP ? p.charAt(j) : '\0';
+                if (ch == '?' || ch == s.charAt(i)) {
+                    ++i;
+                    ++j;
+                } else if (ch == '*') {
+                    star = j;
+                    lastStr = i;
+                    ++j;
+                } else if (star != -1) {
+                    i = ++lastStr;
+                    j = star + 1;
+                } else
+                    return false;
+            }
+            while (j < lenP && p.charAt(j) == '*') ++j;
+            return j == lenP;
+        }
+    }
 }
