@@ -1,7 +1,4 @@
-#ifndef LEETCODE_JUMP_GAME_II_H
-#define LEETCODE_JUMP_GAME_II_H
-
-/**
+/*
  * Given an array of non-negative integers, you are initially positioned at the first index of the array.
  *
  * Each element in the array represents your maximum jump length at that position.
@@ -20,14 +17,9 @@
  * You can assume that you can always reach the last index.
  */
 
-/**
- * Breadth-first search
- */
-int jump_45_1(int *nums, int numsSize);
+#ifndef LEETCODE_JUMP_GAME_II_H
+#define LEETCODE_JUMP_GAME_II_H
 
-/**
- * Greedy
- */
-int jump_45_2(int *nums, int numsSize);
+int jump_45_1(int *nums, int numsSize);
 
 #endif //LEETCODE_JUMP_GAME_II_H
