@@ -1,12 +1,10 @@
-#ifndef LEETCODE_ROTATE_IMAGE_H
-#define LEETCODE_ROTATE_IMAGE_H
-
-/**
+/*
  * You are given an n x n 2D matrix representing an image.
  *
  * Rotate the image by 90 degrees (clockwise).
  *
  * Note:
+ *
  * You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
  *
  * Example 1:
@@ -43,6 +41,10 @@
  *   [16, 7,10,11]
  * ]
  */
-void rotate_48(int **matrix, int matrixRowSize, int *matrixColSizes);
+
+#ifndef LEETCODE_ROTATE_IMAGE_H
+#define LEETCODE_ROTATE_IMAGE_H
+
+void rotate_48_1(int **matrix, int matrixRowSize, int *matrixColSizes);
 
 #endif //LEETCODE_ROTATE_IMAGE_H
