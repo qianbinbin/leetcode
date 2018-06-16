@@ -1,157 +1,191 @@
-#include <group_anagrams.h>
+#include "group_anagrams.h"
+
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define HASH_MAP_SIZE 1024
+typedef struct Anagram {
+    const char *str;
+    int count[26];
+    int hash;
+} anagram;
 
-struct Index {
-    int index;
-    struct Index *next;
-};
-
-struct Entry {
-    char *key;
-    struct Index *value;
-    struct Entry *next;
-};
-
-int hashcode(char *key) {
+static anagram *anagram_create(const char *str) {
+    anagram *a = (anagram *) malloc(sizeof(anagram));
+    a->str = str;
+    memset(a->count, 0, 26 * sizeof(int));
+    for (; *str != '\0'; ++str)
+        ++a->count[*str - 'a'];
     int hash = 0;
-    for (int i = 0; i < strlen(key); ++i) {
-        hash += (key[i] - 'a') * (i + 1);
-    }
-    return hash % HASH_MAP_SIZE;
+    for (int i = 0; i < 26; ++i)
+        hash = hash * 31 + a->count[i];
+    a->hash = hash;
+    return a;
 }
 
-struct Entry *hashmap_init() {
-    struct Entry *entries = (struct Entry *) malloc(HASH_MAP_SIZE * sizeof(struct Entry));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        entries[i].key = NULL;
-        entries[i].value = NULL;
-        entries[i].next = NULL;
-    }
-    return entries;
+static int anagram_hash_code(const void *a) {
+    return ((anagram *) a)->hash;
 }
 
-struct Entry *hashmap_pop(struct Entry *entries, char *key) {
-    int hash = hashcode(key);
-    struct Entry *pre = entries + hash;
-    struct Entry *p = pre->next;
-    while (p != NULL) {
-        if (strcmp(p->key, key) == 0) {
-            pre->next = p->next;
-            return p;
-        }
-        pre = p;
-        p = pre->next;
+static bool anagram_equals(const void *a, const void *b) {
+    if (a == b) return true;
+    for (int i = 0; i < 26; ++i) {
+        if (((anagram *) a)->count[i] != ((anagram *) b)->count[i])
+            return false;
+    }
+    return true;
+}
+
+#define ARRAY_INIT_SIZE 16
+
+typedef struct Array {
+    void **data;
+    int size;
+    int capacity;
+} array;
+
+static array *array_create() {
+    array *arr = (array *) malloc(sizeof(array));
+    arr->data = (void **) calloc(ARRAY_INIT_SIZE, sizeof(void *));
+    arr->size = 0;
+    arr->capacity = ARRAY_INIT_SIZE;
+    return arr;
+}
+
+static void array_add(array *arr, void *e) {
+    if (arr->size >= arr->capacity) {
+        arr->capacity *= 2;
+        arr->data = (void **) realloc(arr->data, arr->capacity * sizeof(void *));
+    }
+    arr->data[arr->size++] = e;
+}
+
+static void array_free(array *arr) {
+    free(arr->data);
+    free(arr);
+}
+
+#define HASH_MAP_SIZE 256
+
+typedef struct Entry {
+    void *key;
+    void *value;
+    struct Entry *next;
+} entry;
+
+typedef struct HashMap {
+    entry entries[HASH_MAP_SIZE];
+
+    int (*hash_code)(const void *);
+
+    bool (*equals)(const void *, const void *);
+} hash_map;
+
+static hash_map *hash_map_create(int (*hash_code)(const void *),
+                                 bool (*equals)(const void *, const void *)) {
+    hash_map *map = (hash_map *) malloc(sizeof(hash_map));
+    entry *entries = map->entries;
+    for (int i = 0; i < HASH_MAP_SIZE; ++i)
+        (entries + i)->next = NULL;
+    map->hash_code = hash_code;
+    map->equals = equals;
+    return map;
+}
+
+static void *hash_map_get(hash_map *map, void *key) {
+    int index = map->hash_code(key) & (HASH_MAP_SIZE - 1);
+    entry *e = map->entries + index;
+    while (e->next != NULL) {
+        if (map->equals(e->next->key, key))
+            return e->next->value;
+        e = e->next;
     }
     return NULL;
 }
 
-void hashmap_push(struct Entry *entries, char *key, int index) {
-    int hash = hashcode(key);
-    struct Entry *pre = entries + hash;
-    while (pre->next != NULL) {
-        if (strcmp(pre->next->key, key) == 0) {
-            struct Index *idx_p = pre->next->value;
-            while (idx_p->next != NULL) idx_p = idx_p->next;
-            idx_p->next = (struct Index *) malloc(sizeof(struct Index));
-            idx_p = idx_p->next;
-            idx_p->index = index;
-            idx_p->next = NULL;
+static void hash_map_put(hash_map *map, void *key, void *value) {
+    int index = map->hash_code(key) & (HASH_MAP_SIZE - 1);
+    entry *e = map->entries + index;
+    while (e->next != NULL) {
+        if (map->equals(e->next->key, key)) {
+            e->next->value = value;
             return;
         }
-        pre = pre->next;
+        e = e->next;
     }
-    pre->next = (struct Entry *) malloc(sizeof(struct Entry));
-    pre = pre->next;
-    pre->key = key;
-    pre->value = (struct Index *) malloc(sizeof(struct Index));
-    pre->value->index = index;
-    pre->value->next = NULL;
-    pre->next = NULL;
+    e->next = (entry *) malloc(sizeof(entry));
+    e = e->next;
+    e->key = key;
+    e->value = value;
+    e->next = NULL;
 }
 
-void hashmap_free_entry(struct Entry *entry) {
-    struct Index *idx_pre, *idx_p;
-    idx_pre = entry->value;
-    idx_p = idx_pre->next;
-    while (idx_p != NULL) {
-        idx_pre->next = idx_p->next;
-        free(idx_p);
-        idx_p = idx_pre->next;
-    }
-    free(idx_pre);
-    free(entry);
-}
-
-void hashmap_uninit(struct Entry *entries) {
-    struct Entry *pre, *p;
+static void **hash_map_values(hash_map *map, int *size) {
+    int capacity = 16;
+    *size = 0;
+    void **ret = (void **) malloc(capacity * sizeof(void *));
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        pre = entries + i;
+        entry *e = (map->entries + i)->next;
+        while (e != NULL) {
+            if (*size >= capacity) {
+                capacity *= 2;
+                ret = (void **) realloc(ret, capacity * sizeof(void *));
+            }
+            ret[(*size)++] = e->value;
+            e = e->next;
+        }
+    }
+    ret = (void **) realloc(ret, *size * sizeof(void *));
+    return ret;
+}
+
+static void hash_map_free(hash_map *map, void (*iterate)(void *, void *)) {
+    entry *pre, *p, *tmp;
+    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
+        pre = map->entries + i;
         p = pre->next;
         while (p != NULL) {
+            tmp = p;
             pre->next = p->next;
-            hashmap_free_entry(p);
             p = pre->next;
+            iterate(tmp->key, tmp->value);
+            free(tmp);
         }
     }
-    free(entries);
+    free(map);
 }
 
-int compare(const void *a, const void *b) {
-    return (*(char *) a - *(char *) b);
+static void iterate(void *k, void *v) {
+    free(k);
 }
 
-char ***groupAnagrams_49(char **strs, int strsSize, int **columnSizes, int *returnSize) {
+char ***groupAnagrams_49_1(char **strs, int strsSize, int **columnSizes, int *returnSize) {
     if (strs == NULL || strsSize < 0 || columnSizes == NULL || returnSize == NULL) return NULL;
 
-    struct Entry *entries = hashmap_init();
+    hash_map *map = hash_map_create(anagram_hash_code, anagram_equals);
 
-    char **copy = (char **) malloc(strsSize * sizeof(char *));
-    char *tmp;
     for (int i = 0; i < strsSize; ++i) {
-        tmp = (char *) malloc(strlen(strs[i] + 1));
-        strcpy(tmp, strs[i]);
-        qsort(tmp, strlen(tmp), sizeof(char), compare);
-        copy[i] = tmp;
-        hashmap_push(entries, tmp, i);
-    }
-
-    char ***ret = (char ***) malloc(strsSize * sizeof(char **));
-    *columnSizes = (int *) malloc(strsSize * sizeof(int));
-    int group = 0, count;
-    struct Entry *entry;
-    struct Index *index;
-    for (int i = 0; i < strsSize; ++i) {
-        entry = hashmap_pop(entries, copy[i]);
-        if (entry != NULL) {
-            index = entry->value;
-            count = 0;
-            while (index != NULL) {
-                ++count;
-                index = index->next;
-            }
-            (*columnSizes)[group] = count;
-            ret[group] = (char **) malloc(count * sizeof(char *));
-            index = entry->value;
-            for (int column = 0; column < count; ++column) {
-                ret[group][column] = (char *) malloc(strlen(entry->key) + 1);
-                strcpy(ret[group][column], strs[index->index]);
-                index = index->next;
-            }
-            ++group;
-            hashmap_free_entry(entry);
+        anagram *key = anagram_create(strs[i]);
+        array *arr = hash_map_get(map, key);
+        if (arr == NULL) {
+            arr = array_create();
+            hash_map_put(map, key, arr);
+        } else {
+            free(key);
         }
+        array_add(arr, strs[i]);
     }
-    ret = (char ***) realloc(ret, group * sizeof(char **));
-    *columnSizes = (int *) realloc(*columnSizes, group * sizeof(int));
-    *returnSize = group;
 
-    for (int i = 0; i < strsSize; ++i) {
-        free(copy[i]);
+    array **arrays = (array **) hash_map_values(map, returnSize);
+    char ***ret = (char ***) malloc(*returnSize * sizeof(char **));
+    *columnSizes = (int *) malloc(*returnSize * sizeof(int));
+    for (int i = 0; i < *returnSize; ++i) {
+        ret[i] = (char **) malloc(arrays[i]->size * sizeof(char *));
+        memcpy(ret[i], arrays[i]->data, arrays[i]->size * sizeof(void *));
+        (*columnSizes)[i] = arrays[i]->size;
+        array_free(arrays[i]);
     }
-    free(copy);
-    hashmap_uninit(entries);
+    free(arrays);
+    hash_map_free(map, iterate);
     return ret;
 }
