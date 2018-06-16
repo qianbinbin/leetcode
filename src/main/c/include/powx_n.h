@@ -1,8 +1,5 @@
-#ifndef LEETCODE_POWX_N_H
-#define LEETCODE_POWX_N_H
-
-/**
- * Implement pow(x, n), which calculates x raised to the power n (xn).
+/*
+ * Implement pow(x, n), which calculates x raised to the power n (x^n).
  *
  * Example 1:
  *
@@ -16,12 +13,16 @@
  *
  * Input: 2.00000, -2
  * Output: 0.25000
- * Explanation: 2-2 = 1/22 = 1/4 = 0.25
+ * Explanation: 2^(-2) = 1/2^2 = 1/4 = 0.25
  * Note:
  *
  * -100.0 < x < 100.0
- * n is a 32-bit signed integer, within the range [−231, 231 − 1]
+ * n is a 32-bit signed integer, within the range [−2^31, 2^31 − 1]
  */
-double myPow_50(double x, int n);
+
+#ifndef LEETCODE_POWX_N_H
+#define LEETCODE_POWX_N_H
+
+double myPow_50_1(double x, int n);
 
 #endif //LEETCODE_POWX_N_H

@@ -1,20 +1,18 @@
-#include <powx_n.h>
-#include <limits.h>
+#include "powx_n.h"
 
-static double my_pow(double x, int n) {
+#include <stdint.h>
+
+double myPow_50_1(double x, int n) {
     if (n == 0) return 1;
-    double ret = my_pow(x, n / 2);
-    ret *= ret;
-    if (n % 2 == 1)
-        ret *= x;
-    return ret;
-}
 
-double myPow_50(double x, int n) {
-    if (n < 0) {
-        if (n == INT_MIN)
-            return 1.0 / (my_pow(x, INT_MAX) * x);
-        return 1.0 / my_pow(x, -n);
+    int64_t e = n;
+    e = e > 0 ? e : -e;
+    double ret = 1;
+    while (e > 0) {
+        if (e & 1)
+            ret = ret * x;
+        x *= x;
+        e >>= 1;
     }
-    return my_pow(x, n);
+    return n > 0 ? ret : 1 / ret;
 }
