@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <n_queens.h>
+#include "n_queens.h"
 }
 
-TEST(leetcode_51, normal) {
+TEST(n_queens_test, solveNQueens_51_1) {
     const int n = 4;
     int size = 0;
-    char ***boards = solveNQueens_51(n, &size);
+    char ***boards = solveNQueens_51_1(n, &size);
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < n; ++j) {
             puts(boards[i][j]);

@@ -1,7 +1,4 @@
-#ifndef LEETCODE_N_QUEENS_H
-#define LEETCODE_N_QUEENS_H
-
-/**
+/*
  * The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
  *
  * https://leetcode.com/static/images/problemset/8-queens.png
@@ -25,10 +22,15 @@
  *   ".Q.."]
  * ]
  * Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
- *
+ */
+
+#ifndef LEETCODE_N_QUEENS_H
+#define LEETCODE_N_QUEENS_H
+
+/**
  * Return an array of arrays of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-char ***solveNQueens_51(int n, int *returnSize);
+char ***solveNQueens_51_1(int n, int *returnSize);
 
 #endif //LEETCODE_N_QUEENS_H
