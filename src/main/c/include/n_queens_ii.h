@@ -1,7 +1,4 @@
-#ifndef LEETCODE_N_QUEENS_II_H
-#define LEETCODE_N_QUEENS_II_H
-
-/**
+/*
  * The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
  *
  * https://leetcode.com/static/images/problemset/8-queens.png
@@ -25,6 +22,10 @@
  *   ".Q.."]
  * ]
  */
-int totalNQueens_52(int n);
+
+#ifndef LEETCODE_N_QUEENS_II_H
+#define LEETCODE_N_QUEENS_II_H
+
+int totalNQueens_52_1(int n);
 
 #endif //LEETCODE_N_QUEENS_II_H

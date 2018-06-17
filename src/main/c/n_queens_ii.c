@@ -1,4 +1,5 @@
-#include <n_queens_ii.h>
+#include "n_queens_ii.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -8,21 +9,21 @@ static void n_queens_dfs(int n, int row, bool *columns, bool *main_diagonal, boo
         return;
     }
     for (int col = 0; col < n; ++col) {
-        if (!columns[col] && !main_diagonal[n - 1 - row + col] && !anti_diagonal[row + col]) {
-            columns[col] = true;
-            main_diagonal[n - 1 - row + col] = true;
-            anti_diagonal[row + col] = true;
+        const int main = n - 1 - row + col, anti = row + col;
+        if (columns[col] || main_diagonal[main] || anti_diagonal[anti]) continue;
+        columns[col] = true;
+        main_diagonal[main] = true;
+        anti_diagonal[anti] = true;
 
-            n_queens_dfs(n, row + 1, columns, main_diagonal, anti_diagonal, count);
+        n_queens_dfs(n, row + 1, columns, main_diagonal, anti_diagonal, count);
 
-            columns[col] = false;
-            main_diagonal[n - 1 - row + col] = false;
-            anti_diagonal[row + col] = false;
-        }
+        columns[col] = false;
+        main_diagonal[main] = false;
+        anti_diagonal[anti] = false;
     }
 }
 
-int totalNQueens_52(int n) {
+int totalNQueens_52_1(int n) {
     if (n < 1) return -1;
 
     bool *columns = (bool *) calloc(n, sizeof(bool));

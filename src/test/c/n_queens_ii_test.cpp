@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <n_queens_ii.h>
+#include "n_queens_ii.h"
 }
 
-TEST(leetcode_52, normal) {
-    EXPECT_EQ(totalNQueens_52(4), 2);
+TEST(n_queens_ii_test, totalNQueens_52_1) {
+    EXPECT_EQ(totalNQueens_52_1(4), 2);
 }
