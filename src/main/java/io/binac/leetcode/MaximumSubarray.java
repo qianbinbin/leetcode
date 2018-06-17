@@ -28,4 +28,39 @@ public class MaximumSubarray {
             return result;
         }
     }
+
+    public static class Solution2 {
+        private static class SubArray {
+            final int sumMaxStart;
+            final int sumMaxEnd;
+            final int sumMax;
+            final int sumTotal;
+
+            private SubArray(int sms, int sme, int sm, int st) {
+                sumMaxStart = sms;
+                sumMaxEnd = sme;
+                sumMax = sm;
+                sumTotal = st;
+            }
+
+            private static SubArray generateSubArray(int[] nums, int start, int end) {
+                if (start + 1 == end)
+                    return new SubArray(nums[start], nums[start], nums[start], nums[start]);
+                final int half = (start + end) >>> 1;
+                SubArray left = generateSubArray(nums, start, half);
+                SubArray right = generateSubArray(nums, half, end);
+                int sms = Math.max(left.sumMaxStart, left.sumTotal + right.sumMaxStart);
+                int sme = Math.max(left.sumMaxEnd + right.sumTotal, right.sumMaxEnd);
+                int sm = Math.max(Math.max(left.sumMax, right.sumMax), left.sumMaxEnd + right.sumMaxStart);
+                int st = left.sumTotal + right.sumTotal;
+                return new SubArray(sms, sme, sm, st);
+            }
+        }
+
+        public int maxSubArray(int[] nums) {
+            if (nums.length == 0)
+                return 0;
+            return SubArray.generateSubArray(nums, 0, nums.length).sumMax;
+        }
+    }
 }
