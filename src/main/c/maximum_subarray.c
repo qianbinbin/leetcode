@@ -1,6 +1,6 @@
-#include <maximum_subarray.h>
+#include "maximum_subarray.h"
+
 #include <limits.h>
-#include <stddef.h>
 #include <stdlib.h>
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -18,56 +18,43 @@ int maxSubArray_53_1(int *nums, int numsSize) {
 }
 
 typedef struct {
-    int max_with_beginning;
-    int max_with_ending;
+    int max_begin;
+    int max_end;
     int max;
     int total;
-} sub_array;
+} array_sum;
 
-static sub_array *new_sub(int mb, int me, int max, int total) {
-    sub_array *new = (sub_array *) malloc(sizeof(sub_array));
-    new->max_with_beginning = mb;
-    new->max_with_ending = me;
+static array_sum *new_array_sum(int mb, int me, int max, int total) {
+    array_sum *new = (array_sum *) malloc(sizeof(array_sum));
+    new->max_begin = mb;
+    new->max_end = me;
     new->max = max;
     new->total = total;
     return new;
 }
 
-static sub_array *sub(int *nums, int start, int end) {
-    if (start == end) return new_sub(nums[start], nums[start], nums[start], nums[start]);
+static array_sum *sub(int *nums, int start, int end) {
+    if (start + 1 == end)
+        return new_array_sum(nums[start], nums[start], nums[start], nums[start]);
 
     const int mid = start + (end - start) / 2;
-    sub_array *left = sub(nums, start, mid);
-    sub_array *right = sub(nums, mid + 1, end);
-    int mb = MAX(left->max_with_beginning, left->total + right->max_with_beginning);
-    int me = MAX(right->max_with_ending, right->total + left->max_with_ending);
+    array_sum *left = sub(nums, start, mid);
+    array_sum *right = sub(nums, mid, end);
+    int mb = MAX(left->max_begin, left->total + right->max_begin);
+    int me = MAX(right->max_end, right->total + left->max_end);
     int max = MAX(left->max, right->max);
-    max = MAX(max, left->max_with_ending + right->max_with_beginning);
+    max = MAX(max, left->max_end + right->max_begin);
     int total = left->total + right->total;
     free(left);
     free(right);
-    return new_sub(mb, me, max, total);
+    return new_array_sum(mb, me, max, total);
 }
 
 int maxSubArray_53_2(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return INT_MIN;
 
-    sub_array *arr = sub(nums, 0, numsSize - 1);
+    array_sum *arr = sub(nums, 0, numsSize);
     int ret = arr->max;
     free(arr);
     return ret;
-}
-
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-
-int maxSubArray_53_3(int *nums, int numsSize) {
-    if (nums == NULL || numsSize < 1) return INT_MIN;
-
-    int max = INT_MIN, min_with_beginning = 0, sum = 0;
-    for (int i = 0; i < numsSize; ++i) {
-        sum += nums[i];
-        max = MAX(max, sum - min_with_beginning);
-        min_with_beginning = MIN(min_with_beginning, sum);
-    }
-    return max;
 }

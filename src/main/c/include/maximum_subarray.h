@@ -1,7 +1,4 @@
-#ifndef LEETCODE_MAXIMUM_SUBARRAY_H
-#define LEETCODE_MAXIMUM_SUBARRAY_H
-
-/**
+/*
  * Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
  *
  * Example:
@@ -15,6 +12,9 @@
  * If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
  */
 
+#ifndef LEETCODE_MAXIMUM_SUBARRAY_H
+#define LEETCODE_MAXIMUM_SUBARRAY_H
+
 /**
  * Dynamic programming
  */
@@ -24,10 +24,5 @@ int maxSubArray_53_1(int *nums, int numsSize);
  * Divide and conquer
  */
 int maxSubArray_53_2(int *nums, int numsSize);
-
-/**
- * Greedy
- */
-int maxSubArray_53_3(int *nums, int numsSize);
 
 #endif //LEETCODE_MAXIMUM_SUBARRAY_H
