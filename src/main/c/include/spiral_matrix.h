@@ -1,7 +1,4 @@
-#ifndef LEETCODE_SPIRAL_MATRIX_H
-#define LEETCODE_SPIRAL_MATRIX_H
-
-/**
+/*
  * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
  *
  * Example 1:
@@ -23,9 +20,14 @@
  *   [9,10,11,12]
  * ]
  * Output: [1,2,3,4,8,12,11,10,9,5,6,7]
- *
+ */
+
+#ifndef LEETCODE_SPIRAL_MATRIX_H
+#define LEETCODE_SPIRAL_MATRIX_H
+
+/**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int *spiralOrder_54(int **matrix, int matrixRowSize, int matrixColSize);
+int *spiralOrder_54_1(int **matrix, int matrixRowSize, int matrixColSize);
 
 #endif //LEETCODE_SPIRAL_MATRIX_H
