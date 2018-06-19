@@ -1,0 +1,17 @@
+package io.binac.leetcode;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class JumpGameTest {
+    private final JumpGame.Solution1 solution1 = new JumpGame.Solution1();
+
+    @Test
+    void test1() {
+        int nums1[] = {2, 3, 1, 1, 4};
+        assertTrue(solution1.canJump(nums1));
+        int nums2[] = {3, 2, 1, 0, 4};
+        assertFalse(solution1.canJump(nums2));
+    }
+}
