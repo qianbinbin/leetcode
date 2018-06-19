@@ -33,4 +33,18 @@ public class JumpGame {
             return farthest >= nums.length - 1;
         }
     }
+
+    public static class Solution2 {
+        public boolean canJump(int[] nums) {
+            if (nums.length == 0)
+                throw new IllegalArgumentException("nums can't be empty");
+            int remainder = 0;
+            for (int i = 1; i < nums.length; ++i) {
+                remainder = Math.max(remainder, nums[i - 1]) - 1;
+                if (remainder < 0)
+                    return false;
+            }
+            return true;
+        }
+    }
 }
