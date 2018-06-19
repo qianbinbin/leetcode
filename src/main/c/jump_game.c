@@ -1,32 +1,27 @@
-#include <jump_game.h>
-#include <stdlib.h>
+#include "jump_game.h"
+
+#include <stddef.h>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 bool canJump_55_1(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return false;
 
     int farthest = 0;
-    for (int i = 0; i < numsSize && farthest >= i; ++i) {
-        if (nums[i] + i > farthest) {
-            farthest = nums[i] + i;
-        }
-        if (farthest >= numsSize - 1) return true;
+    for (int i = 0; i < numsSize && i <= farthest; ++i) {
+        farthest = MAX(farthest, nums[i] + i);
     }
-    return false;
+    return farthest >= numsSize - 1;
 }
 
 bool canJump_55_2(int *nums, int numsSize) {
     if (nums == NULL || numsSize < 1) return false;
 
-    int *remainder = (int *) malloc(numsSize * sizeof(int));
-    remainder[0] = 0;
+    int remainder = 0;
     for (int i = 1; i < numsSize; ++i) {
-        remainder[i] = (remainder[i - 1] > nums[i - 1] ? remainder[i - 1] : nums[i - 1]) - 1;
-        if (remainder[i] < 0) {
-            free(remainder);
+        remainder = MAX(remainder, nums[i - 1]) - 1;
+        if (remainder < 0)
             return false;
-        }
     }
-    bool ret = remainder[numsSize - 1] >= 0;
-    free(remainder);
-    return ret;
+    return true;
 }
