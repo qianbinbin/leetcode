@@ -1,12 +1,4 @@
-#ifndef LEETCODE_MERGE_INTERVALS_H
-#define LEETCODE_MERGE_INTERVALS_H
-
-struct Interval {
-    int start;
-    int end;
-};
-
-/**
+/*
  * Given a collection of intervals, merge all overlapping intervals.
  *
  * Example 1:
@@ -20,16 +12,17 @@ struct Interval {
  * Input: [[1,4],[4,5]]
  * Output: [[1,5]]
  * Explanation: Intervals [1,4] and [4,5] are considerred overlapping.
- *
- * Definition for an interval.
- * struct Interval {
- *     int start;
- *     int end;
- * };
- *
+ */
+
+#ifndef LEETCODE_MERGE_INTERVALS_H
+#define LEETCODE_MERGE_INTERVALS_H
+
+#include "common.h"
+
+/**
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-struct Interval *merge_56(struct Interval *intervals, int intervalsSize, int *returnSize);
+struct Interval *merge_56_1(struct Interval *intervals, int intervalsSize, int *returnSize);
 
 #endif //LEETCODE_MERGE_INTERVALS_H
