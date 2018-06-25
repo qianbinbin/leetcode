@@ -1,12 +1,15 @@
-#include <insert_interval.h>
+#include "insert_interval.h"
+
 #include <stdlib.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef struct Interval interval;
 
-struct Interval *insert_57(struct Interval *intervals, int intervalsSize, struct Interval newInterval, int *returnSize) {
+struct Interval *insert_57_1(struct Interval *intervals, int intervalsSize, struct Interval newInterval,
+                             int *returnSize) {
     if (intervals == NULL || intervalsSize < 0 || returnSize == NULL) return NULL;
 
     interval *ret = (interval *) malloc((intervalsSize + 1) * sizeof(interval));
