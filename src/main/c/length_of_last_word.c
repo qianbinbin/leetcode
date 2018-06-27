@@ -1,7 +1,8 @@
-#include <length_of_last_word.h>
+#include "length_of_last_word.h"
+
 #include <string.h>
 
-int lengthOfLastWord_58(char *s) {
+int lengthOfLastWord_58_1(char *s) {
     if (s == NULL) return 0;
 
     int end = strlen(s) - 1;

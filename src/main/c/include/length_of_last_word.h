@@ -1,7 +1,4 @@
-#ifndef LEETCODE_LENGTH_OF_LAST_WORD_H
-#define LEETCODE_LENGTH_OF_LAST_WORD_H
-
-/**
+/*
  * Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
  *
  * If the last word does not exist, return 0.
@@ -13,6 +10,10 @@
  * Input: "Hello World"
  * Output: 5
  */
-int lengthOfLastWord_58(char *s);
+
+#ifndef LEETCODE_LENGTH_OF_LAST_WORD_H
+#define LEETCODE_LENGTH_OF_LAST_WORD_H
+
+int lengthOfLastWord_58_1(char *s);
 
 #endif //LEETCODE_LENGTH_OF_LAST_WORD_H
