@@ -1,8 +1,9 @@
-#include <spiral_matrix_ii.h>
+#include "spiral_matrix_ii.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 
-int **generateMatrix_59(int n) {
+int **generateMatrix_59_1(int n) {
     if (n < 0) return NULL;
 
     int **ret = (int **) malloc(n * sizeof(int *));

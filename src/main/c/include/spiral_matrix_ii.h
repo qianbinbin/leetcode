@@ -1,7 +1,4 @@
-#ifndef LEETCODE_SPIRAL_MATRIX_II_H
-#define LEETCODE_SPIRAL_MATRIX_II_H
-
-/**
+/*
  * Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
  *
  * Example:
@@ -13,10 +10,11 @@
  *  [ 8, 9, 4 ],
  *  [ 7, 6, 5 ]
  * ]
- *
- * Return an array of arrays.
- * Note: The returned array must be malloced, assume caller calls free().
  */
-int **generateMatrix_59(int n);
+
+#ifndef LEETCODE_SPIRAL_MATRIX_II_H
+#define LEETCODE_SPIRAL_MATRIX_II_H
+
+int **generateMatrix_59_1(int n);
 
 #endif //LEETCODE_SPIRAL_MATRIX_II_H
