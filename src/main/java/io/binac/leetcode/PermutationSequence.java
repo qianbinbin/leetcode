@@ -1,5 +1,7 @@
 package io.binac.leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -56,6 +58,31 @@ public class PermutationSequence {
             if (getPermutation(n, k, visited, new AtomicInteger(), path, 0))
                 return new String(path);
             throw new IllegalArgumentException("k must be between 1 and n! inclusive");
+        }
+    }
+
+    public static class Solution2 {
+        public String getPermutation(int n, int k) {
+            if (n < 1 || n > 9)
+                throw new IllegalArgumentException("n must be between 1 and 9 inclusive");
+            int factorial[] = new int[n + 1];
+            factorial[0] = 1;
+            factorial[1] = 1;
+            for (int i = 2; i <= n; ++i)
+                factorial[i] = i * factorial[i - 1];
+            if (k > factorial[n])
+                throw new IllegalArgumentException("k must be between 1 and n! inclusive");
+
+            List<Character> chars = new ArrayList<>();
+            for (int i = 0; i < n; ++i) chars.add((char) ('1' + i));
+            char result[] = new char[n];
+            --k;
+            for (int i = 0; i < n; ++i) {
+                final int index = k / factorial[n - i - 1];
+                result[i] = chars.remove(index);
+                k = k % factorial[n - i - 1];
+            }
+            return new String(result);
         }
     }
 }
