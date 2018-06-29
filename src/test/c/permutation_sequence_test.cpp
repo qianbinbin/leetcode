@@ -1,19 +1,15 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <permutation_sequence.h>
+#include "permutation_sequence.h"
 }
 
-TEST(leetcode_60_1, normal) {
-    char *str = getPermutation_60_1(3, 3);
-    ASSERT_TRUE(str != NULL);
-    EXPECT_STREQ(str, "213");
-    free(str);
-}
+TEST(permutation_sequence_test, getPermutation_60_1) {
+    char *str1 = getPermutation_60_1(3, 3);
+    EXPECT_STREQ(str1, "213");
+    free(str1);
 
-TEST(leetcode_60_2, normal) {
-    char *str = getPermutation_60_2(3, 3);
-    ASSERT_TRUE(str != NULL);
-    EXPECT_STREQ(str, "213");
-    free(str);
+    char *str2 = getPermutation_60_1(4, 9);
+    EXPECT_STREQ(str2, "2314");
+    free(str2);
 }
