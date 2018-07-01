@@ -44,4 +44,25 @@ public class UniquePaths {
             return dp[m - 1];
         }
     }
+
+    public static class Solution2 {
+        private long factorial(int n, int k) {
+            long result = 1;
+            for (; k <= n; ++k) result *= k;
+            return result;
+        }
+
+        private long combination(int m, int n) {
+            n = Math.min(n, m - n);
+            return factorial(m, m - n + 1) / factorial(n, 1);
+        }
+
+        public int uniquePaths(int m, int n) {
+            if (m < 1)
+                throw new IllegalArgumentException("m must be positive");
+            if (n < 1)
+                throw new IllegalArgumentException("n must be positive");
+            return (int) combination(m + n - 2, m - 1);
+        }
+    }
 }
