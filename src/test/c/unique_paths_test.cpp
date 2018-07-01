@@ -1,21 +1,15 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <unique_paths.h>
+#include "unique_paths.h"
 }
 
-TEST(leetcode_62_1, normal) {
+TEST(unique_paths_test, nuniquePaths_62_1) {
+    EXPECT_EQ(uniquePaths_62_1(3, 2), 3);
     EXPECT_EQ(uniquePaths_62_1(7, 3), 28);
-    // EXPECT_EQ(uniquePaths_62_1(51, 9), 1916797311);
 }
 
-TEST(leetcode_62_2, normal) {
+TEST(unique_paths_test, uniquePaths_62_2) {
+    EXPECT_EQ(uniquePaths_62_2(3, 2), 3);
     EXPECT_EQ(uniquePaths_62_2(7, 3), 28);
-    EXPECT_EQ(uniquePaths_62_2(51, 9), 1916797311);
-}
-
-TEST(leetcode_62_3, normal) {
-    EXPECT_EQ(uniquePaths_62_3(7, 3), 28);
-    EXPECT_EQ(uniquePaths_62_3(51, 9), 1916797311);
-    EXPECT_EQ(uniquePaths_62_3(1, 1), 1);
 }

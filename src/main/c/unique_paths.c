@@ -1,13 +1,8 @@
-#include <unique_paths.h>
+#include "unique_paths.h"
+
 #include <stdlib.h>
 
 int uniquePaths_62_1(int m, int n) {
-    if (m < 1 || n < 1) return 0;
-    if (m == 1 || n == 1) return 1;
-    return uniquePaths_62_1(m - 1, n) + uniquePaths_62_1(m, n - 1);
-}
-
-int uniquePaths_62_2(int m, int n) {
     if (m < 1 || n < 1) return 0;
     if (m < n) {
         int tmp = m;
@@ -26,24 +21,20 @@ int uniquePaths_62_2(int m, int n) {
     return ret;
 }
 
-static int64_t factorial(int n, int start) {
+static int64_t factorial(int n, int k) {
     int64_t ret = 1;
-    for (int i = start; i <= n; ++i)
-        ret *= i;
+    for (; k <= n; ++k)
+        ret *= k;
     return ret;
 }
 
 static int64_t combination(int m, int n) {
-    if (m == 0) return 1;
-    if (m < 0 || n < 0 || m < n) return 0;
     if (m - n < n)
         n = m - n;
-    int64_t ret = factorial(m, m - n + 1);
-    ret /= factorial(n, 1);
-    return ret;
+    return factorial(m, m - n + 1) / factorial(n, 1);
 }
 
-int uniquePaths_62_3(int m, int n) {
+int uniquePaths_62_2(int m, int n) {
     if (m < 1 || n < 1) return 0;
-    return combination(m + n - 2, m - 1);
+    return (int) combination(m + n - 2, m - 1);
 }
