@@ -1,7 +1,4 @@
-#ifndef LEETCODE_UNIQUE_PATHS_II_H
-#define LEETCODE_UNIQUE_PATHS_II_H
-
-/**
+/*
  * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
  *
  * The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
@@ -30,14 +27,9 @@
  * 2. Down -> Down -> Right -> Right
  */
 
-/**
- * Recurse
- */
-int uniquePathsWithObstacles_63_1(int **obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize);
+#ifndef LEETCODE_UNIQUE_PATHS_II_H
+#define LEETCODE_UNIQUE_PATHS_II_H
 
-/**
- * Dynamic programming
- */
-int uniquePathsWithObstacles_63_2(int **obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize);
+int uniquePathsWithObstacles_63_1(int **obstacleGrid, int obstacleGridRowSize, int obstacleGridColSize);
 
 #endif //LEETCODE_UNIQUE_PATHS_II_H
