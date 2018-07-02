@@ -1,9 +1,10 @@
-#include <minimum_path_sum.h>
+#include "minimum_path_sum.h"
+
 #include <stdlib.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int minPathSum_64(int **grid, int gridRowSize, int gridColSize) {
+int minPathSum_64_1(int **grid, int gridRowSize, int gridColSize) {
     if (grid == NULL || gridRowSize < 0 || gridColSize < 0) return -1;
     if (gridRowSize == 0 || gridColSize == 0) return 0;
 
