@@ -41,4 +41,17 @@ public class SqrtX {
             throw new RuntimeException();
         }
     }
+
+    public static class Solution2 {
+        public int mySqrt(int x) {
+            if (x < 0)
+                throw new IllegalArgumentException("x must be a non-negative integer");
+            if (x < 2) return x;
+            long result = x / 2;
+            while (!(result * result <= x && x < (result + 1) * (result + 1))) {
+                result = (result + x / result) / 2;
+            }
+            return (int) result;
+        }
+    }
 }
