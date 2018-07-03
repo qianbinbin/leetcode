@@ -1,7 +1,4 @@
-#ifndef LEETCODE_TEXT_JUSTIFICATION_H
-#define LEETCODE_TEXT_JUSTIFICATION_H
-
-/**
+/*
  * Given an array of words and a width maxWidth, format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
  *
  * You should pack your words in a greedy approach; that is, pack as many words as you can in each line. Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
@@ -58,10 +55,15 @@
  *   "everything  else  we",
  *   "do                  "
  * ]
- *
+ */
+
+#ifndef LEETCODE_TEXT_JUSTIFICATION_H
+#define LEETCODE_TEXT_JUSTIFICATION_H
+
+/**
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-char **fullJustify_68(char **words, int wordsSize, int maxWidth, int *returnSize);
+char **fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSize);
 
 #endif //LEETCODE_TEXT_JUSTIFICATION_H
