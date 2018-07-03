@@ -1,7 +1,4 @@
-#ifndef LEETCODE_SQRTX_H
-#define LEETCODE_SQRTX_H
-
-/**
+/*
  * Implement int sqrt(int x).
  *
  * Compute and return the square root of x, where x is guaranteed to be a non-negative integer.
@@ -12,6 +9,7 @@
  *
  * Input: 4
  * Output: 2
+ *
  * Example 2:
  *
  * Input: 8
@@ -19,6 +17,9 @@
  * Explanation: The square root of 8 is 2.82842..., and since
  *              the decimal part is truncated, 2 is returned.
  */
+
+#ifndef LEETCODE_SQRTX_H
+#define LEETCODE_SQRTX_H
 
 /**
  * Binary search
