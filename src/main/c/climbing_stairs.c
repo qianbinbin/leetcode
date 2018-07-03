@@ -1,14 +1,14 @@
-#include <climbing_stairs.h>
+#include "climbing_stairs.h"
 
-int climbStairs_70(int n) {
-    if (n < 1) return 0;
+int climbStairs_70_1(int n) {
+    if (n < 1) return -1;
+    if (n < 4) return n;
 
-    int pre = 0, cur = 1;
-    int tmp;
-    for (int i = 1; i <= n; ++i) {
-        tmp = pre + cur;
-        pre = cur;
-        cur = tmp;
+    int pre_pre = 2, pre = 3, ret;
+    for (int i = 4; i <= n; ++i) {
+        ret = pre_pre + pre;
+        pre_pre = pre;
+        pre = ret;
     }
-    return cur;
+    return ret;
 }
