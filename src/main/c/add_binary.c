@@ -1,51 +1,43 @@
-#include <add_binary.h>
-#include <string.h>
-#include <stdlib.h>
+#include "add_binary.h"
 
-char *addBinary_67(char *a, char *b) {
+#include <stdlib.h>
+#include <string.h>
+
+char *addBinary_67_1(char *a, char *b) {
     if (a == NULL || b == NULL) return NULL;
 
     int i = strlen(a), j = strlen(b);
-    const int size = (i > j ? i : j) + 2;
-    char *binary = (char *) malloc(size);
-    memset(binary, 0, size);
-    int val = 0, carry = 0;
-    int k = size - 2;
+    const int len = (i > j ? i : j) + 1;
+    char *bits = (char *) calloc(len + 1, sizeof(char));
+    int sum = 0, carry = 0;
+    int k = len - 1;
     --i;
     --j;
-    while (i >= 0 && j >= 0) {
-        val = (a[i] - '0') + (b[j] - '0') + carry;
-        carry = val / 2;
-        val = val % 2;
-        binary[k--] = val + '0';
-        --i;
-        --j;
+    for (; i >= 0 && j >= 0; --i, --j, --k) {
+        sum = a[i] - '0' + b[j] - '0' + carry;
+        bits[k] = (char) (sum % 2 + '0');
+        carry = sum / 2;
     }
-    while (i >= 0) {
-        val = a[i] - '0' + carry;
-        carry = val / 2;
-        val = val % 2;
-        binary[k--] = val + '0';
-        --i;
+    for (; i >= 0; --i, --k) {
+        sum = a[i] - '0' + carry;
+        bits[k] = (char) (sum % 2 + '0');
+        carry = sum / 2;
     }
-    while (j >= 0) {
-        val = b[j] - '0' + carry;
-        carry = val / 2;
-        val = val % 2;
-        binary[k--] = val + '0';
-        --j;
+    for (; j >= 0; --j, --k) {
+        sum = b[j] - '0' + carry;
+        bits[k] = (char) (sum % 2 + '0');
+        carry = sum / 2;
     }
     char *ret;
     if (carry == 1) {
-        binary[0] = '1';
-        ret = binary;
+        bits[0] = '1';
+        ret = bits;
     } else {
-        binary[0] = '0';
-        while (k < size - 2 && binary[k] == '0') ++k;
-        int size_ret = size - k;
-        ret = (char *) malloc(size_ret);
-        memcpy(ret, binary + k, size_ret);
-        free(binary);
+        ++k;
+        while (k < len - 1 && bits[k] == '0') ++k;
+        ret = (char *) malloc((len - k + 1) * sizeof(char));
+        strcpy(ret, bits + k);
+        free(bits);
     }
     return ret;
 }

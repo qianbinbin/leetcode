@@ -1,14 +1,15 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <add_binary.h>
+#include "add_binary.h"
 }
 
-TEST(leetcode_67, normal) {
-    char *ret = addBinary_67("1", "11");
-    EXPECT_STREQ(ret, "100");
-    free(ret);
-    ret = addBinary_67("00", "0");
-    EXPECT_STREQ(ret, "0");
-    free(ret);
+TEST(add_binary_test, addBinary_67_1) {
+    char *ret1 = addBinary_67_1("11", "1");
+    EXPECT_STREQ(ret1, "100");
+    free(ret1);
+
+    char *ret2 = addBinary_67_1("1010", "1011");
+    EXPECT_STREQ(ret2, "10101");
+    free(ret2);
 }
