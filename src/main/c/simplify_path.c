@@ -1,12 +1,10 @@
-#include <simplify_path.h>
-#include <assert.h>
+#include "simplify_path.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-char *simplifyPath_71(char *path) {
+char *simplifyPath_71_1(char *path) {
     if (path == NULL) return NULL;
-
-    assert(path[0] == '/');
 
     char *ret = (char *) malloc(strlen(path) + 1);
     int index = -1;
