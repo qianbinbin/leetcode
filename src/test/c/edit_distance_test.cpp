@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <edit_distance.h>
+#include "edit_distance.h"
 }
 
-TEST(leetcode_72, normal) {
-    EXPECT_EQ(minDistance_72("horse", "ros"), 3);
-    EXPECT_EQ(minDistance_72("intention", "execution"), 5);
+TEST(edit_distance_test, minDistance_72_1) {
+    EXPECT_EQ(minDistance_72_1("horse", "ros"), 3);
+    EXPECT_EQ(minDistance_72_1("intention", "execution"), 5);
 }

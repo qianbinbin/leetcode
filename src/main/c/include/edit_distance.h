@@ -1,7 +1,4 @@
-#ifndef LEETCODE_EDIT_DISTANCE_H
-#define LEETCODE_EDIT_DISTANCE_H
-
-/**
+/*
  * Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
  *
  * You have the following 3 operations permitted on a word:
@@ -30,6 +27,10 @@
  * exention -> exection (replace 'n' with 'c')
  * exection -> execution (insert 'u')
  */
-int minDistance_72(char *word1, char *word2);
+
+#ifndef LEETCODE_EDIT_DISTANCE_H
+#define LEETCODE_EDIT_DISTANCE_H
+
+int minDistance_72_1(char *word1, char *word2);
 
 #endif //LEETCODE_EDIT_DISTANCE_H
