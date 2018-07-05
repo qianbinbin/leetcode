@@ -1,34 +1,33 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <set_matrix_zeroes.h>
+#include "common.h"
+#include "set_matrix_zeroes.h"
 }
 
-TEST(leetcode_73, normal) {
-    int nums[5][4] = {{0, 0, 0, 5},
-                      {4, 3, 1, 4},
-                      {0, 1, 1, 4},
-                      {1, 2, 1, 3},
-                      {0, 0, 1, 1}};
-    int **matrix = (int **) malloc(5 * sizeof(int *));
-    for (int i = 0; i < 5; ++i) {
-        matrix[i] = (int *) malloc(4 * sizeof(int));
-    }
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            matrix[i][j] = nums[i][j];
-        }
-    }
-    for (int i = 0; i < 5; ++i) {
-        array_print(matrix[i], 4);
-    }
-    printf("\n");
+TEST(set_matrix_zeroes_test, setZeroes_73_1) {
+    int nums1[][3] = {
+            {1, 1, 1},
+            {1, 0, 1},
+            {1, 1, 1}
+    };
+    int *matrix1[] = {nums1[0], nums1[1], nums1[2]};
+    for (int i = 0; i < 3; ++i)
+        array_print(matrix1[i], 3);
+    setZeroes_73_1(matrix1, 3, 3);
+    for (int i = 0; i < 3; ++i)
+        array_print(matrix1[i], 3);
+    puts("");
 
-    setZeroes_73(matrix, 5, 4);
-    for (int i = 0; i < 5; ++i) {
-        array_print(matrix[i], 4);
-        free(matrix[i]);
-    }
-    free(matrix);
+    int nums2[][4] = {
+            {0, 1, 2, 0},
+            {3, 4, 5, 2},
+            {1, 3, 1, 5}
+    };
+    int *matrix2[] = {nums2[0], nums2[1], nums2[2]};
+    for (int i = 0; i < 3; ++i)
+        array_print(matrix2[i], 4);
+    setZeroes_73_1(matrix2, 3, 4);
+    for (int i = 0; i < 3; ++i)
+        array_print(matrix2[i], 4);
 }
