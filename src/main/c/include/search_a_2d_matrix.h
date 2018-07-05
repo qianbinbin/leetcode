@@ -1,26 +1,37 @@
-#ifndef LEETCODE_SEARCH_A_2D_MATRIX_H
-#define LEETCODE_SEARCH_A_2D_MATRIX_H
-
-#include <stdbool.h>
-
-/**
+/*
  * Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
  *
  * Integers in each row are sorted from left to right.
  * The first integer of each row is greater than the last integer of the previous row.
  *
- * For example,
+ * Example 1:
  *
- * Consider the following matrix:
- *
- * [
+ * Input:
+ * matrix = [
  *   [1,   3,  5,  7],
  *   [10, 11, 16, 20],
  *   [23, 30, 34, 50]
  * ]
+ * target = 3
+ * Output: true
  *
- * Given target = 3, return true.
+ * Example 2:
+ *
+ * Input:
+ * matrix = [
+ *   [1,   3,  5,  7],
+ *   [10, 11, 16, 20],
+ *   [23, 30, 34, 50]
+ * ]
+ * target = 13
+ * Output: false
  */
-bool searchMatrix_74(int **matrix, int matrixRowSize, int matrixColSize, int target);
+
+#ifndef LEETCODE_SEARCH_A_2D_MATRIX_H
+#define LEETCODE_SEARCH_A_2D_MATRIX_H
+
+#include <stdbool.h>
+
+bool searchMatrix_74_1(int **matrix, int matrixRowSize, int matrixColSize, int target);
 
 #endif //LEETCODE_SEARCH_A_2D_MATRIX_H
