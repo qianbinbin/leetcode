@@ -38,4 +38,25 @@ public class SortColors {
                 nums[i] = 2;
         }
     }
+
+    public static class Solution2 {
+        private void swap(int[] x, int a, int b) {
+            int t = x[a];
+            x[a] = x[b];
+            x[b] = t;
+        }
+
+        public void sortColors(int[] nums) {
+            int i0 = 0, i2 = nums.length - 1;
+            for (int i1 = 0; i1 <= i2; ) {
+                if (nums[i1] == 0) {
+                    swap(nums, i0++, i1++);
+                } else if (nums[i1] == 2) {
+                    swap(nums, i1, i2--);
+                } else {
+                    ++i1;
+                }
+            }
+        }
+    }
 }
