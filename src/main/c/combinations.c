@@ -1,21 +1,18 @@
-#include <combinations.h>
+#include "combinations.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-static int factorial(int n) {
+static int factorial(int n, int k) {
     int ret = 1;
-    for (int i = 1; i <= n; ++i)
-        ret *= i;
+    for (; k <= n; ++k)
+        ret *= k;
     return ret;
 }
 
 static int combination(int n, int k) {
     k = k < n - k ? k : n - k;
-    int ret = n, last = n - k;
-    for (int i = n - 1; i > last; --i)
-        ret *= i;
-    ret = ret / factorial(k);
-    return ret;
+    return factorial(n, n - k + 1) / factorial(k, 1);
 }
 
 static void combine_dfs(int n, int k, int begin,
@@ -34,7 +31,7 @@ static void combine_dfs(int n, int k, int begin,
     }
 }
 
-int **combine_77(int n, int k, int **columnSizes, int *returnSize) {
+int **combine_77_1(int n, int k, int **columnSizes, int *returnSize) {
     if (n < 1 || k < 1 || k > n || columnSizes == NULL || returnSize == NULL) return NULL;
 
     int capacity = combination(n, k);
@@ -47,5 +44,7 @@ int **combine_77(int n, int k, int **columnSizes, int *returnSize) {
 
     combine_dfs(n, k, 1, ret, returnSize, *columnSizes, path, &path_size);
     free(path);
+    ret = (int **) realloc(ret, *returnSize * sizeof(int *));
+    *columnSizes = (int *) realloc(*columnSizes, *returnSize * sizeof(int));
     return ret;
 }

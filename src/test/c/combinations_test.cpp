@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <combinations.h>
+#include "common.h"
+#include "combinations.h"
 }
 
-TEST(leetcode_77, normal) {
+TEST(combinations_test, combine_77_1) {
     int size = 0;
     int *col_sizes = NULL;
-    int **combinations = combine_77(20, 16, &col_sizes, &size);
+    int **combinations = combine_77_1(4, 2, &col_sizes, &size);
     for (int i = 0; i < size; ++i) {
         array_print(combinations[i], col_sizes[i]);
         free(combinations[i]);
