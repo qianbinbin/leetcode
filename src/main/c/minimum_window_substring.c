@@ -1,25 +1,25 @@
-#include <minimum_window_substring.h>
+#include "minimum_window_substring.h"
+
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
-char *minWindow_76(char *s, char *t) {
+char *minWindow_76_1(char *s, char *t) {
     if (s == NULL || t == NULL) return NULL;
 
     const size_t len_s = strlen(s);
     const size_t len_t = strlen(t);
 
-    int expected[256];
-    memset(expected, 0, 256 * sizeof(int));
+    int expected[128];
+    memset(expected, 0, 128 * sizeof(int));
     for (int i = 0; i < len_t; ++i) ++expected[t[i]];
     size_t expected_count = 0;
 
     size_t start = 0, end = 0;
     size_t min_start = 0, min_len = SIZE_T_MAX;
     while (end < len_s) {
-        if (expected[s[end]] > 0) {
+        if (expected[s[end]] > 0)
             ++expected_count;
-        }
         --expected[s[end]];
         ++end;
         while (expected_count == len_t) {
@@ -28,15 +28,14 @@ char *minWindow_76(char *s, char *t) {
                 min_start = start;
             }
             ++expected[s[start]];
-            if (expected[s[start]] > 0) {
+            if (expected[s[start]] > 0)
                 --expected_count;
-            }
             ++start;
         }
     }
 
     char *ret;
-    if (min_len == INT_MAX) {
+    if (min_len == SIZE_T_MAX) {
         ret = (char *) malloc(1);
         ret[0] = '\0';
     } else {

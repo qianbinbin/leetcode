@@ -1,7 +1,4 @@
-#ifndef LEETCODE_MINIMUM_WINDOW_SUBSTRING_H
-#define LEETCODE_MINIMUM_WINDOW_SUBSTRING_H
-
-/**
+/*
  * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
  *
  * Example:
@@ -14,6 +11,10 @@
  * If there is no such window in S that covers all characters in T, return the empty string "".
  * If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
  */
-char *minWindow_76(char *s, char *t);
+
+#ifndef LEETCODE_MINIMUM_WINDOW_SUBSTRING_H
+#define LEETCODE_MINIMUM_WINDOW_SUBSTRING_H
+
+char *minWindow_76_1(char *s, char *t);
 
 #endif //LEETCODE_MINIMUM_WINDOW_SUBSTRING_H
