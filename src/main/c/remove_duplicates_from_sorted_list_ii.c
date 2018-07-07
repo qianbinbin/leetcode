@@ -1,29 +1,28 @@
-#include <remove_duplicates_from_sorted_list_ii.h>
+#include "remove_duplicates_from_sorted_list_ii.h"
+
 #include <stdlib.h>
 
-struct ListNode *deleteDuplicates_82(struct ListNode *head) {
+struct ListNode *deleteDuplicates_82_1(struct ListNode *head) {
     if (head == NULL) return NULL;
 
-    struct ListNode *list = (struct ListNode *) malloc(sizeof(struct ListNode));
-    list->next = head;
-    struct ListNode *pre = list, *p = head, *rm;
+    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
+    struct ListNode *tail = dummy, *p = head, *rm;
     while (p != NULL) {
-        if (p->next != NULL && p->val == p->next->val) {
-            rm = pre->next;
-            p = rm->next;
-            while (p != NULL && p->val == rm->val) {
-                rm->next = p->next;
-                free(p);
-                p = rm->next;
-            }
-            pre->next = p;
-            free(rm);
-        } else {
-            pre = p;
+        if (p->next == NULL || p->next->val != p->val) {
+            tail->next = p;
+            tail = p;
             p = p->next;
+        } else {
+            int skip = p->val;
+            while (p != NULL && p->val == skip) {
+                rm = p;
+                p = p->next;
+                free(rm);
+            }
         }
     }
-    head = list->next;
-    free(list);
+    tail->next = NULL;
+    head = dummy->next;
+    free(dummy);
     return head;
 }

@@ -1,14 +1,21 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <remove_duplicates_from_sorted_list_ii.h>
+#include "remove_duplicates_from_sorted_list_ii.h"
 }
 
-TEST(leetcode_82, normal) {
-    int nums[] = {1, 1, 1, 2, 2, 2, 3, 4, 5, 5, 5};
-    struct ListNode *head = list_create(nums, 11);
-    list_print(head);
-    head = deleteDuplicates_82(head);
-    list_print(head);
-    list_free(head);
+TEST(remove_duplicates_from_sorted_list_ii_test, deleteDuplicates_82_1) {
+    int nums1[] = {1, 2, 3, 3, 4, 4, 5};
+    struct ListNode *head1 = list_create(nums1, sizeof(nums1) / sizeof(nums1[0]));
+    list_print(head1);
+    head1 = deleteDuplicates_82_1(head1);
+    list_print(head1);
+    list_free(head1);
+
+    int nums2[] = {1, 1, 1, 2, 3};
+    struct ListNode *head2 = list_create(nums2, sizeof(nums2) / sizeof(nums2[0]));
+    list_print(head2);
+    head2 = deleteDuplicates_82_1(head2);
+    list_print(head2);
+    list_free(head2);
 }
