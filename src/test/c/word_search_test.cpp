@@ -1,19 +1,17 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <word_search.h>
+#include "word_search.h"
 }
 
-TEST(leetcode_79, normal) {
-    char *board[3];
-    for (int i = 0; i < 3; ++i)
-        board[i] = (char *) malloc(5);
-    strcpy(board[0], "ABCE");
-    strcpy(board[1], "SFCS");
-    strcpy(board[2], "ADEE");
-    EXPECT_TRUE(exist_79(board, 3, 4, "ABCCED"));
-    EXPECT_TRUE(exist_79(board, 3, 4, "SEE"));
-    EXPECT_FALSE(exist_79(board, 3, 4, "ABCB"));
-    for (int i = 0; i < 3; ++i)
-        free(board[i]);
+TEST(word_search_test, exist_79_1) {
+    char chars[][4] = {
+            {'A', 'B', 'C', 'E'},
+            {'S', 'F', 'C', 'S'},
+            {'A', 'D', 'E', 'E'}
+    };
+    char *board[] = {chars[0], chars[1], chars[2]};
+    EXPECT_TRUE(exist_79_1(board, 3, 4, "ABCCED"));
+    EXPECT_TRUE(exist_79_1(board, 3, 4, "SEE"));
+    EXPECT_FALSE(exist_79_1(board, 3, 4, "ABCB"));
 }

@@ -1,25 +1,26 @@
-#include <word_search.h>
+#include "word_search.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-static bool exist_dfs(char **board, int board_row, int board_col,
-                      char *word, int len, int index, bool **visited, int i, int j) {
+static bool exist_dfs(char **board, int row, int col, bool **visited, int i, int j,
+                      char *word, size_t len, size_t index) {
     if (index == len)
         return true;
 
-    if (i < 0 || i >= board_row || j < 0 || j >= board_col || visited[i][j] || board[i][j] != word[index])
+    if (i < 0 || i >= row || j < 0 || j >= col || visited[i][j] || board[i][j] != word[index])
         return false;
 
     visited[i][j] = true;
-    bool exist = exist_dfs(board, board_row, board_col, word, len, index + 1, visited, i - 1, j) ||
-                 exist_dfs(board, board_row, board_col, word, len, index + 1, visited, i + 1, j) ||
-                 exist_dfs(board, board_row, board_col, word, len, index + 1, visited, i, j - 1) ||
-                 exist_dfs(board, board_row, board_col, word, len, index + 1, visited, i, j + 1);
+    bool exist = exist_dfs(board, row, col, visited, i - 1, j, word, len, index + 1) ||
+                 exist_dfs(board, row, col, visited, i + 1, j, word, len, index + 1) ||
+                 exist_dfs(board, row, col, visited, i, j - 1, word, len, index + 1) ||
+                 exist_dfs(board, row, col, visited, i, j + 1, word, len, index + 1);
     visited[i][j] = false;
     return exist;
 }
 
-bool exist_79(char **board, int boardRowSize, int boardColSize, char *word) {
+bool exist_79_1(char **board, int boardRowSize, int boardColSize, char *word) {
     if (board == NULL || boardRowSize < 1 || boardColSize < 1 || word == NULL) return false;
 
     bool **visited = (bool **) malloc(boardRowSize * sizeof(bool *));
@@ -28,19 +29,17 @@ bool exist_79(char **board, int boardRowSize, int boardColSize, char *word) {
 
     bool ret = false;
 
-    const int len = strlen(word);
-    for (int i = 0; i < boardRowSize; ++i) {
+    const size_t len = strlen(word);
+    for (int i = 0; i < boardRowSize && !ret; ++i) {
         for (int j = 0; j < boardColSize; ++j) {
-            if (exist_dfs(board, boardRowSize, boardColSize, word, len, 0, visited, i, j)) {
+            if (exist_dfs(board, boardRowSize, boardColSize, visited, i, j, word, len, 0)) {
                 ret = true;
                 break;
             }
         }
-        if (ret) break;
     }
 
-    for (int i = 0; i < boardRowSize; ++i)
-        free(visited[i]);
+    for (int i = 0; i < boardRowSize; ++i) free(visited[i]);
     free(visited);
     return ret;
 }
