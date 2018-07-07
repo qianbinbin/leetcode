@@ -1,20 +1,18 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <common.h>
-#include <remove_duplicates_from_sorted_array_ii.h>
+#include "common.h"
+#include "remove_duplicates_from_sorted_array_ii.h"
 }
 
-TEST(leetcode_80, empty) {
-    int nums[] = {};
-    array_print(nums, 0);
-    EXPECT_EQ(removeDuplicates_80(nums, 0), 0);
-}
+TEST(remove_duplicates_from_sorted_array_ii_test, removeDuplicates_80_1) {
+    int nums1[] = {1, 1, 1, 2, 2, 3};
+    array_print(nums1, sizeof(nums1) / sizeof(nums1[0]));
+    int size1 = removeDuplicates_80_1(nums1, sizeof(nums1) / sizeof(nums1[0]));
+    array_print(nums1, size1);
 
-TEST(leetcode_80, normal) {
-    int nums[] = {0, 1, 1, 2, 5, 5, 5, 10, 10};
-    array_print(nums, 9);
-    int size = removeDuplicates_80(nums, 9);
-    EXPECT_EQ(size, 8);
-    array_print(nums, size);
+    int nums2[] = {0, 0, 1, 1, 1, 1, 2, 3, 3};
+    array_print(nums2, sizeof(nums2) / sizeof(nums2[0]));
+    int size2 = removeDuplicates_80_1(nums2, sizeof(nums2) / sizeof(nums2[0]));
+    array_print(nums2, size2);
 }
