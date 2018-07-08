@@ -1,14 +1,10 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <largest_rectangle_in_histogram.h>
+#include "largest_rectangle_in_histogram.h"
 }
 
-TEST(leetcode_84, normal) {
-    int nums[] = {2, 1, 5, 6, 2, 3};
-    EXPECT_EQ(largestRectangleArea_84(nums, 6), 10);
-    int nums1[] = {2, 1, 2};
-    EXPECT_EQ(largestRectangleArea_84(nums1, 3), 3);
-    int nums2[] = {1, 3, 2, 5, 6, 1};
-    EXPECT_EQ(largestRectangleArea_84(nums2, 6), 10);
+TEST(largest_rectangle_in_histogram_test, largestRectangleArea_84_1) {
+    int heights[] = {2, 1, 5, 6, 2, 3};
+    EXPECT_EQ(largestRectangleArea_84_1(heights, sizeof(heights) / sizeof(heights[0])), 10);
 }
