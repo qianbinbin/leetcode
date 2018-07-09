@@ -1,20 +1,21 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <maximal_rectangle.h>
+#include "maximal_rectangle.h"
 }
 
-TEST(leetcode_85, normal) {
-    char *matrix1[] = {"10100",
-                       "10111",
-                       "11111",
-                       "10010"};
-    EXPECT_EQ(maximalRectangle_85(matrix1, 4, 5), 6);
-    char *matrix2[] = {"01101",
-                       "11010",
-                       "01110",
-                       "11110",
-                       "11111",
-                       "00000"};
-    EXPECT_EQ(maximalRectangle_85(matrix2, 6, 5), 9);
+TEST(maximal_rectangle_test, maximalRectangle_85_1) {
+    char *matrix[] = {"10100",
+                      "10111",
+                      "11111",
+                      "10010"};
+    EXPECT_EQ(maximalRectangle_85_1(matrix, 4, 5), 6);
+}
+
+TEST(maximal_rectangle_test, maximalRectangle_85_2) {
+    char *matrix[] = {"10100",
+                      "10111",
+                      "11111",
+                      "10010"};
+    EXPECT_EQ(maximalRectangle_85_2(matrix, 4, 5), 6);
 }
