@@ -1,9 +1,4 @@
-#ifndef LEETCODE_SCRAMBLE_STRING_H
-#define LEETCODE_SCRAMBLE_STRING_H
-
-#include <stdbool.h>
-
-/**
+/*
  * Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
  *
  * Below is one possible representation of s1 = "great":
@@ -55,14 +50,13 @@
  * Output: false
  */
 
-/**
- * Recurse
- */
+#ifndef LEETCODE_SCRAMBLE_STRING_H
+#define LEETCODE_SCRAMBLE_STRING_H
+
+#include <stdbool.h>
+
 bool isScramble_87_1(char *s1, char *s2);
 
-/**
- * Dynamic programming
- */
 bool isScramble_87_2(char *s1, char *s2);
 
 #endif //LEETCODE_SCRAMBLE_STRING_H
