@@ -1,4 +1,5 @@
-#include <subsets_ii.h>
+#include "subsets_ii.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -20,12 +21,12 @@ static void subset_dfs(int *nums, int nums_size, int begin,
     }
 }
 
-int **subsetsWithDup_90(int *nums, int numsSize, int **columnSizes, int *returnSize) {
+int **subsetsWithDup_90_1(int *nums, int numsSize, int **columnSizes, int *returnSize) {
     if (nums == NULL || numsSize < 0 || columnSizes == NULL || returnSize == NULL) return NULL;
 
     qsort(nums, numsSize, sizeof(int), compare);
 
-    int capacity = 1 << numsSize;
+    const int capacity = 1 << numsSize;
     int **ret = (int **) malloc(capacity * sizeof(int *));
     *returnSize = 0;
 
