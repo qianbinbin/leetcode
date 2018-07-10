@@ -48,4 +48,22 @@ public class GrayCode {
             return result;
         }
     }
+
+    public static class Solution2 {
+        public List<Integer> grayCode(int n) {
+            if (n < 0 || n >= 31)
+                throw new IllegalArgumentException();
+
+            final int size = 1 << n;
+            List<Integer> result = new ArrayList<>(size);
+            result.add(0);
+            for (int i = 0; i < n; ++i) {
+                final int highest_bit = 1 << i;
+                final int len = result.size();
+                for (int j = len - 1; j >= 0; --j)
+                    result.add(result.get(j) | highest_bit);
+            }
+            return result;
+        }
+    }
 }
