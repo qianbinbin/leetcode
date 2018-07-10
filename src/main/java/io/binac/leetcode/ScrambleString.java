@@ -82,4 +82,32 @@ public class ScrambleString {
             return dp[len][0][0];
         }
     }
+
+    public static class Solution2 {
+        private boolean isScramble(char[] str1, int offset1, char[] str2, int offset2, int len) {
+            if (len == 1)
+                return str1[offset1] == str2[offset2];
+            int count[] = new int[26];
+            for (int i = 0; i < len; ++i) {
+                ++count[str1[offset1 + i] - 'a'];
+                --count[str2[offset2 + i] - 'a'];
+            }
+            for (int i = 0; i < 26; ++i)
+                if (count[i] != 0)
+                    return false;
+            for (int l = 1; l < len; ++l) {
+                if ((isScramble(str1, offset1, str2, offset2, l) && isScramble(str1, offset1 + l, str2, offset2 + l, len - l))
+                        || (isScramble(str1, offset1, str2, offset2 + len - l, l) && isScramble(str1, offset1 + l, str2, offset2, len - l)))
+                    return true;
+            }
+            return false;
+        }
+
+        public boolean isScramble(String s1, String s2) {
+            char str1[] = s1.toCharArray(), str2[] = s2.toCharArray();
+            if (str1.length == 0 || str1.length != str2.length)
+                throw new IllegalArgumentException();
+            return isScramble(str1, 0, str2, 0, str1.length);
+        }
+    }
 }
