@@ -52,4 +52,39 @@ public class RestoreIPAddresses {
             return result;
         }
     }
+
+    public static class Solution2 {
+        private boolean isValidByte(char[] chars, int offset, int count) {
+            if (offset < 0 || count < 1 || count > 3 || offset + count > chars.length)
+                return false;
+            if (chars[offset] == '0')
+                return count == 1;
+            int val = 0;
+            for (int i = 0; i < count; ++i)
+                val = val * 10 + chars[offset + i] - '0';
+            return val < 256;
+        }
+
+        public List<String> restoreIpAddresses(String s) {
+            if (s.length() < 4 || s.length() > 12)
+                return Collections.emptyList();
+            char chars[] = s.toCharArray();
+            List<String> result = new ArrayList<>();
+            for (int a = 1; a <= 3; ++a) {
+                for (int b = 1; b <= 3; ++b) {
+                    for (int c = 1; c <= 3; ++c) {
+                        if (isValidByte(chars, 0, a)
+                                && isValidByte(chars, a, b)
+                                && isValidByte(chars, a + b, c)
+                                && isValidByte(chars, a + b + c, chars.length - a - b - c)) {
+                            result.add(String.join(".",
+                                    new String(chars, 0, a), new String(chars, a, b),
+                                    new String(chars, a + b, c), new String(chars, a + b + c, chars.length - a - b - c)));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+    }
 }
