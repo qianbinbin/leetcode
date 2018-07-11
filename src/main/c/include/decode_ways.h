@@ -1,7 +1,4 @@
-#ifndef LEETCODE_DECODE_WAYS_H
-#define LEETCODE_DECODE_WAYS_H
-
-/**
+/*
  * A message containing letters from A-Z is being encoded to numbers using the following mapping:
  *
  * 'A' -> 1
@@ -23,6 +20,10 @@
  * Output: 3
  * Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
  */
-int numDecodings_91(char *s);
+
+#ifndef LEETCODE_DECODE_WAYS_H
+#define LEETCODE_DECODE_WAYS_H
+
+int numDecodings_91_1(char *s);
 
 #endif //LEETCODE_DECODE_WAYS_H

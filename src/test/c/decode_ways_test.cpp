@@ -1,12 +1,10 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <decode_ways.h>
+#include "decode_ways.h"
 }
 
-TEST(leetcode_91, normal) {
-    EXPECT_EQ(numDecodings_91("12"), 2);
-    EXPECT_EQ(numDecodings_91("226"), 3);
-    EXPECT_EQ(numDecodings_91("2206212"), 3);
-    EXPECT_EQ(numDecodings_91("100"), 0);
+TEST(decode_ways_test, numDecodings_91_1) {
+    EXPECT_EQ(numDecodings_91_1("12"), 2);
+    EXPECT_EQ(numDecodings_91_1("226"), 3);
 }
