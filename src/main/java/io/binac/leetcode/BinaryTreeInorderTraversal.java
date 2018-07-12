@@ -3,7 +3,9 @@ package io.binac.leetcode;
 import io.binac.leetcode.util.TreeNode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Given a binary tree, return the inorder traversal of its nodes' values.
@@ -33,6 +35,27 @@ public class BinaryTreeInorderTraversal {
         public List<Integer> inorderTraversal(TreeNode root) {
             List<Integer> result = new ArrayList<>();
             inorderTraversal(root, result);
+            return result;
+        }
+    }
+
+    public static class Solution2 {
+        public List<Integer> inorderTraversal(TreeNode root) {
+            if (root == null) return Collections.emptyList();
+
+            List<Integer> result = new ArrayList<>();
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode n = root;
+            while (n != null || !stack.empty()) {
+                if (n != null) {
+                    stack.push(n);
+                    n = n.left;
+                } else {
+                    n = stack.pop();
+                    result.add(n.val);
+                    n = n.right;
+                }
+            }
             return result;
         }
     }

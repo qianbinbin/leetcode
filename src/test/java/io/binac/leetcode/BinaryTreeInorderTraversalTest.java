@@ -12,10 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class BinaryTreeInorderTraversalTest {
     private final BinaryTreeInorderTraversal.Solution1 solution1 = new BinaryTreeInorderTraversal.Solution1();
 
+    private final BinaryTreeInorderTraversal.Solution2 solution2 = new BinaryTreeInorderTraversal.Solution2();
+
     @Test
     void test1() {
         TreeNode root = Trees.asTree(1, null, 2, 3);
         List<Integer> expected = Arrays.asList(1, 3, 2);
         assertEquals(expected, solution1.inorderTraversal(root));
+    }
+
+    @Test
+    void test2() {
+        TreeNode root = Trees.asTree(1, null, 2, 3);
+        List<Integer> expected = Arrays.asList(1, 3, 2);
+        assertEquals(expected, solution2.inorderTraversal(root));
     }
 }
