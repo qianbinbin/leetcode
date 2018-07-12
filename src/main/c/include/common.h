@@ -3,7 +3,7 @@
 
 #include <limits.h>
 
-#define INT_NULL_TREE_NODE INT_MIN
+#define NTNODE INT_MIN
 
 void array_print(int *nums, int numsSize);
 

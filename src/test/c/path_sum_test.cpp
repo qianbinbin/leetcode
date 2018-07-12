@@ -5,8 +5,8 @@ extern "C" {
 }
 
 TEST(leetcode_112, normal) {
-    int nums[] = {5, 4, 8, 11, INT_NULL_TREE_NODE, 13, 4, 7, 2, INT_NULL_TREE_NODE, INT_NULL_TREE_NODE,
-                  INT_NULL_TREE_NODE, INT_NULL_TREE_NODE, INT_NULL_TREE_NODE, 1};
+    int nums[] = {5, 4, 8, 11, NTNODE, 13, 4, 7, 2, NTNODE, NTNODE,
+                  NTNODE, NTNODE, NTNODE, 1};
     struct TreeNode *tree = tree_create(nums, sizeof(nums) / sizeof(nums[0]));
     tree_preorder_print(tree);
     tree_inorder_print(tree);

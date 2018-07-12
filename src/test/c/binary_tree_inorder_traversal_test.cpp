@@ -5,7 +5,7 @@ extern "C" {
 }
 
 TEST(leetcode_94_1, normal) {
-    int nums[] = {1, INT_NULL_TREE_NODE, 2, INT_NULL_TREE_NODE, INT_NULL_TREE_NODE, 3, INT_NULL_TREE_NODE};
+    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3, NTNODE};
     struct TreeNode *tree = tree_create(nums, 7);
     int size = 0;
     int *ret = inorderTraversal_94_1(tree, &size);
@@ -15,7 +15,7 @@ TEST(leetcode_94_1, normal) {
 }
 
 TEST(leetcode_94_2, normal) {
-    int nums[] = {1, INT_NULL_TREE_NODE, 2, INT_NULL_TREE_NODE, INT_NULL_TREE_NODE, 3, INT_NULL_TREE_NODE};
+    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3, NTNODE};
     struct TreeNode *tree = tree_create(nums, 7);
     int size = 0;
     int *ret = inorderTraversal_94_2(tree, &size);

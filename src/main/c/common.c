@@ -51,7 +51,7 @@ void list_free(struct ListNode *head) {
 }
 
 static struct TreeNode *tree_node_create(int val) {
-    if (val == INT_NULL_TREE_NODE) return NULL;
+    if (val == NTNODE) return NULL;
 
     struct TreeNode *node = (struct TreeNode *) malloc(sizeof(struct TreeNode));
     node->val = val;
