@@ -1,71 +1,60 @@
-#include <binary_tree_inorder_traversal.h>
+#include "binary_tree_inorder_traversal.h"
+
 #include <stdlib.h>
 
-int *merge_array(int *a, int size_a, int *b, int size_b, int *c, int size_c, int *size) {
-    int *ret = (int *) malloc((size_a + size_b + size_c) * sizeof(int));
-    *size = 0;
-    if (a != NULL) {
-        for (int i = 0; i < size_a; ++i) {
-            ret[(*size)++] = a[i];
-        }
+static void in_order(struct TreeNode *root, int **ret, int *capacity, int *size) {
+    if (root == NULL) return;
+    in_order(root->left, ret, capacity, size);
+    if (*size >= *capacity) {
+        *capacity *= 2;
+        *ret = (int *) realloc(*ret, *capacity * sizeof(int));
     }
-    if (b != NULL) {
-        for (int i = 0; i < size_b; ++i) {
-            ret[(*size)++] = b[i];
-        }
-    }
-    if (c != NULL) {
-        for (int i = 0; i < size_c; ++i) {
-            ret[(*size)++] = c[i];
-        }
-    }
-    return ret;
+    (*ret)[(*size)++] = root->val;
+    in_order(root->right, ret, capacity, size);
 }
 
 int *inorderTraversal_94_1(struct TreeNode *root, int *returnSize) {
     if (root == NULL || returnSize == NULL) return NULL;
 
-    int left_size = 0, right_size = 0;
-    int *left = inorderTraversal_94_1(root->left, &left_size);
-    int *right = inorderTraversal_94_1(root->right, &right_size);
-
-    int *ret = merge_array(left, left_size, &root->val, 1, right, right_size, returnSize);
-    free(left);
-    free(right);
+    int capacity = 16;
+    int *ret = (int *) malloc(capacity * sizeof(int));
+    *returnSize = 0;
+    in_order(root, &ret, &capacity, returnSize);
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
     return ret;
 }
 
 int *inorderTraversal_94_2(struct TreeNode *root, int *returnSize) {
     if (root == NULL || returnSize == NULL) return NULL;
 
-    int ret_capacity = 64;
-    int *ret = (int *) malloc(ret_capacity * sizeof(int));
+    int capacity = 16;
+    int *ret = (int *) malloc(capacity * sizeof(int));
     *returnSize = 0;
 
-    int stack_capicity = 64;
-    struct TreeNode **stack = (struct TreeNode **) malloc(stack_capicity * sizeof(struct TreeNode *));
+    int stack_capacity = 16;
+    struct TreeNode **stack = (struct TreeNode **) malloc(stack_capacity * sizeof(struct TreeNode *));
     int top = -1;
 
     struct TreeNode *p = root;
     while (top != -1 || p != NULL) {
         if (p != NULL) {
-            if (top + 1 >= stack_capicity) {
-                stack_capicity *= 2;
-                stack = (struct TreeNode **) realloc(stack, stack_capicity * sizeof(struct TreeNode *));
+            if (top + 1 >= stack_capacity) {
+                stack_capacity *= 2;
+                stack = (struct TreeNode **) realloc(stack, stack_capacity * sizeof(struct TreeNode *));
             }
             stack[++top] = p;
             p = p->left;
         } else {
             p = stack[top--];
-            if (*returnSize >= ret_capacity) {
-                ret_capacity *= 2;
-                ret = (int *) realloc(ret, ret_capacity * sizeof(int));
+            if (*returnSize >= capacity) {
+                capacity *= 2;
+                ret = (int *) realloc(ret, capacity * sizeof(int));
             }
             ret[(*returnSize)++] = p->val;
             p = p->right;
         }
     }
     free(stack);
-    ret = (int *) realloc(ret, (*returnSize) * sizeof(int));
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
     return ret;
 }
