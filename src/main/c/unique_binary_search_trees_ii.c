@@ -1,20 +1,17 @@
-#include <unique_binary_search_trees_ii.h>
+#include "unique_binary_search_trees_ii.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-static int num_trees(int n) {
-    if (n < 0) return 0;
-
-    int *dp = (int *) malloc((n + 1) * sizeof(int));
-    memset(dp, 0, (n + 1) * sizeof(int));
+static int *tree_counts(int node_count) {
+    int *dp = (int *) calloc(node_count + 1, sizeof(int));
     dp[0] = 1;
     dp[1] = 1;
-    for (int i = 2; i <= n; ++i) {
-        for (int j = 1; j <= i; ++j) {
-            dp[i] += dp[j - 1] * dp[i - j];
-        }
+    for (int count = 2; count <= node_count; ++count) {
+        for (int left = 0; left < count; ++left)
+            dp[count] += dp[left] * dp[count - left - 1];
     }
-    return dp[n];
+    return dp;
 }
 
 static struct TreeNode *copy_tree(struct TreeNode *root) {
@@ -33,20 +30,18 @@ static void free_tree(struct TreeNode *root) {
     free(root);
 }
 
-static struct TreeNode **generate_trees(int start, int end, int *size) {
-    int capacity = num_trees(end - start + 1);
-    if (capacity < 1) return NULL;
+static struct TreeNode **generate_trees(int start, int end, int *size, int *tree_counts) {
+    const int capacity = tree_counts[end - start];
     struct TreeNode **ret = (struct TreeNode **) malloc(capacity * sizeof(struct TreeNode *));
     *size = 0;
-    if (start > end) {
+    if (start == end) {
         ret[(*size)++] = NULL;
         return ret;
     }
-    for (int val = start; val <= end; ++val) {
-        int left_size = 0;
-        struct TreeNode **left_trees = generate_trees(start, val - 1, &left_size);
-        int right_size = 0;
-        struct TreeNode **right_trees = generate_trees(val + 1, end, &right_size);
+    for (int val = start; val < end; ++val) {
+        int left_size = 0, right_size = 0;
+        struct TreeNode **left_trees = generate_trees(start, val, &left_size, tree_counts),
+                **right_trees = generate_trees(val + 1, end, &right_size, tree_counts);
         for (int i = 0; i < left_size; ++i) {
             for (int j = 0; j < right_size; ++j) {
                 struct TreeNode *root = (struct TreeNode *) malloc(sizeof(struct TreeNode));
@@ -64,7 +59,10 @@ static struct TreeNode **generate_trees(int start, int end, int *size) {
     return ret;
 }
 
-struct TreeNode **generateTrees_95(int n, int *returnSize) {
+struct TreeNode **generateTrees_95_1(int n, int *returnSize) {
     if (n < 1 || returnSize == NULL) return NULL;
-    return generate_trees(1, n, returnSize);
+    int *counts = tree_counts(n);
+    struct TreeNode **ret = generate_trees(1, n + 1, returnSize, counts);
+    free(counts);
+    return ret;
 }
