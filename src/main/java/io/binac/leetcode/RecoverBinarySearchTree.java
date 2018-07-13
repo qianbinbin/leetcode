@@ -73,4 +73,31 @@ public class RecoverBinarySearchTree {
             }
         }
     }
+
+    public static class Solution2 {
+        private void inOrder(TreeNode root, TreeNode temp[]) {
+            if (root == null) return;
+            inOrder(root.left, temp);
+            if (temp[0] != null && temp[0].val > root.val) {
+                if (temp[1] == null)
+                    temp[1] = temp[0];
+                temp[2] = root;
+            }
+            temp[0] = root;
+            inOrder(root.right, temp);
+        }
+
+        public void recoverTree(TreeNode root) {
+            // Make it reentrant
+            // [pre, invalid1, invalid2]
+            TreeNode temp[] = new TreeNode[3];
+            inOrder(root, temp);
+            TreeNode invalid1 = temp[1], invalid2 = temp[2];
+            if (invalid1 != null && invalid2 != null) {
+                int tmp = invalid1.val;
+                invalid1.val = invalid2.val;
+                invalid2.val = tmp;
+            }
+        }
+    }
 }
