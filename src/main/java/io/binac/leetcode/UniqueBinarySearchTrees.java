@@ -32,4 +32,15 @@ public class UniqueBinarySearchTrees {
             return dp[n];
         }
     }
+
+    public static class Solution2 {
+        public int numTrees(int n) {
+            // if (n < 1) throw new IllegalArgumentException("n must be positive");
+            if (n < 2) return 1;
+            long result = 1;
+            for (int i = 1; i <= n; ++i)
+                result = result * (n + i) / i;
+            return (int) (result / (n + 1));
+        }
+    }
 }
