@@ -1,8 +1,9 @@
-#include <interleaving_string.h>
+#include "interleaving_string.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-bool isInterleave_97(char *s1, char *s2, char *s3) {
+bool isInterleave_97_1(char *s1, char *s2, char *s3) {
     if (s1 == NULL || s2 == NULL || s3 == NULL) return false;
 
     size_t len1 = strlen(s1);
@@ -21,9 +22,8 @@ bool isInterleave_97(char *s1, char *s2, char *s3) {
     bool *dp = (bool *) malloc((len2 + 1) * sizeof(bool));
 
     dp[0] = true;
-    for (int j = 1; j <= len2; ++j) {
+    for (int j = 1; j <= len2; ++j)
         dp[j] = dp[j - 1] && s2[j - 1] == s3[j - 1];
-    }
 
     for (int i = 1; i <= len1; ++i) {
         dp[0] = dp[0] && s1[i - 1] == s3[i - 1];
