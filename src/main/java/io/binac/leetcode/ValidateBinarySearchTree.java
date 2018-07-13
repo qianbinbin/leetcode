@@ -2,6 +2,8 @@ package io.binac.leetcode;
 
 import io.binac.leetcode.util.TreeNode;
 
+import java.util.Stack;
+
 /**
  * Given a binary tree, determine if it is a valid binary search tree (BST).
  * <p>
@@ -42,6 +44,26 @@ public class ValidateBinarySearchTree {
 
         public boolean isValidBST(TreeNode root) {
             return isValidBST(root, new TreeNode[1]);
+        }
+    }
+
+    public static class Solution2 {
+        public boolean isValidBST(TreeNode root) {
+            if (root == null) return true;
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode n = root, pre = null;
+            while (n != null || !stack.empty()) {
+                if (n != null) {
+                    stack.push(n);
+                    n = n.left;
+                } else {
+                    n = stack.pop();
+                    if (pre != null && pre.val >= n.val) return false;
+                    pre = n;
+                    n = n.right;
+                }
+            }
+            return true;
         }
     }
 }
