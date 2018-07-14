@@ -2,6 +2,9 @@ package io.binac.leetcode;
 
 import io.binac.leetcode.util.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
  * <p>
@@ -36,6 +39,26 @@ public class SymmetricTree {
         public boolean isSymmetric(TreeNode root) {
             if (root == null) return true;
             return isSymmetric(root.left, root.right);
+        }
+    }
+
+    public static class Solution2 {
+        public boolean isSymmetric(TreeNode root) {
+            if (root == null) return true;
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root.left);
+            queue.offer(root.right);
+            while (!queue.isEmpty()) {
+                TreeNode p1 = queue.poll(), p2 = queue.poll();
+                if (p1 == null && p2 == null) continue;
+                if (p1 == null || p2 == null) return false;
+                if (p1.val != p2.val) return false;
+                queue.offer(p1.left);
+                queue.offer(p2.right);
+                queue.offer(p1.right);
+                queue.offer(p2.left);
+            }
+            return true;
         }
     }
 }
