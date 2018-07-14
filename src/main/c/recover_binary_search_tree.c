@@ -1,4 +1,5 @@
-#include <recover_binary_search_tree.h>
+#include "recover_binary_search_tree.h"
+
 #include <stdlib.h>
 
 static void append_node(struct TreeNode ***nodes, int *size, int *capacity, struct TreeNode *node) {
@@ -21,7 +22,7 @@ void recoverTree_99_1(struct TreeNode *root) {
     if (root == NULL) return;
 
     int size = 0;
-    int capacity = 64;
+    int capacity = 16;
     struct TreeNode **nodes = (struct TreeNode **) malloc(capacity * sizeof(struct TreeNode *));
     traverse_inorder(root, &nodes, &size, &capacity);
     struct TreeNode *p1 = NULL, *p2 = NULL;
@@ -43,4 +44,29 @@ void recoverTree_99_1(struct TreeNode *root) {
         p2->val = tmp;
     }
     free(nodes);
+}
+
+static void in_order(struct TreeNode *root, struct TreeNode **temp) {
+    if (root == NULL) return;
+    in_order(root->left, temp);
+    if (temp[0] != NULL && temp[0]->val > root->val) {
+        if (temp[1] == NULL)
+            temp[1] = temp[0];
+        temp[2] = root;
+    }
+    temp[0] = root;
+    in_order(root->right, temp);
+}
+
+void recoverTree_99_2(struct TreeNode *root) {
+    if (root == NULL) return;
+
+    // [pre, invalid1, invalid2]
+    struct TreeNode *temp[3] = {0};
+    in_order(root, temp);
+    if (temp[1] != NULL && temp[2] != NULL) {
+        int tmp = temp[1]->val;
+        temp[1]->val = temp[2]->val;
+        temp[2]->val = tmp;
+    }
 }
