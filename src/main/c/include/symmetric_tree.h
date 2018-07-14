@@ -1,10 +1,4 @@
-#ifndef LEETCODE_SYMMETRIC_TREE_H
-#define LEETCODE_SYMMETRIC_TREE_H
-
-#include <common.h>
-#include <stdbool.h>
-
-/**
+/*
  * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
  *
  * For example, this binary tree [1,2,2,3,4,4,3] is symmetric:
@@ -24,23 +18,17 @@
  *
  * Note:
  * Bonus points if you could solve it both recursively and iteratively.
- *
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
  */
 
-/**
- * Recurse
- */
+#ifndef LEETCODE_SYMMETRIC_TREE_H
+#define LEETCODE_SYMMETRIC_TREE_H
+
+#include "common.h"
+
+#include <stdbool.h>
+
 bool isSymmetric_101_1(struct TreeNode *root);
 
-/**
- * Using stack
- */
 bool isSymmetric_101_2(struct TreeNode *root);
 
 #endif //LEETCODE_SYMMETRIC_TREE_H
