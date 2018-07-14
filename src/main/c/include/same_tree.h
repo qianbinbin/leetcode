@@ -1,14 +1,7 @@
-#ifndef LEETCODE_SAME_TREE_H
-#define LEETCODE_SAME_TREE_H
-
-#include <common.h>
-#include <stdbool.h>
-
-/**
+/*
  * Given two binary trees, write a function to check if they are the same or not.
  *
  * Two binary trees are considered the same if they are structurally identical and the nodes have the same value.
- *
  *
  * Example 1:
  *
@@ -40,14 +33,14 @@
  *
  * Output: false
  */
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
- */
-bool isSameTree_100(struct TreeNode *p, struct TreeNode *q);
+
+#ifndef LEETCODE_SAME_TREE_H
+#define LEETCODE_SAME_TREE_H
+
+#include "common.h"
+
+#include <stdbool.h>
+
+bool isSameTree_100_1(struct TreeNode *p, struct TreeNode *q);
 
 #endif //LEETCODE_SAME_TREE_H
