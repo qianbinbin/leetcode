@@ -2,9 +2,7 @@ package io.binac.leetcode;
 
 import io.binac.leetcode.util.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
@@ -45,6 +43,28 @@ public class BinaryTreeLevelOrderTraversalII {
             List<List<Integer>> result = new ArrayList<>();
             preOrder(root, 0, result);
             Collections.reverse(result);
+            return result;
+        }
+    }
+
+    public static class Solution2 {
+        public List<List<Integer>> levelOrderBottom(TreeNode root) {
+            if (root == null) return Collections.emptyList();
+
+            LinkedList<List<Integer>> result = new LinkedList<>();
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            while (!queue.isEmpty()) {
+                List<Integer> level = new ArrayList<>();
+                final int size = queue.size();
+                for (int i = 0; i < size; ++i) {
+                    TreeNode n = Objects.requireNonNull(queue.poll());
+                    level.add(n.val);
+                    if (n.left != null) queue.offer(n.left);
+                    if (n.right != null) queue.offer(n.right);
+                }
+                result.addFirst(level);
+            }
             return result;
         }
     }
