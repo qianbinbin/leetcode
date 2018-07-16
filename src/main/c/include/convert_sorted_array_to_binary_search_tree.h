@@ -1,13 +1,7 @@
-#ifndef LEETCODE_CONVERT_SORTED_ARRAY_TO_BINARY_SEARCH_TREE_H
-#define LEETCODE_CONVERT_SORTED_ARRAY_TO_BINARY_SEARCH_TREE_H
-
-#include <common.h>
-
-/**
+/*
  * Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
  *
  * For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
- *
  *
  * Example:
  *
@@ -20,14 +14,13 @@
  *    -3   9
  *    /   /
  *  -10  5
- *
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
  */
-struct TreeNode *sortedArrayToBST_108(int *nums, int numsSize);
+
+#ifndef LEETCODE_CONVERT_SORTED_ARRAY_TO_BINARY_SEARCH_TREE_H
+#define LEETCODE_CONVERT_SORTED_ARRAY_TO_BINARY_SEARCH_TREE_H
+
+#include "common.h"
+
+struct TreeNode *sortedArrayToBST_108_1(int *nums, int numsSize);
 
 #endif //LEETCODE_CONVERT_SORTED_ARRAY_TO_BINARY_SEARCH_TREE_H
