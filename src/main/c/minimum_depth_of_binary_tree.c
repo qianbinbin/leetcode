@@ -1,12 +1,13 @@
-#include <minimum_depth_of_binary_tree.h>
+#include "minimum_depth_of_binary_tree.h"
+
 #include <stddef.h>
 
-int minDepth_111(struct TreeNode *root) {
-    if (root == NULL) return 0;
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-    int left_depth = minDepth_111(root->left);
-    int right_depth = minDepth_111(root->right);
-    if (left_depth == 0) return right_depth + 1;
-    else if (right_depth == 0) return left_depth + 1;
-    else return (left_depth < right_depth ? left_depth : right_depth) + 1;
+int minDepth_111_1(struct TreeNode *root) {
+    if (root == NULL) return 0;
+    if (root->left == NULL) return minDepth_111_1(root->right) + 1;
+    if (root->right == NULL) return minDepth_111_1(root->left) + 1;
+    int left = minDepth_111_1(root->left), right = minDepth_111_1(root->right);
+    return MIN(left, right) + 1;
 }
