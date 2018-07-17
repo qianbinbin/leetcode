@@ -1,10 +1,4 @@
-#ifndef LEETCODE_BALANCED_BINARY_TREE_H
-#define LEETCODE_BALANCED_BINARY_TREE_H
-
-#include <common.h>
-#include <stdbool.h>
-
-/**
+/*
  * Given a binary tree, determine if it is height-balanced.
  *
  * For this problem, a height-balanced binary tree is defined as:
@@ -20,6 +14,7 @@
  *   9  20
  *     /  \
  *    15   7
+ *
  * Return true.
  *
  * Example 2:
@@ -33,18 +28,17 @@
  *    3   3
  *   / \
  *  4   4
- * Return false.
  *
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     struct TreeNode *left;
- *     struct TreeNode *right;
- * };
+ *  Return false.
  */
 
-bool isBalanced_110_1(struct TreeNode *root);
+#ifndef LEETCODE_BALANCED_BINARY_TREE_H
+#define LEETCODE_BALANCED_BINARY_TREE_H
 
-bool isBalanced_110_2(struct TreeNode *root);
+#include "common.h"
+
+#include <stdbool.h>
+
+bool isBalanced_110_1(struct TreeNode *root);
 
 #endif //LEETCODE_BALANCED_BINARY_TREE_H
