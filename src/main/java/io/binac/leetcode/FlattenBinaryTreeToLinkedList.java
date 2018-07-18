@@ -47,4 +47,20 @@ public class FlattenBinaryTreeToLinkedList {
             flatten(root, new TreeNode[1]);
         }
     }
+
+    public static class Solution2 {
+        private void flatten(TreeNode root, TreeNode[] pre) {
+            if (root == null)
+                return;
+            flatten(root.right, pre);
+            flatten(root.left, pre);
+            root.left = null;
+            root.right = pre[0];
+            pre[0] = root;
+        }
+
+        public void flatten(TreeNode root) {
+            flatten(root, new TreeNode[1]);
+        }
+    }
 }
