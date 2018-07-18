@@ -1,33 +1,21 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <flatten_binary_tree_to_linked_list.h>
+#include "flatten_binary_tree_to_linked_list.h"
 }
 
-TEST(leetcode_114_1, normal) {
+TEST(flatten_binary_tree_to_linked_list_test, flatten_114_1) {
     int nums[] = {1, 2, 5, 3, 4, NTNODE, 6};
-    struct TreeNode *tree = tree_create(nums, 7);
-    printf("before flattening\npreorder:\n");
-    tree_preorder_print(tree);
-    printf("inorder:\n");
-    tree_inorder_print(tree);
-    flatten_114_1(tree);
-    printf("after flattening\npreorder:\n");
-    tree_preorder_print(tree);
-    printf("inorder:\n");
-    tree_inorder_print(tree);
+    struct TreeNode *root = tree_create(nums, sizeof(nums) / sizeof(nums[0]));
+    flatten_114_1(root);
+    tree_preorder_print(root);
+    tree_inorder_print(root);
 }
 
-TEST(leetcode_114_2, normal) {
+TEST(flatten_binary_tree_to_linked_list_test, flatten_114_2) {
     int nums[] = {1, 2, 5, 3, 4, NTNODE, 6};
-    struct TreeNode *tree = tree_create(nums, 7);
-    printf("before flattening\npreorder:\n");
-    tree_preorder_print(tree);
-    printf("inorder:\n");
-    tree_inorder_print(tree);
-    flatten_114_2(tree);
-    printf("after flattening\npreorder:\n");
-    tree_preorder_print(tree);
-    printf("inorder:\n");
-    tree_inorder_print(tree);
+    struct TreeNode *root = tree_create(nums, sizeof(nums) / sizeof(nums[0]));
+    flatten_114_2(root);
+    tree_preorder_print(root);
+    tree_inorder_print(root);
 }

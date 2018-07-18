@@ -1,46 +1,34 @@
-#include <flatten_binary_tree_to_linked_list.h>
-#include <stdlib.h>
+#include "flatten_binary_tree_to_linked_list.h"
+
+#include <stddef.h>
+
+static void flatten_pre_order(struct TreeNode *root, struct TreeNode **pre) {
+    if (root == NULL) return;
+    if (*pre != NULL) {
+        (*pre)->left = NULL;
+        (*pre)->right = root;
+    }
+    *pre = root;
+    struct TreeNode *right = root->right;
+    flatten_pre_order(root->left, pre);
+    flatten_pre_order(right, pre);
+}
 
 void flatten_114_1(struct TreeNode *root) {
+    struct TreeNode *pre = NULL;
+    flatten_pre_order(root, &pre);
+}
+
+static void flatten_reverse_pre_order(struct TreeNode *root, struct TreeNode **pre) {
     if (root == NULL) return;
-    flatten_114_1(root->left);
-    flatten_114_1(root->right);
-    if (root->left != NULL) {
-        struct TreeNode *l_last = root->left;
-        while (l_last->right != NULL) l_last = l_last->right;
-        l_last->right = root->right;
-        root->right = root->left;
-        root->left = NULL;
-    }
+    flatten_reverse_pre_order(root->right, pre);
+    flatten_reverse_pre_order(root->left, pre);
+    root->left = NULL;
+    root->right = *pre;
+    *pre = root;
 }
 
 void flatten_114_2(struct TreeNode *root) {
-    if (root == NULL) return;
-
-    int capacity = 64;
-    struct TreeNode **stack = (struct TreeNode **) malloc(capacity * sizeof(struct TreeNode *));
-    int top = -1;
-    stack[++top] = root;
-    struct TreeNode *p;
-    while (top >= 0) {
-        p = stack[top--];
-        if (p->right != NULL) {
-            if (top + 1 >= capacity) {
-                capacity *= 2;
-                stack = (struct TreeNode **) realloc(stack, capacity * sizeof(struct TreeNode *));
-            }
-            stack[++top] = p->right;
-        }
-        if (p->left != NULL) {
-            if (top + 1 >= capacity) {
-                capacity *= 2;
-                stack = (struct TreeNode **) realloc(stack, capacity * sizeof(struct TreeNode *));
-            }
-            stack[++top] = p->left;
-        }
-        p->left = NULL;
-        if (top >= 0) {
-            p->right = stack[top];
-        }
-    }
+    struct TreeNode *pre = NULL;
+    flatten_reverse_pre_order(root, &pre);
 }
