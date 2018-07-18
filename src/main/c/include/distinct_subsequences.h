@@ -1,7 +1,4 @@
-#ifndef LEETCODE_DISTINCT_SUBSEQUENCES_H
-#define LEETCODE_DISTINCT_SUBSEQUENCES_H
-
-/**
+/*
  * Given a string S and a string T, count the number of distinct subsequences of S which equals T.
  *
  * A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
@@ -43,14 +40,9 @@
  *     ^^^
  */
 
-/**
- * Dynamic programming
- */
-int numDistinct_115_1(char *s, char *t);
+#ifndef LEETCODE_DISTINCT_SUBSEQUENCES_H
+#define LEETCODE_DISTINCT_SUBSEQUENCES_H
 
-/**
- * Depth-first search, time limit exceeded
- */
-int numDistinct_115_2(char *s, char *t);
+int numDistinct_115_1(char *s, char *t);
 
 #endif //LEETCODE_DISTINCT_SUBSEQUENCES_H
