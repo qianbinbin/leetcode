@@ -1,30 +1,28 @@
-#include <populating_next_right_pointers_in_each_node_ii.h>
-#include <stddef.h>
+#include "populating_next_right_pointers_in_each_node_ii.h"
 
-void connect_117(struct TreeLinkNode *root) {
+#include <stdlib.h>
+
+void connect_117_1(struct TreeLinkNode *root) {
     if (root == NULL) return;
 
-    struct TreeLinkNode *cur = root, *p = NULL, *leading = NULL;
-    while (cur != NULL) {
-        while (cur != NULL) {
-            if (cur->left != NULL) {
-                if (leading == NULL) leading = cur->left;
-                if (p != NULL) {
-                    p->next = cur->left;
-                }
-                p = cur->left;
-            }
-            if (cur->right != NULL) {
-                if (leading == NULL) leading = cur->right;
-                if (p != NULL) {
-                    p->next = cur->right;
-                }
-                p = cur->right;
-            }
-            cur = cur->next;
+    struct TreeLinkNode *dummy = (struct TreeLinkNode *) malloc(sizeof(struct TreeLinkNode));
+    dummy->next = NULL;
+    struct TreeLinkNode *tail = dummy;
+    while (root != NULL) {
+        if (root->left != NULL) {
+            tail->next = root->left;
+            tail = tail->next;
         }
-        cur = leading;
-        leading = NULL;
-        p = NULL;
+        if (root->right != NULL) {
+            tail->next = root->right;
+            tail = tail->next;
+        }
+        if (root->next != NULL) {
+            root = root->next;
+        } else {
+            root = dummy->next;
+            dummy->next = NULL;
+            tail = dummy;
+        }
     }
 }
