@@ -1,19 +1,20 @@
-#include <triangle.h>
+#include "triangle.h"
+
 #include <stdlib.h>
 #include <string.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int minimumTotal_120(int **triangle, int triangleRowSize, int *triangleColSizes) {
-    if (triangle == NULL || triangleRowSize < 1 || triangleColSizes == NULL) return -1;
+int minimumTotal_120_1(int **triangle, int triangleRowSize, int *triangleColSizes) {
+    if (triangle == NULL || triangleRowSize < 0 || triangleColSizes == NULL) return -1;
+    if (triangleRowSize == 0) return 0;
 
-    int *dp = (int *) malloc(triangleColSizes[triangleRowSize - 1] * sizeof(int));
-    memcpy(dp, triangle[triangleRowSize - 1], triangleColSizes[triangleRowSize - 1] * sizeof(int));
+    int *dp = (int *) malloc(triangleRowSize * sizeof(int));
+    memcpy(dp, triangle[triangleRowSize - 1], triangleRowSize * sizeof(int));
 
-    for (int row = triangleRowSize - 2; row >= 0; --row) {
-        for (int col = 0; col < triangleColSizes[row]; ++col) {
-            dp[col] = MIN(dp[col], dp[col + 1]) + triangle[row][col];
-        }
+    for (int i = triangleRowSize - 2; i >= 0; --i) {
+        for (int j = 0; j <= i; ++j)
+            dp[j] = MIN(dp[j], dp[j + 1]) + triangle[i][j];
     }
     int ret = dp[0];
     free(dp);
