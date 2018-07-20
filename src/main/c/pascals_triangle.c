@@ -1,7 +1,8 @@
-#include <pascals_triangle.h>
+#include "pascals_triangle.h"
+
 #include <stdlib.h>
 
-int **generate_118(int numRows, int **columnSizes) {
+int **generate_118_1(int numRows, int **columnSizes) {
     if (numRows < 1 || columnSizes == NULL) return NULL;
 
     int **ret = (int **) malloc(numRows * sizeof(int *));
