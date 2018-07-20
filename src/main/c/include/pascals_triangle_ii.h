@@ -1,7 +1,4 @@
-#ifndef LEETCODE_PASCALS_TRIANGLE_II_H
-#define LEETCODE_PASCALS_TRIANGLE_II_H
-
-/**
+/*
  * Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
  *
  * Note that the row index starts from 0.
@@ -18,10 +15,15 @@
  * Follow up:
  *
  * Could you optimize your algorithm to use only O(k) extra space?
- *
+ */
+
+#ifndef LEETCODE_PASCALS_TRIANGLE_II_H
+#define LEETCODE_PASCALS_TRIANGLE_II_H
+
+/**
  * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-int *getRow_119(int rowIndex, int *returnSize);
+int *getRow_119_1(int rowIndex, int *returnSize);
 
 #endif //LEETCODE_PASCALS_TRIANGLE_II_H
