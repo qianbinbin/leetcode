@@ -1,7 +1,4 @@
-#ifndef LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H
-#define LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H
-
-/**
+/*
  * Say you have an array for which the ith element is the price of a given stock on day i.
  *
  * Design an algorithm to find the maximum profit. You may complete at most two transactions.
@@ -30,14 +27,11 @@
  * Explanation: In this case, no transaction is done, i.e. max profit = 0.
  */
 
-/**
- * Dynamic programming
- */
+#ifndef LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H
+#define LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H
+
 int maxProfit_123_1(int *prices, int pricesSize);
 
-/**
- * Dynamic programming version 2
- */
 int maxProfit_123_2(int *prices, int pricesSize);
 
 #endif //LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_III_H
