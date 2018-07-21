@@ -1,7 +1,4 @@
-#ifndef LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H
-#define LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H
-
-/**
+/*
  * Say you have an array for which the ith element is the price of a given stock on day i.
  *
  * Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
@@ -30,11 +27,11 @@
  * Explanation: In this case, no transaction is done, i.e. max profit = 0.
  */
 
+#ifndef LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H
+#define LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H
+
 int maxProfit_122_1(int *prices, int pricesSize);
 
-/**
- * Greedy
- */
 int maxProfit_122_2(int *prices, int pricesSize);
 
 #endif //LEETCODE_BEST_TIME_TO_BUY_AND_SELL_STOCK_II_H
