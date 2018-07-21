@@ -42,4 +42,31 @@ public class BestTimeToBuyAndSellStockIII {
             return release2;
         }
     }
+
+    public static class Solution2 {
+        public int maxProfit(int[] prices) {
+            final int size = prices.length;
+            if (size < 2) return 0;
+
+            int f[] = new int[size];
+            int valley = prices[0];
+            for (int i = 1; i < size; ++i) {
+                f[i] = Math.max(f[i - 1], prices[i] - valley);
+                valley = Math.min(valley, prices[i]);
+            }
+
+            int g[] = new int[size];
+            int peak = prices[size - 1];
+            for (int i = size - 2; i >= 0; --i) {
+                g[i] = Math.max(g[i + 1], peak - prices[i]);
+                peak = Math.max(peak, prices[i]);
+            }
+
+            int result = 0;
+            for (int i = 0; i < size; ++i) {
+                result = Math.max(result, f[i] + g[i]);
+            }
+            return result;
+        }
+    }
 }
