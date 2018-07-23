@@ -1,9 +1,10 @@
-#include <word_ladder.h>
+#include "word_ladder.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define HASH_MAP_SIZE 1024
+#define HASH_MAP_SIZE 256
 
 typedef struct Entry {
     char *key;
@@ -15,11 +16,11 @@ typedef struct {
 } hashmap;
 
 static int hashcode(char *key) {
-    int code = 0;
+    int hash = 0;
     const size_t len = strlen(key);
     for (size_t i = 0; i < len; ++i)
-        code = code * 31 + key[i];
-    return abs(code);
+        hash = hash * 31 + key[i];
+    return hash;
 }
 
 static void hashmap_init(hashmap *map) {
@@ -28,7 +29,7 @@ static void hashmap_init(hashmap *map) {
 }
 
 static bool hashmap_put(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
         if (strcmp(e->next->key, key) == 0)
@@ -43,7 +44,7 @@ static bool hashmap_put(hashmap *map, char *key) {
 }
 
 static char *hashmap_get(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
         if (strcmp(e->next->key, key) == 0)
@@ -54,7 +55,7 @@ static char *hashmap_get(hashmap *map, char *key) {
 }
 
 static bool hashmap_remove(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
         if (strcmp(e->next->key, key) == 0) {
@@ -155,64 +156,6 @@ int ladderLength_127_1(char *beginWord, char *endWord, char **wordList, int word
         return 0;
     }
     hashmap_remove(map, beginWord);
-
-    queue *q = (queue *) malloc(sizeof(queue));
-    queue_init(q);
-    queue_enq(q, beginWord);
-
-    const size_t len = strlen(beginWord);
-    char *word = (char *) malloc(len + 1);
-
-    int depth = 0;
-    while (!queue_empty(q)) {
-        ++depth;
-        for (int size = q->size; size > 0; --size) {
-            strcpy(word, queue_deq(q));
-            for (int i = 0; i < len; ++i) {
-                const char c = word[i];
-                for (char j = 'a'; j <= 'z'; ++j) {
-                    if (j == c) continue;
-                    word[i] = j;
-                    char *find = hashmap_get(map, word);
-                    if (find != NULL) {
-                        if (strcmp(word, endWord) == 0) {
-                            free(word);
-                            hashmap_uninit(map);
-                            free(map);
-                            queue_uninit(q);
-                            free(q);
-                            return depth + 1;
-                        }
-                        queue_enq(q, find);
-                        hashmap_remove(map, find);
-                    }
-                }
-                word[i] = c;
-            }
-        }
-    }
-    free(word);
-    hashmap_uninit(map);
-    free(map);
-    queue_uninit(q);
-    free(q);
-
-    return 0;
-}
-
-int ladderLength_127_2(char *beginWord, char *endWord, char **wordList, int wordListSize) {
-    if (beginWord == NULL || endWord == NULL || wordList == NULL || wordListSize < 0) return 0;
-
-    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
-    hashmap_init(map);
-    for (int i = 0; i < wordListSize; ++i)
-        hashmap_put(map, wordList[i]);
-    if (hashmap_get(map, endWord) == NULL) {
-        hashmap_uninit(map);
-        free(map);
-        return 0;
-    }
-    hashmap_remove(map, beginWord);
     hashmap_remove(map, endWord);
 
     queue *q1 = (queue *) malloc(sizeof(queue));
@@ -248,10 +191,10 @@ int ladderLength_127_2(char *beginWord, char *endWord, char **wordList, int word
             strcpy(word, queue_deq(q1));
             hashmap_remove(m1, word);
             for (int i = 0; i < len; ++i) {
-                const char c = word[i];
-                for (char j = 'a'; j <= 'z'; ++j) {
-                    if (j == c) continue;
-                    word[i] = j;
+                const char origin = word[i];
+                for (char ch = 'a'; ch <= 'z'; ++ch) {
+                    if (ch == origin) continue;
+                    word[i] = ch;
                     if (hashmap_get(m2, word) != NULL) {
                         free(word);
                         hashmap_uninit(m2);
@@ -273,7 +216,7 @@ int ladderLength_127_2(char *beginWord, char *endWord, char **wordList, int word
                         hashmap_remove(map, find);
                     }
                 }
-                word[i] = c;
+                word[i] = origin;
             }
         }
     }

@@ -1,33 +1,15 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <word_ladder.h>
+#include "word_ladder.h"
 }
 
-TEST(leetcode_127_1, normal_1) {
-    char *begin = "hit";
-    char *end = "cog";
-    char *list[] = {"hot", "dot", "dog", "lot", "log", "cog"};
-    EXPECT_EQ(ladderLength_127_1(begin, end, list, 6), 5);
-}
+#define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
-TEST(leetcode_127_1, normal_2) {
-    char *begin = "talk";
-    char *end = "tail";
-    char *list[] = {"talk", "tons", "fall", "tail", "gale", "hall", "negs"};
-    EXPECT_EQ(ladderLength_127_1(begin, end, list, 7), 0);
-}
+TEST(word_ladder_test, ladderLength_127_1) {
+    char *list1[] = {"hot", "dot", "dog", "lot", "log", "cog"};
+    EXPECT_EQ(ladderLength_127_1("hit", "cog", list1, ARR_SIZE(list1)), 5);
 
-TEST(leetcode_127_2, normal_1) {
-    char *begin = "hit";
-    char *end = "cog";
-    char *list[] = {"hot", "dot", "dog", "lot", "log", "cog"};
-    EXPECT_EQ(ladderLength_127_2(begin, end, list, 6), 5);
-}
-
-TEST(leetcode_127_2, normal_2) {
-    char *begin = "talk";
-    char *end = "tail";
-    char *list[] = {"talk", "tons", "fall", "tail", "gale", "hall", "negs"};
-    EXPECT_EQ(ladderLength_127_2(begin, end, list, 7), 0);
+    char *list2[] = {"hot", "dot", "dog", "lot", "log"};
+    EXPECT_EQ(ladderLength_127_1("hit", "cog", list2, ARR_SIZE(list2)), 0);
 }
