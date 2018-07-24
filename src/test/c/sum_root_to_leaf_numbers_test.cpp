@@ -1,13 +1,19 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <sum_root_to_leaf_numbers.h>
+#include "sum_root_to_leaf_numbers.h"
 }
 
-TEST(leetcode_129, normal) {
-    int nums[] = {1, 2, 3};
-    struct TreeNode *tree = tree_create(nums, 3);
-    tree_preorder_print(tree);
-    EXPECT_EQ(sumNumbers_129(tree), 25);
-    tree_free(tree);
+#define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
+TEST(sum_root_to_leaf_numbers_test, sumNumbers_129_1) {
+    int nums1[] = {1, 2, 3};
+    struct TreeNode *root1 = tree_create(nums1, ARR_SIZE(nums1));
+    EXPECT_EQ(sumNumbers_129_1(root1), 25);
+    tree_free(root1);
+
+    int nums2[] = {4, 9, 0, 5, 1};
+    struct TreeNode *root2 = tree_create(nums2, ARR_SIZE(nums2));
+    EXPECT_EQ(sumNumbers_129_1(root2), 1026);
+    tree_free(root2);
 }
