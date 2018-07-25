@@ -32,4 +32,22 @@ public class PalindromePartitioningII {
             return cut[0];
         }
     }
+
+    public static class Solution2 {
+        public int minCut(String s) {
+            final char chars[] = s.toCharArray();
+            final int len = chars.length;
+
+            int cut[] = new int[len + 1];
+            for (int i = 0; i <= len; ++i) cut[i] = i - 1;
+
+            for (int i = 0; i < len; ++i) {
+                for (int l = 0; i - l >= 0 && i + l < len && chars[i - l] == chars[i + l]; ++l)
+                    cut[i + l + 1] = Math.min(cut[i + l + 1], cut[i - l] + 1);
+                for (int l = 0; i - l >= 0 && i + l + 1 < len && chars[i - l] == chars[i + l + 1]; ++l)
+                    cut[i + l + 2] = Math.min(cut[i + l + 2], cut[i - l] + 1);
+            }
+            return cut[len];
+        }
+    }
 }
