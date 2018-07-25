@@ -1,49 +1,17 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <surrounded_regions.h>
+#include "surrounded_regions.h"
 }
 
-TEST(leetcode_130_1, normal) {
-    char *board[4];
-    board[0] = (char *) malloc(5);
-    strcpy(board[0], "XXXX");
-    board[1] = (char *) malloc(5);
-    strcpy(board[1], "XOOX");
-    board[2] = (char *) malloc(5);
-    strcpy(board[2], "XXOX");
-    board[3] = (char *) malloc(5);
-    strcpy(board[3], "XOXX");
-    for (int i = 0; i < 4; ++i) {
-        puts(board[i]);
-    }
-
-    printf("\n");
-    solve_130_1(board, 4, 4);
-    for (int i = 0; i < 4; ++i) {
-        puts(board[i]);
-        free(board[i]);
-    }
-}
-
-TEST(leetcode_130_2, normal) {
-    char *board[4];
-    board[0] = (char *) malloc(5);
-    strcpy(board[0], "XXXX");
-    board[1] = (char *) malloc(5);
-    strcpy(board[1], "XOOX");
-    board[2] = (char *) malloc(5);
-    strcpy(board[2], "XXOX");
-    board[3] = (char *) malloc(5);
-    strcpy(board[3], "XOXX");
-    for (int i = 0; i < 4; ++i) {
-        puts(board[i]);
-    }
-
-    printf("\n");
-    solve_130_2(board, 4, 4);
-    for (int i = 0; i < 4; ++i) {
-        puts(board[i]);
-        free(board[i]);
-    }
+TEST(surrounded_regions_test, solve_130_1) {
+    char board[][5] = {
+            {'X', 'X', 'X', 'X'},
+            {'X', 'O', 'O', 'X'},
+            {'X', 'X', 'O', 'X'},
+            {'X', 'O', 'X', 'X'}
+    };
+    char *p_board[] = {board[0], board[1], board[2], board[3]};
+    solve_130_1(p_board, 4, 4);
+    for (int i = 0; i < 4; ++i) puts(p_board[i]);
 }

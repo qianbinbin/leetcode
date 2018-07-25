@@ -1,12 +1,9 @@
-#ifndef LEETCODE_SURROUNDED_REGIONS_H
-#define LEETCODE_SURROUNDED_REGIONS_H
-
-/**
+/*
  * Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
  *
  * A region is captured by flipping all 'O's into 'X's in that surrounded region.
  *
- * For example,
+ * Example:
  *
  * X X X X
  * X O O X
@@ -19,16 +16,15 @@
  * X X X X
  * X X X X
  * X O X X
+ *
+ * Explanation:
+ *
+ * Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
  */
 
-/**
- * Depth-first search
- */
+#ifndef LEETCODE_SURROUNDED_REGIONS_H
+#define LEETCODE_SURROUNDED_REGIONS_H
+
 void solve_130_1(char **board, int boardRowSize, int boardColSize);
-
-/**
- * Breadth-first search, time limit exceeded
- */
-void solve_130_2(char **board, int boardRowSize, int boardColSize);
 
 #endif //LEETCODE_SURROUNDED_REGIONS_H
