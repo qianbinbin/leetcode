@@ -1,11 +1,12 @@
-#include <palindrome_partitioning_ii.h>
+#include "palindrome_partitioning_ii.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int minCut_132(char *s) {
+int minCut_132_1(char *s) {
     if (s == NULL) return -1;
 
     const int len = strlen(s);
@@ -29,5 +30,23 @@ int minCut_132(char *s) {
     for (int i = 0; i < len; ++i)
         free(p[i]);
     free(p);
+    return ret;
+}
+
+int minCut_132_2(char *s) {
+    if (s == NULL) return -1;
+
+    const int len = strlen(s);
+    int *cut = (int *) malloc((len + 1) * sizeof(int));
+    for (int i = 0; i <= len; ++i) cut[i] = i - 1;
+
+    for (int i = 0; i < len; ++i) {
+        for (int l = 0; i - l >= 0 && i + l < len && s[i - l] == s[i + l]; ++l)
+            cut[i + l + 1] = MIN(cut[i + l + 1], cut[i - l] + 1);
+        for (int l = 0; i - l >= 0 && i + l + 1 < len && s[i - l] == s[i + l + 1]; ++l)
+            cut[i + l + 2] = MIN(cut[i + l + 2], cut[i - l] + 1);
+    }
+    int ret = cut[len];
+    free(cut);
     return ret;
 }
