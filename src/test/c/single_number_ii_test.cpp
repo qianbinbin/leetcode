@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <single_number_ii.h>
+#include "single_number_ii.h"
 }
 
-TEST(leetcode_137_1, normal) {
-    int nums[] = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4};
-    EXPECT_EQ(singleNumber_137_1(nums, 10), 4);
-}
+#define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
-TEST(leetcode_137_2, normal) {
-    int nums[] = {1, 2, 3, 1, 2, 3, 1, 2, 3, 4};
-    EXPECT_EQ(singleNumber_137_2(nums, 10), 4);
+TEST(single_number_ii_test, singleNumber_137_1) {
+    int nums1[] = {2, 2, 3, 2};
+    EXPECT_EQ(singleNumber_137_1(nums1, ARR_SIZE(nums1)), 3);
+
+    int nums2[] = {0, 1, 0, 1, 0, 1, 99};
+    EXPECT_EQ(singleNumber_137_1(nums2, ARR_SIZE(nums2)), 99);
 }
