@@ -1,11 +1,17 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <gas_station.h>
+#include "gas_station.h"
 }
 
-TEST(leetcode_134, normal) {
-    int gas[] = {4, 3, 4, 8, 1, 4, 5};
-    int cost[] = {5, 4, 1, 2, 3, 4, 5};
-    EXPECT_EQ(canCompleteCircuit_134(gas, 7, cost, 7), 2);
+#define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
+TEST(gas_station_test, canCompleteCircuit_134_1) {
+    int gas1[] = {1, 2, 3, 4, 5};
+    int cost1[] = {3, 4, 5, 1, 2};
+    EXPECT_EQ(canCompleteCircuit_134_1(gas1, ARR_SIZE(gas1), cost1, ARR_SIZE(cost1)), 3);
+
+    int gas2[] = {2, 3, 4};
+    int cost2[] = {3, 4, 3};
+    EXPECT_EQ(canCompleteCircuit_134_1(gas2, ARR_SIZE(gas2), cost2, ARR_SIZE(cost2)), -1);
 }
