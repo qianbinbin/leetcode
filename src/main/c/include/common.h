@@ -56,4 +56,12 @@ struct TreeLinkNode {
     struct TreeLinkNode *left, *right, *next;
 };
 
+#define NEIGHBORS_MAX_SIZE 100
+
+struct UndirectedGraphNode {
+    int label;
+    struct UndirectedGraphNode *neighbors[NEIGHBORS_MAX_SIZE];
+    int neighborsCount;
+};
+
 #endif //LEETCODE_COMMON_H
