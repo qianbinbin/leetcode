@@ -1,17 +1,5 @@
-#ifndef LEETCODE_CLONE_GRAPH_H
-#define LEETCODE_CLONE_GRAPH_H
-
-#define NEIGHBORS_MAX_SIZE 100
-
-struct UndirectedGraphNode {
-    int label;
-    struct UndirectedGraphNode *neighbors[NEIGHBORS_MAX_SIZE];
-    int neighborsCount;
-};
-
-/**
+/*
  * Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
- *
  *
  * OJ's undirected graph serialization:
  * Nodes are labeled uniquely.
@@ -33,14 +21,15 @@ struct UndirectedGraphNode {
  *     0 --- 2
  *          / \
  *          \_/
- *
- * #define NEIGHBORS_MAX_SIZE 100
- * struct UndirectedGraphNode {
- *     int label;
- *     struct UndirectedGraphNode *neighbors[NEIGHBORS_MAX_SIZE];
- *     int neighborsCount;
- * };
  */
-struct UndirectedGraphNode *cloneGraph_133(struct UndirectedGraphNode *graph);
+
+#ifndef LEETCODE_CLONE_GRAPH_H
+#define LEETCODE_CLONE_GRAPH_H
+
+#include "common.h"
+
+struct UndirectedGraphNode *cloneGraph_133_1(struct UndirectedGraphNode *graph);
+
+struct UndirectedGraphNode *cloneGraph_133_2(struct UndirectedGraphNode *graph);
 
 #endif //LEETCODE_CLONE_GRAPH_H
