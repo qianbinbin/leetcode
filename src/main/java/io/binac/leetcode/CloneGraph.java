@@ -50,4 +50,31 @@ public class CloneGraph {
             return cloneGraph(node, visited);
         }
     }
+
+    public static class Solution2 {
+        public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+            if (node == null) return null;
+
+            Map<Integer, UndirectedGraphNode> visited = new HashMap<>();
+            UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+            visited.put(newNode.label, newNode);
+
+            Queue<UndirectedGraphNode> queue = new LinkedList<>();
+            queue.offer(node);
+            while (!queue.isEmpty()) {
+                node = Objects.requireNonNull(queue.poll());
+                UndirectedGraphNode clonedNode = visited.get(node.label);
+                for (UndirectedGraphNode neighbor : node.neighbors) {
+                    UndirectedGraphNode clonedNeighbor = visited.get(neighbor.label);
+                    if (clonedNeighbor == null) {
+                        clonedNeighbor = new UndirectedGraphNode(neighbor.label);
+                        visited.put(clonedNeighbor.label, clonedNeighbor);
+                        queue.offer(neighbor);
+                    }
+                    clonedNode.neighbors.add(clonedNeighbor);
+                }
+            }
+            return newNode;
+        }
+    }
 }
