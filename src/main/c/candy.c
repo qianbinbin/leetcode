@@ -1,33 +1,26 @@
-#include <candy.h>
-#include <assert.h>
+#include "candy.h"
+
 #include <stdlib.h>
 
-int max(int a, int b) {
-    return a > b ? a : b;
-}
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-int candy_135(int *ratings, int ratingsSize) {
+int candy_135_1(int *ratings, int ratingsSize) {
     if (ratings == NULL || ratingsSize < 0) return -1;
+    if (ratingsSize == 0) return 0;
 
     int *candies = (int *) malloc(ratingsSize * sizeof(int));
-    assert(candies != NULL);
     for (int i = 0; i < ratingsSize; ++i) candies[i] = 1;
 
     for (int i = 1; i < ratingsSize; ++i) {
-        if (ratings[i] > ratings[i - 1]) {
+        if (ratings[i] > ratings[i - 1])
             candies[i] = candies[i - 1] + 1;
-        }
     }
+    int ret = candies[ratingsSize - 1];
     for (int i = ratingsSize - 2; i >= 0; --i) {
-        if (ratings[i] > ratings[i + 1]) {
-            candies[i] = max(candies[i], candies[i + 1] + 1);
-        }
-    }
-
-    int nums = 0;
-    for (int i = 0; i < ratingsSize; ++i) {
-        nums += candies[i];
+        if (ratings[i] > ratings[i + 1])
+            candies[i] = MAX(candies[i], candies[i + 1] + 1);
+        ret += candies[i];
     }
     free(candies);
-    return nums;
+    return ret;
 }
