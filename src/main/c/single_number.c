@@ -1,13 +1,10 @@
-#include <single_number.h>
-#include <assert.h>
+#include "single_number.h"
+
 #include <stddef.h>
 
-int singleNumber_136(int *nums, int numsSize) {
-    assert(nums != NULL && numsSize > 2 && numsSize % 2 != 0);
-
+int singleNumber_136_1(int *nums, int numsSize) {
     int ret = 0;
-    for (int i = 0; i < numsSize; ++i) {
+    for (int i = 0; i < numsSize; ++i)
         ret ^= nums[i];
-    }
     return ret;
 }
