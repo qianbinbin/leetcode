@@ -1,11 +1,9 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <copy_list_with_random_pointer.h>
+#include "copy_list_with_random_pointer.h"
 }
 
-TEST(leetcode_138, null) {
-    EXPECT_TRUE(copyRandomList_138(NULL) == NULL);
+TEST(copy_list_with_random_pointer_test, copyRandomList_138_1) {
+    // TODO
 }
-
-// TODO: Implement normal test and print results.
