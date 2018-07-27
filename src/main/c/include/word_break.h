@@ -1,9 +1,4 @@
-#ifndef LEETCODE_WORD_BREAK_H
-#define LEETCODE_WORD_BREAK_H
-
-#include <stdbool.h>
-
-/**
+/*
  * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
  *
  * Note:
@@ -29,6 +24,12 @@
  * Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
  * Output: false
  */
-bool wordBreak_139(char *s, char **wordDict, int wordDictSize);
+
+#ifndef LEETCODE_WORD_BREAK_H
+#define LEETCODE_WORD_BREAK_H
+
+#include <stdbool.h>
+
+bool wordBreak_139_1(char *s, char **wordDict, int wordDictSize);
 
 #endif //LEETCODE_WORD_BREAK_H

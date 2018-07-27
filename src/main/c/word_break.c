@@ -1,8 +1,9 @@
-#include <word_break.h>
+#include "word_break.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-#define HASH_MAP_SIZE 1024
+#define HASH_MAP_SIZE 256
 
 typedef struct Entry {
     char *key;
@@ -14,24 +15,22 @@ typedef struct {
 } hashmap;
 
 static hashmap *hashmap_create() {
-    hashmap *new = (hashmap *) malloc(sizeof(hashmap));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        (new->entries + i)->next = NULL;
-    }
-    return new;
+    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
+    entry *entries = map->entries;
+    for (int i = 0; i < HASH_MAP_SIZE; ++i)
+        (entries + i)->next = NULL;
+    return map;
 }
 
 static int hashcode(char *key) {
-    int code = 0;
-    const size_t len = strlen(key);
-    for (int i = 0; i < len; ++i) {
-        code = code * 31 + key[i];
-    }
-    return abs(code);
+    int hash = 0;
+    for (; *key != '\0'; ++key)
+        hash = hash * 31 + *key;
+    return hash;
 }
 
 static void hashmap_put(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
         if (strcmp(e->next->key, key) == 0)
@@ -45,12 +44,11 @@ static void hashmap_put(hashmap *map, char *key) {
 }
 
 static bool hashmap_contains(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
-        if (strcmp(e->next->key, key) == 0) {
+        if (strcmp(e->next->key, key) == 0)
             return true;
-        }
         e = e->next;
     }
     return false;
@@ -69,30 +67,29 @@ static void hashmap_free(hashmap *map) {
     free(map);
 }
 
-static char *str_create(char *s, size_t start, size_t end) {
-    const size_t len = end - start + 1;
+static char *str_new(char *s, size_t start, size_t end) {
+    const size_t len = end - start;
     char *ret = (char *) malloc(len + 1);
     ret[len] = '\0';
     memcpy(ret, s + start, len);
     return ret;
 }
 
-bool wordBreak_139(char *s, char **wordDict, int wordDictSize) {
+bool wordBreak_139_1(char *s, char **wordDict, int wordDictSize) {
     if (s == NULL || wordDict == NULL || wordDictSize < 0) return false;
     const size_t len = strlen(s);
     if (len < 1) return false;
 
     hashmap *map = hashmap_create();
-    for (size_t i = 0; i < wordDictSize; ++i) {
+    for (size_t i = 0; i < wordDictSize; ++i)
         hashmap_put(map, wordDict[i]);
-    }
 
     bool *dp = (bool *) calloc(len + 1, sizeof(bool));
     dp[0] = true;
-    for (size_t i = 1; i <= len; ++i) {
-        for (size_t j = 0; j < i; ++j) {
+    for (int i = 1; i <= len; ++i) {
+        for (int j = i - 1; j >= 0; --j) {
             if (dp[j]) {
-                char *tmp = str_create(s, j, i - 1);
+                char *tmp = str_new(s, j, i);
                 if (hashmap_contains(map, tmp)) {
                     dp[i] = true;
                     free(tmp);
