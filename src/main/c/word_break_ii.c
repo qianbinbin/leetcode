@@ -1,9 +1,10 @@
-#include <word_break_ii.h>
+#include "word_break_ii.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define HASH_MAP_SIZE 1024
+#define HASH_MAP_SIZE 256
 
 typedef struct Entry {
     char *key;
@@ -15,24 +16,22 @@ typedef struct {
 } hashmap;
 
 static hashmap *hashmap_create() {
-    hashmap *new = (hashmap *) malloc(sizeof(hashmap));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        (new->entries + i)->next = NULL;
-    }
-    return new;
+    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
+    entry *entries = map->entries;
+    for (int i = 0; i < HASH_MAP_SIZE; ++i)
+        (entries + i)->next = NULL;
+    return map;
 }
 
 static int hashcode(char *key) {
-    int code = 0;
-    const size_t len = strlen(key);
-    for (int i = 0; i < len; ++i) {
-        code = code * 31 + key[i];
-    }
-    return abs(code);
+    int hash = 0;
+    for (; *key != '\0'; ++key)
+        hash = hash * 31 + *key;
+    return hash;
 }
 
 static void hashmap_put(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
         if (strcmp(e->next->key, key) == 0)
@@ -46,12 +45,11 @@ static void hashmap_put(hashmap *map, char *key) {
 }
 
 static bool hashmap_contains(hashmap *map, char *key) {
-    int index = hashcode(key) % HASH_MAP_SIZE;
+    int index = hashcode(key) & (HASH_MAP_SIZE - 1);
     entry *e = map->entries + index;
     while (e->next != NULL) {
-        if (strcmp(e->next->key, key) == 0) {
+        if (strcmp(e->next->key, key) == 0)
             return true;
-        }
         e = e->next;
     }
     return false;
@@ -70,8 +68,8 @@ static void hashmap_free(hashmap *map) {
     free(map);
 }
 
-static char *str_create(char *s, size_t start, size_t end) {
-    const size_t len = end - start + 1;
+static char *str_new(char *s, size_t start, size_t end) {
+    const size_t len = end - start;
     char *ret = (char *) malloc(len + 1);
     ret[len] = '\0';
     memcpy(ret, s + start, len);
@@ -84,12 +82,12 @@ static void word_break_dfs(char *s, const size_t len, size_t index, bool **valid
     if (index == len) {
         if (*size >= *capacity) {
             *capacity *= 2;
-            *result = (char **) realloc(*result, (*capacity) * sizeof(char *));
+            *result = (char **) realloc(*result, *capacity * sizeof(char *));
         }
-        (*result)[*size] = (char *) malloc((*path_size) * sizeof(char));
-        memcpy((*result)[*size], *path, *path_size - 1);
-        (*result)[*size][*path_size - 1] = '\0';
-        ++(*size);
+        char *sentence = (char *) malloc(*path_size * sizeof(char));
+        memcpy(sentence, *path, *path_size - 1);
+        sentence[*path_size - 1] = '\0';
+        (*result)[(*size)++] = sentence;
         return;
     }
     for (size_t j = index; j < len; ++j) {
@@ -97,7 +95,7 @@ static void word_break_dfs(char *s, const size_t len, size_t index, bool **valid
             const size_t l = j - index + 1;
             while (*path_size + l + 1 >= *path_capacity) {
                 *path_capacity *= 2;
-                *path = (char *) realloc(*path, (*path_capacity) * sizeof(char));
+                *path = (char *) realloc(*path, *path_capacity * sizeof(char));
             }
             memcpy(*path + *path_size, s + index, l);
             *path_size += l;
@@ -108,7 +106,7 @@ static void word_break_dfs(char *s, const size_t len, size_t index, bool **valid
     }
 }
 
-char **wordBreak_140(char *s, char **wordDict, int wordDictSize, int *returnSize) {
+char **wordBreak_140_1(char *s, char **wordDict, int wordDictSize, int *returnSize) {
     if (s == NULL || wordDict == NULL || wordDictSize < 0 || returnSize == NULL) return NULL;
     const size_t len = strlen(s);
     if (len < 1) return NULL;
@@ -123,7 +121,7 @@ char **wordBreak_140(char *s, char **wordDict, int wordDictSize, int *returnSize
     for (size_t i = 1; i <= len; ++i) {
         for (size_t j = 0; j < i; ++j) {
             if (dp[j]) {
-                char *tmp = str_create(s, j, i - 1);
+                char *tmp = str_new(s, j, i);
                 if (hashmap_contains(map, tmp)) {
                     dp[i] = true;
                     valid[j][i - 1] = true;
@@ -157,7 +155,7 @@ char **wordBreak_140(char *s, char **wordDict, int wordDictSize, int *returnSize
     word_break_dfs(s, len, 0, valid, &ret, returnSize, &capacity, &path, &path_size, &path_capacity);
 
     free(path);
-    ret = (char **) realloc(ret, (*returnSize) * sizeof(char *));
+    ret = (char **) realloc(ret, *returnSize * sizeof(char *));
     for (int i = 0; i < len; ++i) free(valid[i]);
     free(valid);
 
