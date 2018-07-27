@@ -64,4 +64,10 @@ struct UndirectedGraphNode {
     int neighborsCount;
 };
 
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next;
+    struct RandomListNode *random;
+};
+
 #endif //LEETCODE_COMMON_H
