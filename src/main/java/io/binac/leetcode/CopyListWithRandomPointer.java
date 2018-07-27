@@ -67,4 +67,34 @@ public class CopyListWithRandomPointer {
             return copy;
         }
     }
+
+    public static class Solution3 {
+        public RandomListNode copyRandomList(RandomListNode head) {
+            if (head == null) return null;
+
+            RandomListNode node = head, copy;
+            while (node != null) {
+                copy = new RandomListNode(node.label);
+                copy.next = node.next;
+                node.next = copy;
+                node = copy.next;
+            }
+            node = head;
+            while (node != null) {
+                copy = node.next;
+                if (node.random != null)
+                    copy.random = node.random.next;
+                node = copy.next;
+            }
+            RandomListNode result = head.next;
+            node = head;
+            while (node != null) {
+                copy = node.next;
+                node.next = copy.next;
+                node = node.next;
+                copy.next = node == null ? null : node.next;
+            }
+            return result;
+        }
+    }
 }

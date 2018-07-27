@@ -9,6 +9,8 @@ class CopyListWithRandomPointerTest {
 
     private final CopyListWithRandomPointer.Solution2 solution2 = new CopyListWithRandomPointer.Solution2();
 
+    private final CopyListWithRandomPointer.Solution3 solution3 = new CopyListWithRandomPointer.Solution3();
+
     @Test
     void test1() {
         // TODO
@@ -16,6 +18,11 @@ class CopyListWithRandomPointerTest {
 
     @Test
     void test2() {
+        // TODO
+    }
+
+    @Test
+    void test3() {
         // TODO
     }
 }
