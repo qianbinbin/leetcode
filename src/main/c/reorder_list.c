@@ -1,7 +1,8 @@
-#include <reorder_list.h>
+#include "reorder_list.h"
+
 #include <stdlib.h>
 
-void reorderList_143(struct ListNode *head) {
+void reorderList_143_1(struct ListNode *head) {
     if (head == NULL) return;
 
     struct ListNode *slow = head, *fast = head;
