@@ -4,6 +4,7 @@ import io.binac.leetcode.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Given a binary tree, return the postorder traversal of its nodes' values.
@@ -33,6 +34,29 @@ public class BinaryTreePostorderTraversal {
         public List<Integer> postorderTraversal(TreeNode root) {
             List<Integer> result = new ArrayList<>();
             postOrderTraversal(root, result);
+            return result;
+        }
+    }
+
+    public static class Solution2 {
+        public List<Integer> postorderTraversal(TreeNode root) {
+            List<Integer> result = new ArrayList<>();
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode node = root, pre = null;
+            while (node != null || !stack.empty()) {
+                if (node != null) {
+                    stack.push(node);
+                    node = node.left;
+                } else {
+                    TreeNode parent = stack.peek();
+                    if (parent.right != null && pre != parent.right) {
+                        node = parent.right;
+                    } else {
+                        result.add(parent.val);
+                        pre = stack.pop();
+                    }
+                }
+            }
             return result;
         }
     }
