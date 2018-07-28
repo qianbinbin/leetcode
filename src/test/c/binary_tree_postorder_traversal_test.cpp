@@ -1,25 +1,37 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include <binary_tree_postorder_traversal.h>
+#include "binary_tree_postorder_traversal.h"
 }
 
-TEST(leetcode_145_1, normal) {
-    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3, NTNODE};
-    struct TreeNode *tree = tree_create(nums, 7);
+#define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
+TEST(binary_tree_postorder_traversal_test, postorderTraversal_145_1) {
+    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3};
+    struct TreeNode *root = tree_create(nums, ARR_SIZE(nums));
     int size = 0;
-    int *ret = postorderTraversal_145_1(tree, &size);
+    int *ret = postorderTraversal_145_1(root, &size);
     array_print(ret, size);
     free(ret);
-    tree_free(tree);
+    tree_free(root);
 }
 
-TEST(leetcode_145_2, normal) {
-    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3, NTNODE};
-    struct TreeNode *tree = tree_create(nums, 7);
+TEST(binary_tree_postorder_traversal_test, postorderTraversal_145_2) {
+    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3};
+    struct TreeNode *root = tree_create(nums, ARR_SIZE(nums));
     int size = 0;
-    int *ret = postorderTraversal_145_2(tree, &size);
+    int *ret = postorderTraversal_145_2(root, &size);
     array_print(ret, size);
     free(ret);
-    tree_free(tree);
+    tree_free(root);
+}
+
+TEST(binary_tree_postorder_traversal_test, postorderTraversal_145_3) {
+    int nums[] = {1, NTNODE, 2, NTNODE, NTNODE, 3};
+    struct TreeNode *root = tree_create(nums, ARR_SIZE(nums));
+    int size = 0;
+    int *ret = postorderTraversal_145_3(root, &size);
+    array_print(ret, size);
+    free(ret);
+    tree_free(root);
 }

@@ -1,51 +1,41 @@
-#include <binary_tree_postorder_traversal.h>
+#include "binary_tree_postorder_traversal.h"
+
 #include <stdlib.h>
 
-int *merge_array(int *a, int size_a, int *b, int size_b, int *c, int size_c, int *size) {
-    int *ret = (int *) malloc((size_a + size_b + size_c) * sizeof(int));
-    *size = 0;
-    if (a != NULL) {
-        for (int i = 0; i < size_a; ++i) {
-            ret[(*size)++] = a[i];
-        }
+static void post_order_traversal(struct TreeNode *root, int **result, int *size, int *capacity) {
+    if (root == NULL) return;
+    post_order_traversal(root->left, result, size, capacity);
+    post_order_traversal(root->right, result, size, capacity);
+    if (*size >= *capacity) {
+        *capacity *= 2;
+        *result = (int *) realloc(*result, *capacity * sizeof(int));
     }
-    if (b != NULL) {
-        for (int i = 0; i < size_b; ++i) {
-            ret[(*size)++] = b[i];
-        }
-    }
-    if (c != NULL) {
-        for (int i = 0; i < size_c; ++i) {
-            ret[(*size)++] = c[i];
-        }
-    }
-    return ret;
+    (*result)[(*size)++] = root->val;
 }
 
 int *postorderTraversal_145_1(struct TreeNode *root, int *returnSize) {
     if (root == NULL || returnSize == NULL) return NULL;
-    int left_size = 0, right_size = 0;
-    int *left = postorderTraversal_145_1(root->left, &left_size);
-    int *right = postorderTraversal_145_1(root->right, &right_size);
 
-    int *ret = merge_array(left, left_size, right, right_size, &root->val, 1, returnSize);
-    free(left);
-    free(right);
+    int capacity = 16;
+    int *ret = (int *) malloc(capacity * sizeof(int));
+    *returnSize = 0;
+    post_order_traversal(root, &ret, returnSize, &capacity);
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
     return ret;
 }
 
 int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize) {
     if (root == NULL || returnSize == NULL) return NULL;
 
-    int ret_capacity = 64;
-    int *ret = (int *) malloc(ret_capacity * sizeof(int));
+    int capacity = 16;
+    int *ret = (int *) malloc(capacity * sizeof(int));
     *returnSize = 0;
 
-    int stack_capacity = 64;
+    int stack_capacity = 16;
     struct TreeNode **stack = (struct TreeNode **) malloc(stack_capacity * sizeof(struct TreeNode *));
     int top = -1;
 
-    struct TreeNode *p = root, *top_node, *last_visited = NULL;
+    struct TreeNode *p = root, *parent, *pre = NULL;
     while (top != -1 || p != NULL) {
         if (p != NULL) {
             if (top + 1 >= stack_capacity) {
@@ -55,21 +45,62 @@ int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize) {
             stack[++top] = p;
             p = p->left;
         } else {
-            top_node = stack[top];
-            if (top_node->right != NULL && top_node->right != last_visited) {
-                p = top_node->right;
+            parent = stack[top];
+            if (parent->right != NULL && parent->right != pre) {
+                p = parent->right;
             } else {
-                if (*returnSize >= ret_capacity) {
-                    ret_capacity *= 2;
-                    ret = (int *) realloc(ret, ret_capacity * sizeof(int));
+                if (*returnSize >= capacity) {
+                    capacity *= 2;
+                    ret = (int *) realloc(ret, capacity * sizeof(int));
                 }
-                ret[(*returnSize)++] = top_node->val;
-                last_visited = top_node;
+                ret[(*returnSize)++] = parent->val;
+                pre = parent;
                 --top;
             }
         }
     }
     free(stack);
-    ret = (int *) realloc(ret, (*returnSize) * sizeof(int));
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
+    return ret;
+}
+
+int *postorderTraversal_145_3(struct TreeNode *root, int *returnSize) {
+    if (root == NULL || returnSize == NULL) return NULL;
+
+    int stack_capacity = 16;
+    void **stack = (void **) malloc(stack_capacity * sizeof(void *));
+    int top = -1;
+    stack[++top] = root;
+
+    int capacity = 16;
+    int *ret = (int *) malloc(capacity * sizeof(int));
+    *returnSize = 0;
+
+    struct TreeNode *node;
+    while (top != -1) {
+        node = stack[top--];
+        if (top + 1 + 2 >= stack_capacity) {
+            stack_capacity *= 2;
+            stack = (void **) realloc(stack, stack_capacity * sizeof(void *));
+        }
+        if (node->left != NULL) stack[++top] = node->left;
+        if (node->right != NULL) stack[++top] = node->right;
+
+        if (*returnSize >= capacity) {
+            capacity *= 2;
+            ret = (int *) realloc(ret, capacity * sizeof(int));
+        }
+        ret[(*returnSize)++] = node->val;
+    }
+    free(stack);
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
+
+    const int half = *returnSize / 2;
+    int tmp;
+    for (int i = 0; i < half; ++i) {
+        tmp = ret[i];
+        ret[i] = ret[*returnSize - i - 1];
+        ret[*returnSize - i - 1] = tmp;
+    }
     return ret;
 }
