@@ -3,6 +3,7 @@ package io.binac.leetcode;
 import io.binac.leetcode.util.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -56,6 +57,23 @@ public class BinaryTreePostorderTraversal {
                         pre = stack.pop();
                     }
                 }
+            }
+            return result;
+        }
+    }
+
+    public static class Solution3 {
+        public List<Integer> postorderTraversal(TreeNode root) {
+            LinkedList<Integer> result = new LinkedList<>();
+            if (root == null) return result;
+
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.empty()) {
+                TreeNode node = stack.pop();
+                if (node.left != null) stack.push(node.left);
+                if (node.right != null) stack.push(node.right);
+                result.addFirst(node.val);
             }
             return result;
         }

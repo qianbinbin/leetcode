@@ -15,6 +15,8 @@ class BinaryTreePostorderTraversalTest {
 
     private final BinaryTreePostorderTraversal.Solution2 solution2 = new BinaryTreePostorderTraversal.Solution2();
 
+    private final BinaryTreePostorderTraversal.Solution3 solution3 = new BinaryTreePostorderTraversal.Solution3();
+
     private final TreeNode root = Trees.asTree(1, null, 2, 3);
 
     private final List<Integer> expected = Arrays.asList(3, 2, 1);
@@ -27,5 +29,10 @@ class BinaryTreePostorderTraversalTest {
     @Test
     void test2() {
         assertEquals(expected, solution2.postorderTraversal(root));
+    }
+
+    @Test
+    void test3() {
+        assertEquals(expected, solution3.postorderTraversal(root));
     }
 }
