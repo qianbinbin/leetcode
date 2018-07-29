@@ -1,7 +1,4 @@
-#ifndef LEETCODE_LRU_CACHE_H
-#define LEETCODE_LRU_CACHE_H
-
-/**
+/*
  * Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
  *
  * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
@@ -12,7 +9,7 @@
  *
  * Example:
  *
- * LRUCache cache = new LRUCache(2); // capacity
+ * LRUCache cache = new LRUCache( 2  capacity  );
  *
  * cache.put(1, 1);
  * cache.put(2, 2);
@@ -23,39 +20,31 @@
  * cache.get(1);       // returns -1 (not found)
  * cache.get(3);       // returns 3
  * cache.get(4);       // returns 4
- *
- * Your LRUCache struct will be instantiated and called as such:
- * struct LRUCache* obj = lRUCacheCreate(capacity);
- * int param_1 = lRUCacheGet(obj, key);
- * lRUCachePut(obj, key, value);
- * lRUCacheFree(obj);
  */
 
-/**
- * Doubly linked list to store key and value.
- */
-struct Node {
+#ifndef LEETCODE_LRU_CACHE_H
+#define LEETCODE_LRU_CACHE_H
+
+typedef struct Node {
     int key;
-    int value;
     struct Node *prev;
     struct Node *next;
-};
+} node;
 
-/**
- * Hashmap to store key and Node address.
- */
-struct Entry {
+typedef struct Entry {
     int key;
-    struct Node *node;
+    int value;
+    node *node;
     struct Entry *next;
-};
+} entry;
 
 typedef struct {
-    int capacity;
     int size;
-    struct Node *head;
-    struct Node *tail;
-    struct Entry *entries;
+    int capacity;
+    int table_size;
+    entry *table;
+    node *head;
+    node *tail;
 } LRUCache;
 
 LRUCache *lRUCacheCreate(int capacity);

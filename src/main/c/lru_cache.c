@@ -1,105 +1,113 @@
-#include <lru_cache.h>
+#include "lru_cache.h"
+
 #include <stdlib.h>
 
-#define HASH_MAP_SIZE 1024
+static int table_size(int cap) {
+    int n = cap - 1;
+    n |= n >> 1;
+    n |= n >> 2;
+    n |= n >> 4;
+    n |= n >> 8;
+    n |= n >> 16;
+    return n + 1;
+}
+
+static node *node_create(int key) {
+    node *n = (node *) malloc(sizeof(node));
+    n->key = key;
+    n->prev = NULL;
+    n->next = NULL;
+    return n;
+}
+
+static void node_reorder(LRUCache *cache, node *n) {
+    node *pre = n->prev, *nx = n->next, *h = cache->head;
+    if (pre == h) return;
+
+    pre->next = nx;
+    nx->prev = pre;
+    n->next = h->next;
+    n->prev = h;
+    h->next->prev = n;
+    h->next = n;
+}
+
+static node *node_add_first(LRUCache *cache, int key) {
+    node *n = node_create(key), *h = cache->head;
+    n->next = h->next;
+    n->prev = h;
+    h->next->prev = n;
+    h->next = n;
+    return n;
+}
+
+static void node_remove_last(LRUCache *cache) {
+    node *rm = cache->tail->prev, *pre = rm->prev, *nx = rm->next;
+    pre->next = nx;
+    nx->prev = pre;
+    free(rm);
+}
+
+static entry *entry_create(int key, int value) {
+    entry *e = (entry *) malloc(sizeof(entry));
+    e->key = key;
+    e->value = value;
+    e->next = NULL;
+    e->node = NULL;
+    return e;
+}
+
+static void lru_remove(LRUCache *cache, int key) {
+    if (cache == NULL) return;
+
+    int i = key & (cache->table_size - 1);
+    entry *pre = cache->table + i, *e = pre->next;
+    while (e != NULL) {
+        if (e->key == key) {
+            pre->next = e->next;
+            free(e);
+            --cache->size;
+            return;
+        }
+        pre = e;
+        e = e->next;
+    }
+}
 
 LRUCache *lRUCacheCreate(int capacity) {
     if (capacity < 1) return NULL;
 
-    LRUCache *obj = (LRUCache *) malloc(sizeof(LRUCache));
-    obj->capacity = capacity;
-    obj->size = 0;
+    LRUCache *cache = (LRUCache *) malloc(sizeof(LRUCache));
+    cache->size = 0;
+    cache->capacity = capacity;
+    int t_size = table_size(capacity);
+    cache->table_size = t_size;
 
-    obj->head = (struct Node *) malloc(sizeof(struct Node));
-    obj->tail = (struct Node *) malloc(sizeof(struct Node));
-    obj->head->prev = NULL;
-    obj->head->next = obj->tail;
-    obj->tail->next = NULL;
-    obj->tail->prev = obj->head;
+    node *head = node_create(0);
+    node *tail = node_create(0);
+    head->next = tail;
+    tail->prev = head;
+    cache->head = head;
+    cache->tail = tail;
 
-    obj->entries = (struct Entry *) malloc(HASH_MAP_SIZE * sizeof(struct Entry));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        obj->entries[i].next = NULL;
-    }
-    return obj;
-}
-
-struct Node *get_node(LRUCache *obj, int key) {
-    int hash = key % HASH_MAP_SIZE;
-    for (struct Entry *p = obj->entries[hash].next; p != NULL; p = p->next) {
-        if (p->key == key) {
-            return p->node;
-        }
-    }
-    return NULL;
-}
-
-void put_node(LRUCache *obj, struct Node *node) {
-    int hash = node->key % HASH_MAP_SIZE;
-    struct Entry *pre;
-    for (pre = obj->entries + hash; pre->next != NULL; pre = pre->next) {
-        if (pre->next->key == node->key) {
-            pre->next->node = node;
-        }
-    }
-    struct Entry *entry = (struct Entry *) malloc(sizeof(struct Entry));
-    entry->key = node->key;
-    entry->node = node;
-    entry->next = NULL;
-    pre->next = entry;
-}
-
-void remove_node(LRUCache *obj, struct Node *node) {
-    int hash = node->key % HASH_MAP_SIZE;
-    struct Entry *pre = obj->entries + hash;
-    struct Entry *p = pre->next;
-    while (p != NULL) {
-        if (p->key == node->key) {
-            pre->next = p->next;
-            free(p);
-            return;
-        }
-        pre = p;
-        p = p->next;
-    }
-}
-
-void reorder_node(LRUCache *obj, struct Node *node) {
-    if (node == obj->head->next) return;
-
-    node->prev->next = node->next;
-    node->next->prev = node->prev;
-    node->next = obj->head->next;
-    node->prev = obj->head;
-    node->next->prev = node;
-    obj->head->next = node;
-}
-
-struct Node *push_node(LRUCache *obj, int key, int value) {
-    struct Node *node = (struct Node *) malloc(sizeof(struct Node));
-    node->key = key;
-    node->value = value;
-    node->next = obj->head->next;
-    node->prev = obj->head;
-    obj->head->next = node;
-    node->next->prev = node;
-    return node;
-}
-
-struct Node *pop_node(LRUCache *obj) {
-    struct Node *node = obj->tail->prev;
-    node->prev->next = obj->tail;
-    obj->tail->prev = node->prev;
-    return node;
+    entry *table = (entry *) malloc(t_size * sizeof(entry));
+    for (int i = 0; i < t_size; ++i)
+        (table + i)->next = NULL;
+    cache->table = table;
+    return cache;
 }
 
 int lRUCacheGet(LRUCache *obj, int key) {
     if (obj == NULL) return -1;
 
-    struct Node *node = get_node(obj, key);
-    if (node != NULL) {
-        reorder_node(obj, node);
-        return node->value;
+    int i = key & (obj->table_size - 1);
+    entry *e = (obj->table + i)->next;
+    while (e != NULL) {
+        if (e->key == key) {
+            node_reorder(obj, e->node);
+            return e->value;
+        }
+        e = e->next;
     }
     return -1;
 }
@@ -107,45 +115,47 @@ int lRUCacheGet(LRUCache *obj, int key) {
 void lRUCachePut(LRUCache *obj, int key, int value) {
     if (obj == NULL || value < 0) return;
 
-    struct Node *node = get_node(obj, key);
-    if (node != NULL) {
-        node->value = value;
-        reorder_node(obj, node);
-    } else {
-        ++obj->size;
-        if (obj->size > obj->capacity) {
-            struct Node *rm = pop_node(obj);
-            remove_node(obj, rm);
-            free(rm);
-            --obj->size;
+    int i = key & (obj->table_size - 1);
+    entry *h = obj->table + i, *e = h->next;
+    while (e != NULL) {
+        if (e->key == key) {
+            e->value = value;
+            node_reorder(obj, e->node);
+            return;
         }
-        struct Node *new = push_node(obj, key, value);
-        put_node(obj, new);
+        e = e->next;
+    }
+    e = entry_create(key, value);
+    e->node = node_add_first(obj, key);
+    e->next = h->next;
+    h->next = e;
+    if (++obj->size > obj->capacity) {
+        lru_remove(obj, obj->tail->prev->key);
+        node_remove_last(obj);
     }
 }
 
 void lRUCacheFree(LRUCache *obj) {
-    if (obj == NULL) return;
-
-    obj->capacity = 0;
-    obj->size = 0;
-
-    struct Node *node = obj->head->next;
-    while (node != NULL) {
-        free(node->prev);
-        node = node->next;
-    }
-    free(obj->tail);
-
-    struct Entry *entry;
-    for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        entry = obj->entries[i].next;
-        while (entry != NULL) {
-            obj->entries[i].next = entry->next;
-            free(entry);
-            entry = obj->entries[i].next;
+    entry *table = obj->table;
+    const int size = obj->table_size;
+    entry *h, *e;
+    for (int i = 0; i < size; ++i) {
+        h = table + i;
+        e = h->next;
+        while (e != NULL) {
+            h->next = e->next;
+            free(e);
+            e = h->next;
         }
     }
-    free(obj->entries);
+    free(table);
+
+    node *pre = obj->head, *p = pre->next;
+    while (p != NULL) {
+        pre->next = p->next;
+        free(p);
+        p = pre->next;
+    }
+    free(pre);
     free(obj);
 }
