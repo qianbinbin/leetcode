@@ -70,4 +70,9 @@ struct RandomListNode {
     struct RandomListNode *random;
 };
 
+struct Point {
+    int x;
+    int y;
+};
+
 #endif //LEETCODE_COMMON_H
