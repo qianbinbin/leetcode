@@ -1,6 +1,6 @@
-# LeetCode Solutions in C
+# LeetCode Solutions in C and Java
 
-## Import Project
+## Import as C Project
 
 ### CLion
 
@@ -10,7 +10,7 @@ This project can be imported by [CLion](https://www.jetbrains.com/clion/) direct
 
 If you are using CLion, you don't need to install CMake, as CLion has a CMake build system with it.
 
-[Install CMake](https://cmake.org/download/)
+Install [CMake](https://cmake.org/download/)
 
 ## Build and Run
 
@@ -53,12 +53,19 @@ Run:
 $ cmake-build-debug/3sum_closest_test
 [==========] Running 1 test from 1 test case.
 [----------] Global test environment set-up.
-[----------] 1 test from leetcode_16
-[ RUN      ] leetcode_16.normal
-[       OK ] leetcode_16.normal (0 ms)
-[----------] 1 test from leetcode_16 (0 ms total)
+[----------] 1 test from three_sum_closest_test
+[ RUN      ] three_sum_closest_test.threeSumClosest_16_1
+[       OK ] three_sum_closest_test.threeSumClosest_16_1 (0 ms)
+[----------] 1 test from three_sum_closest_test (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test case ran. (0 ms total)
+[==========] 1 test from 1 test case ran. (1 ms total)
 [  PASSED  ] 1 test.
 ```
+
+
+## Import as Java Project
+
+Java 8 or newer is required.
+
+You can import the project with [IntelliJ IDEA](https://www.jetbrains.com/idea/). JUnit5.0 is required for unit testing.
