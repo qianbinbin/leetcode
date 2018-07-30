@@ -1,12 +1,13 @@
-#include <evaluate_reverse_polish_notation.h>
+#include "evaluate_reverse_polish_notation.h"
+
 #include <limits.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define IS_OPERATOR(s) ((s) == '+' || (s) == '-' || (s) == '*' || (s) == '/')
 
-int evalRPN_150(char **tokens, int tokensSize) {
+int evalRPN_150_1(char **tokens, int tokensSize) {
     if (tokens == NULL || tokensSize < 0) return INT_MIN;
 
     int *stack = (int *) malloc(tokensSize * sizeof(int));
@@ -34,6 +35,7 @@ int evalRPN_150(char **tokens, int tokensSize) {
                     case '/':
                         x /= y;
                         break;
+                    default:break;
                 }
                 stack[++top] = x;
             }
