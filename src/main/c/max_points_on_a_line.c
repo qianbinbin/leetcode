@@ -1,136 +1,127 @@
-#include <max_points_on_a_line.h>
+#include "max_points_on_a_line.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct {
-    int a;
-    int b;
-} scale;
+#define M_DBL_MAX (1.7976931348623158e+308)
 
-static scale *scale_create(int a, int b) {
-    scale *s = (scale *) malloc(sizeof(scale));
-    s->a = a;
-    s->b = b;
+typedef struct {
+    int delta_x;
+    int delta_y;
+} slope;
+
+static slope *scale_create(struct Point *p1, struct Point *p2) {
+    slope *s = (slope *) malloc(sizeof(slope));
+    s->delta_x = p1->x - p2->x;
+    s->delta_y = p1->y - p2->y;
     return s;
 }
 
-static bool scale_equal(scale *s1, scale *s2) {
-    int64_t tmp1 = (int64_t) s1->a * (int64_t) s2->b;
-    int64_t tmp2 = (int64_t) s1->b * (int64_t) s2->a;
+static bool slope_equals(slope *s1, slope *s2) {
+    int64_t tmp1 = (int64_t) s1->delta_x * s2->delta_y;
+    int64_t tmp2 = (int64_t) s1->delta_y * s2->delta_x;
     return tmp1 == tmp2;
 }
 
-static void scale_free(scale *s) {
+static int slope_hash(slope *key) {
+    double val;
+    val = key->delta_x == 0 ? M_DBL_MAX : (double) key->delta_y / key->delta_x;
+    u_int64_t bits = ((u_int64_t *) &val)[0];
+    return (int) (bits ^ (bits >> 32));
+}
+
+static void slope_free(slope *s) {
     free(s);
 }
 
 #define HASH_MAP_SIZE 256
 
-#define M_DBL_MAX (1.7976931348623158e+308)
-
 typedef struct Entry {
-    scale *key;
+    void *key;
     int value;
     struct Entry *next;
 } entry;
 
 typedef struct {
-    entry entries[HASH_MAP_SIZE];
+    entry table[HASH_MAP_SIZE];
+
+    int (*hash_code)(void *);
+
+    bool (*key_equals)(void *, void *);
 } hashmap;
 
-static int hash_code(scale *key) {
-    double val;
-    if (key->b == 0) {
-        val = M_DBL_MAX;
-    } else {
-        val = (double) key->a / (double) key->b;
-    }
-    u_int64_t bits = ((u_int64_t *) &val)[0];
-    return (int) (bits ^ (bits >> 32));
-}
-
-static hashmap *hashmap_create() {
+static hashmap *hashmap_create(int hash(void *), bool equals(void *, void *)) {
     hashmap *map = (hashmap *) malloc(sizeof(hashmap));
+    entry *e = map->table;
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        (map->entries + i)->next = NULL;
+        (e + i)->next = NULL;
     }
+    map->hash_code = hash;
+    map->key_equals = equals;
     return map;
 }
 
-static void hashmap_increase(hashmap *map, scale *key) {
-    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
-    entry *e = map->entries + index;
-    while (e->next != NULL) {
-        if (scale_equal(e->next->key, key)) {
-            ++(e->next->value);
-            return;
-        }
+static int hashmap_increase(hashmap *map, void *key) {
+    int index = slope_hash(key) & (HASH_MAP_SIZE - 1);
+    entry *h = map->table + index, *e = h->next;
+    while (e != NULL) {
+        if (map->key_equals(e->key, key))
+            return ++e->value;
         e = e->next;
     }
-    entry *new = (entry *) malloc(sizeof(entry));
-    new->key = key;
-    new->value = 1;
-    new->next = NULL;
-    e->next = new;
+    e = (entry *) malloc(sizeof(entry));
+    e->key = key;
+    e->value = 1;
+    e->next = h->next;
+    h->next = e;
+    return 1;
 }
 
-static int hashmap_get(hashmap *map, scale *key) {
-    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
-    entry *e = map->entries + index;
-    while (e->next != NULL) {
-        if (scale_equal(e->next->key, key)) {
-            return e->next->value;
-        }
-        e = e->next;
-    }
-    return 0;
-}
-
-static void hashmap_clear(hashmap *map, void operate(scale *)) {
-    entry *e, *tmp;
+static void hashmap_clear(hashmap *map, void operate(void *)) {
+    entry *h, *tmp;
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        e = map->entries + i;
-        while (e->next != NULL) {
-            tmp = e->next;
-            e->next = tmp->next;
+        h = map->table + i;
+        while (h->next != NULL) {
+            tmp = h->next;
+            h->next = tmp->next;
             operate(tmp->key);
             free(tmp);
         }
     }
 }
 
-static void hashmap_free(hashmap *map, void operate(scale *)) {
+static void hashmap_free(hashmap *map, void operate(void *)) {
     hashmap_clear(map, operate);
     free(map);
 }
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-int maxPoints_149(struct Point *points, int pointsSize) {
+int maxPoints_149_1(struct Point *points, int pointsSize) {
     if (points == NULL || pointsSize < 0) return -1;
     if (pointsSize < 3) return pointsSize;
 
-    hashmap *map = hashmap_create();
+    hashmap *map = hashmap_create((int (*)(void *)) slope_hash, (bool (*)(void *, void *)) slope_equals);
 
     int max = 1;
     for (int i = 0; i < pointsSize - 1; ++i) {
         int point_max = 1;
         int same_point = 0;
         for (int j = i + 1; j < pointsSize; ++j) {
-            scale *s = scale_create(points[j].y - points[i].y, points[j].x - points[i].x);
-            if (s->a == 0 && s->b == 0) {
+            slope *s = scale_create(points + i, points + j);
+            if (s->delta_x == 0 && s->delta_y == 0) {
                 ++same_point;
-                ++point_max;
+                slope_free(s);
             } else {
-                hashmap_increase(map, s);
-                int count = hashmap_get(map, s);
-                point_max = MAX(point_max, count + 1 + same_point);
+                int count = hashmap_increase(map, s);
+                point_max = MAX(point_max, count + 1);
             }
         }
-        hashmap_clear(map, scale_free);
+        point_max += same_point;
         max = MAX(max, point_max);
+        hashmap_clear(map, (void (*)(void *)) slope_free);
     }
 
-    hashmap_free(map, scale_free);
+    hashmap_free(map, (void (*)(void *)) slope_free);
     return max;
 }

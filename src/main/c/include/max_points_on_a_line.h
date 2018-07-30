@@ -1,12 +1,4 @@
-#ifndef LEETCODE_MAX_POINTS_ON_A_LINE_H
-#define LEETCODE_MAX_POINTS_ON_A_LINE_H
-
-struct Point {
-    int x;
-    int y;
-};
-
-/**
+/*
  * Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
  *
  * Example 1:
@@ -35,13 +27,13 @@ struct Point {
  * |  o        o
  * +------------------->
  * 0  1  2  3  4  5  6
- *
- * Definition for a point.
- * struct Point {
- *     int x;
- *     int y;
- * }
  */
-int maxPoints_149(struct Point *points, int pointsSize);
+
+#ifndef LEETCODE_MAX_POINTS_ON_A_LINE_H
+#define LEETCODE_MAX_POINTS_ON_A_LINE_H
+
+#include "common.h"
+
+int maxPoints_149_1(struct Point *points, int pointsSize);
 
 #endif //LEETCODE_MAX_POINTS_ON_A_LINE_H
