@@ -317,8 +317,8 @@ char ***findLadders_126_1(char *beginWord, char *endWord, char **wordList, int w
 
     while (queue1->size > 0 && queue2->size > 0 && !found) {
         if (queue1->size > queue2->size) {
-            swap(&queue1, &queue2);
-            swap(&visited1, &visited2);
+            swap((void **) &queue1, (void **) &queue2);
+            swap((void **) &visited1, (void **) &visited2);
             flip = !flip;
         }
         hashmap_remove_all(dict, queue1);
