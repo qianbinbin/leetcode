@@ -37,3 +37,27 @@ class Solution1:
             if h > 0:
                 result += h
         return result
+
+
+class Solution2:
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height:
+            return 0
+        result = 0
+        size = len(height)
+        stack = [0]
+        for i in range(1, size):
+            while stack and height[i] > height[stack[-1]]:
+                j = stack.pop()
+                if not stack:
+                    break
+                left_bound = stack[-1]
+                length = i - left_bound - 1
+                h = min(height[left_bound], height[i]) - height[j]
+                result += h * length
+            stack.append(i)
+        return result
