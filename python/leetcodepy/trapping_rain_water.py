@@ -61,3 +61,32 @@ class Solution2:
                 result += h * length
             stack.append(i)
         return result
+
+
+class Solution3:
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height:
+            return 0
+        result = 0
+        i, j = 0, len(height) - 1
+        left_max, right_max = 0, 0
+        while i < j:
+            if height[i] < height[j]:
+                h = left_max - height[i]
+                if h > 0:
+                    result += h
+                else:
+                    left_max = height[i]
+                i += 1
+            else:
+                h = right_max - height[j]
+                if h > 0:
+                    result += h
+                else:
+                    right_max = height[j]
+                j -= 1
+        return result
