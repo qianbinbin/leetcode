@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from reverse_words_in_a_string import *
+from leetcodepy.reverse_words_in_a_string import *
 
 solution1 = Solution1()
 

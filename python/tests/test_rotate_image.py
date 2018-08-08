@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from rotate_image import *
+from leetcodepy.rotate_image import *
 
 solution1 = Solution1()
 

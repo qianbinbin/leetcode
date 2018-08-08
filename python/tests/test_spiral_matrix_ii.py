@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from spiral_matrix_ii import *
+from leetcodepy.spiral_matrix_ii import *
 
 solution1 = Solution1()
 

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from set_matrix_zeroes import *
+from leetcodepy.set_matrix_zeroes import *
 
 solution1 = Solution1()
 

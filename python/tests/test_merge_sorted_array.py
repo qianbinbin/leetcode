@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from merge_sorted_array import *
+from leetcodepy.merge_sorted_array import *
 
 solution1 = Solution1()
 

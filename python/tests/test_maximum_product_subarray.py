@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from maximum_product_subarray import *
+from leetcodepy.maximum_product_subarray import *
 
 solution1 = Solution1()
 

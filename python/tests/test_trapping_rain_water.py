@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from trapping_rain_water import *
+from leetcodepy.trapping_rain_water import *
 
 solution1 = Solution1()
 

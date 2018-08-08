@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from min_stack import *
+from leetcodepy.min_stack import *
 
 x1, x2, x3 = -2, 0, -3
 

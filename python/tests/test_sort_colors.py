@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from sort_colors import *
+from leetcodepy.sort_colors import *
 
 solution1 = Solution1()
 

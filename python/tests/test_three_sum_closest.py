@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from three_sum_closest import *
+from leetcodepy.three_sum_closest import *
 
 solution1 = Solution1()
 

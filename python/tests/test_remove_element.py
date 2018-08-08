@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from remove_element import *
+from leetcodepy.remove_element import *
 
 solution1 = Solution1()
 

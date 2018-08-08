@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from remove_duplicates_from_sorted_array import *
+from leetcodepy.remove_duplicates_from_sorted_array import *
 
 solution1 = Solution1()
 

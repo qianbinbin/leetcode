@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from next_permutation import *
+from leetcodepy.next_permutation import *
 
 solution1 = Solution1()
 

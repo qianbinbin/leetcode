@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from four_sum import *
+from leetcodepy.four_sum import *
 
 solution1 = Solution1()
 

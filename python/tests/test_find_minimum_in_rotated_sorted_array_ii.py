@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from find_minimum_in_rotated_sorted_array_ii import *
+from leetcodepy.find_minimum_in_rotated_sorted_array_ii import *
 
 solution1 = Solution1()
 

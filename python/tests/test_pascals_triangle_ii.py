@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pascals_triangle_ii import *
+from leetcodepy.pascals_triangle_ii import *
 
 solution1 = Solution1()
 
