@@ -23,3 +23,32 @@ class Solution1(object):
             def_dict[p].random = def_dict[p.random]
             p = p.next
         return def_dict[head]
+
+
+class Solution2(object):
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        if not head:
+            return None
+        p = head
+        while p:
+            q = RandomListNode(p.label)
+            q.next = p.next
+            p.next = q
+            p = q.next
+        p = head
+        while p:
+            if p.random:
+                p.next.random = p.random.next
+            p = p.next.next
+        result = head.next
+        p = head
+        while p:
+            q = p.next
+            p.next = q.next
+            q.next = None if not q.next else q.next.next
+            p = p.next
+        return result
