@@ -40,3 +40,23 @@ class Solution1:
                     dp[i] = dp[i - 2] + 2
                 result = max(result, dp[i])
         return result
+
+
+class Solution2:
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        result = 0
+        stack = [-1]
+        for i in range(len(s)):
+            if s[i] == '(':
+                stack.append(i)
+            else:
+                stack.pop()
+                if not stack:
+                    stack.append(i)
+                else:
+                    result = max(result, i - stack[-1])
+        return result
