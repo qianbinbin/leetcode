@@ -42,3 +42,37 @@ class Solution1:
                 left = -1 if not stack else stack[-1]
                 result = max(result, (col - left - 1) * heights[k])
         return result
+
+
+class Solution2:
+    def maximalRectangle(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if not matrix or not matrix[0]:
+            return 0
+        row, col = len(matrix), len(matrix[0])
+        heights = [0] * col
+        left = [0] * col
+        right = [col] * col
+        result = 0
+        for i in range(row):
+            left_local = 0
+            for j in range(col):
+                if matrix[i][j] == '0':
+                    left[j] = 0
+                    left_local = j + 1
+                    heights[j] = 0
+                else:
+                    left[j] = max(left[j], left_local)
+                    heights[j] += 1
+            right_local = col
+            for j in range(col - 1, -1, -1):
+                if matrix[i][j] == '0':
+                    right[j] = col
+                    right_local = j
+                else:
+                    right[j] = min(right[j], right_local)
+                    result = max(result, heights[j] * (right[j] - left[j]))
+        return result
