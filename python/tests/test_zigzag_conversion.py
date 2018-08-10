@@ -4,6 +4,8 @@ from leetcodepy.zigzag_conversion import *
 
 solution1 = Solution1()
 
+solution2 = Solution2()
+
 s1 = "PAYPALISHIRING"
 
 numRows1 = 3
@@ -21,3 +23,7 @@ class TestZigZagConversion(TestCase):
     def test1(self):
         self.assertEqual(expected1, solution1.convert(s1, numRows1))
         self.assertEqual(expected2, solution1.convert(s2, numRows2))
+
+    def test2(self):
+        self.assertEqual(expected1, solution2.convert(s1, numRows1))
+        self.assertEqual(expected2, solution2.convert(s2, numRows2))

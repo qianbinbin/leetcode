@@ -61,3 +61,27 @@ class Solution1:
             result += s[index]
             index += cycle
         return result
+
+
+class Solution2:
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows < 1:
+            raise ValueError
+        if numRows == 1:
+            return s
+        lines = ['' for i in range(numRows)]
+        row = 0
+        increase = 0
+        for ch in s:
+            if row == 0:
+                increase = 1
+            elif row == numRows - 1:
+                increase = -1
+            lines[row] += ch
+            row += increase
+        return ''.join(lines)
