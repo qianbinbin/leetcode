@@ -35,3 +35,23 @@ class Solution1:
         result = []
         self.in_order(root, result)
         return result
+
+
+class Solution2:
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result = []
+        stack = []
+        node = root
+        while stack or node:
+            if node:
+                stack.append(node)
+                node = node.left
+            else:
+                node = stack.pop()
+                result.append(node.val)
+                node = node.right
+        return result
