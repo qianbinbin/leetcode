@@ -50,3 +50,16 @@ class Solution1:
         if nums[1].startswith('+') or nums[1].startswith('-'):
             nums[1] = nums[1][1:]
         return self._is_numeric(nums[0]) and nums[1].isnumeric()
+
+
+class Solution2:
+    def isNumber(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        try:
+            float(s)
+        except ValueError:
+            return False
+        return True
