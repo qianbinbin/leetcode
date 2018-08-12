@@ -60,3 +60,13 @@ class Solution1:
         if carry:
             result = '1' + result
         return result
+
+
+class Solution2:
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        return bin(int(a, 2) + int(b, 2))[2:]
