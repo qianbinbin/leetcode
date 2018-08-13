@@ -41,3 +41,27 @@ class Solution1:
         result[level].append(root.val)
         self.pre_order(root.left, level + 1, result)
         self.pre_order(root.right, level + 1, result)
+
+
+class Solution2:
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        result = []
+        if root is None:
+            return result
+        level = [root]
+        while level:
+            nex = []
+            values = []
+            for node in level:
+                values.append(node.val)
+                if node.left is not None:
+                    nex.append(node.left)
+                if node.right is not None:
+                    nex.append(node.right)
+            level = nex
+            result.append(values)
+        return result
