@@ -46,3 +46,21 @@ class Solution1:
         pre[0] = root
         self.pre_order_flatten(root.left, pre)
         self.pre_order_flatten(right, pre)
+
+
+class Solution2:
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: void Do not return anything, modify root in-place instead.
+        """
+        self.reverse_pre_flatten(root, [None])
+
+    def reverse_pre_flatten(self, root: Optional[TreeNode], pre: List[Optional[TreeNode]]):
+        if root is None:
+            return
+        self.reverse_pre_flatten(root.right, pre)
+        self.reverse_pre_flatten(root.left, pre)
+        root.left = None
+        root.right = pre[0]
+        pre[0] = root
