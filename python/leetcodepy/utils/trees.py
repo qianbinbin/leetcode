@@ -37,3 +37,11 @@ def equals(root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
     if root1.val != root2.val:
         return False
     return equals(root1.left, root2.left) and equals(root1.right, root2.right)
+
+
+class TreeLinkNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+        self.next = None
