@@ -56,3 +56,26 @@ class Solution2:
                 stack.append(node.right)
         result.reverse()
         return result
+
+
+class Solution3:
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result = []
+        stack = []
+        node, pre = root, None
+        while stack or node is not None:
+            if node is not None:
+                stack.append(node)
+                node = node.left
+            else:
+                peek = stack[-1]
+                if peek.right is not None and peek.right is not pre:
+                    node = peek.right
+                else:
+                    result.append(peek.val)
+                    pre = stack.pop()
+        return result
