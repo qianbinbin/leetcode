@@ -52,3 +52,23 @@ class Solution1:
                 root.right.next = root.next.left
             self.connect(root.left)
             self.connect(root.right)
+
+
+class Solution2:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root: Optional[TreeLinkNode]):
+        if root is None:
+            return
+        node = root
+        dummy = TreeLinkNode(0)
+        tail = dummy
+        while node.left is not None:
+            while node is not None:
+                tail.next = node.left
+                tail = tail.next
+                tail.next = node.right
+                tail = tail.next
+                node = node.next
+            node = dummy.next
+            tail = dummy
