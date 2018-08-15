@@ -2,10 +2,10 @@
 
 extern "C" {
 #include "common.h"
-#include "search_for_a_range.h"
+#include "find_first_and_last_position_of_element_in_sorted_array.h"
 }
 
-TEST(search_for_a_range_test, searchRange_34_1) {
+TEST(find_first_and_last_position_of_element_in_sorted_array_test, searchRange_34_1) {
     int nums[] = {5, 7, 7, 8, 8, 10};
 
     int size1 = 0;
