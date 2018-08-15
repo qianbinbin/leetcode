@@ -24,7 +24,7 @@ Visually, the graph looks like the following:
          \_/
 """
 from queue import Queue
-from typing import Optional
+from typing import Optional, Dict
 
 from .utils import UndirectedGraphNode
 
@@ -48,3 +48,22 @@ class Solution1:
                     q.put(neighbor)
                 copy.neighbors.append(visited[neighbor])
         return new_node
+
+
+class Solution2:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node: Optional[UndirectedGraphNode]) -> Optional[UndirectedGraphNode]:
+        if node is None:
+            return None
+        return self.clone_graph(node, {})
+
+    def clone_graph(self, node: UndirectedGraphNode,
+                    visited: Dict[UndirectedGraphNode, UndirectedGraphNode]) -> UndirectedGraphNode:
+        if node in visited:
+            return visited[node]
+        copy = UndirectedGraphNode(node.label)
+        visited[node] = copy
+        for neighbor in node.neighbors:
+            copy.neighbors.append(self.clone_graph(neighbor, visited))
+        return copy
