@@ -18,7 +18,7 @@ package io.binac.leetcode;
  *     Output: [-1,-1]
  * </blockquote></pre>
  */
-public class SearchForARange {
+public class FindFirstAndLastPositionOfElementInSortedArray {
     public static class Solution1 {
         private int insertIndex(int[] array, int fromIndex, int toIndex, int value, boolean before) {
             int low = fromIndex, high = toIndex - 1;

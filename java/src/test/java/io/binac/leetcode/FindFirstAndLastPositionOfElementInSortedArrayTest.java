@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SearchForARangeTest {
-    private final SearchForARange.Solution1 solution1 = new SearchForARange.Solution1();
+class FindFirstAndLastPositionOfElementInSortedArrayTest {
+    private final FindFirstAndLastPositionOfElementInSortedArray.Solution1 solution1 = new FindFirstAndLastPositionOfElementInSortedArray.Solution1();
 
     @Test
     void test1() {
