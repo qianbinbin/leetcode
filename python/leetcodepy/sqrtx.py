@@ -40,3 +40,19 @@ class Solution1:
             else:
                 low = mid + 1
         raise RuntimeError
+
+
+class Solution2:
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if x < 0:
+            raise ValueError("'x' must be a non-negative integer")
+        if x < 2:
+            return x
+        result = x // 2
+        while not (result * result <= x < (result + 1) * (result + 1)):
+            result = (x // result + result) // 2
+        return result
