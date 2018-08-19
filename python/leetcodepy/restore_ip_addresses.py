@@ -38,3 +38,31 @@ class Solution1:
                 path.append(segment)
                 self.restore_ip_addresses(s, j, result, path)
                 path.pop()
+
+
+class Solution2:
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        result = []
+        size = len(s)
+        if size < 4 or size > 12:
+            return result
+        for i in range(1, 4):
+            for j in range(i + 1, min(i + 4, size - 1)):
+                for k in range(j + 1, min(j + 4, size)):
+                    s1, s2, s3, s4 = s[:i], s[i:j], s[j:k], s[k:]
+                    if self.is_valid(s1) and self.is_valid(s2) and self.is_valid(s3) and self.is_valid(s4):
+                        result.append(s1 + '.' + s2 + '.' + s3 + '.' + s4)
+        return result
+
+    @staticmethod
+    def is_valid(s: str) -> bool:
+        size = len(s)
+        if size < 1 or size > 3:
+            return False
+        if s[0] == '0':
+            return len(s) == 1
+        return int(s) < 256
