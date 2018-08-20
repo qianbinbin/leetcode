@@ -74,3 +74,33 @@ class Solution1:
                 elif p[j - 1] == '*':
                     dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
         return dp[size_s][size_p]
+
+
+class Solution2:
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        len_s, len_p = len(s), len(p)
+        i, j = 0, 0
+        star, last_str = -1, -1
+        while i < len_s:
+            ch = p[j] if j < len_p else None
+            if ch == '?' or ch == s[i]:
+                i += 1
+                j += 1
+            elif ch == '*':
+                last_str = i
+                star = j
+                j += 1
+            elif star != -1:
+                last_str += 1
+                i = last_str
+                j = star + 1
+            else:
+                return False
+        while j < len_p and p[j] == '*':
+            j += 1
+        return j == len_p
