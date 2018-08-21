@@ -94,25 +94,19 @@ public class RegularExpressionMatching {
             final int row = s.length() + 1, col = p.length() + 1;
             boolean match[][] = new boolean[row][col];
             match[0][0] = true;
-            if (col > 1) match[0][1] = false;
             for (int j = 2; j < col; ++j) match[0][j] = match[0][j - 2] && p.charAt(j - 1) == '*';
-
-            for (int i = 1; i < row; ++i) match[i][0] = false;
-            if (col > 1) {
-                if (row > 1) match[1][1] = match(s.charAt(0), p.charAt(0));
-                for (int i = 2; i < row; ++i) match[i][1] = false;
-            }
+            if (col > 1 && row > 1) match[1][1] = match(s.charAt(0), p.charAt(0));
 
             for (int i = 1; i < row; ++i) {
                 for (int j = 2; j < col; ++j) {
                     final char chS = s.charAt(i - 1), chP = p.charAt(j - 1);
-                    if (chP != '*') {
-                        match[i][j] = match[i - 1][j - 1] && match(chS, chP);
-                    } else {
-                        if (match(chS, p.charAt(j - 2)))
-                            match[i][j] = match[i][j - 2] || match[i - 1][j];
-                        else
-                            match[i][j] = match[i][j - 2];
+                    if (chP == '*') {
+                        if (match(chS, p.charAt(j - 2)) && (match[i][j - 2] || match[i - 1][j]))
+                            match[i][j] = true;
+                        else if (match[i][j - 2])
+                            match[i][j] = true;
+                    } else if (match[i - 1][j - 1] && match(chS, chP)) {
+                        match[i][j] = true;
                     }
                 }
             }
