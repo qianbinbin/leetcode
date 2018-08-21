@@ -22,16 +22,16 @@ public class JumpGameII {
     public static class Solution1 {
         public int jump(int[] nums) {
             int step = 0;
-            int lastFarthest = 0, farthest = 0;
-            for (int i = 0; i < nums.length; ++i) {
-                if (i > lastFarthest) {
+            int currentFarthest = 0, farthest = 0;
+            for (int i = 0; i <= farthest && i < nums.length; ++i) {
+                if (i > currentFarthest) {
                     ++step;
-                    lastFarthest = farthest;
+                    currentFarthest = farthest;
                 }
                 farthest = Math.max(farthest, i + nums[i]);
-                if (farthest >= nums.length - 1)
-                    return step + 1;
             }
+            if (farthest < nums.length - 1)
+                throw new IllegalArgumentException("can't reach the last index");
             return step;
         }
     }
