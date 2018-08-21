@@ -1,5 +1,7 @@
 package io.binac.leetcode;
 
+import java.util.Arrays;
+
 /**
  * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
  * <p>
@@ -36,7 +38,7 @@ public class UniquePaths {
             if (n < 1)
                 throw new IllegalArgumentException("n must be positive");
             int dp[] = new int[m];
-            for (int i = 0; i < m; ++i) dp[i] = 1;
+            Arrays.fill(dp, 1);
             for (int i = 1; i < n; ++i) {
                 for (int j = 1; j < m; ++j)
                     dp[j] += dp[j - 1];
