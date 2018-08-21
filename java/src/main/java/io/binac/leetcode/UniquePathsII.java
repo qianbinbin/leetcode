@@ -32,22 +32,23 @@ package io.binac.leetcode;
 public class UniquePathsII {
     public static class Solution1 {
         public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-            final int row = obstacleGrid.length;
-            final int col = obstacleGrid[0].length;
+            final int row = obstacleGrid.length, col = obstacleGrid[0].length;
             if (col == 0)
                 throw new IllegalArgumentException();
-            int dp[][] = new int[row][col];
+            int dp[] = new int[col];
             for (int j = 0; j < col && obstacleGrid[0][j] == 0; ++j)
-                dp[0][j] = 1;
-            for (int i = 0; i < row && obstacleGrid[i][0] == 0; ++i)
-                dp[i][0] = 1;
+                dp[j] = 1;
             for (int i = 1; i < row; ++i) {
+                if (dp[0] == 1 && obstacleGrid[i][0] == 1)
+                    dp[0] = 0;
                 for (int j = 1; j < col; ++j) {
                     if (obstacleGrid[i][j] == 0)
-                        dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+                        dp[j] += dp[j - 1];
+                    else
+                        dp[j] = 0;
                 }
             }
-            return dp[row - 1][col - 1];
+            return dp[col - 1];
         }
     }
 }
