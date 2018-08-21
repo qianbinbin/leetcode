@@ -26,6 +26,7 @@ Example 2:
 Input: m = 7, n = 3
 Output: 28
 """
+from math import factorial
 
 
 class Solution1:
@@ -42,3 +43,13 @@ class Solution1:
             for j in range(1, m):
                 dp[j] += dp[j - 1]
         return dp[m - 1]
+
+
+class Solution2:
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        return factorial(m + n - 2) // factorial(m - 1) // factorial(n - 1)
