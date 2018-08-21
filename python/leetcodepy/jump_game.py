@@ -34,3 +34,18 @@ class Solution1:
             farthest = max(farthest, i + nums[i])
             i += 1
         return farthest >= size - 1
+
+
+class Solution2:
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        size = len(nums)
+        remainder = 0
+        i = 0
+        while i < size and remainder >= 0:
+            remainder = max(remainder, nums[i]) - 1
+            i += 1
+        return i == size
