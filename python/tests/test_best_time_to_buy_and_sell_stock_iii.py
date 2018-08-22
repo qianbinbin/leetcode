@@ -4,6 +4,8 @@ from leetcodepy.best_time_to_buy_and_sell_stock_iii import *
 
 solution1 = Solution1()
 
+solution2 = Solution2()
+
 prices1 = [3, 3, 5, 0, 0, 3, 1, 4]
 
 expected1 = 6
@@ -22,3 +24,8 @@ class TestBestTimeToBuyAndSellStockIII(TestCase):
         self.assertEqual(expected1, solution1.maxProfit(prices1))
         self.assertEqual(expected2, solution1.maxProfit(prices2))
         self.assertEqual(expected3, solution1.maxProfit(prices3))
+
+    def test2(self):
+        self.assertEqual(expected1, solution2.maxProfit(prices1))
+        self.assertEqual(expected2, solution2.maxProfit(prices2))
+        self.assertEqual(expected3, solution2.maxProfit(prices3))

@@ -43,3 +43,27 @@ class Solution1:
             release1 = max(release1, hold1 + price)
             hold1 = max(hold1, -price)
         return release2
+
+
+class Solution2:
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        size = len(prices)
+        f, g = [0] * size, [0] * size
+        min_price = prices[0]
+        for i in range(1, size):
+            f[i] = max(f[i - 1], prices[i] - min_price)
+            min_price = min(min_price, prices[i])
+        max_price = prices[size - 1]
+        for i in range(size - 2, -1, -1):
+            g[i] = max(g[i + 1], max_price - prices[i])
+            max_price = max(max_price, prices[i])
+        result = 0
+        for i in range(size):
+            result = max(result, f[i] + g[i])
+        return result
