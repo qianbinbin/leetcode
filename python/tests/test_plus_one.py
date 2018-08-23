@@ -4,6 +4,8 @@ from leetcodepy.plus_one import *
 
 solution1 = Solution1()
 
+solution2 = Solution2()
+
 digits1 = [1, 2, 3]
 
 expected1 = [1, 2, 4]
@@ -17,3 +19,7 @@ class TestPlusOne(TestCase):
     def test1(self):
         self.assertListEqual(expected1, solution1.plusOne(digits1))
         self.assertListEqual(expected2, solution1.plusOne(digits2))
+
+    def test2(self):
+        self.assertListEqual(expected1, solution2.plusOne(digits1))
+        self.assertListEqual(expected2, solution2.plusOne(digits2))

@@ -29,3 +29,21 @@ class Solution1:
         if not digits:
             raise ValueError
         return [int(ch) for ch in str(int(''.join([str(num) for num in digits])) + 1)]
+
+
+class Solution2:
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        if not digits:
+            raise ValueError
+        result = digits[:]
+        for i in range(len(digits) - 1, -1, -1):
+            if result[i] == 9:
+                result[i] = 0
+            else:
+                result[i] += 1
+                return result
+        return [1] + result
