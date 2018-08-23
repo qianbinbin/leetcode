@@ -31,7 +31,7 @@ public class InsertInterval {
             for (; i < size; ++i) {
                 Interval interval = intervals.get(i);
                 if (interval.end >= newInterval.start) break;
-                result.add(interval);
+                result.add(new Interval(interval.start, interval.end));
             }
             Interval merge = new Interval(newInterval.start, newInterval.end);
             for (; i < size; ++i) {
@@ -42,7 +42,8 @@ public class InsertInterval {
             }
             result.add(merge);
             for (; i < size; ++i) {
-                result.add(intervals.get(i));
+                Interval interval = intervals.get(i);
+                result.add(new Interval(interval.start, interval.end));
             }
             return result;
         }
