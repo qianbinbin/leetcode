@@ -32,3 +32,18 @@ class Solution1:
         """
         s = str(x)
         return s == s[::-1]
+
+
+class Solution2:
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x < 0:
+            return False
+        origin, reverse = x, 0
+        while x:
+            reverse = reverse * 10 + x % 10
+            x = x // 10
+        return origin == reverse
