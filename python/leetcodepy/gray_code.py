@@ -46,3 +46,17 @@ class Solution1:
             for j in range(len(result) - 1, -1, -1):
                 result.append(result[j] | bit)
         return result
+
+
+class Solution2:
+    def grayCode(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        if n < 0:
+            raise ValueError
+        result = []
+        for i in range(1 << n):
+            result.append(i ^ i >> 1)
+        return result
