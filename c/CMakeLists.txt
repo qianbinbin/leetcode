@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.7)
 
 project(leetcode)
 
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 11)
+
 add_subdirectory(src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
 
