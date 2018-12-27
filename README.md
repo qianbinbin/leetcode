@@ -1,7 +1,9 @@
-# LeetCode Solutions in C and Java
+# LeetCode Solutions in C, Java and Python
 
 
 ## Import as C Project
+
+C99 and C++11 are required.
 
 
 ### CLion
