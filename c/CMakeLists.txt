@@ -5,8 +5,9 @@ project(leetcode)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
+
+add_subdirectory(src)
 
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -39,11 +40,4 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
     include_directories("${gtest_SOURCE_DIR}/include")
 endif ()
 
-file(GLOB C_TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp)
-foreach (testsourcefile ${C_TEST_SOURCES})
-    get_filename_component(testname ${testsourcefile} NAME_WE)
-    add_executable(${testname} ${testsourcefile})
-    target_link_libraries(${testname} lc)
-    target_link_libraries(${testname} gtest_main)
-    add_test(NAME ${testname} COMMAND ${testname})
-endforeach (testsourcefile ${C_TEST_SOURCES})
+add_subdirectory(tests)
