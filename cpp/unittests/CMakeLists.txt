@@ -1,0 +1,8 @@
+aux_source_directory(. CPP_TEST_SOURCES)
+foreach (testsourcefile ${CPP_TEST_SOURCES})
+    get_filename_component(testname ${testsourcefile} NAME_WE)
+    add_executable(${testname} ${testsourcefile})
+    target_link_libraries(${testname} lcpp)
+    target_link_libraries(${testname} gtest_main)
+    add_test(NAME ${testname} COMMAND ${testname})
+endforeach (testsourcefile ${CPP_TEST_SOURCES})
