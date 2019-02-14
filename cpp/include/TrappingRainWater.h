@@ -24,6 +24,11 @@ public:
   int trap(std::vector<int> &height);
 };
 
+class Solution42_2 {
+public:
+  int trap(std::vector<int> &height);
+};
+
 }
 
 #endif //LEETCODECPP_TRAPPINGRAINWATER_H
