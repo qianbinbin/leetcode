@@ -1,6 +1,6 @@
 #include "minimum_window_substring.h"
 
-#include <limits.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -16,7 +16,7 @@ char *minWindow_76_1(char *s, char *t) {
     size_t expected_count = 0;
 
     size_t start = 0, end = 0;
-    size_t min_start = 0, min_len = SIZE_T_MAX;
+    size_t min_start = 0, min_len = SIZE_MAX;
     while (end < len_s) {
         if (expected[s[end]] > 0)
             ++expected_count;
@@ -35,7 +35,7 @@ char *minWindow_76_1(char *s, char *t) {
     }
 
     char *ret;
-    if (min_len == SIZE_T_MAX) {
+    if (min_len == SIZE_MAX) {
         ret = (char *) malloc(1);
         ret[0] = '\0';
     } else {

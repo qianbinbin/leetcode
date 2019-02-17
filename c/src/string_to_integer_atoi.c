@@ -1,6 +1,7 @@
 #include "string_to_integer_atoi.h"
 
 #include <limits.h>
+#include <stdint.h>
 #include <string.h>
 
 #define IS_NUMERIC(c) ('0' <= (c) && (c) <= '9')
