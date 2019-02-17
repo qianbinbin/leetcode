@@ -15,25 +15,23 @@ char *getPermutation_60_1(int n, int k) {
 
     char *ret = (char *) malloc((n + 1) * sizeof(char));
 
-    int factorial[n + 1];
+    int factorial[10];
     factorial[0] = 1;
     for (int i = 1; i <= n; ++i)
         factorial[i] = factorial[i - 1] * i;
-    if (k > factorial[n]) return NULL;
+    if (k > factorial[n]) {
+        free(ret);
+        return NULL;
+    }
 
     int size = n;
-    char *chars = (char *) malloc(n * sizeof(char));
-    for (int i = 0; i < n; ++i)
-        chars[i] = (char) ('1' + i);
-
+    char chars[] = "123456789";
     --k;
-    int index;
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0, index; i < n; ++i) {
         index = k / factorial[n - i - 1];
         ret[i] = array_remove(chars, &size, index);
         k = k % factorial[n - i - 1];
     }
     ret[n] = '\0';
-    free(chars);
     return ret;
 }
