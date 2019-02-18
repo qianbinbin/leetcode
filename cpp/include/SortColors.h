@@ -33,6 +33,11 @@ public:
   void sortColors(std::vector<int> &nums);
 };
 
+class Solution75_2 {
+public:
+  void sortColors(std::vector<int> &nums);
+};
+
 }
 
 #endif //LEETCODECPP_SORTCOLORS_H

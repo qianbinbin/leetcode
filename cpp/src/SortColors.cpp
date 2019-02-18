@@ -21,3 +21,19 @@ void Solution75_1::sortColors(std::vector<int> &nums) {
   for (const auto &E = nums.size(); I != E; ++I)
     nums[I] = 2;
 }
+
+void Solution75_2::sortColors(std::vector<int> &nums) {
+  if (nums.empty())
+    return;
+  auto I0 = nums.begin(), I2 = nums.end() - 1;
+  for (auto I = I0; I <= I2;) {
+    switch (*I) {
+    case 0:std::swap(*I0++, *I++);
+      break;
+    case 2:std::swap(*I, *I2--);
+      break;
+    default:++I;
+      break;
+    }
+  }
+}
