@@ -2,6 +2,7 @@
 #include <cassert>
 #include <limits>
 #include <stack>
+#include <vector>
 
 using namespace lcpp;
 
@@ -54,6 +55,32 @@ int Solution32_2::longestValidParentheses(std::string s) {
         Longest = std::max(Longest, I - Stack.top());
       }
     }
+  }
+  return Longest;
+}
+
+int Solution32_3::longestValidParentheses(std::string s) {
+  const auto &Size = s.size();
+  assert(Size <= std::numeric_limits<int>::max() && "s size overflow!");
+  if (Size < 2)
+    return 0;
+  std::vector<int> Dp(Size, 0);
+  int Longest = 0;
+  if (s[0] == '(' && s[1] == ')') {
+    Dp[1] = 2;
+    Longest = 2;
+  }
+  for (int I = 2, J; I != Size; ++I) {
+    if (s[I] != ')')
+      continue;
+    if (s[I - 1] == '(') {
+      Dp[I] = Dp[I - 2] + 2;
+    } else if (s[I - 1] == ')') {
+      J = I - Dp[I - 1] - 1;
+      if (J >= 0 && s[J] == '(')
+        Dp[I] = Dp[I - 1] + 2 + (J > 0 ? Dp[J - 1] : 0);
+    }
+    Longest = std::max(Longest, Dp[I]);
   }
   return Longest;
 }
