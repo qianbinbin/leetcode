@@ -25,6 +25,11 @@ public:
   int longestValidParentheses(std::string s);
 };
 
+class Solution32_2 {
+public:
+  int longestValidParentheses(std::string s);
+};
+
 }
 
 #endif //LEETCODECPP_LONGESTVALIDPARENTHESES_H

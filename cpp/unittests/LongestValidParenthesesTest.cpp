@@ -7,3 +7,8 @@ TEST(LongestValidParentheses, Solution32_1) {
   EXPECT_EQ(2, Solution32_1().longestValidParentheses("(()"));
   EXPECT_EQ(4, Solution32_1().longestValidParentheses(")()())"));
 }
+
+TEST(LongestValidParentheses, Solution32_2) {
+  EXPECT_EQ(2, Solution32_2().longestValidParentheses("(()"));
+  EXPECT_EQ(4, Solution32_2().longestValidParentheses(")()())"));
+}
