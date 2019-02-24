@@ -23,6 +23,11 @@ public:
   int maximalRectangle(std::vector<std::vector<char>> &matrix);
 };
 
+class Solution85_2 {
+public:
+  int maximalRectangle(std::vector<std::vector<char>> &matrix);
+};
+
 }
 
 #endif //LEETCODECPP_MAXIMALRECTANGLE_H
