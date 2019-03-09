@@ -30,6 +30,11 @@ public:
   int strStr(std::string haystack, std::string needle);
 };
 
+class Solution28_2 {
+public:
+  int strStr(std::string haystack, std::string needle);
+};
+
 }
 
 #endif //LEETCODECPP_IMPLEMENTSTRSTR_H
