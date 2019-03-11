@@ -26,6 +26,11 @@ public:
   std::vector<int> inorderTraversal(TreeNode *root);
 };
 
+class Solution94_2 {
+public:
+  std::vector<int> inorderTraversal(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_BINARYTREEINORDERTRAVERSAL_H
