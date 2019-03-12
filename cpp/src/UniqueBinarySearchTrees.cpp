@@ -1,4 +1,6 @@
 #include "UniqueBinarySearchTrees.h"
+#include <cassert>
+#include <cstdint>
 #include <vector>
 
 using namespace lcpp;
@@ -16,4 +18,16 @@ int Solution96_1::numTrees(int n) {
       Dp[I] += Dp[Left] * Dp[I - Left - 1];
   }
   return Dp[n];
+}
+
+int Solution96_2::numTrees(int n) {
+  // assert(n > 0);
+  if (n < 2)
+    return 1;
+  int64_t Catalan = 1;
+  for (int I = 1; I <= n; ++I)
+    Catalan = Catalan * (n + I) / I;
+  Catalan /= (n + 1);
+  assert(Catalan <= std::numeric_limits<int>::max() || "Result overflow!");
+  return static_cast<int>(Catalan);
 }

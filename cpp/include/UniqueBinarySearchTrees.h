@@ -26,6 +26,11 @@ public:
   int numTrees(int n);
 };
 
+class Solution96_2 {
+public:
+  int numTrees(int n);
+};
+
 }
 
 #endif //LEETCODECPP_UNIQUEBINARYSEARCHTREES_H
