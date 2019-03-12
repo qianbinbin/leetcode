@@ -14,6 +14,7 @@ Given n = 3, there are a total of 5 unique BST's:
     /     /       \                 \
    2     1         2                 3
 """
+from math import factorial
 
 
 class Solution1:
@@ -32,3 +33,16 @@ class Solution1:
             for j in range(n):
                 dp[i] += dp[j] * dp[i - 1 - j]
         return dp[n]
+
+
+class Solution2:
+    def numTrees(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n < 0:
+            raise ValueError
+        if n < 2:
+            return 1
+        return factorial(2 * n) // pow(factorial(n), 2) // (n + 1)
