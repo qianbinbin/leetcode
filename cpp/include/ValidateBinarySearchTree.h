@@ -39,6 +39,11 @@ public:
   bool isValidBST(TreeNode *root);
 };
 
+class Solution98_2 {
+public:
+  bool isValidBST(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_VALIDATEBINARYSEARCHTREE_H
