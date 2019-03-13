@@ -48,3 +48,24 @@ class Solution1:
             return False
         pre[0] = root
         return self.is_valid_bst(root.right, pre)
+
+
+class Solution2:
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        stack = []
+        node, pre = root, None
+        while node is not None or stack:
+            if node is not None:
+                stack.append(node)
+                node = node.left
+            else:
+                node = stack.pop()
+                if pre is not None and pre.val >= node.val:
+                    return False
+                pre = node
+                node = node.right
+        return True
