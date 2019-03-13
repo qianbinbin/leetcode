@@ -31,6 +31,11 @@ public:
   std::vector<std::vector<int>> levelOrder(TreeNode *root);
 };
 
+class Solution102_2 {
+public:
+  std::vector<std::vector<int>> levelOrder(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_BINARYTREELEVELORDERTRAVERSAL_H
