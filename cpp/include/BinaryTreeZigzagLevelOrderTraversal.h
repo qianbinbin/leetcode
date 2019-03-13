@@ -31,6 +31,11 @@ public:
   std::vector<std::vector<int>> zigzagLevelOrder(TreeNode *root);
 };
 
+class Solution103_2 {
+public:
+  std::vector<std::vector<int>> zigzagLevelOrder(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_BINARYTREEZIGZAGLEVELORDERTRAVERSAL_H
