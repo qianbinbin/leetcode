@@ -32,6 +32,11 @@ public:
   bool isSymmetric(TreeNode *root);
 };
 
+class Solution101_2 {
+public:
+  bool isSymmetric(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_SYMMETRICTREE_H

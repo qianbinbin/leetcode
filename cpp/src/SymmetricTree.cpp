@@ -1,4 +1,5 @@
 #include "SymmetricTree.h"
+#include <queue>
 
 using namespace lcpp;
 
@@ -17,4 +18,32 @@ bool Solution101_1::isSymmetric(TreeNode *root) {
   if (root == nullptr)
     return true;
   return ::isSymmetric(root->left, root->right);
+}
+
+bool Solution101_2::isSymmetric(TreeNode *root) {
+  if (root == nullptr)
+    return true;
+  std::queue<TreeNode *> Queue;
+  Queue.push(root->left);
+  Queue.push(root->right);
+  TreeNode *Node1, *Node2;
+  while (!Queue.empty()) {
+    Node1 = Queue.front();
+    Queue.pop();
+    Node2 = Queue.front();
+    Queue.pop();
+    if (Node1 == nullptr && Node2 == nullptr) {
+      continue;
+    } else if (Node1 == nullptr || Node2 == nullptr) {
+      return false;
+    } else if (Node1->val != Node2->val) {
+      return false;
+    } else {
+      Queue.push(Node1->left);
+      Queue.push(Node2->right);
+      Queue.push(Node1->right);
+      Queue.push(Node2->left);
+    }
+  }
+  return true;
 }
