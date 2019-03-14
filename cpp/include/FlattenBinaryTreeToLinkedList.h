@@ -34,6 +34,11 @@ public:
   void flatten(TreeNode *root);
 };
 
+class Solution114_2 {
+public:
+  void flatten(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_FLATTENBINARYTREETOLINKEDLIST_H
