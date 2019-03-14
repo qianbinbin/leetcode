@@ -29,6 +29,11 @@ public:
   int minDepth(TreeNode *root);
 };
 
+class Solution111_2 {
+public:
+  int minDepth(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_MINIMUMDEPTHOFBINARYTREE_H
