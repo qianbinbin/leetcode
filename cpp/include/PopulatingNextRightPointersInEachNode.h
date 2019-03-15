@@ -54,6 +54,11 @@ public:
   TreeLinkNode *connect(TreeLinkNode *root);
 };
 
+class Solution116_2 {
+public:
+  TreeLinkNode *connect(TreeLinkNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_POPULATINGNEXTRIGHTPOINTERSINEACHNODE_H

@@ -20,3 +20,14 @@ Node *Solution116_1::connect(Node *root) {
   }
   return root;
 }
+
+Node *Solution116_2::connect(Node *root) {
+  if (root == nullptr || root->left == nullptr)
+    return root;
+  root->left->next = root->right;
+  if (root->next != nullptr)
+    root->right->next = root->next->left;
+  connect(root->left);
+  connect(root->right);
+  return root;
+}
