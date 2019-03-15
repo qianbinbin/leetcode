@@ -26,6 +26,11 @@ public:
   std::vector<int> preorderTraversal(TreeNode *root);
 };
 
+class Solution144_2 {
+public:
+  std::vector<int> preorderTraversal(TreeNode *root);
+};
+
 }
 
 #endif //LEETCODECPP_BINARYTREEPREORDERTRAVERSAL_H
