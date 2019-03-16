@@ -36,3 +36,26 @@ std::vector<int> Solution145_2::postorderTraversal(TreeNode *root) {
   std::reverse(Result.begin(), Result.end());
   return Result;
 }
+
+std::vector<int> Solution145_3::postorderTraversal(TreeNode *root) {
+  std::vector<int> Result;
+  TreeNode *Node = root, *Pre = nullptr;
+  std::stack<TreeNode *> Stack;
+  while (Node != nullptr || !Stack.empty()) {
+    if (Node != nullptr) {
+      Stack.push(Node);
+      Node = Node->left;
+    } else {
+      Node = Stack.top();
+      if (Node->right == nullptr || Node->right == Pre) {
+        Result.push_back(Node->val);
+        Pre = Node;
+        Stack.pop();
+        Node = nullptr;
+      } else {
+        Node = Node->right;
+      }
+    }
+  }
+  return Result;
+}
