@@ -1,4 +1,6 @@
 #include "BinaryTreePostorderTraversal.h"
+#include <algorithm>
+#include <stack>
 
 using namespace lcpp;
 
@@ -13,5 +15,24 @@ static void postOrderTraversal(TreeNode *Root, std::vector<int> &Result) {
 std::vector<int> Solution145_1::postorderTraversal(TreeNode *root) {
   std::vector<int> Result;
   postOrderTraversal(root, Result);
+  return Result;
+}
+
+std::vector<int> Solution145_2::postorderTraversal(TreeNode *root) {
+  std::vector<int> Result;
+  if (root == nullptr)
+    return Result;
+  std::stack<TreeNode *> Stack;
+  Stack.push(root);
+  while (!Stack.empty()) {
+    auto Node = Stack.top();
+    Stack.pop();
+    if (Node->left != nullptr)
+      Stack.push(Node->left);
+    if (Node->right != nullptr)
+      Stack.push(Node->right);
+    Result.push_back(Node->val);
+  }
+  std::reverse(Result.begin(), Result.end());
   return Result;
 }
