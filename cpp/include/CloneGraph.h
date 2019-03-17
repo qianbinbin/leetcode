@@ -39,6 +39,11 @@ public:
   UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node);
 };
 
+class Solution133_2 {
+public:
+  UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node);
+};
+
 }
 
 #endif //LEETCODECPP_CLONEGRAPH_H
