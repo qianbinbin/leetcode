@@ -21,3 +21,13 @@ int Solution69_1::mySqrt(int x) {
   }
   assert(false);
 }
+
+int Solution69_2::mySqrt(int x) {
+  assert(x >= 0 && "x must be non-negative!");
+  if (x < 2)
+    return x;
+  int64_t Result = x / 2;
+  while (Result * Result > x || x >= (Result + 1) * (Result + 1))
+    Result = (Result + x / Result) / 2;
+  return static_cast<int>(Result);
+}

@@ -28,6 +28,11 @@ public:
   int mySqrt(int x);
 };
 
+class Solution69_2 {
+public:
+  int mySqrt(int x);
+};
+
 }
 
 #endif //LEETCODECPP_SQRTX_H
