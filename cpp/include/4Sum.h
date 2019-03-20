@@ -29,6 +29,11 @@ public:
   std::vector<std::vector<int>> fourSum(std::vector<int> &nums, int target);
 };
 
+class Solution18_2 {
+public:
+  std::vector<std::vector<int>> fourSum(std::vector<int> &nums, int target);
+};
+
 }
 
 #endif //LEETCODECPP_4SUM_H

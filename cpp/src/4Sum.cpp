@@ -1,5 +1,7 @@
 #include "4Sum.h"
 #include <algorithm>
+#include <set>
+#include <unordered_map>
 
 using namespace lcpp;
 
@@ -41,5 +43,37 @@ std::vector<std::vector<int>> Solution18_1::fourSum(std::vector<int> &nums,
       ++I1;
     } while (I1 != E1 && *I1 == *(I1 - 1));
   }
+  return Result;
+}
+
+std::vector<std::vector<int>> Solution18_2::fourSum(std::vector<int> &nums,
+                                                    int target) {
+  std::vector<std::vector<int>> Result;
+  if (nums.size() < 4)
+    return Result;
+  std::set<std::vector<int>> Set;
+  typedef std::vector<int>::size_type SizeType;
+  std::unordered_map<int, std::vector<std::pair<SizeType, SizeType>>> Map;
+  for (SizeType I = 0, E = nums.size(); I != E; ++I) {
+    for (auto J = I + 1; J != E; ++J)
+      Map[nums[I] + nums[J]].push_back({I, J});
+  }
+  for (auto I = Map.cbegin(), E = Map.cend(); I != E; ++I) {
+    auto J = Map.find(target - I->first);
+    if (J == E)
+      continue;
+    for (const auto &Pair1 : I->second) {
+      for (const auto &Pair2 : J->second) {
+        if (Pair1.first == Pair2.first || Pair1.first == Pair2.second
+            || Pair1.second == Pair2.first || Pair1.second == Pair2.second)
+          continue;
+        std::vector<int> Quadruplet{nums[Pair1.first], nums[Pair1.second],
+                                    nums[Pair2.first], nums[Pair2.second]};
+        std::sort(Quadruplet.begin(), Quadruplet.end());
+        Set.insert(std::move(Quadruplet));
+      }
+    }
+  }
+  Result.assign(Set.begin(), Set.end());
   return Result;
 }
