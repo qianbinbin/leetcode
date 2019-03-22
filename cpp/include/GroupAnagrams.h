@@ -29,6 +29,12 @@ public:
   groupAnagrams(std::vector<std::string> &strs);
 };
 
+class Solution49_2 {
+public:
+  std::vector<std::vector<std::string>>
+  groupAnagrams(std::vector<std::string> &strs);
+};
+
 }
 
 #endif //LEETCODECPP_GROUPANAGRAMS_H

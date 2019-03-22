@@ -12,3 +12,13 @@ TEST(GroupAnagrams, Solution49_1) {
   };
   EXPECT_EQ(Expected, Solution49_1().groupAnagrams(Strs));
 }
+
+TEST(GroupAnagrams, Solution49_2) {
+  std::vector<std::string> Strs{"eat", "tea", "tan", "ate", "nat", "bat"};
+  const std::vector<std::vector<std::string>> Expected{
+      {"bat"},
+      {"eat", "tea", "ate"},
+      {"tan", "nat"}
+  };
+  EXPECT_EQ(Expected, Solution49_2().groupAnagrams(Strs));
+}
