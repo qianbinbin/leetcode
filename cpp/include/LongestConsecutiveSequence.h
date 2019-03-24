@@ -22,6 +22,11 @@ public:
   int longestConsecutive(std::vector<int> &nums);
 };
 
+class Solution128_2 {
+public:
+  int longestConsecutive(std::vector<int> &nums);
+};
+
 }
 
 #endif //LEETCODECPP_LONGESTCONSECUTIVESEQUENCE_H
