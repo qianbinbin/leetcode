@@ -45,3 +45,45 @@ std::vector<std::string> Solution93_1::restoreIpAddresses(std::string s) {
   restore(s, 0, Path, Result);
   return Result;
 }
+
+static bool isValidIPSegment(const std::string &Str) {
+  const auto &Size = Str.size();
+  if (Size == 0 || Size > 3)
+    return false;
+  if (Str[0] == '0')
+    return Size == 1;
+  for (const auto &Ch : Str) {
+    if (!isdigit(Ch))
+      return false;
+  }
+  return stoi(Str) < 256;
+}
+
+std::vector<std::string> Solution93_2::restoreIpAddresses(std::string s) {
+  const auto &Size = s.size();
+  std::vector<std::string> Result;
+  if (Size < 4 || Size > 12)
+    return Result;
+  for (std::string::size_type I1 = 1, E1 = std::min(I1 + 3, Size - 2); I1 < E1;
+       ++I1) {
+    for (auto I2 = I1 + 1, E2 = std::min(I2 + 3, Size - 1); I2 < E2; ++I2) {
+      for (auto I3 = I2 + 1, E3 = std::min(I3 + 3, Size); I3 < E3; ++I3) {
+        auto S1 = std::string(s, 0, I1),
+            S2 = std::string(s, I1, I2 - I1),
+            S3 = std::string(s, I2, I3 - I2),
+            S4 = std::string(s, I3, Size - I3);
+        if (isValidIPSegment(S1) && isValidIPSegment(S2)
+            && isValidIPSegment(S3) && isValidIPSegment(S4)) {
+          S1 += '.';
+          S1 += S2;
+          S1 += '.';
+          S1 += S3;
+          S1 += '.';
+          S1 += S4;
+          Result.emplace_back(std::move(S1));
+        }
+      }
+    }
+  }
+  return Result;
+}

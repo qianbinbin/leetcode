@@ -19,6 +19,11 @@ public:
   std::vector<std::string> restoreIpAddresses(std::string s);
 };
 
+class Solution93_2 {
+public:
+  std::vector<std::string> restoreIpAddresses(std::string s);
+};
+
 }
 
 #endif //LEETCODECPP_RESTOREIPADDRESSES_H

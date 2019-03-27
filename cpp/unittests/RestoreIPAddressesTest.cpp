@@ -10,3 +10,11 @@ TEST(RestoreIPAddresses, Solution93_1) {
   };
   EXPECT_EQ(Expected, Solution93_1().restoreIpAddresses(S));
 }
+
+TEST(RestoreIPAddresses, Solution93_2) {
+  const std::string S = "25525511135";
+  const std::vector<std::string> Expected{
+      "255.255.11.135", "255.255.111.35"
+  };
+  EXPECT_EQ(Expected, Solution93_2().restoreIpAddresses(S));
+}
