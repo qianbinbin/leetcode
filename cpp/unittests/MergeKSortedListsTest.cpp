@@ -15,3 +15,16 @@ TEST(MergeKSortedLists, Solution23_1) {
   deleteLinkedList(Expected);
   deleteLinkedList(Actual);
 }
+
+TEST(MergeKSortedLists, Solution23_2) {
+  std::vector<ListNode *> Lists{
+      newLinkedList({1, 4, 5}),
+      newLinkedList({1, 3, 4}),
+      newLinkedList({2, 6})
+  };
+  const auto Expected = newLinkedList({1, 1, 2, 3, 4, 4, 5, 6}),
+      Actual = Solution23_2().mergeKLists(Lists);
+  EXPECT_EQ(*Expected, *Actual);
+  deleteLinkedList(Expected);
+  deleteLinkedList(Actual);
+}

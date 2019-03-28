@@ -1,4 +1,5 @@
 #include "MergeKSortedLists.h"
+#include <queue>
 
 using namespace lcpp;
 
@@ -29,4 +30,29 @@ ListNode *Solution23_1::mergeKLists(std::vector<ListNode *> &lists) {
       lists[I] = mergeTwoSortedLists(lists[I], lists[I + Interval]);
   }
   return lists[0];
+}
+
+struct Greater {
+  bool operator()(ListNode *Head1, ListNode *Head2) const {
+    return Head1->val > Head2->val;
+  }
+};
+
+ListNode *Solution23_2::mergeKLists(std::vector<ListNode *> &lists) {
+  if (lists.empty())
+    return nullptr;
+  std::priority_queue<ListNode *, std::vector<ListNode *>, Greater> Heap;
+  for (const auto &Head : lists) {
+    if (Head != nullptr)
+      Heap.push(Head);
+  }
+  ListNode Dummy(0), *Tail = &Dummy;
+  while (!Heap.empty()) {
+    Tail->next = Heap.top();
+    Heap.pop();
+    Tail = Tail->next;
+    if (Tail->next != nullptr)
+      Heap.push(Tail->next);
+  }
+  return Dummy.next;
 }

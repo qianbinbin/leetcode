@@ -24,6 +24,11 @@ public:
   ListNode *mergeKLists(std::vector<ListNode *> &lists);
 };
 
+class Solution23_2 {
+public:
+  ListNode *mergeKLists(std::vector<ListNode *> &lists);
+};
+
 }
 
 #endif //LEETCODECPP_MERGEKSORTEDLISTS_H
