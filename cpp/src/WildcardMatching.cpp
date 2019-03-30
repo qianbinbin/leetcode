@@ -21,3 +21,27 @@ bool Solution44_1::isMatch(std::string s, std::string p) {
   }
   return Match[M][N];
 }
+
+bool Solution44_2::isMatch(std::string s, std::string p) {
+  auto I = s.cbegin(), SE = s.cend(), LastStr = SE, J = p.cbegin(),
+       PE = p.cend(), LastStar = PE;
+  while (I != SE) {
+    const char Ch = J == PE ? 0 : *J;
+    if (Ch == '*') {
+      LastStr = I;
+      LastStar = J;
+      ++J;
+    } else if (Ch == '?' || Ch == *I) {
+      ++I;
+      ++J;
+    } else if (LastStar != PE) {
+      I = ++LastStr;
+      J = LastStar + 1;
+    } else {
+      return false;
+    }
+  }
+  while (J != PE && *J == '*')
+    ++J;
+  return J == PE;
+}

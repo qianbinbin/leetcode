@@ -64,6 +64,11 @@ public:
   bool isMatch(std::string s, std::string p);
 };
 
+class Solution44_2 {
+public:
+  bool isMatch(std::string s, std::string p);
+};
+
 }
 
 #endif //LEETCODECPP_WILDCARDMATCHING_H
