@@ -31,6 +31,11 @@ public:
   bool canJump(std::vector<int> &nums);
 };
 
+class Solution55_2 {
+public:
+  bool canJump(std::vector<int> &nums);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_JUMPGAME_H
