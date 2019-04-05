@@ -39,6 +39,11 @@ public:
   int uniquePaths(int m, int n);
 };
 
+class Solution62_2 {
+public:
+  int uniquePaths(int m, int n);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_UNIQUEPATHS_H
