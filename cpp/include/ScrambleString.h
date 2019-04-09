@@ -65,6 +65,11 @@ public:
   bool isScramble(std::string s1, std::string s2);
 };
 
+class Solution87_2 {
+public:
+  bool isScramble(std::string s1, std::string s2);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_SCRAMBLESTRING_H

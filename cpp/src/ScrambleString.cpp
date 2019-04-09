@@ -32,3 +32,32 @@ bool Solution87_1::isScramble(std::string s1, std::string s2) {
   }
   return Dp[Size - 1][0][0];
 }
+
+/// Assert both S1 and S2 only contain lower case letters.
+static bool isScramble(std::string &S1, std::string &S2, SizeType I, SizeType J,
+                       SizeType L) {
+  if (L == 1)
+    return S1[I] == S2[J];
+  SizeType Count[26]{0};
+  for (SizeType K = 0; K != L; ++K) {
+    ++Count[S1[I + K] - 'a'];
+    --Count[S2[J + K] - 'a'];
+  }
+  for (const auto &C : Count)
+    if (C != 0)
+      return false;
+  for (SizeType K = 1; K != L; ++K) {
+    if ((isScramble(S1, S2, I, J, K) &&
+         isScramble(S1, S2, I + K, J + K, L - K)) ||
+        (isScramble(S1, S2, I, J + L - K, K) &&
+         isScramble(S1, S2, I + K, J, L - K)))
+      return true;
+  }
+  return false;
+}
+
+bool Solution87_2::isScramble(std::string s1, std::string s2) {
+  const auto &Size = s1.size();
+  assert(Size != 0 && s2.size() == Size);
+  return ::isScramble(s1, s2, 0, 0, Size);
+}
