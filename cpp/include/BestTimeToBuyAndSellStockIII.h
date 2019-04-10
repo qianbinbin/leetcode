@@ -44,6 +44,11 @@ public:
   int maxProfit(std::vector<int> &prices);
 };
 
+class Solution123_2 {
+public:
+  int maxProfit(std::vector<int> &prices);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_BESTTIMETOBUYANDSELLSTOCKIII_H
