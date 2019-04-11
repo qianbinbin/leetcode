@@ -30,3 +30,20 @@ int Solution132_1::minCut(std::string s) {
   }
   return Cut[0];
 }
+
+int Solution132_2::minCut(std::string s) {
+  const auto &Size = s.size();
+  std::vector<int> Cut(Size + 1);
+  int Tmp = -1;
+  for (auto &C : Cut)
+    C = Tmp++;
+  for (std::string::size_type I = 0, L, LE; I != Size; ++I) {
+    for (L = 0, LE = std::min(I + 1, Size - I); L != LE && s[I - L] == s[I + L];
+         ++L)
+      Cut[I + L + 1] = std::min(Cut[I + L + 1], Cut[I - L] + 1);
+    for (L = 0, LE = std::min(I + 1, Size - I - 1);
+         L != LE && s[I - L] == s[I + L + 1]; ++L)
+      Cut[I + L + 2] = std::min(Cut[I + L + 2], Cut[I - L] + 1);
+  }
+  return Cut[Size];
+}

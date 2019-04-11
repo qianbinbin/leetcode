@@ -22,6 +22,11 @@ public:
   int minCut(std::string s);
 };
 
+class Solution132_2 {
+public:
+  int minCut(std::string s);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_PALINDROMEPARTITIONINGII_H
