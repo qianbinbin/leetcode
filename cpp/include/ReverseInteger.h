@@ -31,6 +31,11 @@ public:
   int reverse(int x);
 };
 
+class Solution7_2 {
+public:
+  int reverse(int x);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_REVERSEINTEGER_H
