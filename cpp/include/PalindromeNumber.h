@@ -33,6 +33,11 @@ public:
   bool isPalindrome(int x);
 };
 
+class Solution9_2 {
+public:
+  bool isPalindrome(int x);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_PALINDROMENUMBER_H
