@@ -31,6 +31,11 @@ public:
   double myPow(double x, int n);
 };
 
+class Solution50_2 {
+public:
+  double myPow(double x, int n);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_POWXN_H
