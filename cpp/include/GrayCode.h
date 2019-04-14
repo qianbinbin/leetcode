@@ -43,6 +43,11 @@ public:
   std::vector<int> grayCode(int n);
 };
 
+class Solution89_2 {
+public:
+  std::vector<int> grayCode(int n);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_GRAYCODE_H

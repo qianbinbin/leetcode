@@ -16,3 +16,13 @@ std::vector<int> Solution89_1::grayCode(int n) {
   }
   return Result;
 }
+
+std::vector<int> Solution89_2::grayCode(int n) {
+  assert(n >= 0 && "n must be non-negative!");
+  unsigned Size = 1u << static_cast<unsigned>(n);
+  std::vector<int> Result;
+  Result.reserve(Size);
+  for (unsigned I = 0; I != Size; ++I)
+    Result.push_back(I ^ (I >> 1u));
+  return Result;
+}
