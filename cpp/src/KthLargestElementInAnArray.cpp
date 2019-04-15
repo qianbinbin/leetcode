@@ -1,4 +1,5 @@
 #include "KthLargestElementInAnArray.h"
+#include <algorithm>
 
 using namespace lcpp;
 
@@ -32,4 +33,19 @@ int Solution215_1::findKthLargest(std::vector<int> &nums, int k) {
   const auto &Size = nums.size();
   assert(0 < k && k <= Size);
   return findKthSmallestFrom0(nums, 0, Size - 1, Size - k);
+}
+
+int Solution215_2::findKthLargest(std::vector<int> &nums, int k) {
+  auto N = nums.size();
+  assert(0 < k && k <= N);
+  if (N - k >= k) {
+    std::make_heap(nums.begin(), nums.end());
+    for (auto HeapEnd = nums.end(); k != 1; --k)
+      std::pop_heap(nums.begin(), HeapEnd--);
+  } else {
+    std::make_heap(nums.begin(), nums.end(), std::greater<int>());
+    for (auto HeapEnd = nums.end(); N != k; --N)
+      std::pop_heap(nums.begin(), HeapEnd--, std::greater<int>());
+  }
+  return nums[0];
 }

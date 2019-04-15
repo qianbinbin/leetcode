@@ -25,6 +25,11 @@ public:
   int findKthLargest(std::vector<int> &nums, int k);
 };
 
+class Solution215_2 {
+public:
+  int findKthLargest(std::vector<int> &nums, int k);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_KTHLARGESTELEMENTINANARRAY_H
