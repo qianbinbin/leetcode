@@ -49,3 +49,10 @@ int Solution215_2::findKthLargest(std::vector<int> &nums, int k) {
   }
   return nums[0];
 }
+
+int Solution215_3::findKthLargest(std::vector<int> &nums, int k) {
+  assert(0 < k && k <= nums.size());
+  auto Kth = nums.begin() + k - 1;
+  std::nth_element(nums.begin(), Kth, nums.end(), std::greater<int>());
+  return *Kth;
+}
