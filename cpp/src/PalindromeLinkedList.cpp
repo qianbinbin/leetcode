@@ -18,3 +18,16 @@ bool Solution234_1::isPalindrome(ListNode *head) {
     Values.push_back(Node->val);
   return ::isPalindrome(Values);
 }
+
+static bool isPalindrome(ListNode *Last, ListNode *&First) {
+  if (Last == nullptr)
+    return true;
+  bool Result = isPalindrome(Last->next, First) && Last->val == First->val;
+  First = First->next;
+  return Result;
+}
+
+bool Solution234_2::isPalindrome(ListNode *head) {
+  ListNode *First = head;
+  return ::isPalindrome(head, First);
+}

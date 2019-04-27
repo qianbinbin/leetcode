@@ -25,6 +25,11 @@ public:
   bool isPalindrome(ListNode *head);
 };
 
+class Solution234_2 {
+public:
+  bool isPalindrome(ListNode *head);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_PALINDROMELINKEDLIST_H
