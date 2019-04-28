@@ -39,6 +39,11 @@ public:
   TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q);
 };
 
+class Solution236_2 {
+public:
+  TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_LOWESTCOMMONANCESTOROFABINARYTREE_H

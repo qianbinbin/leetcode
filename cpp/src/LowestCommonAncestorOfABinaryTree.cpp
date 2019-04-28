@@ -31,3 +31,21 @@ TreeNode *Solution236_1::lowestCommonAncestor(TreeNode *root, TreeNode *p,
     Result = Path1[I];
   return Result;
 }
+
+/// Return lowest common ancestor if the tree contains both P and Q,
+/// or one of them if the tree only contains that one,
+/// or nullptr if neither is in the tree.
+static TreeNode *lowestAncestor(TreeNode *Root, TreeNode *P, TreeNode *Q) {
+  if (Root == nullptr || Root == P || Root == Q)
+    return Root;
+  auto L = lowestAncestor(Root->left, P, Q),
+       R = lowestAncestor(Root->right, P, Q);
+  if (L != nullptr && R != nullptr)
+    return Root;
+  return L != nullptr ? L : R;
+}
+
+TreeNode *Solution236_2::lowestCommonAncestor(TreeNode *root, TreeNode *p,
+                                              TreeNode *q) {
+  return lowestAncestor(root, p, q);
+}
