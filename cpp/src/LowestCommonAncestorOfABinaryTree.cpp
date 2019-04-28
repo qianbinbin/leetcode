@@ -1,4 +1,6 @@
 #include "LowestCommonAncestorOfABinaryTree.h"
+#include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace lcpp;
@@ -48,4 +50,37 @@ static TreeNode *lowestAncestor(TreeNode *Root, TreeNode *P, TreeNode *Q) {
 TreeNode *Solution236_2::lowestCommonAncestor(TreeNode *root, TreeNode *p,
                                               TreeNode *q) {
   return lowestAncestor(root, p, q);
+}
+
+/// Root cannot be nullptr.
+static void findParents(TreeNode *Root,
+                        std::unordered_map<TreeNode *, TreeNode *> &Parents) {
+  if (Root->left != nullptr) {
+    Parents[Root->left] = Root;
+    findParents(Root->left, Parents);
+  }
+  if (Root->right != nullptr) {
+    Parents[Root->right] = Root;
+    findParents(Root->right, Parents);
+  }
+}
+
+TreeNode *Solution236_3::lowestCommonAncestor(TreeNode *root, TreeNode *p,
+                                              TreeNode *q) {
+  if (root == nullptr)
+    return nullptr;
+  std::unordered_map<TreeNode *, TreeNode *> Parents{{root, nullptr}};
+  findParents(root, Parents);
+  const auto &PE = Parents.end();
+  if (Parents.find(p) == PE || Parents.find(q) == PE)
+    return nullptr;
+  std::unordered_set<TreeNode *> Ancestors;
+  while (p != nullptr) {
+    Ancestors.insert(p);
+    p = Parents[p];
+  }
+  const auto &AE = Ancestors.end();
+  while (Ancestors.find(q) == AE)
+    q = Parents[q];
+  return q;
 }
