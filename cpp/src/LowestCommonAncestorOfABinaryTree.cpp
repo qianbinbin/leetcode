@@ -1,4 +1,5 @@
 #include "LowestCommonAncestorOfABinaryTree.h"
+#include <stack>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -83,4 +84,34 @@ TreeNode *Solution236_3::lowestCommonAncestor(TreeNode *root, TreeNode *p,
   while (Ancestors.find(q) == AE)
     q = Parents[q];
   return q;
+}
+
+TreeNode *Solution236_4::lowestCommonAncestor(TreeNode *root, TreeNode *p,
+                                              TreeNode *q) {
+  std::stack<TreeNode *> Stack;
+  TreeNode *Ancestor = nullptr, *Node = root;
+  std::stack<TreeNode *>::size_type AncestorDepth = 0;
+  while (Node != nullptr || !Stack.empty()) {
+    if (Node != nullptr) {
+      Stack.push(Node);
+      if (Node == p || Node == q) {
+        if (Ancestor != nullptr) {
+          return Ancestor;
+        } else {
+          Ancestor = Node;
+          AncestorDepth = Stack.size();
+        }
+      }
+      Node = Node->left;
+    } else {
+      Node = Stack.top();
+      Stack.pop();
+      if (AncestorDepth > Stack.size()) {
+        AncestorDepth = Stack.size();
+        Ancestor = Node;
+      }
+      Node = Node->right;
+    }
+  }
+  return Ancestor;
 }
