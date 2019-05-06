@@ -37,6 +37,11 @@ public:
   std::vector<int> maxSlidingWindow(std::vector<int> &nums, int k);
 };
 
+class Solution239_2 {
+public:
+  std::vector<int> maxSlidingWindow(std::vector<int> &nums, int k);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_SLIDINGWINDOWMAXIMUM_H
