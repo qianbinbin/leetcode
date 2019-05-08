@@ -30,3 +30,21 @@ int Solution279_1::numSquares(int n) {
     Cur.clear();
   }
 }
+
+std::vector<int> &Solution279_2::getNums() {
+  static std::vector<int> Nums{0};
+  return Nums;
+}
+
+int Solution279_2::numSquares(int n) {
+  assert(n > 0);
+  auto &Nums = getNums();
+  if (Nums.size() > n)
+    return Nums[n];
+  for (int N, I, Diff, Num; (N = Nums.size()) <= n;) {
+    for (I = 1, Num = Max; (Diff = N - I * I) >= 0; ++I)
+      Num = std::min(Num, Nums[Diff] + 1);
+    Nums.push_back(Num);
+  }
+  return Nums[n];
+}

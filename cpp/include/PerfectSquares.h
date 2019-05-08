@@ -16,11 +16,22 @@
 #ifndef LEETCODECPP_PERFECTSQUARES_H
 #define LEETCODECPP_PERFECTSQUARES_H
 
+#include <vector>
+
 namespace lcpp {
 
 class Solution279_1 {
 public:
   int numSquares(int n);
+};
+
+class Solution279_2 {
+public:
+  int numSquares(int n);
+
+private:
+  static std::vector<int> &getNums();
+  static const int Max = std::numeric_limits<int>::max();
 };
 
 } // namespace lcpp
