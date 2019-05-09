@@ -1,5 +1,6 @@
 #include "PerfectSquares.h"
 #include <cassert>
+#include <cmath>
 #include <unordered_set>
 #include <vector>
 
@@ -71,4 +72,18 @@ int Solution279_3::numSquares(int n) {
     std::swap(Set, Tmp);
   }
   return -1;
+}
+
+int Solution279_4::numSquares(int n) {
+  assert(n > 0);
+  while (n % 4 == 0)
+    n /= 4;
+  if (n % 8 == 7)
+    return 4;
+  for (int I = 0, S, SE = n / 2, J; (S = I * I) <= SE; ++I) {
+    J = static_cast<int>(sqrt(n - S));
+    if (S + J * J == n)
+      return (I != 0) + (J != 0);
+  }
+  return 3;
 }

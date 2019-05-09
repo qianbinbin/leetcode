@@ -39,6 +39,11 @@ public:
   int numSquares(int n);
 };
 
+class Solution279_4 {
+public:
+  int numSquares(int n);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_PERFECTSQUARES_H
