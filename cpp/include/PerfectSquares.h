@@ -34,6 +34,11 @@ private:
   static const int Max = std::numeric_limits<int>::max();
 };
 
+class Solution279_3 {
+public:
+  int numSquares(int n);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_PERFECTSQUARES_H

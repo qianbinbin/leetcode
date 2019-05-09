@@ -1,5 +1,6 @@
 #include "PerfectSquares.h"
 #include <cassert>
+#include <unordered_set>
 #include <vector>
 
 using namespace lcpp;
@@ -47,4 +48,27 @@ int Solution279_2::numSquares(int n) {
     Nums.push_back(Num);
   }
   return Nums[n];
+}
+
+int Solution279_3::numSquares(int n) {
+  assert(n > 0);
+  std::unordered_set<int> Set({n}), Tmp;
+  std::vector<int> Squares;
+  for (int I = 1, S; (S = I * I) <= n; ++I)
+    Squares.push_back(S);
+  for (int Level = 1; !Set.empty(); ++Level) {
+    for (const auto &N : Set) {
+      for (const auto &S : Squares) {
+        if (N == S)
+          return Level;
+        if (N < S)
+          break;
+        else
+          Tmp.insert(N - S);
+      }
+    }
+    Set.clear();
+    std::swap(Set, Tmp);
+  }
+  return -1;
 }
