@@ -32,6 +32,11 @@ public:
   int findDuplicate(std::vector<int> &nums);
 };
 
+class Solution287_2 {
+public:
+  int findDuplicate(std::vector<int> &nums);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_FINDTHEDUPLICATENUMBER_H
