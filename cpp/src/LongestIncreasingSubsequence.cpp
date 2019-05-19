@@ -17,3 +17,15 @@ int Solution300_1::lengthOfLIS(std::vector<int> &nums) {
   }
   return Len;
 }
+
+int Solution300_2::lengthOfLIS(std::vector<int> &nums) {
+  std::vector<std::vector<int>::size_type> DP;
+  for (const auto &N : nums) {
+    auto It = std::lower_bound(DP.begin(), DP.end(), N);
+    if (It == DP.end())
+      DP.push_back(N);
+    else
+      *It = N;
+  }
+  return DP.size();
+}

@@ -27,6 +27,11 @@ public:
   int lengthOfLIS(std::vector<int> &nums);
 };
 
+class Solution300_2 {
+public:
+  int lengthOfLIS(std::vector<int> &nums);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_LONGESTINCREASINGSUBSEQUENCE_H
