@@ -1,4 +1,5 @@
 #include "ClimbingStairs.h"
+#include <algorithm>
 #include <cassert>
 #include <limits>
 

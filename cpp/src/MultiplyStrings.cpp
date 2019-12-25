@@ -1,4 +1,5 @@
 #include "MultiplyStrings.h"
+#include <cassert>
 
 using namespace lcpp;
 

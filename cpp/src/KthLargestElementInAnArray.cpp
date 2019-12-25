@@ -1,5 +1,7 @@
 #include "KthLargestElementInAnArray.h"
 #include <algorithm>
+#include <cassert>
+#include <functional>
 
 using namespace lcpp;
 

@@ -16,6 +16,7 @@
 #ifndef LEETCODECPP_PERFECTSQUARES_H
 #define LEETCODECPP_PERFECTSQUARES_H
 
+#include <limits>
 #include <vector>
 
 namespace lcpp {

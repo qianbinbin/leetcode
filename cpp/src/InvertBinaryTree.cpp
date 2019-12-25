@@ -1,4 +1,5 @@
 #include "InvertBinaryTree.h"
+#include <algorithm>
 
 using namespace lcpp;
 

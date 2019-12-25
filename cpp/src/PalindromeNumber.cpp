@@ -1,4 +1,5 @@
 #include "PalindromeNumber.h"
+#include <algorithm>
 #include <cstdint>
 #include <string>
 

@@ -1,4 +1,5 @@
 #include "ReverseInteger.h"
+#include <algorithm>
 #include <cstdint>
 #include <limits>
 #include <string>

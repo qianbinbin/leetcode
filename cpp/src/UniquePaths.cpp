@@ -1,5 +1,6 @@
 #include "UniquePaths.h"
 #include <cassert>
+#include <cstdint>
 #include <vector>
 
 int lcpp::Solution62_1::uniquePaths(int m, int n) {
