@@ -31,6 +31,7 @@
 #ifndef LEETCODECPP_FINDMEDIANFROMDATASTREAM_H
 #define LEETCODECPP_FINDMEDIANFROMDATASTREAM_H
 
+#include <queue>
 #include <vector>
 
 namespace lcpp {
@@ -41,6 +42,19 @@ class MedianFinder1 {
 public:
   /** initialize your data structure here. */
   MedianFinder1() = default;
+
+  void addNum(int num);
+
+  double findMedian();
+};
+
+class MedianFinder2 {
+  std::priority_queue<int> Small;
+  std::priority_queue<int, std::vector<int>, std::greater<int>> Big;
+
+public:
+  /** initialize your data structure here. */
+  MedianFinder2() = default;
 
   void addNum(int num);
 

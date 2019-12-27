@@ -11,3 +11,12 @@ TEST(FindMedianFromDataStream, Solution295_1) {
   mf.addNum(3);
   EXPECT_EQ(2, mf.findMedian());
 }
+
+TEST(FindMedianFromDataStream, Solution295_2) {
+  MedianFinder2 mf;
+  mf.addNum(1);
+  mf.addNum(2);
+  EXPECT_EQ(1.5, mf.findMedian());
+  mf.addNum(3);
+  EXPECT_EQ(2, mf.findMedian());
+}
