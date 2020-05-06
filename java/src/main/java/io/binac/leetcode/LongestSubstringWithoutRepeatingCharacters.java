@@ -17,20 +17,21 @@ import java.util.Map;
 public class LongestSubstringWithoutRepeatingCharacters {
     public static class Solution1 {
         public int lengthOfLongestSubstring(String s) {
-            if (s == null || s.isEmpty()) return 0;
-
+            final int length = s.length();
+            if (length < 1)
+                return 0;
             Map<Character, Integer> map = new HashMap<>();
             map.put(s.charAt(0), 0);
-            int longest = 1;
-            int start = 0;
-            for (int i = 1; i < s.length(); ++i) {
-                if (map.containsKey(s.charAt(i)) && (int) map.get(s.charAt(i)) >= start) {
-                    longest = Math.max(longest, i - start);
-                    start = (int) map.get(s.charAt(i)) + 1;
+            int start = 0, longest = 1;
+            Integer i;
+            for (int j = 1; j < length; ++j) {
+                i = map.put(s.charAt(j), j);
+                if (i != null && i >= start) {
+                    longest = Math.max(longest, j - start);
+                    start = i + 1;
                 }
-                map.put(s.charAt(i), i);
             }
-            longest = Math.max(longest, s.length() - start);
+            longest = Math.max(longest, length - start);
             return longest;
         }
     }

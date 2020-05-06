@@ -7,20 +7,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LongestSubstringWithoutRepeatingCharactersTest {
     private final LongestSubstringWithoutRepeatingCharacters.Solution1 solution1 = new LongestSubstringWithoutRepeatingCharacters.Solution1();
 
+    private final String S1 = "abcabcbb";
+    private final int EXPECTED1 = 3;
+    private final String S2 = "bbbbb";
+    private final int EXPECTED2 = 1;
+    private final String S3 = "pwwkew";
+    private final int EXPECTED3 = 3;
+    private final String S_END = "au";
+    private final int EXPECTED_END = 2;
+    private final String S_DUP = "abba";
+    private final int EXPECTED_DUP = 2;
+
     @Test
     void test1() {
-        assertEquals(3, solution1.lengthOfLongestSubstring("abcabcbb"));
-        assertEquals(1, solution1.lengthOfLongestSubstring("bbbbb"));
-        assertEquals(3, solution1.lengthOfLongestSubstring("pwwkew"));
+        assertEquals(EXPECTED1, solution1.lengthOfLongestSubstring(S1));
+        assertEquals(EXPECTED2, solution1.lengthOfLongestSubstring(S2));
+        assertEquals(EXPECTED3, solution1.lengthOfLongestSubstring(S3));
     }
 
     @Test
     void test1End() {
-        assertEquals(2, solution1.lengthOfLongestSubstring("au"));
+        assertEquals(EXPECTED_END, solution1.lengthOfLongestSubstring(S_END));
     }
 
     @Test
     void test1Duplicate() {
-        assertEquals(2, solution1.lengthOfLongestSubstring("abba"));
+        assertEquals(EXPECTED_DUP, solution1.lengthOfLongestSubstring(S_DUP));
     }
 }
