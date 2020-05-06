@@ -1,5 +1,6 @@
 package io.binac.leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,19 +20,20 @@ import java.util.Map;
 public class TwoSum {
     public static class Solution1 {
         public int[] twoSum(int[] nums, int target) {
-            if (nums == null) return null;
-
+            if (nums.length < 2)
+                throw new IllegalArgumentException("nums too few elements: " + Arrays.toString(nums));
             Map<Integer, Integer> map = new HashMap<>();
-            for (int i = 0; i < nums.length; ++i) {
+            map.put(nums[0], 0);
+            for (int i = 1; i < nums.length; ++i) {
                 if (map.containsKey(target - nums[i])) {
-                    int result[] = new int[2];
-                    result[0] = (int) map.get(target - nums[i]);
+                    int[] result = new int[2];
+                    result[0] = map.get(target - nums[i]);
                     result[1] = i;
                     return result;
                 }
                 map.put(nums[i], i);
             }
-            return null;
+            throw new IllegalArgumentException("No solutions found");
         }
     }
 }

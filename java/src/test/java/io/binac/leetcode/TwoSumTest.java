@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class TwoSumTest {
     private final TwoSum.Solution1 solution1 = new TwoSum.Solution1();
 
+    private final int[] nums = {2, 7, 11, 15};
+    private final int[] expected = {0, 1};
+
     @Test
     void test1() {
-        int nums[] = {2, 7, 11, 15};
-        int result[] = solution1.twoSum(nums, 9);
-        int expected[] = {0, 1};
-        assertArrayEquals(expected, result);
+        assertArrayEquals(expected, solution1.twoSum(nums, 9));
     }
 }
