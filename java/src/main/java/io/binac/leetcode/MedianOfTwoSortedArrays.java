@@ -5,6 +5,8 @@ package io.binac.leetcode;
  * <p>
  * <p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
  * <p>
+ * <p>You may assume nums1 and nums2 cannot be both empty.
+ * <p>
  * <p>Example 1:
  * <blockquote><pre>
  *     nums1 = [1, 3]
@@ -24,10 +26,10 @@ public class MedianOfTwoSortedArrays {
     public static class Solution1 {
         public double findMedianSortedArrays(int[] nums1, int[] nums2) {
             if (nums1.length == 0 && nums2.length == 0)
-                throw new IllegalArgumentException("nums1 and nums2 can't be empty at the same time");
+                throw new IllegalArgumentException("nums1 and nums2 cannot be both empty");
 
             if (nums1.length > nums2.length) {
-                int tmp[] = nums1;
+                int[] tmp = nums1;
                 nums1 = nums2;
                 nums2 = tmp;
             }

@@ -7,20 +7,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class MedianOfTwoSortedArraysTest {
     private final MedianOfTwoSortedArrays.Solution1 solution1 = new MedianOfTwoSortedArrays.Solution1();
 
+    private final int[] nums11 = {1, 3};
+    private final int[] nums12 = {2};
+    private final double EXPECTED1 = 2;
+    private final int[] nums21 = {1, 2};
+    private final int[] nums22 = {3, 4};
+    private final double EXPECTED2 = 2.5;
+    private final int[] nums31 = {};
+    private final int[] nums32 = {1};
+    private final double EXPECTED3 = 1;
+
     @Test
     void test1() {
-        int nums1[] = {1, 3};
-        int nums2[] = {2};
-        assertEquals(2, solution1.findMedianSortedArrays(nums1, nums2));
-        int nums3[] = {1, 2};
-        int nums4[] = {3, 4};
-        assertEquals(2.5, solution1.findMedianSortedArrays(nums3, nums4));
+        assertEquals(EXPECTED1, solution1.findMedianSortedArrays(nums11, nums12));
+        assertEquals(EXPECTED2, solution1.findMedianSortedArrays(nums21, nums22));
     }
 
     @Test
     void test1Empty() {
-        int nums1[] = {};
-        int nums2[] = {1};
-        assertEquals(1, solution1.findMedianSortedArrays(nums1, nums2));
+        assertEquals(EXPECTED3, solution1.findMedianSortedArrays(nums31, nums32));
     }
 }
