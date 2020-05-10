@@ -9,21 +9,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddTwoNumbersTest {
     private final AddTwoNumbers.Solution1 solution1 = new AddTwoNumbers.Solution1();
 
+    private final ListNode l1 = LinkedLists.asLinkedList(2, 4, 3);
+    private final ListNode l2 = LinkedLists.asLinkedList(5, 6, 4);
+    private final ListNode EXPECTED = LinkedLists.asLinkedList(7, 0, 8);
+
+    private final ListNode l1Carry = LinkedLists.asLinkedList(5);
+    private final ListNode l2Carry = LinkedLists.asLinkedList(5);
+    private final ListNode EXPECTEDCARRY = LinkedLists.asLinkedList(0, 1);
+
     @Test
     void test1() {
-        ListNode l1 = LinkedLists.asLinkedList(2, 4, 3);
-        ListNode l2 = LinkedLists.asLinkedList(5, 6, 4);
-        ListNode result = solution1.addTwoNumbers(l1, l2);
-        ListNode expected = LinkedLists.asLinkedList(7, 0, 8);
-        assertTrue(LinkedLists.equals(expected, result));
+        assertTrue(LinkedLists.equals(EXPECTED, solution1.addTwoNumbers(l1, l2)));
     }
 
     @Test
     void test1Carry() {
-        ListNode l1 = LinkedLists.asLinkedList(5);
-        ListNode l2 = LinkedLists.asLinkedList(5);
-        ListNode result = solution1.addTwoNumbers(l1, l2);
-        ListNode expected = LinkedLists.asLinkedList(0, 1);
-        assertTrue(LinkedLists.equals(expected, result));
+        assertTrue(LinkedLists.equals(EXPECTEDCARRY, solution1.addTwoNumbers(l1Carry, l2Carry)));
     }
 }
