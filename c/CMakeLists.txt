@@ -5,7 +5,7 @@ project(leetcode)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/include)
+include_directories(include)
 
 add_subdirectory(src)
 
