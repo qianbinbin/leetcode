@@ -12,5 +12,5 @@ std::vector<int> Solution1_1::twoSum(std::vector<int> &nums, int target) {
       return {static_cast<int>(It->second), static_cast<int>(I)};
     Map.insert({nums[I], I});
   }
-  assert(false);
+  assert(false && "No solution");
 }

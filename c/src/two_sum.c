@@ -1,10 +1,8 @@
 #include "two_sum.h"
 
-#include <limits.h>
-#include <stdbool.h>
 #include <stdlib.h>
 
-#define HASH_MAP_SIZE 256
+#define HASH_MAP_SIZE 1024
 
 typedef struct Entry {
     int key;
@@ -12,86 +10,61 @@ typedef struct Entry {
     struct Entry *next;
 } entry;
 
-typedef struct {
-    entry entries[HASH_MAP_SIZE];
-} hashmap;
+typedef entry *hashmap;
 
 static int hash_code(int key) {
     return key;
 }
 
-static hashmap *hashmap_create() {
-    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i)
-        (map->entries + i)->next = NULL;
-    return map;
+static hashmap hashmap_create() {
+    return (entry *) calloc(1024, sizeof(entry));
 }
 
-static void hashmap_put(hashmap *map, int key, int value) {
-    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
-    entry *e = map->entries + index;
-    while (e->next != NULL) {
-        if (e->next->key == key) {
-            e->next->value = value;
+static void hashmap_put(hashmap map, int key, int value) {
+    entry *p = map + (hash_code(key) & (HASH_MAP_SIZE - 1)), *q;
+    while ((q = p->next) != NULL) {
+        if (q->key == key) {
+            q->value = value;
             return;
         }
-        e = e->next;
+        p = q;
     }
-
-    entry *new = (struct Entry *) malloc(sizeof(struct Entry));
-    new->key = key;
-    new->value = value;
-    new->next = NULL;
-    e->next = new;
+    entry *pn = (entry *) malloc(sizeof(entry));
+    pn->key = key;
+    pn->value = value;
+    pn->next = NULL;
+    p->next = pn;
 }
 
-static bool hashmap_constains(hashmap *map, int key) {
-    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
-    entry *e = map->entries + index;
-    while (e->next != NULL) {
-        if (e->next->key == key) {
-            return true;
-        }
-        e = e->next;
-    }
-    return false;
+static entry *hashmap_get_entry(hashmap map, int key) {
+    entry *p = map[hash_code(key) & (HASH_MAP_SIZE - 1)].next;
+    while (p != NULL && p->key != key)
+        p = p->next;
+    return p;
 }
 
-static int hashmap_get(hashmap *map, int key) {
-    int index = hash_code(key) & (HASH_MAP_SIZE - 1);
-    entry *e = map->entries + index;
-    while (e->next != NULL) {
-        if (e->next->key == key) {
-            return e->next->value;
-        }
-        e = e->next;
-    }
-    return INT_MIN;
-}
-
-static void hashmap_free(hashmap *map) {
-    entry *e, *tmp;
+static void hashmap_free(hashmap map) {
+    entry *h, *p;
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        e = map->entries + i;
-        while (e->next != NULL) {
-            tmp = e->next;
-            e->next = tmp->next;
-            free(tmp);
+        h = map + i;
+        while ((p = h->next) != NULL) {
+            h->next = p->next;
+            free(p);
         }
     }
     free(map);
 }
 
-int *twoSum_1_1(int *nums, int numsSize, int target) {
-    if (nums == NULL || numsSize < 2) return NULL;
-
+int *twoSum_1_1(int *nums, int numsSize, int target, int *returnSize) {
     int *ret = NULL;
-    hashmap *map = hashmap_create();
+    hashmap map = hashmap_create();
+    entry *p;
     for (int i = 0; i < numsSize; ++i) {
-        if (hashmap_constains(map, target - nums[i])) {
+        if ((p = hashmap_get_entry(map, target - nums[i])) != NULL) {
             ret = (int *) malloc(2 * sizeof(int));
-            ret[0] = hashmap_get(map, target - nums[i]);
+            ret[0] = p->value;
             ret[1] = i;
+            *returnSize = 2;
             break;
         }
         hashmap_put(map, nums[i], i);
