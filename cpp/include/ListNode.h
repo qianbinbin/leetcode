@@ -8,7 +8,9 @@ namespace lcpp {
 struct ListNode {
   int val;
   ListNode *next;
+  ListNode() : val(0), next(nullptr) {}
   explicit ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
 ListNode *newLinkedList(std::initializer_list<int> List);
@@ -29,6 +31,6 @@ inline bool operator==(const ListNode &Head1, const ListNode &Head2) {
   return listEqual(&Head1, &Head2);
 }
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_LISTNODE_H
+#endif // LEETCODECPP_LISTNODE_H
