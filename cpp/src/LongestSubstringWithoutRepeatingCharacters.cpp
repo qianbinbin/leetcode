@@ -1,21 +1,17 @@
 #include "LongestSubstringWithoutRepeatingCharacters.h"
-#include <unordered_map>
+#include <array>
 
 using namespace lcpp;
 
 int Solution3_1::lengthOfLongestSubstring(std::string s) {
-  std::unordered_map<char, std::string::size_type> Map;
-  std::string::size_type Longest = 0, Start = 0, I, E = s.size();
+  std::array<std::string::difference_type, 128> Map{};
+  Map.fill(-1);
+  std::string::difference_type Pre = -1, I, Len = 0, E = s.size();
   for (I = 0; I != E; ++I) {
-    auto It = Map.find(s[I]);
-    if (It != Map.end() && It->second >= Start) {
-      Longest = std::max(Longest, I - Start);
-      Start = It->second + 1;
-      It->second = I;
-    } else {
-      Map[s[I]] = I;
-    }
+    auto &Idx = Map[s[I]];
+    Pre = std::max(Pre, Idx);
+    Len = std::max(Len, I - Pre);
+    Idx = I;
   }
-  Longest = std::max(Longest, I - Start);
-  return static_cast<int>(Longest);
+  return Len;
 }
