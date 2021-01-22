@@ -11,7 +11,7 @@ std::string Solution5_1::longestPalindrome(std::string s) {
     for (auto J = I; J != Size; ++J) {
       if (I == J || (s[I] == s[J] && (I + 1 == J || Dp[I + 1][J - 1]))) {
         Dp[I][J] = true;
-        if (J - I + 1 > Length) {
+        if (J - I + 1 >= Length) {
           Length = J - I + 1;
           Start = I;
         }

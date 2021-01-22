@@ -2,18 +2,24 @@ from unittest import TestCase
 
 from leetcodepy.longest_palindromic_substring import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "babad"
+S1 = "babad"
+EXPECTED1 = "bab"
 
-expected1 = "aba"
+S2 = "cbbd"
+EXPECTED2 = "bb"
 
-s2 = "cbbd"
+S3 = "a"
+EXPECTED3 = "a"
 
-expected2 = "bb"
+S4 = "ac"
+EXPECTED4 = "a"
 
 
 class TestLongestPalindromicSubstring(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.longestPalindrome(s1))
-        self.assertEqual(expected2, solution1.longestPalindrome(s2))
+        self.assertEqual(EXPECTED1, SOLUTION1.longestPalindrome(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.longestPalindrome(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.longestPalindrome(S3))
+        self.assertEqual(EXPECTED4, SOLUTION1.longestPalindrome(S4))

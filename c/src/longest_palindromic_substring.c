@@ -5,8 +5,6 @@
 #include <string.h>
 
 char *longestPalindrome_5_1(char *s) {
-    if (s == NULL) return NULL;
-
     const int len = (const int) strlen(s);
     bool **dp = (bool **) malloc(len * sizeof(bool *));
     for (int i = 0; i < len; ++i) dp[i] = (bool *) calloc(len, sizeof(bool));
@@ -16,7 +14,7 @@ char *longestPalindrome_5_1(char *s) {
         for (int j = i; j < len; ++j) {
             if (i == j || (s[i] == s[j] && (i + 1 == j || dp[i + 1][j - 1]))) {
                 dp[i][j] = true;
-                if (j - i + 1 > longest) {
+                if (j - i + 1 >= longest) {
                     longest = j - i + 1;
                     start = i;
                 }
