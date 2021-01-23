@@ -4,29 +4,27 @@
 #include <string.h>
 
 char *convert_6_1(char *s, int numRows) {
-    if (s == NULL || numRows < 1) return NULL;
-
-    const size_t len = strlen(s);
+    const size_t len = strlen(s), row = numRows;
     char *ret = (char *) malloc(len + 1);
     ret[len] = '\0';
-    if (numRows == 1) {
+    if (row == 1 || row >= len) {
         strcpy(ret, s);
         return ret;
     }
 
-    size_t size = 0;
-    const int cycle = 2 * numRows - 2;
-    for (int index = 0; index < len; index += cycle)
-        ret[size++] = s[index];
-    for (int i = 1; i < numRows - 1; ++i) {
-        const int offset = (numRows - i - 1) * 2;
-        for (int index = i; index < len; index += cycle) {
-            ret[size++] = s[index];
+    char *p = ret;
+    size_t index, cycle = 2 * (row - 1);
+    for (index = 0; index < len; index += cycle)
+        *p++ = s[index];
+    for (size_t i = 1, offset; i < row - 1; ++i) {
+        offset = 2 * (row - i - 1);
+        for (index = i; index < len; index += cycle) {
+            *p++ = s[index];
             if (index + offset < len)
-                ret[size++] = s[index + offset];
+                *p++ = s[index + offset];
         }
     }
-    for (int index = numRows - 1; index < len; index += cycle)
-        ret[size++] = s[index];
+    for (index = row - 1; index < len; index += cycle)
+        *p++ = s[index];
     return ret;
 }

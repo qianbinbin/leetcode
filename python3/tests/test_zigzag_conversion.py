@@ -2,28 +2,29 @@ from unittest import TestCase
 
 from leetcodepy.zigzag_conversion import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
+S1 = "PAYPALISHIRING"
+NUM_ROWS1 = 3
+EXPECTED1 = "PAHNAPLSIIGYIR"
 
-s1 = "PAYPALISHIRING"
+S2 = "PAYPALISHIRING"
+NUM_ROWS2 = 4
+EXPECTED2 = "PINALSIGYAHRPI"
 
-numRows1 = 3
-
-expected1 = "PAHNAPLSIIGYIR"
-
-s2 = "PAYPALISHIRING"
-
-numRows2 = 4
-
-expected2 = "PINALSIGYAHRPI"
+S3 = "A"
+NUM_ROWS3 = 1
+EXPECTED3 = "A"
 
 
 class TestZigZagConversion(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.convert(s1, numRows1))
-        self.assertEqual(expected2, solution1.convert(s2, numRows2))
+        self.assertEqual(EXPECTED1, SOLUTION1.convert(S1, NUM_ROWS1))
+        self.assertEqual(EXPECTED2, SOLUTION1.convert(S2, NUM_ROWS2))
+        self.assertEqual(EXPECTED3, SOLUTION1.convert(S3, NUM_ROWS3))
 
     def test2(self):
-        self.assertEqual(expected1, solution2.convert(s1, numRows1))
-        self.assertEqual(expected2, solution2.convert(s2, numRows2))
+        self.assertEqual(EXPECTED1, SOLUTION2.convert(S1, NUM_ROWS1))
+        self.assertEqual(EXPECTED2, SOLUTION2.convert(S2, NUM_ROWS2))
+        self.assertEqual(EXPECTED3, SOLUTION2.convert(S3, NUM_ROWS3))

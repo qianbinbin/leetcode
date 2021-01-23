@@ -11,6 +11,7 @@ Write the code that will take a string and make this conversion given a number o
 
 string convert(string s, int numRows);
 
+
 Example 1:
 
 Input: s = "PAYPALISHIRING", numRows = 3
@@ -21,40 +22,43 @@ Example 2:
 Input: s = "PAYPALISHIRING", numRows = 4
 Output: "PINALSIGYAHRPI"
 Explanation:
-
 P     I    N
 A   L S  I G
 Y A   H R
 P     I
+
+Example 3:
+
+Input: s = "A", numRows = 1
+Output: "A"
+
+
+Constraints:
+
+1 <= s.length <= 1000
+s consists of English letters (lower-case and upper-case), ',' and '.'.
+1 <= numRows <= 1000
 """
 
 
 class Solution1:
-    def convert(self, s, numRows):
-        """
-        :type s: str
-        :type numRows: int
-        :rtype: str
-        """
-        if numRows < 1:
-            raise ValueError
-        if numRows == 1:
-            return s
+    def convert(self, s: str, numRows: int) -> str:
         size = len(s)
+        if numRows == 1 or numRows >= size:
+            return s
         result = ''
-        cycle = 2 * numRows - 2
-
+        cycle = 2 * (numRows - 1)
         index = 0
         while index < size:
             result += s[index]
             index += cycle
         for i in range(1, numRows - 1):
             index = i
-            c = 2 * (numRows - i) - 2
+            offset = 2 * (numRows - i - 1)
             while index < size:
                 result += s[index]
-                if index + c < size:
-                    result += s[index + c]
+                if index + offset < size:
+                    result += s[index + offset]
                 index += cycle
         index = numRows - 1
         while index < size:
@@ -64,17 +68,10 @@ class Solution1:
 
 
 class Solution2:
-    def convert(self, s, numRows):
-        """
-        :type s: str
-        :type numRows: int
-        :rtype: str
-        """
-        if numRows < 1:
-            raise ValueError
-        if numRows == 1:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1 or numRows >= len(s):
             return s
-        lines = ['' for i in range(numRows)]
+        lines = ['' for _ in range(numRows)]
         row = 0
         increase = 0
         for ch in s:
