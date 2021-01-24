@@ -1,9 +1,10 @@
 #include "StringToIntegerAtoi.h"
+#include <climits>
 
 using namespace lcpp;
 
 int Solution8_1::myAtoi(std::string str) {
-  auto I = str.cbegin(), E = str.cend();
+  auto I = str.begin(), E = str.end();
   while (I != E && *I == ' ')
     ++I;
   if (I == E)
@@ -15,13 +16,15 @@ int Solution8_1::myAtoi(std::string str) {
     IsNegative = true;
     ++I;
   }
-  int64_t Result = 0;
+
+  const auto Limit = INT_MAX / 10;
+  int Value = 0;
   for (; I != E && isdigit(*I); ++I) {
-    Result = Result * 10 + *I - '0';
-    if (Result > INT32_MAX)
-      break;
+    if (Value > Limit || (Value == Limit && *I - '0' > 7))
+      return IsNegative ? INT_MIN : INT_MAX;
+    // int overflow, dupe LeetCode compiler
+    // Value = Value * 10 + *I - '0';
+    Value = Value * 10 + (*I - '0');
   }
-  if (Result > INT32_MAX)
-    return IsNegative ? INT32_MIN : INT32_MAX;
-  return static_cast<int>(IsNegative ? -Result : Result);
+  return static_cast<int>(IsNegative ? -Value : Value);
 }

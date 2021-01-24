@@ -5,14 +5,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringToIntegerAtoiTest {
-    private final StringToIntegerAtoi.Solution1 solution1 = new StringToIntegerAtoi.Solution1();
+    private static final StringToIntegerAtoi.Solution1 SOLUTION1 = new StringToIntegerAtoi.Solution1();
+
+    private final String S1 = "42";
+    private final int EXPECTED1 = 42;
+
+    private final String S2 = "-42";
+    private final int EXPECTED2 = -42;
+
+    private final String S3 = "4193 with words";
+    private final int EXPECTED3 = 4193;
+
+    private final String S4 = "words and 987";
+    private final int EXPECTED4 = 0;
+
+    private final String S5 = "-91283472332";
+    private final int EXPECTED5 = Integer.MIN_VALUE;
 
     @Test
     void test1() {
-        assertEquals(42, solution1.myAtoi("42"));
-        assertEquals(-42, solution1.myAtoi("-42"));
-        assertEquals(4193, solution1.myAtoi("4193 with words"));
-        assertEquals(0, solution1.myAtoi("words and 987"));
-        assertEquals(-2147483648, solution1.myAtoi("-91283472332"));
+        assertEquals(EXPECTED1, SOLUTION1.myAtoi(S1));
+        assertEquals(EXPECTED2, SOLUTION1.myAtoi(S2));
+        assertEquals(EXPECTED3, SOLUTION1.myAtoi(S3));
+        assertEquals(EXPECTED4, SOLUTION1.myAtoi(S4));
+        assertEquals(EXPECTED5, SOLUTION1.myAtoi(S5));
     }
 }

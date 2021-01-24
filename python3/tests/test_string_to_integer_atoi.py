@@ -2,32 +2,28 @@ from unittest import TestCase
 
 from leetcodepy.string_to_integer_atoi import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "42"
-expected1 = 42
+S1 = "42"
+EXPECTED1 = 42
 
-s2 = "   -42"
+S2 = "   -42"
+EXPECTED2 = -42
 
-expected2 = -42
+S3 = "4193 with words"
+EXPECTED3 = 4193
 
-s3 = "4193 with words"
+S4 = "words and 987"
+EXPECTED4 = 0
 
-expected3 = 4193
-
-s4 = "words and 987"
-
-expected4 = 0
-
-s5 = "-91283472332"
-
-expected5 = -2147483648
+S5 = "-91283472332"
+EXPECTED5 = -2147483648
 
 
 class TestStringToIntegerAtoi(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.myAtoi(s1))
-        self.assertEqual(expected2, solution1.myAtoi(s2))
-        self.assertEqual(expected3, solution1.myAtoi(s3))
-        self.assertEqual(expected4, solution1.myAtoi(s4))
-        self.assertEqual(expected5, solution1.myAtoi(s5))
+        self.assertEqual(EXPECTED1, SOLUTION1.myAtoi(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.myAtoi(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.myAtoi(S3))
+        self.assertEqual(EXPECTED4, SOLUTION1.myAtoi(S4))
+        self.assertEqual(EXPECTED5, SOLUTION1.myAtoi(S5))
