@@ -4,13 +4,10 @@
 using namespace lcpp;
 
 TEST(ReverseInteger, Solution7_1) {
-  EXPECT_EQ(321, Solution7_1().reverse(123));
-  EXPECT_EQ(-321, Solution7_1().reverse(-123));
-  EXPECT_EQ(21, Solution7_1().reverse(120));
-}
+  auto S7_1 = Solution7_1();
 
-TEST(ReverseInteger, Solution7_2) {
-  EXPECT_EQ(321, Solution7_2().reverse(123));
-  EXPECT_EQ(-321, Solution7_2().reverse(-123));
-  EXPECT_EQ(21, Solution7_2().reverse(120));
+  EXPECT_EQ(321, S7_1.reverse(123));
+  EXPECT_EQ(-321, S7_1.reverse(-123));
+  EXPECT_EQ(21, S7_1.reverse(120));
+  EXPECT_EQ(0, S7_1.reverse(0));
 }

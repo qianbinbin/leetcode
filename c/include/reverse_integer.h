@@ -1,23 +1,34 @@
 /*
- * Given a 32-bit signed integer, reverse digits of an integer.
+ * Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1], then return 0.
+ *
+ * Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+ *
+ *
  *
  * Example 1:
  *
- * Input: 123
+ * Input: x = 123
  * Output: 321
  *
  * Example 2:
  *
- * Input: -123
+ * Input: x = -123
  * Output: -321
  *
  * Example 3:
  *
- * Input: 120
+ * Input: x = 120
  * Output: 21
  *
- * Note:
- * Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−2^31,  2^31 − 1]. For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+ * Example 4:
+ *
+ * Input: x = 0
+ * Output: 0
+ *
+ *
+ * Constraints:
+ *
+ * -2^31 <= x <= 2^31 - 1
  */
 
 #ifndef LEETCODE_REVERSE_INTEGER_H

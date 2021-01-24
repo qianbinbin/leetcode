@@ -5,7 +5,8 @@ extern "C" {
 }
 
 TEST(reverse_integer_test, reverse_7_1) {
-    EXPECT_EQ(reverse_7_1(123), 321);
-    EXPECT_EQ(reverse_7_1(-123), -321);
-    EXPECT_EQ(reverse_7_1(120), 21);
+    EXPECT_EQ(321, reverse_7_1(123));
+    EXPECT_EQ(-321, reverse_7_1(-123));
+    EXPECT_EQ(21, reverse_7_1(120));
+    EXPECT_EQ(0, reverse_7_1(0));
 }
