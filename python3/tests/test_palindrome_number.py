@@ -2,24 +2,24 @@ from unittest import TestCase
 
 from leetcodepy.palindrome_number import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-solution2 = Solution2()
+X1 = 121
+EXPECTED1 = True
 
-x1 = 121
+X2 = -121
+EXPECTED2 = False
 
-x2 = -121
+X3 = 10
+EXPECTED3 = False
 
-x3 = 10
+X4 = -101
+EXPECTED4 = False
 
 
 class TestPalindromeNumber(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isPalindrome(x1))
-        self.assertFalse(solution1.isPalindrome(x2))
-        self.assertFalse(solution1.isPalindrome(x3))
-
-    def test2(self):
-        self.assertTrue(solution2.isPalindrome(x1))
-        self.assertFalse(solution2.isPalindrome(x2))
-        self.assertFalse(solution2.isPalindrome(x3))
+        self.assertEqual(EXPECTED1, SOLUTION1.isPalindrome(X1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isPalindrome(X2))
+        self.assertEqual(EXPECTED3, SOLUTION1.isPalindrome(X3))
+        self.assertEqual(EXPECTED4, SOLUTION1.isPalindrome(X4))

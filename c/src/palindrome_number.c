@@ -1,13 +1,11 @@
 #include "palindrome_number.h"
 
-#include <stdint.h>
-
 bool isPalindrome_9_1(int x) {
     if (x < 0) return false;
-    int64_t origin = x, reverse = 0;
-    while (x != 0) {
-        reverse = reverse * 10 + x % 10;
-        x /= 10;
-    }
-    return origin == reverse;
+    // int overflow, dupe LeetCode compiler
+    // int old = x, new = 0;
+    unsigned int old = x, new = 0;
+    for (; x != 0; x /= 10)
+        new = new * 10 + x % 10;
+    return old == new;
 }

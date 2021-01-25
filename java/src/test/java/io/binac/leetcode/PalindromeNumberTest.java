@@ -5,21 +5,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PalindromeNumberTest {
-    private final PalindromeNumber.Solution1 solution1 = new PalindromeNumber.Solution1();
+    private static final PalindromeNumber.Solution2 SOLUTION1 = new PalindromeNumber.Solution2();
 
-    private final PalindromeNumber.Solution2 solution2 = new PalindromeNumber.Solution2();
+    private final int X1 = 121;
+    private final boolean EXPECTED1 = true;
 
-    @Test
-    void test1() {
-        assertTrue(solution1.isPalindrome(121));
-        assertFalse(solution1.isPalindrome(-121));
-        assertFalse(solution1.isPalindrome(10));
-    }
+    private final int X2 = -121;
+    private final boolean EXPECTED2 = false;
+
+    private final int X3 = 10;
+    private final boolean EXPECTED3 = false;
+
+    private final int X4 = -101;
+    private final boolean EXPECTED4 = false;
 
     @Test
     void test2() {
-        assertTrue(solution2.isPalindrome(121));
-        assertFalse(solution2.isPalindrome(-121));
-        assertFalse(solution2.isPalindrome(10));
+        assertEquals(EXPECTED1, SOLUTION1.isPalindrome(X1));
+        assertEquals(EXPECTED2, SOLUTION1.isPalindrome(X2));
+        assertEquals(EXPECTED3, SOLUTION1.isPalindrome(X3));
+        assertEquals(EXPECTED4, SOLUTION1.isPalindrome(X4));
     }
 }
