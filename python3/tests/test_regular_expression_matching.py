@@ -2,33 +2,41 @@ from unittest import TestCase
 
 from leetcodepy.regular_expression_matching import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-s1 = "aa"
+S1 = "aa"
+P1 = "a"
+EXPECTED1 = False
 
-p1 = "a"
+S2 = "aa"
+P2 = "a*"
+EXPECTED2 = True
 
-s2 = "aa"
+S3 = "ab"
+P3 = ".*"
+EXPECTED3 = True
 
-p2 = "a*"
+S4 = "aab"
+P4 = "c*a*b"
+EXPECTED4 = True
 
-s3 = "ab"
-
-p3 = ".*"
-
-s4 = "aab"
-
-p4 = "c*a*b"
-
-s5 = "mississippi"
-
-p5 = "mis*is*p*."
+S5 = "mississippi"
+P5 = "mis*is*p*."
+EXPECTED5 = False
 
 
 class TestRegularExpressionMatching(TestCase):
     def test1(self):
-        self.assertFalse(solution1.isMatch(s1, p1))
-        self.assertTrue(solution1.isMatch(s2, p2))
-        self.assertTrue(solution1.isMatch(s3, p3))
-        self.assertTrue(solution1.isMatch(s4, p4))
-        self.assertFalse(solution1.isMatch(s5, p5))
+        self.assertEqual(EXPECTED1, SOLUTION1.isMatch(S1, P1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isMatch(S2, P2))
+        self.assertEqual(EXPECTED3, SOLUTION1.isMatch(S3, P3))
+        self.assertEqual(EXPECTED4, SOLUTION1.isMatch(S4, P4))
+        self.assertEqual(EXPECTED5, SOLUTION1.isMatch(S5, P5))
+
+    def test2(self):
+        self.assertEqual(EXPECTED1, SOLUTION2.isMatch(S1, P1))
+        self.assertEqual(EXPECTED2, SOLUTION2.isMatch(S2, P2))
+        self.assertEqual(EXPECTED3, SOLUTION2.isMatch(S3, P3))
+        self.assertEqual(EXPECTED4, SOLUTION2.isMatch(S4, P4))
+        self.assertEqual(EXPECTED5, SOLUTION2.isMatch(S5, P5))

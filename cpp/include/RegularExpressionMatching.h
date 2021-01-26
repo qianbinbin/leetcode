@@ -65,6 +65,11 @@ public:
   bool isMatch(std::string s, std::string p);
 };
 
+class Solution10_2 {
+public:
+  bool isMatch(std::string s, std::string p);
+};
+
 } // namespace lcpp
 
 #endif // LEETCODECPP_REGULAREXPRESSIONMATCHING_H
