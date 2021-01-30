@@ -1,71 +1,82 @@
 package io.binac.leetcode;
 
 /**
- * Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
- * <blockquote><pre>
- *     Symbol       Value
- *     I             1
- *     V             5
- *     X             10
- *     L             50
- *     C             100
- *     D             500
- *     M             1000
- * </blockquote></pre>
- * <p>For example, two is written as II in Roman numeral, just two one's added together. Twelve is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, which is XX + V + II.
- * <p>
- * <p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
- * <p>
- * <p>I can be placed before V (5) and X (10) to make 4 and 9.
- * <p>X can be placed before L (50) and C (100) to make 40 and 90.
- * <p>C can be placed before D (500) and M (1000) to make 400 and 900.
- * <p>
- * <p>Given an integer, convert it to a roman numeral. Input is guaranteed to be within the range from 1 to 3999.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: 3
- *     Output: "III"
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: 4
- *     Output: "IV"
- * </blockquote></pre>
- * Example 3:
- * <blockquote><pre>
- *     Input: 9
- *     Output: "IX"
- * </blockquote></pre>
- * Example 4:
- * <blockquote><pre>
- *     Input: 58
- *     Output: "LVIII"
- *     Explanation: C = 100, L = 50, XXX = 30 and III = 3.
- * </blockquote></pre>
- * Example 5:
- * <blockquote><pre>
- *     Input: 1994
- *     Output: "MCMXCIV"
- *     Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
- * </blockquote></pre>
+ * <p>Roman numerals are represented by seven different symbols:&nbsp;<code>I</code>, <code>V</code>, <code>X</code>, <code>L</code>, <code>C</code>, <code>D</code> and <code>M</code>.</p>
+ *
+ * <pre><strong>Symbol</strong>       <strong>Value</strong>
+ * I             1
+ * V             5
+ * X             10
+ * L             50
+ * C             100
+ * D             500
+ * M             1000</pre>
+ *
+ * <p>For example,&nbsp;<code>2</code> is written as <code>II</code>&nbsp;in Roman numeral, just two one's added together. <code>12</code> is written as&nbsp;<code>XII</code>, which is simply <code>X + II</code>. The number <code>27</code> is written as <code>XXVII</code>, which is <code>XX + V + II</code>.</p>
+ *
+ * <p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not <code>IIII</code>. Instead, the number four is written as <code>IV</code>. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as <code>IX</code>. There are six instances where subtraction is used:</p>
+ *
+ * <ul>
+ * 	<li><code>I</code> can be placed before <code>V</code> (5) and <code>X</code> (10) to make 4 and 9.&nbsp;</li>
+ * 	<li><code>X</code> can be placed before <code>L</code> (50) and <code>C</code> (100) to make 40 and 90.&nbsp;</li>
+ * 	<li><code>C</code> can be placed before <code>D</code> (500) and <code>M</code> (1000) to make 400 and 900.</li>
+ * </ul>
+ *
+ * <p>Given an integer, convert it to a roman numeral.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> num = 3
+ * <strong>Output:</strong> "III"
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> num = 4
+ * <strong>Output:</strong> "IV"
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> num = 9
+ * <strong>Output:</strong> "IX"
+ * </pre>
+ *
+ * <p><strong>Example 4:</strong></p>
+ *
+ * <pre><strong>Input:</strong> num = 58
+ * <strong>Output:</strong> "LVIII"
+ * <strong>Explanation:</strong> L = 50, V = 5, III = 3.
+ * </pre>
+ *
+ * <p><strong>Example 5:</strong></p>
+ *
+ * <pre><strong>Input:</strong> num = 1994
+ * <strong>Output:</strong> "MCMXCIV"
+ * <strong>Explanation:</strong> M = 1000, CM = 900, XC = 90 and IV = 4.
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= num &lt;= 3999</code></li>
+ * </ul>
  */
 public class IntegerToRoman {
     public static class Solution1 {
-        private static final int VALUES[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        private static final int[] VALUES = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 
-        private static final String SYMBOLS[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        private static final String[] SYMBOLS = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
         public String intToRoman(int num) {
-            if (num < 1 || num > 3999)
-                throw new IllegalArgumentException("num must be within the range from 1 to 3999");
-
             StringBuilder sb = new StringBuilder();
-            int index = 0;
-            while (num != 0) {
-                while (num < VALUES[index]) ++index;
-                sb.append(SYMBOLS[index]);
-                num -= VALUES[index];
+            for (int i = 0, count; i < VALUES.length; ++i) {
+                if ((count = num / VALUES[i]) == 0)
+                    continue;
+                num -= VALUES[i] * count;
+                for (; count != 0; --count) sb.append(SYMBOLS[i]);
             }
             return sb.toString();
         }

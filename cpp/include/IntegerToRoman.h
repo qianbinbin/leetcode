@@ -10,9 +10,9 @@
 // D             500
 // M             1000
 //
-// For example, two is written as II in Roman numeral, just two one's added
-// together. Twelve is written as, XII, which is simply X + II. The number
-// twenty seven is written as XXVII, which is XX + V + II.
+// For example, 2 is written as II in Roman numeral, just two one's added
+// together. 12 is written as XII, which is simply X + II. The number 27 is
+// written as XXVII, which is XX + V + II.
 //
 // Roman numerals are usually written largest to smallest from left to right.
 // However, the numeral for four is not IIII. Instead, the number four is
@@ -23,41 +23,45 @@
 // I can be placed before V (5) and X (10) to make 4 and 9.
 // X can be placed before L (50) and C (100) to make 40 and 90.
 // C can be placed before D (500) and M (1000) to make 400 and 900.
+// Given an integer, convert it to a roman numeral.
 //
-// Given an integer, convert it to a roman numeral. Input is guaranteed to be
-// within the range from 1 to 3999.
+//
 //
 // Example 1:
 //
-// Input: 3
+// Input: num = 3
 // Output: "III"
 //
 // Example 2:
 //
-// Input: 4
+// Input: num = 4
 // Output: "IV"
 //
 // Example 3:
 //
-// Input: 9
+// Input: num = 9
 // Output: "IX"
 //
 // Example 4:
 //
-// Input: 58
+// Input: num = 58
 // Output: "LVIII"
 // Explanation: L = 50, V = 5, III = 3.
 //
 // Example 5:
 //
-// Input: 1994
+// Input: num = 1994
 // Output: "MCMXCIV"
 // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+//
+//
+// Constraints:
+//
+// 1 <= num <= 3999
 
 #ifndef LEETCODECPP_INTEGERTOROMAN_H
 #define LEETCODECPP_INTEGERTOROMAN_H
 
-#include <array>
 #include <string>
 
 namespace lcpp {
@@ -66,11 +70,6 @@ class Solution12_1 {
 
 public:
   std::string intToRoman(int num);
-
-private:
-  static const std::array<int, 13> Values;
-
-  static const std::array<std::string, 13> &getSymbols();
 };
 
 } // namespace lcpp
