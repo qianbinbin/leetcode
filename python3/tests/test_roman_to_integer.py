@@ -2,33 +2,28 @@ from unittest import TestCase
 
 from leetcodepy.roman_to_integer import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "III"
+S1 = "III"
+EXPECTED1 = 3
 
-expected1 = 3
+S2 = "IV"
+EXPECTED2 = 4
 
-s2 = "IV"
+S3 = "IX"
+EXPECTED3 = 9
 
-expected2 = 4
+S4 = "LVIII"
+EXPECTED4 = 58
 
-s3 = "IX"
-
-expected3 = 9
-
-s4 = "LVIII"
-
-expected4 = 58
-
-s5 = "MCMXCIV"
-
-expected5 = 1994
+S5 = "MCMXCIV"
+EXPECTED5 = 1994
 
 
 class TestRomanToInteger(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.romanToInt(s1))
-        self.assertEqual(expected2, solution1.romanToInt(s2))
-        self.assertEqual(expected3, solution1.romanToInt(s3))
-        self.assertEqual(expected4, solution1.romanToInt(s4))
-        self.assertEqual(expected5, solution1.romanToInt(s5))
+        self.assertEqual(EXPECTED1, SOLUTION1.romanToInt(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.romanToInt(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.romanToInt(S3))
+        self.assertEqual(EXPECTED4, SOLUTION1.romanToInt(S4))
+        self.assertEqual(EXPECTED5, SOLUTION1.romanToInt(S5))

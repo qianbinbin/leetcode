@@ -1,27 +1,28 @@
 #include "RomanToInteger.h"
+#include <array>
 
 using namespace lcpp;
 
-const std::unordered_map<std::string, int> &Solution13_1::getMap() {
-  static const std::unordered_map<std::string, int> Map{
-      {"M", 1000}, {"CM", 900}, {"D", 500}, {"CD", 400}, {"C", 100},
-      {"XC", 90},  {"L", 50},   {"XL", 40}, {"X", 10},   {"IX", 9},
-      {"V", 5},    {"IV", 4},   {"I", 1}};
+static const std::array<std::pair<std::string, int>, 13> &getMap() {
+  static const std::array<std::pair<std::string, int>, 13> Map = {
+      std::make_pair("M", 1000), std::make_pair("CM", 900),
+      std::make_pair("D", 500),  std::make_pair("CD", 400),
+      std::make_pair("C", 100),  std::make_pair("XC", 90),
+      std::make_pair("L", 50),   std::make_pair("XL", 40),
+      std::make_pair("X", 10),   std::make_pair("IX", 9),
+      std::make_pair("V", 5),    std::make_pair("IV", 4),
+      std::make_pair("I", 1)};
   return Map;
 }
 
 int Solution13_1::romanToInt(std::string s) {
-  int Value = 0;
   auto &Map = getMap();
-  std::unordered_map<std::string, int>::const_iterator It, ME = Map.cend();
-  for (std::string::size_type I = 0, E = s.size(); I != E;) {
-    if (I + 1 != E && (It = Map.find(s.substr(I, 2))) != ME) {
-      I += 2;
-    } else {
-      It = Map.find(s.substr(I, 1));
-      ++I;
+  int Result = 0;
+  for (auto &Roman : Map) {
+    while (s.rfind(Roman.first, 0) == 0) {
+      Result += Roman.second;
+      s = s.substr(Roman.first.size());
     }
-    Value += It->second;
   }
-  return Value;
+  return Result;
 }
