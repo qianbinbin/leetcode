@@ -5,13 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LongestCommonPrefixTest {
-    private final LongestCommonPrefix.Solution1 solution1 = new LongestCommonPrefix.Solution1();
+    private static final LongestCommonPrefix.Solution1 SOLUTION1 = new LongestCommonPrefix.Solution1();
+
+    private final String[] STRS1 = {"flower", "flow", "flight"};
+    private final String EXPECTED1 = "fl";
+
+    private final String[] STRS2 = {"dog", "racecar", "car"};
+    private final String EXPECTED2 = "";
 
     @Test
     void test1() {
-        String strs1[] = {"flower", "flow", "flight"};
-        assertEquals("fl", solution1.longestCommonPrefix(strs1));
-        String strs2[] = {"dog", "racecar", "car"};
-        assertEquals("", solution1.longestCommonPrefix(strs2));
+        assertEquals(EXPECTED1, SOLUTION1.longestCommonPrefix(STRS1));
+        assertEquals(EXPECTED2, SOLUTION1.longestCommonPrefix(STRS2));
     }
 }

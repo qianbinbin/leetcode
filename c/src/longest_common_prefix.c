@@ -4,27 +4,21 @@
 #include <string.h>
 
 char *longestCommonPrefix_14_1(char **strs, int strsSize) {
-    if (strs == NULL || strsSize < 0) return NULL;
-    char *ret = NULL;
-    if (strsSize == 0) {
-        ret = (char *) malloc(1);
-        ret[0] = '\0';
-        return ret;
-    }
+    size_t j = 0;
+    if (strsSize == 0)
+        goto ret;
 
-    const size_t len = strlen(strs[0]);
-    for (size_t i = 0; i < len; ++i) {
-        for (size_t j = 1; j < strsSize; ++j) {
-            if (strs[j][i] != strs[0][i]) {
-                ret = (char *) malloc(i + 1);
-                ret[i] = '\0';
-                memcpy(ret, strs[0], i);
-                return ret;
-            }
+    size_t i;
+    for (char *s = strs[0]; *s; ++s, ++j) {
+        for (i = 1; i != strsSize; ++i) {
+            if (strs[i][j] != *s)
+                goto ret;
         }
     }
-    ret = (char *) malloc(len + 1);
-    ret[len] = '\0';
-    memcpy(ret, strs[0], len);
-    return ret;
+    ret:;
+    char *prefix = (char *) malloc(j + 1);
+    prefix[j] = '\0';
+    if (strsSize != 0)
+        memcpy(prefix, strs[0], j);
+    return prefix;
 }

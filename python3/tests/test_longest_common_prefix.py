@@ -2,18 +2,16 @@ from unittest import TestCase
 
 from leetcodepy.longest_common_prefix import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-strs1 = ["flower", "flow", "flight"]
+STRS1 = ["flower", "flow", "flight"]
+EXPECTED1 = "fl"
 
-expected1 = "fl"
-
-strs2 = ["dog", "racecar", "car"]
-
-expected2 = ""
+STRS2 = ["dog", "racecar", "car"]
+EXPECTED2 = ""
 
 
 class TestLongestCommonPrefix(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.longestCommonPrefix(strs1))
-        self.assertEqual(expected2, solution1.longestCommonPrefix(strs2))
+        self.assertEqual(EXPECTED1, SOLUTION1.longestCommonPrefix(STRS1))
+        self.assertEqual(EXPECTED2, SOLUTION1.longestCommonPrefix(STRS2))

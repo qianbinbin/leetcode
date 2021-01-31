@@ -5,14 +5,14 @@ using namespace lcpp;
 std::string Solution14_1::longestCommonPrefix(std::vector<std::string> &strs) {
   if (strs.empty())
     return "";
-  std::string Prefix;
-  for (std::string::size_type J = 0, Size = strs[0].size(); J != Size; ++J) {
+  std::string::size_type J = 0, N = strs[0].size();
+  std::vector<std::string>::size_type I, M = strs.size();
+  for (; J != N; ++J) {
     const auto &Ch = strs[0][J];
-    for (auto It = strs.cbegin() + 1, E = strs.cend(); It != E; ++It) {
-      if (J >= (*It).size() || (*It)[J] != Ch)
-        return Prefix;
+    for (I = 1; I != M; ++I) {
+      if (J >= strs[I].size() || strs[I][J] != Ch)
+        return strs[0].substr(0, J);
     }
-    Prefix += Ch;
   }
-  return Prefix;
+  return strs[0];
 }
