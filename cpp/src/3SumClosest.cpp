@@ -4,13 +4,10 @@
 using namespace lcpp;
 
 int Solution16_1::threeSumClosest(std::vector<int> &nums, int target) {
-  if (nums.size() < 3)
-    return 0;
   std::sort(nums.begin(), nums.end());
-  auto I = nums.begin(), E = nums.end() - 2;
-  decltype(I) J, K;
+  std::vector<int>::iterator I, J, K, E;
   int Sum, Closest = nums[0] + nums[1] + nums[2];
-  while (I != E) {
+  for (I = nums.begin(), E = nums.end() - 2; I != E;) {
     J = I + 1;
     K = E + 1;
     while (J != K) {

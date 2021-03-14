@@ -3,47 +3,52 @@ package io.binac.leetcode;
 import java.util.Arrays;
 
 /**
- * Given an array nums of n integers and an integer target, find three integers in nums such that the sum is closest to target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Given array nums = [-1, 2, 1, -4], and target = 1.
+ * <p>Given an array <code>nums</code> of <em>n</em> integers and an integer <code>target</code>, find three integers in <code>nums</code>&nbsp;such that the sum is closest to&nbsp;<code>target</code>. Return the sum of the three integers. You may assume that each input would have exactly one solution.</p>
  *
- *     The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
- * </blockquote></pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [-1,2,1,-4], target = 1
+ * <strong>Output:</strong> 2
+ * <strong>Explanation:</strong> The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>3 &lt;= nums.length &lt;= 10^3</code></li>
+ * 	<li><code>-10^3&nbsp;&lt;= nums[i]&nbsp;&lt;= 10^3</code></li>
+ * 	<li><code>-10^4&nbsp;&lt;= target&nbsp;&lt;= 10^4</code></li>
+ * </ul>
  */
 public class ThreeSumClosest {
     public static class Solution1 {
         public int threeSumClosest(int[] nums, int target) {
-            if (nums.length < 3)
-                throw new IllegalArgumentException("nums.length can't be less than 3");
-
-            int values[] = new int[nums.length];
-            System.arraycopy(nums, 0, values, 0, nums.length);
-            Arrays.sort(values);
-
-            int result = values[0] + values[1] + values[2];
-            for (int start = 0; start < values.length - 2; ) {
-                int low = start + 1, high = values.length - 1;
-                while (low < high) {
-                    final int sum = values[start] + values[low] + values[high];
+            Arrays.sort(nums);
+            int result = nums[0] + nums[1] + nums[2], sum;
+            for (int i = 0, j, k, e = nums.length - 2; i < e; ) {
+                j = i + 1;
+                k = nums.length - 1;
+                while (j < k) {
+                    sum = nums[i] + nums[j] + nums[k];
                     if (Math.abs(sum - target) < Math.abs(result - target))
                         result = sum;
                     if (sum < target) {
                         do {
-                            ++low;
-                        } while (low < high && values[low] == values[low - 1]);
+                            ++j;
+                        } while (j < k && nums[j] == nums[j - 1]);
                     } else if (sum > target) {
                         do {
-                            --high;
-                        } while (high > low && values[high] == values[high + 1]);
+                            --k;
+                        } while (k > j && nums[k] == nums[k + 1]);
                     } else {
                         return result;
                     }
                 }
                 do {
-                    ++start;
-                } while (start < values.length - 2 && values[start] == values[start - 1]);
+                    ++i;
+                } while (i < e && nums[i] == nums[i - 1]);
             }
             return result;
         }

@@ -4,8 +4,10 @@
 using namespace lcpp;
 
 TEST(ThreeSumClosest, Solution16_1) {
-  std::vector<int> Nums{-1, 2, 1, -4};
-  int Target = 1;
-  const int Expected = 2;
-  EXPECT_EQ(Expected, Solution16_1().threeSumClosest(Nums, Target));
+  auto S16_1 = Solution16_1();
+
+  std::vector<int> Nums1{-1, 2, 1, -4};
+  int const Target1 = 1;
+  int const Expected1 = 2;
+  EXPECT_EQ(Expected1, S16_1.threeSumClosest(Nums1, Target1));
 }
