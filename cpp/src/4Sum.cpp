@@ -58,14 +58,14 @@ std::vector<std::vector<int>> Solution18_2::fourSum(std::vector<int> &nums,
     for (auto J = I + 1; J != E; ++J)
       Map[nums[I] + nums[J]].push_back({I, J});
   }
-  for (auto I = Map.cbegin(), E = Map.cend(); I != E; ++I) {
+  for (auto I = Map.begin(), E = Map.end(); I != E; ++I) {
     auto J = Map.find(target - I->first);
     if (J == E)
       continue;
     for (const auto &Pair1 : I->second) {
       for (const auto &Pair2 : J->second) {
-        if (Pair1.first == Pair2.first || Pair1.first == Pair2.second
-            || Pair1.second == Pair2.first || Pair1.second == Pair2.second)
+        if (Pair1.first == Pair2.first || Pair1.first == Pair2.second ||
+            Pair1.second == Pair2.first || Pair1.second == Pair2.second)
           continue;
         std::vector<int> Quadruplet{nums[Pair1.first], nums[Pair1.second],
                                     nums[Pair2.first], nums[Pair2.second]};
