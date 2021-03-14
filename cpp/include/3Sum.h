@@ -2,19 +2,30 @@
 // that a + b + c = 0? Find all unique triplets in the array which gives the sum
 // of zero.
 //
-// Note:
+// Notice that the solution set must not contain duplicate triplets.
 //
-// The solution set must not contain duplicate triplets.
 //
-// Example:
 //
-// Given array nums = [-1, 0, 1, 2, -1, -4],
+// Example 1:
 //
-// A solution set is:
-// [
-//   [-1, 0, 1],
-//   [-1, -1, 2]
-// ]
+// Input: nums = [-1,0,1,2,-1,-4]
+// Output: [[-1,-1,2],[-1,0,1]]
+//
+// Example 2:
+//
+// Input: nums = []
+// Output: []
+//
+// Example 3:
+//
+// Input: nums = [0]
+// Output: []
+//
+//
+// Constraints:
+//
+// 0 <= nums.length <= 3000
+//-10^5 <= nums[i] <= 10^5
 
 #ifndef LEETCODECPP_3SUM_H
 #define LEETCODECPP_3SUM_H
@@ -28,6 +39,6 @@ public:
   std::vector<std::vector<int>> threeSum(std::vector<int> &nums);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_3SUM_H
+#endif // LEETCODECPP_3SUM_H

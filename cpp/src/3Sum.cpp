@@ -7,11 +7,11 @@ std::vector<std::vector<int>> Solution15_1::threeSum(std::vector<int> &nums) {
   std::vector<std::vector<int>> Set;
   if (nums.size() < 3)
     return Set;
+
   std::sort(nums.begin(), nums.end());
-  auto I = nums.begin(), E = nums.end() - 2;
-  decltype(I) J, K;
+  std::vector<int>::iterator I, J, K, E;
   int Sum;
-  while (I != E) {
+  for (I = nums.begin(), E = nums.end() - 2; I != E;) {
     Sum = 0 - *I;
     J = I + 1;
     K = E + 1;
