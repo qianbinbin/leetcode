@@ -1,12 +1,9 @@
 #include "RemoveNthNodeFromEndOfList.h"
-#include <cassert>
 
 using namespace lcpp;
 
 ListNode *Solution19_1::removeNthFromEnd(ListNode *head, int n) {
-  assert(n > 0 && "n must be positive!");
-  ListNode Dummy(0), *Slow = &Dummy, *Fast = &Dummy;
-  Dummy.next = head;
+  ListNode Dummy(0, head), *Slow = &Dummy, *Fast = &Dummy;
   for (; n >= 0; --n)
     Fast = Fast->next;
   while (Fast != nullptr) {
