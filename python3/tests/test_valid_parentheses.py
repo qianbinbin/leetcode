@@ -2,23 +2,28 @@ from unittest import TestCase
 
 from leetcodepy.valid_parentheses import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "()"
+S1 = "()"
+EXPECTED1 = True
 
-s2 = "()[]{}"
+S2 = "()[]{}"
+EXPECTED2 = True
 
-s3 = "(]"
+S3 = "(]"
+EXPECTED3 = False
 
-s4 = "([)]"
+S4 = "([)]"
+EXPECTED4 = False
 
-s5 = "{[]}"
+S5 = "{[]}"
+EXPECTED5 = True
 
 
 class TestValidParentheses(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isValid(s1))
-        self.assertTrue(solution1.isValid(s2))
-        self.assertFalse(solution1.isValid(s3))
-        self.assertFalse(solution1.isValid(s4))
-        self.assertTrue(solution1.isValid(s5))
+        self.assertEqual(EXPECTED1, SOLUTION1.isValid(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isValid(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.isValid(S3))
+        self.assertEqual(EXPECTED4, SOLUTION1.isValid(S4))
+        self.assertEqual(EXPECTED5, SOLUTION1.isValid(S5))

@@ -4,13 +4,13 @@
 #include <string.h>
 
 bool isValid_20_1(char *s) {
-    if (s == NULL) return false;
-
     char *stack = (char *) malloc(strlen(s));
     int top = -1;
-    while (*s != '\0') {
+    for (; *s; ++s) {
         switch (*s) {
             case '(':
+            case '{':
+            case '[':
                 stack[++top] = *s;
                 break;
             case ')':
@@ -19,17 +19,11 @@ bool isValid_20_1(char *s) {
                     return false;
                 }
                 break;
-            case '{':
-                stack[++top] = *s;
-                break;
             case '}':
                 if (top == -1 || stack[top--] != '{') {
                     free(stack);
                     return false;
                 }
-                break;
-            case '[':
-                stack[++top] = *s;
                 break;
             case ']':
                 if (top == -1 || stack[top--] != '[') {
@@ -40,7 +34,6 @@ bool isValid_20_1(char *s) {
             default:
                 break;
         }
-        ++s;
     }
     free(stack);
     return top == -1;

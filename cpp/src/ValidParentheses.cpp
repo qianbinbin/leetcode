@@ -5,11 +5,12 @@ using namespace lcpp;
 
 bool Solution20_1::isValid(std::string s) {
   std::stack<char> Stack;
-  for (const auto &Char : s) {
+  for (auto const &Char : s) {
     switch (Char) {
     case '(':
     case '[':
-    case '{':Stack.push(Char);
+    case '{':
+      Stack.push(Char);
       break;
     case ')':
       if (Stack.empty() || Stack.top() != '(')
@@ -26,7 +27,8 @@ bool Solution20_1::isValid(std::string s) {
         return false;
       Stack.pop();
       break;
-    default:break;
+    default:
+      break;
     }
   }
   return Stack.empty();
