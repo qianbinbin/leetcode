@@ -4,13 +4,14 @@
 using namespace lcpp;
 
 TEST(GenerateParentheses, Solution22_1) {
-  const int N = 3;
-  const std::vector<std::string> Expected{
-      "((()))",
-      "(()())",
-      "(())()",
-      "()(())",
-      "()()()"
-  };
-  EXPECT_EQ(Expected, Solution22_1().generateParenthesis(N));
+  auto S22_1 = Solution22_1();
+
+  int const N1 = 3;
+  std::vector<std::string> const Expected1{"((()))", "(()())", "(())()",
+                                           "()(())", "()()()"};
+  EXPECT_EQ(Expected1, S22_1.generateParenthesis(N1));
+
+  int const N2 = 1;
+  std::vector<std::string> const Expected2{"()"};
+  EXPECT_EQ(Expected2, S22_1.generateParenthesis(N2));
 }

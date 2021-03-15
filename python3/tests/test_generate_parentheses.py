@@ -2,19 +2,16 @@ from unittest import TestCase
 
 from leetcodepy.generate_parentheses import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n = 3
+N1 = 3
+EXPECTED1 = ["((()))", "(()())", "(())()", "()(())", "()()()"]
 
-expected = [
-    "((()))",
-    "(()())",
-    "(())()",
-    "()(())",
-    "()()()"
-]
+N2 = 1
+EXPECTED2 = ["()"]
 
 
 class TestGenerateParentheses(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.generateParenthesis(n))
+        self.assertEqual(EXPECTED1, SOLUTION1.generateParenthesis(N1))
+        self.assertEqual(EXPECTED2, SOLUTION1.generateParenthesis(N2))

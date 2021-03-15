@@ -1,38 +1,37 @@
 """
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-For example, given n = 3, a solution set is:
 
-[
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
-]
+
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+
+
+Constraints:
+
+1 <= n <= 8
 """
-from typing import List, Optional
+from typing import List
 
 
 class Solution1:
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        if n < 0:
-            raise ValueError
+    def generateParenthesis(self, n: int) -> List[str]:
         result = []
-        self.generate_parenthesis(n, result, '', 0, 0, 0)
+        self.generate_parenthesis(n, result, '', 0, 0)
         return result
 
-    def generate_parenthesis(self, n: int, result: List[str], path: str, stack_size: int,
-                             left_count: int, right_count: int):
+    def generate_parenthesis(self, n: int, result: List[str], path: str, stack_size: int, left_count: int):
         if len(path) == 2 * n:
-            if stack_size == 0:
-                result.append(path)
+            result.append(path)
             return
-        if stack_size < n and left_count < n:
-            self.generate_parenthesis(n, result, path + '(', stack_size + 1, left_count + 1, right_count)
-        if stack_size > 0 and right_count < n:
-            self.generate_parenthesis(n, result, path + ')', stack_size - 1, left_count, right_count + 1)
+        if left_count < n:
+            self.generate_parenthesis(n, result, path + '(', stack_size + 1, left_count + 1)
+        if stack_size > 0:
+            self.generate_parenthesis(n, result, path + ')', stack_size - 1, left_count)

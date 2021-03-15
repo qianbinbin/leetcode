@@ -4,21 +4,20 @@ using namespace lcpp;
 
 typedef std::string::size_type SizeType;
 
-static void generate(SizeType N, SizeType StackSize,
+static void generate(SizeType N, SizeType StackSize, SizeType LeftCount,
                      std::string &Path, std::vector<std::string> &Result) {
   if (Path.size() == 2 * N) {
-    if (StackSize == 0)
-      Result.push_back(Path);
+    Result.push_back(Path);
     return;
   }
-  if (StackSize < N) {
+  if (LeftCount < N) {
     Path.push_back('(');
-    generate(N, StackSize + 1, Path, Result);
+    generate(N, StackSize + 1, LeftCount + 1, Path, Result);
     Path.pop_back();
   }
-  if (StackSize > 0) {
+  if (StackSize != 0) {
     Path.push_back(')');
-    generate(N, StackSize - 1, Path, Result);
+    generate(N, StackSize - 1, LeftCount, Path, Result);
     Path.pop_back();
   }
 }
@@ -26,6 +25,6 @@ static void generate(SizeType N, SizeType StackSize,
 std::vector<std::string> Solution22_1::generateParenthesis(int n) {
   std::vector<std::string> Result;
   std::string Path;
-  generate(static_cast<SizeType>(n), 0, Path, Result);
+  generate(n, 0, 0, Path, Result);
   return Result;
 }
