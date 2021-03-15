@@ -4,23 +4,24 @@
 using namespace lcpp;
 
 static ListNode *mergeTwoSortedLists(ListNode *Head1, ListNode *Head2) {
-  ListNode Dummy(0), *Tail = &Dummy;
+  ListNode Dummy, *Tail = &Dummy;
   while (Head1 != nullptr && Head2 != nullptr) {
     if (Head1->val <= Head2->val) {
       Tail->next = Head1;
+      Tail = Head1;
       Head1 = Head1->next;
     } else {
       Tail->next = Head2;
+      Tail = Head2;
       Head2 = Head2->next;
     }
-    Tail = Tail->next;
   }
   Tail->next = Head1 != nullptr ? Head1 : Head2;
   return Dummy.next;
 }
 
 ListNode *Solution23_1::mergeKLists(std::vector<ListNode *> &lists) {
-  const auto &Size = lists.size();
+  auto const &Size = lists.size();
   if (Size == 0)
     return nullptr;
   std::vector<ListNode *>::size_type Interval, Step, I;
@@ -39,14 +40,12 @@ struct Greater {
 };
 
 ListNode *Solution23_2::mergeKLists(std::vector<ListNode *> &lists) {
-  if (lists.empty())
-    return nullptr;
   std::priority_queue<ListNode *, std::vector<ListNode *>, Greater> Heap;
-  for (const auto &Head : lists) {
-    if (Head != nullptr)
-      Heap.push(Head);
+  for (auto &H : lists) {
+    if (H != nullptr)
+      Heap.push(H);
   }
-  ListNode Dummy(0), *Tail = &Dummy;
+  ListNode Dummy, *Tail = &Dummy;
   while (!Heap.empty()) {
     Tail->next = Heap.top();
     Heap.pop();
