@@ -3,8 +3,7 @@
 using namespace lcpp;
 
 ListNode *Solution24_1::swapPairs(ListNode *head) {
-  ListNode Dummy(0), *Tail = &Dummy, *P1 = head, *P2;
-  Dummy.next = head;
+  ListNode Dummy(0, head), *Tail = &Dummy, *P1 = head, *P2;
   while (P1 != nullptr && (P2 = P1->next) != nullptr) {
     P1->next = P2->next;
     P2->next = P1;
