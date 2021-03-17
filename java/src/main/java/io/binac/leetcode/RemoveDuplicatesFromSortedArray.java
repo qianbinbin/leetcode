@@ -1,56 +1,63 @@
 package io.binac.leetcode;
 
 /**
- * Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
- * <p>
- * <p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Given nums = [1,1,2],
+ * <p>Given a sorted array <em>nums</em>, remove the duplicates <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank"><strong>in-place</strong></a> such that each element appears only <em>once</em> and returns the new length.</p>
  *
- *     Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+ * <p>Do not allocate extra space for another array, you must do this by <strong>modifying the input array <a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a></strong> with O(1) extra memory.</p>
  *
- *     It doesn't matter what you leave beyond the returned length.
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Given nums = [0,0,1,1,1,2,2,3,3,4],
+ * <p><strong>Clarification:</strong></p>
  *
- *     Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.
+ * <p>Confused why the returned value is an integer but your answer is an array?</p>
  *
- *     It doesn't matter what values are set beyond the returned length.
- * </blockquote></pre>
- * Clarification:
- * <p>
- * <p>Confused why the returned value is an integer but your answer is an array?
- * <p>
- * <p>Note that the input array is passed in by reference, which means modification to the input array will be known to the caller as well.
- * <p>
- * <p>Internally you can think of this:
- * <blockquote><pre>
- *     // nums is passed in by reference. (i.e., without making a copy)
- *     int len = removeDuplicates(nums);
+ * <p>Note that the input array is passed in by <strong>reference</strong>, which means a modification to the input array will be known to the caller as well.</p>
  *
- *     // any modification to nums in your function would be known by the caller.
- *     // using the length returned by your function, it prints the first len elements.
- *     for (int i = 0; i < len; i++) {
- *         print(nums[i]);
- *     }
- * </blockquote></pre>
+ * <p>Internally you can think of this:</p>
+ *
+ * <pre>// <strong>nums</strong> is passed in by reference. (i.e., without making a copy)
+ * int len = removeDuplicates(nums);
+ *
+ * // any modification to <strong>nums</strong> in your function would be known by the caller.
+ * // using the length returned by your function, it prints the first <strong>len</strong> elements.
+ * for (int i = 0; i &lt; len; i++) {
+ * &nbsp; &nbsp; print(nums[i]);
+ * }</pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [1,1,2]
+ * <strong>Output:</strong> 2, nums = [1,2]
+ * <strong>Explanation:</strong>&nbsp;Your function should return length = <strong><code>2</code></strong>, with the first two elements of <em><code>nums</code></em> being <strong><code>1</code></strong> and <strong><code>2</code></strong> respectively. It doesn't matter what you leave beyond the returned length.
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [0,0,1,1,1,2,2,3,3,4]
+ * <strong>Output:</strong> 5, nums = [0,1,2,3,4]
+ * <strong>Explanation:</strong>&nbsp;Your function should return length = <strong><code>5</code></strong>, with the first five elements of <em><code>nums</code></em> being modified to&nbsp;<strong><code>0</code></strong>, <strong><code>1</code></strong>, <strong><code>2</code></strong>, <strong><code>3</code></strong>, and&nbsp;<strong><code>4</code></strong> respectively. It doesn't matter what values are set beyond&nbsp;the returned length.
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>0 &lt;= nums.length &lt;= 3 * 10<sup>4</sup></code></li>
+ * 	<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>
+ * 	<li><code>nums</code>&nbsp;is sorted in ascending order.</li>
+ * </ul>
  */
 public class RemoveDuplicatesFromSortedArray {
     public static class Solution1 {
         public int removeDuplicates(int[] nums) {
-            if (nums.length < 2)
+            if (nums.length < 1)
                 return nums.length;
 
-            int index = 0;
+            int last = 0;
             for (int i = 1; i < nums.length; ++i) {
-                if (nums[index] != nums[i])
-                    nums[++index] = nums[i];
+                if (nums[last] != nums[i])
+                    nums[++last] = nums[i];
             }
-            return index + 1;
+            return last + 1;
         }
     }
 }

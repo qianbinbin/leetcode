@@ -7,20 +7,22 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoveDuplicatesFromSortedArrayTest {
-    private final RemoveDuplicatesFromSortedArray.Solution1 solution1 = new RemoveDuplicatesFromSortedArray.Solution1();
+    private static final RemoveDuplicatesFromSortedArray.Solution1 SOLUTION1 = new RemoveDuplicatesFromSortedArray.Solution1();
+
+    private final int[] NUMS1 = {1, 1, 2};
+    private final int[] EXPECTED1 = {1, 2};
+
+    private final int[] NUMS2 = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+    private final int[] EXPECTED2 = {0, 1, 2, 3, 4};
 
     @Test
     void test1() {
-        int nums1[] = {1, 1, 2};
-        int size1 = solution1.removeDuplicates(nums1);
-        int result1[] = Arrays.copyOf(nums1, size1);
-        int expected1[] = {1, 2};
-        assertTrue(Arrays.equals(expected1, result1));
+        int size1 = SOLUTION1.removeDuplicates(NUMS1);
+        assertEquals(EXPECTED1.length, size1);
+        assertArrayEquals(EXPECTED1, Arrays.copyOf(NUMS1, size1));
 
-        int nums2[] = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-        int size2 = solution1.removeDuplicates(nums2);
-        int result2[] = Arrays.copyOf(nums2, size2);
-        int expected2[] = {0, 1, 2, 3, 4};
-        assertTrue(Arrays.equals(expected2, result2));
+        int size2 = SOLUTION1.removeDuplicates(NUMS2);
+        assertEquals(EXPECTED2.length, size2);
+        assertArrayEquals(EXPECTED2, Arrays.copyOf(NUMS2, size2));
     }
 }
