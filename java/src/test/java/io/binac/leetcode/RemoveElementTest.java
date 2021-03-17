@@ -7,20 +7,24 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoveElementTest {
-    private final RemoveElement.Solution1 solution1 = new RemoveElement.Solution1();
+    private static final RemoveElement.Solution1 SOLUTION1 = new RemoveElement.Solution1();
+
+    private final int[] NUMS1 = {3, 2, 2, 3};
+    private final int VAL1 = 3;
+    private final int[] EXPECTED1 = {2, 2};
+
+    private final int[] NUMS2 = {0, 1, 2, 2, 3, 0, 4, 2};
+    private final int VAL2 = 2;
+    private final int[] EXPECTED2 = {0, 1, 3, 0, 4};
 
     @Test
     void test1() {
-        int nums1[] = {3, 2, 2, 3};
-        int size1 = solution1.removeElement(nums1, 3);
-        int result1[] = Arrays.copyOf(nums1, size1);
-        int expected1[] = {2, 2};
-        assertTrue(Arrays.equals(expected1, result1));
+        int size1 = SOLUTION1.removeElement(NUMS1, VAL1);
+        assertEquals(EXPECTED1.length, size1);
+        assertArrayEquals(EXPECTED1, Arrays.copyOf(NUMS1, size1));
 
-        int nums2[] = {0, 1, 2, 2, 3, 0, 4, 2};
-        int size2 = solution1.removeElement(nums2, 2);
-        int result2[] = Arrays.copyOf(nums2, size2);
-        int expected2[] = {0, 1, 3, 0, 4};
-        assertTrue(Arrays.equals(expected2, result2));
+        int size2 = SOLUTION1.removeElement(NUMS2, VAL2);
+        assertEquals(EXPECTED2.length, size2);
+        assertArrayEquals(EXPECTED2, Arrays.copyOf(NUMS2, size2));
     }
 }
