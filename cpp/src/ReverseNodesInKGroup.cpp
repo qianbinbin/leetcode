@@ -1,25 +1,24 @@
 #include "ReverseNodesInKGroup.h"
-#include <cassert>
 
 using namespace lcpp;
 
 ListNode *Solution25_1::reverseKGroup(ListNode *head, int k) {
-  assert(k > 0 && "k must be positive!");
-  ListNode Dummy(0), *Tail = &Dummy, *SegmentHead = head, *P, *E;
-  Dummy.next = head;
+  ListNode Dummy(0, head), *Tail = &Dummy, *First, *P, *E;
   int Count;
-  while (SegmentHead != nullptr) {
-    for (Count = 1, E = SegmentHead->next; Count != k && E != nullptr;
-         ++Count, E = E->next);
+  while ((First = Tail->next) != nullptr) {
+    E = First;
+    for (Count = 0; Count != k && E != nullptr; ++Count)
+      E = E->next;
     if (Count != k)
       break;
-    for (P = SegmentHead->next; P != E; P = SegmentHead->next) {
-      SegmentHead->next = P->next;
+    P = First->next;
+    while (P != E) {
+      First->next = P->next;
       P->next = Tail->next;
       Tail->next = P;
+      P = First->next;
     }
-    Tail = SegmentHead;
-    SegmentHead = E;
+    Tail = First;
   }
   return Dummy.next;
 }

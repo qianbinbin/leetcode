@@ -3,30 +3,24 @@
 #include <stdlib.h>
 
 struct ListNode *reverseKGroup_25_1(struct ListNode *head, int k) {
-    if (head == NULL || k < 2) return head;
-
-    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
-    dummy->next = head;
-    struct ListNode *pre = dummy, *tail, *p, *barrier;
+    struct ListNode dummy = {0, head};
+    struct ListNode *tail = &dummy, *first, *p, *end;
     int i;
-    while (pre->next != NULL) {
-        tail = pre->next;
-        barrier = tail;
-        for (i = 0; i < k && barrier != NULL; ++i)
-            barrier = barrier->next;
+    while ((first = tail->next) != NULL) {
+        end = first;
+        for (i = 0; i < k && end != NULL; ++i)
+            end = end->next;
         if (i < k)
             break;
 
-        p = tail->next;
-        while (p != barrier) {
-            tail->next = p->next;
-            p->next = pre->next;
-            pre->next = p;
-            p = tail->next;
+        p = first->next;
+        while (p != end) {
+            first->next = p->next;
+            p->next = tail->next;
+            tail->next = p;
+            p = first->next;
         }
-        pre = tail;
+        tail = first;
     }
-    head = dummy->next;
-    free(dummy);
-    return head;
+    return dummy.next;
 }

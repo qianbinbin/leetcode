@@ -2,21 +2,47 @@
 // return its modified list.
 //
 // k is a positive integer and is less than or equal to the length of the linked
-// list. If the number of nodes is not a multiple of k then left-out nodes in
-// the end should remain as it is.
+// list. If the number of nodes is not a multiple of k then left-out nodes, in
+// the end, should remain as it is.
 //
-// Example:
+// Follow up:
 //
-// Given this linked list: 1->2->3->4->5
+// Could you solve the problem in O(1) extra memory space?
+// You may not alter the values in the list's nodes, only nodes itself may be
+// changed.
 //
-// For k = 2, you should return: 2->1->4->3->5
 //
-// For k = 3, you should return: 3->2->1->4->5
+// Example 1:
 //
-// Note:
+// https://assets.leetcode.com/uploads/2020/10/03/reverse_ex1.jpg
 //
-// Only constant extra memory is allowed.
-// You may not alter the values in the list's nodes, only nodes itself may be changed.
+// Input: head = [1,2,3,4,5], k = 2
+// Output: [2,1,4,3,5]
+//
+// Example 2:
+//
+// https://assets.leetcode.com/uploads/2020/10/03/reverse_ex2.jpg
+//
+// Input: head = [1,2,3,4,5], k = 3
+// Output: [3,2,1,4,5]
+//
+// Example 3:
+//
+// Input: head = [1,2,3,4,5], k = 1
+// Output: [1,2,3,4,5]
+//
+// Example 4:
+//
+// Input: head = [1], k = 1
+// Output: [1]
+//
+//
+// Constraints:
+//
+// The number of nodes in the list is in the range sz.
+// 1 <= sz <= 5000
+// 0 <= Node.val <= 1000
+// 1 <= k <= sz
 
 #ifndef LEETCODECPP_REVERSENODESINKGROUP_H
 #define LEETCODECPP_REVERSENODESINKGROUP_H
@@ -30,6 +56,6 @@ public:
   ListNode *reverseKGroup(ListNode *head, int k);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_REVERSENODESINKGROUP_H
+#endif // LEETCODECPP_REVERSENODESINKGROUP_H
