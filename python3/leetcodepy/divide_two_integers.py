@@ -1,52 +1,60 @@
 """
-Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
+Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.
 
 Return the quotient after dividing dividend by divisor.
 
-The integer division should truncate toward zero.
+The integer division should truncate toward zero, which means losing its fractional part. For example, truncate(8.345) = 8 and truncate(-2.7335) = -2.
+
+Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. For this problem, assume that your function returns 231 − 1 when the division result overflows.
+
+
 
 Example 1:
 
 Input: dividend = 10, divisor = 3
 Output: 3
+Explanation: 10/3 = truncate(3.33333..) = 3.
 
 Example 2:
 
 Input: dividend = 7, divisor = -3
 Output: -2
+Explanation: 7/-3 = truncate(-2.33333..) = -2.
 
-Note:
+Example 3:
 
-Both dividend and divisor will be 32-bit signed integers.
-The divisor will never be 0.
-Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−2^31,  2^31 − 1]. For the purpose of this problem, assume that your function returns 2^31 − 1 when the division result overflows.
+Input: dividend = 0, divisor = 1
+Output: 0
+
+Example 4:
+
+Input: dividend = 1, divisor = 1
+Output: 1
+
+
+Constraints:
+
+-2^31 <= dividend, divisor <= 2^31 - 1
+divisor != 0
 """
 
 
 class Solution1:
-    def divide(self, dividend, divisor):
-        """
-        :type dividend: int
-        :type divisor: int
-        :rtype: int
-        """
+    def divide(self, dividend: int, divisor: int) -> int:
         if divisor == 0:
             raise ZeroDivisionError
-        sign = 1
-        if dividend > 0 > divisor or dividend < 0 < divisor:
-            sign = -1
+
+        sign = (dividend >= 0) == (divisor >= 0)
         dividend, divisor = abs(dividend), abs(divisor)
         result = 0
         while dividend >= divisor:
-            count = 1
-            sub = divisor
-            while dividend >= sub:
-                count += count
-                sub += sub
-            dividend -= sub >> 1
-            result += count >> 1
-        result *= sign
-        # This is ridiculous
+            exp = 0
+            while dividend >= divisor << exp:
+                exp += 1
+            exp -= 1
+            result += 1 << exp
+            dividend -= divisor << exp
+        result = result if sign else -result
         if result < -0x80000000:
             return -0x80000000
         if result > 0x7fffffff:

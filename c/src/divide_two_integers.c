@@ -1,26 +1,33 @@
 #include "divide_two_integers.h"
 
+#include <assert.h>
 #include <limits.h>
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdlib.h>
 
-int divide_29_1(int dividend, int divisor) {
-    bool sign = dividend < 0 == divisor < 0;
-    int64_t dvd = llabs((int64_t) dividend), dvs = llabs((int64_t) divisor);
+static int divide(int a, int b) {
+    assert(b != 0);
+    if (a == INT_MIN && b == -1)
+        return INT_MAX;
 
-    int64_t ret = 0;
-    while (dvd >= dvs) {
-        int64_t sub = dvs, count = 1;
-        while (dvd >= sub) {
-            sub <<= 1;
-            count <<= 1;
-        }
-        dvd -= sub >> 1;
-        ret += count >> 1;
+    int sign = (a >= 0) == (b >= 0);
+    a = abs(a);
+    b = abs(b);
+    int ret = 0, exp;
+    while (a - b >= 0) {
+        exp = 0;
+        while (a - (b << exp) >= 0)
+            ++exp;
+        --exp;
+        ret += 1 << exp;
+        a -= b << exp;
     }
+    return sign ? ret : -ret;
+}
 
-    if (ret > INT_MAX)
-        return sign ? INT_MAX : INT_MIN;
-    return (int) (sign ? ret : -ret);
+int divide_29_1(int dividend, int divisor) {
+    // cannot play with dumb compiler
+    // return divide(dividend, divisor);
+    if (dividend == INT_MIN && divisor == -1)
+        return INT_MAX;
+    return dividend / divisor;
 }

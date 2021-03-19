@@ -2,22 +2,28 @@ from unittest import TestCase
 
 from leetcodepy.divide_two_integers import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-dividend1 = 10
+DIVIDEND1 = 10
+DIVISOR1 = 3
+EXPECTED1 = 3
 
-divisor1 = 3
+DIVIDEND2 = 7
+DIVISOR2 = -3
+EXPECTED2 = -2
 
-expected1 = 3
+DIVIDEND3 = 0
+DIVISOR3 = 1
+EXPECTED3 = 0
 
-dividend2 = 7
-
-divisor2 = -3
-
-expected2 = -2
+DIVIDEND4 = 1
+DIVISOR4 = 1
+EXPECTED4 = 1
 
 
 class TestDivideTwoIntegers(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.divide(dividend1, divisor1))
-        self.assertEqual(expected2, solution1.divide(dividend2, divisor2))
+        self.assertEqual(EXPECTED1, SOLUTION1.divide(DIVIDEND1, DIVISOR1))
+        self.assertEqual(EXPECTED2, SOLUTION1.divide(DIVIDEND2, DIVISOR2))
+        self.assertEqual(EXPECTED3, SOLUTION1.divide(DIVIDEND3, DIVISOR3))
+        self.assertEqual(EXPECTED4, SOLUTION1.divide(DIVIDEND4, DIVISOR4))
