@@ -2,28 +2,29 @@ from unittest import TestCase
 
 from leetcodepy.implement_strstr import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
+HAYSTACK1 = "hello"
+NEEDLE1 = "ll"
+EXPECTED1 = 2
 
-haystack1 = "hello"
+HAYSTACK2 = "aaaaa"
+NEEDLE2 = "bba"
+EXPECTED2 = -1
 
-needle1 = "ll"
-
-expected1 = 2
-
-haystack2 = "aaaaa"
-
-needle2 = "bba"
-
-expected2 = -1
+HAYSTACK3 = ""
+NEEDLE3 = ""
+EXPECTED3 = 0
 
 
 class TestImplementStrStr(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.strStr(haystack1, needle1))
-        self.assertEqual(expected2, solution1.strStr(haystack2, needle2))
+        self.assertEqual(EXPECTED1, SOLUTION1.strStr(HAYSTACK1, NEEDLE1))
+        self.assertEqual(EXPECTED2, SOLUTION1.strStr(HAYSTACK2, NEEDLE2))
+        self.assertEqual(EXPECTED3, SOLUTION1.strStr(HAYSTACK3, NEEDLE3))
 
     def test2(self):
-        self.assertEqual(expected1, solution2.strStr(haystack1, needle1))
-        self.assertEqual(expected2, solution2.strStr(haystack2, needle2))
+        self.assertEqual(EXPECTED1, SOLUTION2.strStr(HAYSTACK1, NEEDLE1))
+        self.assertEqual(EXPECTED2, SOLUTION2.strStr(HAYSTACK2, NEEDLE2))
+        self.assertEqual(EXPECTED3, SOLUTION2.strStr(HAYSTACK3, NEEDLE3))

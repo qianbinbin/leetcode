@@ -4,21 +4,17 @@
 using namespace lcpp;
 
 TEST(ImplementStrStr, Solution28_1) {
-  std::string Haystack1 = "hello", Needle1 = "ll";
-  const int Expected1 = 2;
-  EXPECT_EQ(Expected1, Solution28_1().strStr(Haystack1, Needle1));
+  auto S28_1 = Solution28_1();
 
-  std::string Haystack2 = "aaaaa", Needle2 = "bba";
-  const int Expected2 = -1;
-  EXPECT_EQ(Expected2, Solution28_1().strStr(Haystack2, Needle2));
+  EXPECT_EQ(2, S28_1.strStr("hello", "ll"));
+  EXPECT_EQ(-1, S28_1.strStr("aaaaa", "bba"));
+  EXPECT_EQ(0, S28_1.strStr("", ""));
 }
 
 TEST(ImplementStrStr, Solution28_2) {
-  std::string Haystack1 = "hello", Needle1 = "ll";
-  const int Expected1 = 2;
-  EXPECT_EQ(Expected1, Solution28_2().strStr(Haystack1, Needle1));
+  auto S28_2 = Solution28_2();
 
-  std::string Haystack2 = "aaaaa", Needle2 = "bba";
-  const int Expected2 = -1;
-  EXPECT_EQ(Expected2, Solution28_2().strStr(Haystack2, Needle2));
+  EXPECT_EQ(2, S28_2.strStr("hello", "ll"));
+  EXPECT_EQ(-1, S28_2.strStr("aaaaa", "bba"));
+  EXPECT_EQ(0, S28_2.strStr("", ""));
 }

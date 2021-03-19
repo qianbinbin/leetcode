@@ -1,25 +1,34 @@
 package io.binac.leetcode;
 
 /**
- * Implement strStr().
- * <p>
- * <p>Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: haystack = "hello", needle = "ll"
- *     Output: 2
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: haystack = "aaaaa", needle = "bba"
- *     Output: -1
- * </blockquote></pre>
- * <p>Clarification:
- * <p>
- * <p>What should we return when needle is an empty string? This is a great question to ask during an interview.
- * <p>
- * <p>For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+ * <p>Implement <a href="http://www.cplusplus.com/reference/cstring/strstr/" target="_blank">strStr()</a>.</p>
+ *
+ * <p>Return the index of the first occurrence of needle in haystack, or <code>-1</code> if <code>needle</code> is not part of <code>haystack</code>.</p>
+ *
+ * <p><strong>Clarification:</strong></p>
+ *
+ * <p>What should we return when <code>needle</code> is an empty string? This is a great question to ask during an interview.</p>
+ *
+ * <p>For the purpose of this problem, we will return 0 when <code>needle</code> is an empty string. This is consistent to C's&nbsp;<a href="http://www.cplusplus.com/reference/cstring/strstr/" target="_blank">strstr()</a> and Java's&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)" target="_blank">indexOf()</a>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> haystack = "hello", needle = "ll"
+ * <strong>Output:</strong> 2
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> haystack = "aaaaa", needle = "bba"
+ * <strong>Output:</strong> -1
+ * </pre><p><strong>Example 3:</strong></p>
+ * <pre><strong>Input:</strong> haystack = "", needle = ""
+ * <strong>Output:</strong> 0
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>0 &lt;= haystack.length, needle.length &lt;= 5 * 10<sup>4</sup></code></li>
+ * 	<li><code>haystack</code> and&nbsp;<code>needle</code> consist of only lower-case English characters.</li>
+ * </ul>
  */
 public class ImplementStrStr {
     public static class Solution1 {
@@ -30,44 +39,31 @@ public class ImplementStrStr {
             if (len1 == 0 || len1 < len2)
                 return -1;
 
-            final char first = needle.charAt(0);
-            final int end = len1 - len2;
-            int i, j;
-            for (i = 0; i <= end; ++i) {
-                while (i <= end && haystack.charAt(i) != first) ++i;
-                if (i > end)
-                    return -1;
-                j = 1;
-                while (j < len2 && haystack.charAt(i + j) == needle.charAt(j)) ++j;
-                if (j == len2)
-                    return i;
+            int i = 0, j = 0;
+            while (i < len1 && j < len2) {
+                if (haystack.charAt(i) != needle.charAt(j)) {
+                    i = i - j + 1;
+                    j = 0;
+                } else {
+                    ++i;
+                    ++j;
+                }
             }
-            return -1;
+            return j == len2 ? i - j : -1;
         }
     }
 
     public static class Solution2 {
-        private int[] getNext(char pattern[]) {
-            final int len = pattern.length;
-            if (len == 0)
-                throw new IllegalArgumentException("pattern can't be empty");
-
-            int next[] = new int[len];
+        private int[] getNext(String str) {
+            int[] next = new int[str.length()];
             next[0] = -1;
-            if (len == 1)
-                return next;
-
-            next[1] = 0;
-            int i = 2, j = 0;
-            while (i < len) {
-                if (j == -1 || pattern[i - 1] == pattern[j]) {
-                    if (pattern[i] == pattern[j + 1])
-                        next[i++] = next[++j];
-                    else
-                        next[i++] = ++j;
-                } else {
+            int i = 0, j = -1, end = str.length() - 1;
+            while (i < end) {
+                while (j != -1 && str.charAt(j) != str.charAt(i))
                     j = next[j];
-                }
+                ++i;
+                ++j;
+                next[i] = str.charAt(j) == str.charAt(i) ? next[j] : j;
             }
             return next;
         }
@@ -76,25 +72,18 @@ public class ImplementStrStr {
             final int len1 = haystack.length(), len2 = needle.length();
             if (len2 == 0)
                 return 0;
-            if (len1 == 0 || len1 < len2)
+            if (len1 < len2)
                 return -1;
 
-            char pattern[] = needle.toCharArray();
-            int next[] = getNext(pattern);
-
-            final int end = len1 - len2;
+            int[] next = getNext(needle);
             int i = 0, j = 0;
             while (i < len1 && j < len2) {
-                if (j == -1 || haystack.charAt(i) == pattern[j]) {
-                    ++i;
-                    ++j;
-                } else {
+                while (j != -1 && haystack.charAt(i) != needle.charAt(j))
                     j = next[j];
-                }
+                ++i;
+                ++j;
             }
-            if (j == len2)
-                return i - j;
-            return -1;
+            return j == len2 ? i - j : -1;
         }
     }
 }
