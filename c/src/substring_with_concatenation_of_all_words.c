@@ -3,25 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-static char *str(char *str) {
-    const size_t len = strlen(str);
-    char *ret = (char *) malloc(len + 1);
-    strcpy(ret, str);
-    return ret;
-}
-
-static char *substr(char *str, size_t start, size_t len) {
-    char *ret = (char *) malloc(len + 1);
-    ret[len] = '\0';
-    memcpy(ret, str + start, len);
-    return ret;
-}
-
-#define HASH_MAP_SIZE 256
+#define HASH_MAP_SIZE 1024
 
 typedef struct Entry {
-    char *key;
-    int value;
+    char *str;
+    int count;
     struct Entry *next;
 } entry;
 
@@ -29,111 +15,100 @@ typedef struct {
     entry entries[HASH_MAP_SIZE];
 } hashmap;
 
-static int hash_code(char *key) {
+static int hash_code(char *str) {
     int ret = 0;
-    const size_t len = strlen(key);
-    for (size_t i = 0; i < len; ++i)
-        ret = ret * 31 + key[i];
+    for (; *str; ++str)
+        ret = ret * 31 + *str;
+    // to play with dumb compiler
+    // ret = (int64_t) ret * 31 + *str;
     return ret;
 }
 
 static hashmap *hashmap_create() {
-    hashmap *map = (hashmap *) malloc(sizeof(hashmap));
-    for (int i = 0; i < HASH_MAP_SIZE; ++i)
-        (map->entries + i)->next = NULL;
-    return map;
+    return (hashmap *) calloc(1, sizeof(hashmap));
 }
 
-static int hashmap_increase(hashmap *map, char *key) {
-    size_t index = (size_t) (hash_code(key) & (HASH_MAP_SIZE - 1));
-    entry *e = map->entries + index;
+static int hashmap_increase_and_get(hashmap *map, char *key) {
+    entry *e = map->entries + (hash_code(key) & (HASH_MAP_SIZE - 1));
     while (e->next != NULL) {
-        if (strcmp(e->next->key, key) == 0) {
-            int ret = e->next->value;
-            ++e->next->value;
-            return ret;
-        }
         e = e->next;
+        if (strcmp(e->str, key) == 0)
+            return ++e->count;
     }
-    entry *new = (entry *) malloc(sizeof(entry));
-    new->key = str(key);
-    new->value = 1;
-    new->next = NULL;
-    e->next = new;
-    return 0;
+    e = (e->next = (entry *) calloc(1, sizeof(entry)));
+    e->str = strdup(key);
+    return ++e->count;
 }
 
 static int hashmap_get(hashmap *map, char *key) {
-    size_t index = (size_t) (hash_code(key) & (HASH_MAP_SIZE - 1));
-    entry *e = map->entries + index;
+    entry *e = map->entries + ((hash_code(key) & (HASH_MAP_SIZE - 1)));
     while (e->next != NULL) {
-        if (strcmp(e->next->key, key) == 0)
-            return e->next->value;
         e = e->next;
+        if (strcmp(e->str, key) == 0)
+            return e->count;
     }
     return 0;
 }
 
-static void hashmap_free(hashmap *map) {
-    entry *e, *tmp;
+static void hashmap_clear(hashmap *map) {
+    entry *entries = map->entries, *e, *tmp;
     for (int i = 0; i < HASH_MAP_SIZE; ++i) {
-        e = map->entries + i;
-        while (e->next != NULL) {
-            tmp = e->next;
+        e = entries + i;
+        while ((tmp = e->next) != NULL) {
             e->next = tmp->next;
-            free(tmp->key);
+            free(tmp->str);
             free(tmp);
         }
     }
+}
+
+static void hashmap_free(hashmap *map) {
+    hashmap_clear(map);
     free(map);
 }
 
 int *findSubstring_30_1(char *s, char **words, int wordsSize, int *returnSize) {
-    if (s == NULL || words == NULL || wordsSize < 1 || returnSize == NULL) return NULL;
-
-    size_t capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int capacity = 16;
+    int *result = (int *) malloc(capacity * sizeof(int));
     *returnSize = 0;
 
-    hashmap *map = hashmap_create();
+    int const sl = (int) strlen(s), width = (int) strlen(words[0]),
+            len = wordsSize * width;
+    if (sl < len)
+        goto ret;
+
+    hashmap *expected = hashmap_create(), *actual = hashmap_create();
     for (int i = 0; i < wordsSize; ++i)
-        hashmap_increase(map, words[i]);
-
-    const int len = strlen(s), width = strlen(words[0]);
-    const int sub_len = wordsSize * width;
-
-    const int end = len - sub_len;
-    for (int i = 0; i <= end; ++i) {
-        int word_count = 0;
-        hashmap *exist = hashmap_create();
-        const int j_end = i + sub_len;
-        for (int j = i; j < j_end; j += width) {
-            char *tmp = substr(s, j, width);
-            int max = hashmap_get(map, tmp);
-            if (max == 0) {
-                free(tmp);
-                break;
+        hashmap_increase_and_get(expected, words[i]);
+    int i = 0, end = sl - width + 1, count = 0;
+    while (i < end) {
+        char *word = strndup(s + i, width);
+        if (hashmap_get(expected, word) >=
+            hashmap_increase_and_get(actual, word)) {
+            if (++count == wordsSize) {
+                if (*returnSize >= capacity) {
+                    capacity *= 2;
+                    result = (int *) realloc(result, capacity * sizeof(int));
+                }
+                i -= (wordsSize - 1) * width;
+                result[(*returnSize)++] = i;
+                count = 0;
+                hashmap_clear(actual);
+                ++i;
+            } else {
+                i += width;
             }
-            int old = hashmap_increase(exist, tmp);
-            if (old >= max) {
-                free(tmp);
-                break;
-            }
-            ++word_count;
-            free(tmp);
+        } else {
+            hashmap_clear(actual);
+            i -= count * width - 1;
+            count = 0;
         }
-        hashmap_free(exist);
-        if (word_count == wordsSize) {
-            if (*returnSize >= capacity) {
-                capacity *= 2;
-                ret = (int *) realloc(ret, capacity * sizeof(int));
-            }
-            ret[(*returnSize)++] = i;
-        }
+        free(word);
     }
+    hashmap_free(expected);
+    hashmap_free(actual);
 
-    hashmap_free(map);
-
-    ret = (int *) realloc(ret, (*returnSize) * sizeof(int));
-    return ret;
+    ret:
+    result = (int *) realloc(result, (*returnSize) * sizeof(int));
+    return result;
 }

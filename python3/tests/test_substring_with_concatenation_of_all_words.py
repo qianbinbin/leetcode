@@ -2,22 +2,23 @@ from unittest import TestCase
 
 from leetcodepy.substring_with_concatenation_of_all_words import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "barfoothefoobarman"
+S1 = "barfoothefoobarman"
+WORDS1 = ["foo", "bar"]
+EXPECTED1 = [0, 9]
 
-words1 = ["foo", "bar"]
+S2 = "wordgoodgoodgoodbestword"
+WORDS2 = ["word", "good", "best", "word"]
+EXPECTED2 = []
 
-expected1 = [0, 9]
-
-s2 = "wordgoodstudentgoodword"
-
-words2 = ["word", "student"]
-
-expected2 = []
+S3 = "barfoofoobarthefoobarman"
+WORDS3 = ["bar", "foo", "the"]
+EXPECTED3 = [6, 9, 12]
 
 
 class TestSubstringWithConcatenationOfAllWords(TestCase):
     def test1(self):
-        self.assertListEqual(expected1, solution1.findSubstring(s1, words1))
-        self.assertListEqual(expected2, solution1.findSubstring(s2, words2))
+        self.assertListEqual(EXPECTED1, SOLUTION1.findSubstring(S1, WORDS1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.findSubstring(S2, WORDS2))
+        self.assertListEqual(EXPECTED3, SOLUTION1.findSubstring(S3, WORDS3))
