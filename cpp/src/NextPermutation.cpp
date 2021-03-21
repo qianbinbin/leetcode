@@ -4,8 +4,6 @@
 using namespace lcpp;
 
 void Solution31_1::nextPermutation(std::vector<int> &nums) {
-  if (nums.size() < 2)
-    return;
   auto RI = nums.rbegin() + 1, RE = nums.rend();
   while (RI != RE && *RI >= *(RI - 1))
     ++RI;

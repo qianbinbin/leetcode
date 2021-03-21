@@ -1,24 +1,39 @@
 package io.binac.leetcode;
 
+import java.util.Arrays;
+
 /**
- * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
- * <p>
- * <p>If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
- * <p>
- * <p>The replacement must be in-place and use only constant extra memory.
- * <p>
- * <p>Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
- * <p>
- * <p>1,2,3 → 1,3,2
- * <p>3,2,1 → 1,2,3
- * <p>1,1,5 → 1,5,1
+ * <p>Implement <strong>next permutation</strong>, which rearranges numbers into the lexicographically next greater permutation of numbers.</p>
+ *
+ * <p>If such an arrangement is not possible, it must rearrange it as the lowest possible order (i.e., sorted in ascending order).</p>
+ *
+ * <p>The replacement must be <strong><a href="http://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in place</a></strong> and use only constant&nbsp;extra memory.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> nums = [1,2,3]
+ * <strong>Output:</strong> [1,3,2]
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> nums = [3,2,1]
+ * <strong>Output:</strong> [1,2,3]
+ * </pre><p><strong>Example 3:</strong></p>
+ * <pre><strong>Input:</strong> nums = [1,1,5]
+ * <strong>Output:</strong> [1,5,1]
+ * </pre><p><strong>Example 4:</strong></p>
+ * <pre><strong>Input:</strong> nums = [1]
+ * <strong>Output:</strong> [1]
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+ * 	<li><code>0 &lt;= nums[i] &lt;= 100</code></li>
+ * </ul>
  */
 public class NextPermutation {
     public static class Solution1 {
-        private void reverse(int array[], int beginIndex, int endIndex) {
-            if (beginIndex < 0 || endIndex > array.length || beginIndex >= endIndex)
-                throw new IndexOutOfBoundsException();
-
+        private void reverse(int[] array, int beginIndex, int endIndex) {
             final int sum = beginIndex + endIndex;
             final int half = sum >>> 1;
             int tmp, i, j;
@@ -31,35 +46,15 @@ public class NextPermutation {
         }
 
         public void nextPermutation(int[] nums) {
-            if (nums.length < 2)
-                return;
-
             int i = nums.length - 2;
             while (i >= 0 && nums[i] >= nums[i + 1]) --i;
-            if (i == -1) {
-                reverse(nums, 0, nums.length);
-                return;
+            if (i >= 0) {
+                int j = nums.length - 1;
+                while (j > i && nums[j] <= nums[i]) --j;
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
             }
-
-            // NOTE: binary search is slower under small array conditions
-            // int low = nums.length - 1, high = i + 1;
-            // while (low >= high) {
-            //     int mid = (low + high) >>> 1;
-            //     if (nums[mid] <= nums[i])
-            //         low = mid - 1;
-            //     else
-            //         high = mid + 1;
-            // }
-            // int tmp = nums[i];
-            // nums[i] = nums[low];
-            // nums[low] = tmp;
-
-            int j = i + 1;
-            while (j < nums.length && nums[j] > nums[i]) ++j;
-            int tmp = nums[i];
-            nums[i] = nums[j - 1];
-            nums[j - 1] = tmp;
-
             reverse(nums, i + 1, nums.length);
         }
     }
