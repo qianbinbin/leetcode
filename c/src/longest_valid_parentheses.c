@@ -6,37 +6,31 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 int longestValidParentheses_32_1(char *s) {
-    if (s == NULL) return 0;
-
     int longest = 0;
     int top = -1;
-    int start = -1;
-    const int len = strlen(s);
-    for (int i = 0; i < len; ++i) {
-        if (s[i] == '(') {
+    char *p, *pre;
+    for (p = s, pre = p - 1; *p; ++p) {
+        if (*p == '(') {
             ++top;
-        } else {
-            if (top == -1) {
-                start = i;
+        } else if (*p == ')') {
+            if (top >= 0) {
+                if (--top == -1)
+                    longest = MAX(longest, p - pre);
             } else {
-                --top;
-                if (top == -1)
-                    longest = MAX(longest, i - start);
+                pre = p;
             }
         }
     }
     top = -1;
-    start = len;
-    for (int i = len - 1; i >= 0; --i) {
-        if (s[i] == ')') {
+    for (pre = p--; p >= s; --p) {
+        if (*p == ')') {
             ++top;
-        } else {
-            if (top == -1) {
-                start = i;
+        } else if (*p == '(') {
+            if (top >= 0) {
+                if (--top == -1)
+                    longest = MAX(longest, pre - p);
             } else {
-                --top;
-                if (top == -1)
-                    longest = MAX(longest, start - i);
+                pre = p;
             }
         }
     }
@@ -44,22 +38,23 @@ int longestValidParentheses_32_1(char *s) {
 }
 
 int longestValidParentheses_32_2(char *s) {
-    if (s == NULL) return 0;
-
-    int *stack = (int *) malloc((strlen(s) + 1) * sizeof(int));
-    stack[0] = -1;
-    int top = 0;
+    int capacity = 16;
+    char **stack = (char **) malloc(capacity * sizeof(char *));
+    stack[0] = s - 1;
+    int size = 1;
     int longest = 0;
-    const int len = strlen(s);
-    for (int i = 0; i < len; ++i) {
-        if (s[i] == '(') {
-            stack[++top] = i;
-        } else {
-            --top;
-            if (top == -1)
-                stack[++top] = i;
-            else
-                longest = MAX(longest, i - stack[top]);
+    for (; *s; ++s) {
+        if (*s == '(') {
+            if (size >= capacity)
+                stack = (char **) realloc(stack,
+                                          (capacity *= 2) * sizeof(char *));
+            stack[size++] = s;
+        } else if (*s == ')') {
+            if (--size > 0) {
+                longest = MAX(longest, s - stack[size - 1]);
+            } else {
+                stack[size++] = s;
+            }
         }
     }
     free(stack);
@@ -67,20 +62,20 @@ int longestValidParentheses_32_2(char *s) {
 }
 
 int longestValidParentheses_32_3(char *s) {
-    if (s == NULL) return 0;
-
-    const int len = strlen(s);
+    int const len = (int) strlen(s);
     if (len < 2) return 0;
+
     int *dp = (int *) malloc(len * sizeof(int));
     dp[0] = 0;
-    dp[1] = (s[1] == ')' && s[0] == '(') ? 2 : 0;
+    dp[1] = (s[0] == '(' && s[1] == ')') ? 2 : 0;
     int longest = dp[1];
-    int i, j;
-    for (i = 2; i < len; ++i) {
-        if (s[i] == ')') {
-            if (s[i - 1] == '(')
+    for (int i = 2, j; i < len; ++i) {
+        if (s[i] == '(') {
+            dp[i] = 0;
+        } else if (s[i] == ')') {
+            if (s[i - 1] == '(') {
                 dp[i] = dp[i - 2] + 2;
-            else if (s[i - 1] == ')') {
+            } else if (s[i - 1] == ')') {
                 j = i - dp[i - 1] - 1;
                 if (j >= 0 && s[j] == '(')
                     dp[i] = dp[i - 1] + 2 + (j > 0 ? dp[j - 1] : 0);
@@ -88,8 +83,7 @@ int longestValidParentheses_32_3(char *s) {
                     dp[i] = 0;
             }
             longest = MAX(longest, dp[i]);
-        } else
-            dp[i] = 0;
+        }
     }
     free(dp);
     return longest;

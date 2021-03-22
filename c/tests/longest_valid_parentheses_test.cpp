@@ -5,16 +5,19 @@ extern "C" {
 }
 
 TEST(longest_valid_parentheses_test, longestValidParentheses_32_1) {
-    EXPECT_EQ(longestValidParentheses_32_1("(()"), 2);
-    EXPECT_EQ(longestValidParentheses_32_1(")()())"), 4);
+    EXPECT_EQ(2, longestValidParentheses_32_1("(()"));
+    EXPECT_EQ(4, longestValidParentheses_32_1(")()())"));
+    EXPECT_EQ(0, longestValidParentheses_32_1(""));
 }
 
 TEST(longest_valid_parentheses_test, longestValidParentheses_32_2) {
-    EXPECT_EQ(longestValidParentheses_32_2("(()"), 2);
-    EXPECT_EQ(longestValidParentheses_32_2(")()())"), 4);
+    EXPECT_EQ(2, longestValidParentheses_32_2("(()"));
+    EXPECT_EQ(4, longestValidParentheses_32_2(")()())"));
+    EXPECT_EQ(0, longestValidParentheses_32_2(""));
 }
 
 TEST(longest_valid_parentheses_test, longestValidParentheses_32_3) {
-    EXPECT_EQ(longestValidParentheses_32_3("(()"), 2);
-    EXPECT_EQ(longestValidParentheses_32_3(")()())"), 4);
+    EXPECT_EQ(2, longestValidParentheses_32_3("(()"));
+    EXPECT_EQ(4, longestValidParentheses_32_3(")()())"));
+    EXPECT_EQ(0, longestValidParentheses_32_3(""));
 }

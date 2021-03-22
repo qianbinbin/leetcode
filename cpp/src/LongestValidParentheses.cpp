@@ -1,15 +1,12 @@
 #include "LongestValidParentheses.h"
-#include <cassert>
-#include <limits>
 #include <stack>
 #include <vector>
 
 using namespace lcpp;
 
 int Solution32_1::longestValidParentheses(std::string s) {
-  std::string::size_type StackSize = 0;
-  std::string::difference_type Longest = 0;
-  for (auto I = s.cbegin(), E = s.cend(), Start = I; I != E; ++I) {
+  std::string::difference_type StackSize = 0, Longest = 0;
+  for (auto I = s.begin(), E = s.end(), Start = I; I != E; ++I) {
     if (*I == '(') {
       ++StackSize;
     } else if (*I == ')') {
@@ -22,7 +19,7 @@ int Solution32_1::longestValidParentheses(std::string s) {
     }
   }
   StackSize = 0;
-  for (auto I = s.crbegin(), E = s.crend(), Start = I; I != E; ++I) {
+  for (auto I = s.rbegin(), E = s.rend(), Start = I; I != E; ++I) {
     if (*I == ')') {
       ++StackSize;
     } else if (*I == '(') {
@@ -34,13 +31,11 @@ int Solution32_1::longestValidParentheses(std::string s) {
       }
     }
   }
-  assert(Longest <= std::numeric_limits<int>::max() && "Result overflow!");
-  return static_cast<int>(Longest);
+  return Longest;
 }
 
 int Solution32_2::longestValidParentheses(std::string s) {
-  const auto &Size = s.size();
-  assert(Size <= std::numeric_limits<int>::max() && "s size overflow!");
+  auto const &Size = s.size();
   std::stack<int> Stack;
   Stack.push(-1);
   int Longest = 0;
@@ -60,8 +55,7 @@ int Solution32_2::longestValidParentheses(std::string s) {
 }
 
 int Solution32_3::longestValidParentheses(std::string s) {
-  const auto &Size = s.size();
-  assert(Size <= std::numeric_limits<int>::max() && "s size overflow!");
+  auto const &Size = s.size();
   if (Size < 2)
     return 0;
   std::vector<int> Dp(Size, 0);
