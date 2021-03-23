@@ -1,14 +1,16 @@
-// Suppose an array sorted in ascending order is rotated at some pivot unknown
-// to you beforehand.
+// There is an integer array nums sorted in ascending order (with distinct
+// values).
 //
-// (i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
+// Prior to being passed to your function, nums is rotated at an unknown pivot
+// index k (0 <= k < nums.length) such that the resulting array is [nums[k],
+// nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For
+// example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become
+// [4,5,6,7,0,1,2].
 //
-// You are given a target value to search. If found in the array return its
-// index, otherwise return -1.
+// Given the array nums after the rotation and an integer target, return the
+// index of target if it is in nums, or -1 if it is not in nums.
 //
-// You may assume no duplicate exists in the array.
 //
-// Your algorithm's runtime complexity must be in the order of O(log n).
 //
 // Example 1:
 //
@@ -19,6 +21,23 @@
 //
 // Input: nums = [4,5,6,7,0,1,2], target = 3
 // Output: -1
+//
+// Example 3:
+//
+// Input: nums = [1], target = 0
+// Output: -1
+//
+//
+// Constraints:
+//
+// 1 <= nums.length <= 5000
+//-10^4 <= nums[i] <= 10^4
+// All values of nums are unique.
+// nums is guaranteed to be rotated at some pivot.
+//-10^4 <= target <= 10^4
+//
+//
+// Follow up: Can you achieve this in O(log n) time complexity?
 
 #ifndef LEETCODECPP_SEARCHINROTATEDSORTEDARRAY_H
 #define LEETCODECPP_SEARCHINROTATEDSORTEDARRAY_H
@@ -32,6 +51,6 @@ public:
   int search(std::vector<int> &nums, int target);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_SEARCHINROTATEDSORTEDARRAY_H
+#endif // LEETCODECPP_SEARCHINROTATEDSORTEDARRAY_H
