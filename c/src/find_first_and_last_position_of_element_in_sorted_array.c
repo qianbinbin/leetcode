@@ -3,14 +3,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-static int insert_index(int *array, int begin, int end, int value, bool before) {
-    --end;
-    int mid, mid_val;
-    while (begin <= end) {
+static int
+insert_index(int const *array, int begin, int end, int value, bool before) {
+    int mid, val;
+    while (begin < end) {
         mid = begin + (end - begin) / 2;
-        mid_val = array[mid];
-        if (mid_val > value || (before && mid_val == value))
-            end = mid - 1;
+        val = array[mid];
+        if (val > value || (before && val == value))
+            end = mid;
         else
             begin = mid + 1;
     }
@@ -18,9 +18,6 @@ static int insert_index(int *array, int begin, int end, int value, bool before) 
 }
 
 int *searchRange_34_1(int *nums, int numsSize, int target, int *returnSize) {
-    if (nums == NULL || numsSize < 0 || returnSize == NULL) return NULL;
-
-    *returnSize = 2;
     int *ret = (int *) malloc(2 * sizeof(int));
     int index = insert_index(nums, 0, numsSize, target, true);
     if (index == numsSize || nums[index] != target) {
@@ -30,5 +27,6 @@ int *searchRange_34_1(int *nums, int numsSize, int target, int *returnSize) {
         ret[0] = index;
         ret[1] = insert_index(nums, index, numsSize, target, false) - 1;
     }
+    *returnSize = 2;
     return ret;
 }

@@ -1,9 +1,11 @@
 """
 Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
 
-Your algorithm's runtime complexity must be in the order of O(log n).
+If target is not found in the array, return [-1, -1].
 
-If the target is not found in the array, return [-1, -1].
+Follow up: Could you write an algorithm with O(log n) runtime complexity?
+
+
 
 Example 1:
 
@@ -14,31 +16,36 @@ Example 2:
 
 Input: nums = [5,7,7,8,8,10], target = 6
 Output: [-1,-1]
+
+Example 3:
+
+Input: nums = [], target = 0
+Output: [-1,-1]
+
+
+Constraints:
+
+0 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
+nums is a non-decreasing array.
+-10^9 <= target <= 10^9
 """
 from typing import List
 
 
 class Solution1:
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        low, high = 0, len(nums) - 1
-        while low <= high:
+    @staticmethod
+    def insert_index(nums: List[int], low: int, high: int, val: int, before: bool) -> int:
+        while low < high:
             mid = (low + high) // 2
-            mid_val = nums[mid]
-            if mid_val == target:
-                first = mid
-                while first > 0 and nums[first - 1] == mid_val:
-                    first -= 1
-                last = mid
-                while last + 1 < len(nums) and nums[last + 1] == mid_val:
-                    last += 1
-                return [first, last]
-            if mid_val > target:
-                high = mid - 1
+            if nums[mid] > val or (before and nums[mid] == val):
+                high = mid
             else:
                 low = mid + 1
-        return [-1, -1]
+        return low
+
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        i = self.insert_index(nums, 0, len(nums), target, True)
+        if i == len(nums) or nums[i] != target:
+            return [-1, -1]
+        return [i, self.insert_index(nums, i, len(nums), target, False) - 1]

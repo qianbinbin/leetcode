@@ -4,12 +4,20 @@
 using namespace lcpp;
 
 TEST(FindFirstAndLastPositionOfElementInSortedArray, Solution34_1) {
-  std::vector<int> Nums{5, 7, 7, 8, 8, 10};
-  const int Target1 = 8;
-  const std::vector<int> Expected1{3, 4};
-  EXPECT_EQ(Expected1, Solution34_1().searchRange(Nums, Target1));
+  auto S34_1 = Solution34_1();
 
-  const int Target2 = 6;
-  const std::vector<int> Expected2{-1, -1};
-  EXPECT_EQ(Expected2, Solution34_1().searchRange(Nums, Target2));
+  std::vector<int> Nums1{5, 7, 7, 8, 8, 10};
+  int const Target1 = 8;
+  std::vector<int> const Expected1{3, 4};
+  EXPECT_EQ(Expected1, S34_1.searchRange(Nums1, Target1));
+
+  std::vector<int> Nums2{5, 7, 7, 8, 8, 10};
+  int const Target2 = 6;
+  std::vector<int> const Expected2{-1, -1};
+  EXPECT_EQ(Expected2, S34_1.searchRange(Nums2, Target2));
+
+  std::vector<int> Nums3;
+  int const Target3 = 0;
+  std::vector<int> const Expected3{-1, -1};
+  EXPECT_EQ(Expected3, S34_1.searchRange(Nums3, Target3));
 }
