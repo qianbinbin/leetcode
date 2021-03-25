@@ -2,36 +2,33 @@ from unittest import TestCase
 
 from leetcodepy.search_insert_position import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-nums1 = [1, 3, 5, 6]
+NUMS1 = [1, 3, 5, 6]
+TARGET1 = 5
+EXPECTED1 = 2
 
-target1 = 5
+NUMS2 = [1, 3, 5, 6]
+TARGET2 = 2
+EXPECTED2 = 1
 
-expected1 = 2
+NUMS3 = [1, 3, 5, 6]
+TARGET3 = 7
+EXPECTED3 = 4
 
-nums2 = [1, 3, 5, 6]
+NUMS4 = [1, 3, 5, 6]
+TARGET4 = 0
+EXPECTED4 = 0
 
-target2 = 2
-
-expected2 = 1
-
-nums3 = [1, 3, 5, 6]
-
-target3 = 7
-
-expected3 = 4
-
-nums4 = [1, 3, 5, 6]
-
-target4 = 0
-
-expected4 = 0
+NUMS5 = [1]
+TARGET5 = 0
+EXPECTED5 = 0
 
 
 class TestSearchInsertPosition(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.searchInsert(nums1, target1))
-        self.assertEqual(expected2, solution1.searchInsert(nums2, target2))
-        self.assertEqual(expected3, solution1.searchInsert(nums3, target3))
-        self.assertEqual(expected4, solution1.searchInsert(nums4, target4))
+        self.assertEqual(EXPECTED1, SOLUTION1.searchInsert(NUMS1, TARGET1))
+        self.assertEqual(EXPECTED2, SOLUTION1.searchInsert(NUMS2, TARGET2))
+        self.assertEqual(EXPECTED3, SOLUTION1.searchInsert(NUMS3, TARGET3))
+        self.assertEqual(EXPECTED4, SOLUTION1.searchInsert(NUMS4, TARGET4))
+        self.assertEqual(EXPECTED5, SOLUTION1.searchInsert(NUMS5, TARGET5))
