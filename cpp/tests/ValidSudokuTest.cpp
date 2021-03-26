@@ -4,6 +4,8 @@
 using namespace lcpp;
 
 TEST(ValidSudoku, Solution36_1) {
+  auto S36_1 = Solution36_1();
+
   std::vector<std::vector<char>> Board1{
       {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
       {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
@@ -13,9 +15,8 @@ TEST(ValidSudoku, Solution36_1) {
       {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
       {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
       {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-      {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
-  };
-  EXPECT_TRUE(Solution36_1().isValidSudoku(Board1));
+      {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+  EXPECT_TRUE(S36_1.isValidSudoku(Board1));
 
   std::vector<std::vector<char>> Board2{
       {'8', '3', '.', '.', '7', '.', '.', '.', '.'},
@@ -26,7 +27,6 @@ TEST(ValidSudoku, Solution36_1) {
       {'7', '.', '.', '.', '2', '.', '.', '.', '6'},
       {'.', '6', '.', '.', '.', '.', '2', '8', '.'},
       {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
-      {'.', '.', '.', '.', '8', '.', '.', '7', '9'}
-  };
-  EXPECT_FALSE(Solution36_1().isValidSudoku(Board2));
+      {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+  EXPECT_FALSE(S36_1.isValidSudoku(Board2));
 }

@@ -2,9 +2,9 @@ from unittest import TestCase
 
 from leetcodepy.valid_sudoku import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-board1 = [
+BOARD1 = [
     ["5", "3", ".", ".", "7", ".", ".", ".", "."],
     ["6", ".", ".", "1", "9", "5", ".", ".", "."],
     [".", "9", "8", ".", ".", ".", ".", "6", "."],
@@ -15,8 +15,9 @@ board1 = [
     [".", ".", ".", "4", "1", "9", ".", ".", "5"],
     [".", ".", ".", ".", "8", ".", ".", "7", "9"]
 ]
+EXPECTED1 = True
 
-board2 = [
+BOARD2 = [
     ["8", "3", ".", ".", "7", ".", ".", ".", "."],
     ["6", ".", ".", "1", "9", "5", ".", ".", "."],
     [".", "9", "8", ".", ".", ".", ".", "6", "."],
@@ -27,9 +28,10 @@ board2 = [
     [".", ".", ".", "4", "1", "9", ".", ".", "5"],
     [".", ".", ".", ".", "8", ".", ".", "7", "9"]
 ]
+EXPECTED2 = False
 
 
 class TestValidSudoku(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isValidSudoku(board1))
-        self.assertFalse(solution1.isValidSudoku(board2))
+        self.assertEqual(EXPECTED1, SOLUTION1.isValidSudoku(BOARD1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isValidSudoku(BOARD2))

@@ -16,7 +16,7 @@ TEST(valid_sudoku_test, isValidSudoku_36_1) {
             "...419..5",
             "....8..79"
     };
-    EXPECT_TRUE(isValidSudoku_36_1(board1, 9, 9));
+    EXPECT_TRUE(isValidSudoku_36_1(board1, 0, nullptr));
 
     char *board2[9] = {
             "83..7....",
@@ -29,5 +29,5 @@ TEST(valid_sudoku_test, isValidSudoku_36_1) {
             "...419..5",
             "....8..79"
     };
-    EXPECT_FALSE(isValidSudoku_36_1(board2, 9, 9));
+    EXPECT_FALSE(isValidSudoku_36_1(board2, 0, nullptr));
 }
