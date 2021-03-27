@@ -5,26 +5,30 @@ extern "C" {
 }
 
 TEST(sudoku_solver, solveSudoku_37_1) {
-    char *board[9];
-    for (int i = 0; i < 9; ++i)
-        board[i] = (char *) malloc(10);
-
-    strcpy(board[0], "53..7....");
-    strcpy(board[1], "6..195...");
-    strcpy(board[2], ".98....6.");
-    strcpy(board[3], "8...6...3");
-    strcpy(board[4], "4..8.3..1");
-    strcpy(board[5], "7...2...6");
-    strcpy(board[6], ".6....28.");
-    strcpy(board[7], "...419..5");
-    strcpy(board[8], "....8..79");
-    for (int i = 0; i < 9; ++i)
-        puts(board[i]);
-
-    solveSudoku_37_1(board, 9, 9);
-    printf("\n");
-    for (int i = 0; i < 9; ++i) {
-        puts(board[i]);
-        free(board[i]);
-    }
+    char *board1[9] = {
+            strdup("53..7...."),
+            strdup("6..195..."),
+            strdup(".98....6."),
+            strdup("8...6...3"),
+            strdup("4..8.3..1"),
+            strdup("7...2...6"),
+            strdup(".6....28."),
+            strdup("...419..5"),
+            strdup("....8..79")
+    };
+    solveSudoku_37_1(board1, 0, nullptr);
+    char const *expected1[9] = {
+            "534678912",
+            "672195348",
+            "198342567",
+            "859761423",
+            "426853791",
+            "713924856",
+            "961537284",
+            "287419635",
+            "345286179"
+    };
+    EXPECT_EQ(std::vector<std::string>(expected1, expected1 + 9),
+              std::vector<std::string>(board1, board1 + 9));
+    for (auto &s : board1) free(s);
 }

@@ -1,40 +1,49 @@
 package io.binac.leetcode;
 
 /**
- * Write a program to solve a Sudoku puzzle by filling the empty cells.
- * <p>
- * <p>A sudoku solution must satisfy all of the following rules:
- * <p>
- * <p>Each of the digits 1-9 must occur exactly once in each row.
- * <p>Each of the digits 1-9 must occur exactly once in each column.
- * <p>Each of the the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
- * <p>
- * <p>Empty cells are indicated by the character '.'.
- * <p>
- * <p>https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png
- * <p>A sudoku puzzle...
- * <p>
- * <p>https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png
- * <p>...and its solution numbers marked in red.
- * <p>
- * <p>Note:
- * <p>
- * <p>The given board contain only digits 1-9 and the character '.'.
- * <p>You may assume that the given Sudoku puzzle will have a single unique solution.
- * <p>The given board size is always 9x9.
+ * <p>Write a program to solve a Sudoku puzzle by filling the empty cells.</p>
+ *
+ * <p>A&nbsp;sudoku solution must satisfy <strong>all of&nbsp;the following rules</strong>:</p>
+ *
+ * <ol>
+ * 	<li>Each of the digits&nbsp;<code>1-9</code> must occur exactly&nbsp;once in each row.</li>
+ * 	<li>Each of the digits&nbsp;<code>1-9</code>&nbsp;must occur&nbsp;exactly once in each column.</li>
+ * 	<li>Each of the digits&nbsp;<code>1-9</code> must occur exactly once in each of the 9 <code>3x3</code> sub-boxes of the grid.</li>
+ * </ol>
+ *
+ * <p>The <code>'.'</code> character indicates empty cells.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Sudoku-by-L2G-20050714.svg/250px-Sudoku-by-L2G-20050714.svg.png" style="height:250px; width:250px">
+ * <pre><strong>Input:</strong> board = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+ * <strong>Output:</strong> [["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]]
+ * <strong>Explanation:</strong>&nbsp;The input board is shown above and the only valid solution is shown below:
+ *
+ * <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Sudoku-by-L2G-20050714_solution.svg/250px-Sudoku-by-L2G-20050714_solution.svg.png" style="height:250px; width:250px">
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>board.length == 9</code></li>
+ * 	<li><code>board[i].length == 9</code></li>
+ * 	<li><code>board[i][j]</code> is a digit or <code>'.'</code>.</li>
+ * 	<li>It is <strong>guaranteed</strong> that the input board has only one solution.</li>
+ * </ul>
  */
 public class SudokuSolver {
     public static class Solution1 {
         private boolean solve(char[][] board, int row, boolean[][] rowUsed, boolean[][] colUsed, boolean[][] blockUsed) {
-            for (; row < 9; ++row) {
-                for (int col = 0; col < 9; ++col) {
+            for (int col, block, num; row < 9; ++row) {
+                for (col = 0; col < 9; ++col) {
                     if (board[row][col] != '.') continue;
-                    final int block = row / 3 * 3 + col / 3;
-                    for (char ch = '1'; ch <= '9'; ++ch) {
-                        final int num = ch - '1';
+                    block = row / 3 * 3 + col / 3;
+                    for (num = 0; num < 9; ++num) {
                         if (rowUsed[row][num] || colUsed[col][num] || blockUsed[block][num])
                             continue;
-                        board[row][col] = ch;
+                        board[row][col] = (char) (num + '1');
                         rowUsed[row][num] = true;
                         colUsed[col][num] = true;
                         blockUsed[block][num] = true;
@@ -52,24 +61,20 @@ public class SudokuSolver {
         }
 
         public void solveSudoku(char[][] board) {
-            if (board.length != 9 || board[0].length != 9)
-                throw new IllegalArgumentException();
-
-            boolean rowUsed[][] = new boolean[9][9];
-            boolean colUsed[][] = new boolean[9][9];
-            boolean blockUsed[][] = new boolean[9][9];
-            for (int row = 0; row < 9; ++row) {
-                for (int col = 0; col < 9; ++col) {
+            boolean[][] rowUsed = new boolean[9][9];
+            boolean[][] colUsed = new boolean[9][9];
+            boolean[][] blockUsed = new boolean[9][9];
+            for (int row = 0, col, block, num; row < 9; ++row) {
+                for (col = 0; col < 9; ++col) {
                     if (board[row][col] == '.') continue;
-                    final int num = board[row][col] - '1';
-                    final int block = row / 3 * 3 + col / 3;
+                    block = row / 3 * 3 + col / 3;
+                    num = board[row][col] - '1';
                     rowUsed[row][num] = true;
                     colUsed[col][num] = true;
                     blockUsed[block][num] = true;
                 }
             }
-            if (!solve(board, 0, rowUsed, colUsed, blockUsed))
-                throw new IllegalArgumentException("no solution found");
+            solve(board, 0, rowUsed, colUsed, blockUsed);
         }
     }
 }
