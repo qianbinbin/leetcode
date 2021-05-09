@@ -4,17 +4,16 @@
 #include <string.h>
 
 static char *count_and_say(char *str) {
-    const size_t len = strlen(str);
-    char *ret = (char *) malloc(2 * len + 1);
+    char *ret = (char *) malloc(2 * strlen(str) + 1);
     size_t idx = 0;
-    int count;
-    while (*str != '\0') {
-        count = 1;
+    char count;
+    while (*str) {
+        count = '1';
         while (*str == *(str + 1)) {
             ++str;
             ++count;
         }
-        ret[idx++] = (char) (count + '0');
+        ret[idx++] = count;
         ret[idx++] = *str;
         ++str;
     }
@@ -24,8 +23,6 @@ static char *count_and_say(char *str) {
 }
 
 char *countAndSay_38_1(int n) {
-    if (n < 1) return NULL;
-
     char *pre, *ret = (char *) malloc(2);
     ret[0] = '1';
     ret[1] = '\0';

@@ -5,11 +5,15 @@ extern "C" {
 }
 
 TEST(count_and_say_test, countAndSay_38_1) {
-    char *say1 = countAndSay_38_1(1);
-    EXPECT_STREQ(say1, "1");
-    free(say1);
+    int const n1 = 1;
+    char const *expected1 = "1";
+    char *actual1 = countAndSay_38_1(n1);
+    EXPECT_STREQ(expected1, actual1);
+    free(actual1);
 
-    char *say2 = countAndSay_38_1(4);
-    EXPECT_STREQ(say2, "1211");
-    free(say2);
+    int const n2 = 4;
+    char const *expected2 = "1211";
+    char *actual2 = countAndSay_38_1(n2);
+    EXPECT_STREQ(expected2, actual2);
+    free(actual2);
 }
