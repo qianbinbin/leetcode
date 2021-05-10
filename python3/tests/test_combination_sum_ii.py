@@ -2,30 +2,18 @@ from unittest import TestCase
 
 from leetcodepy.combination_sum_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-candidates1 = [10, 1, 2, 7, 6, 1, 5]
+CANDIDATES1 = [10, 1, 2, 7, 6, 1, 5]
+TARGET1 = 8
+EXPECTED1 = [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]
 
-target1 = 8
-
-expected1 = [
-    [1, 1, 6],
-    [1, 2, 5],
-    [1, 7],
-    [2, 6]
-]
-
-candidates2 = [2, 5, 2, 1, 2]
-
-target2 = 5
-
-expected2 = [
-    [1, 2, 2],
-    [5]
-]
+CANDIDATES2 = [2, 5, 2, 1, 2]
+TARGET2 = 5
+EXPECTED2 = [[1, 2, 2], [5]]
 
 
 class TestCombinationSumII(TestCase):
     def test1(self):
-        self.assertListEqual(expected1, solution1.combinationSum2(candidates1, target1))
-        self.assertListEqual(expected2, solution1.combinationSum2(candidates2, target2))
+        self.assertListEqual(EXPECTED1, SOLUTION1.combinationSum2(CANDIDATES1, TARGET1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.combinationSum2(CANDIDATES2, TARGET2))

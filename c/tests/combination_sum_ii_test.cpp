@@ -1,31 +1,45 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include "common.h"
 #include "combination_sum_ii.h"
 }
 
 TEST(combination_sum_ii_test, combinationSum2_40_1) {
     int candidates1[] = {10, 1, 2, 7, 6, 1, 5};
-    int size1 = 0;
-    int *col_sizes1 = NULL;
-    int **combinations1 = combinationSum2_40_1(candidates1, 7, 8, &col_sizes1, &size1);
-    for (int i = 0; i < size1; ++i) {
-        array_print(combinations1[i], col_sizes1[i]);
-        free(combinations1[i]);
+    int const candidatesSize1 = 7, target1 = 8;
+    int returnSize1 = 0;
+    int *returnColumnSizes1 = NULL;
+    std::vector<std::vector<int>> expected1{{1, 1, 6},
+                                            {1, 2, 5},
+                                            {1, 7},
+                                            {2, 6}};
+    int **actual1 = combinationSum2_40_1(candidates1, candidatesSize1,
+                                         target1, &returnSize1,
+                                         &returnColumnSizes1);
+    ASSERT_EQ(expected1.size(), returnSize1);
+    for (int i = 0; i < returnSize1; ++i) {
+        EXPECT_EQ(expected1[i], std::vector<int>(actual1[i], actual1[i] +
+                                                             returnColumnSizes1[i]));
+        free(actual1[i]);
     }
-    free(combinations1);
-    free(col_sizes1);
+    free(actual1);
+    free(returnColumnSizes1);
 
-    printf("\n");
     int candidates2[] = {2, 5, 2, 1, 2};
-    int size2 = 0;
-    int *col_sizes2 = NULL;
-    int **combinations2 = combinationSum2_40_1(candidates2, 5, 5, &col_sizes2, &size2);
-    for (int i = 0; i < size2; ++i) {
-        array_print(combinations2[i], col_sizes2[i]);
-        free(combinations2[i]);
+    int const candidatesSize2 = 5, target2 = 5;
+    int returnSize2 = 0;
+    int *returnColumnSizes2 = NULL;
+    std::vector<std::vector<int>> expected2{{1, 2, 2},
+                                            {5}};
+    int **actual2 = combinationSum2_40_1(candidates2, candidatesSize2,
+                                         target2, &returnSize2,
+                                         &returnColumnSizes2);
+    ASSERT_EQ(expected2.size(), returnSize2);
+    for (int i = 0; i < returnSize2; ++i) {
+        EXPECT_EQ(expected2[i], std::vector<int>(actual2[i], actual2[i] +
+                                                             returnColumnSizes2[i]));
+        free(actual2[i]);
     }
-    free(combinations2);
-    free(col_sizes2);
+    free(actual2);
+    free(returnColumnSizes2);
 }
