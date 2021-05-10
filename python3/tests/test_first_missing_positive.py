@@ -2,23 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.first_missing_positive import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-nums1 = [1, 2, 0]
+NUMS1 = [1, 2, 0]
+EXPECTED1 = 3
 
-expected1 = 3
+NUMS2 = [3, 4, -1, 1]
+EXPECTED2 = 2
 
-nums2 = [3, 4, -1, 1]
-
-expected2 = 2
-
-nums3 = [7, 8, 9, 11, 12]
-
-expected3 = 1
+NUMS3 = [7, 8, 9, 11, 12]
+EXPECTED3 = 1
 
 
 class TestFirstMissingPositive(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.firstMissingPositive(nums1))
-        self.assertEqual(expected2, solution1.firstMissingPositive(nums2))
-        self.assertEqual(expected3, solution1.firstMissingPositive(nums3))
+        self.assertEqual(EXPECTED1, SOLUTION1.firstMissingPositive(NUMS1))
+        self.assertEqual(EXPECTED2, SOLUTION1.firstMissingPositive(NUMS2))
+        self.assertEqual(EXPECTED3, SOLUTION1.firstMissingPositive(NUMS3))

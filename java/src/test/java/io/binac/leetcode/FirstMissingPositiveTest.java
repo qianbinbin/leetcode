@@ -5,15 +5,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FirstMissingPositiveTest {
-    private final FirstMissingPositive.Solution1 solution1 = new FirstMissingPositive.Solution1();
+    private static final FirstMissingPositive.Solution1 SOLUTION1 = new FirstMissingPositive.Solution1();
+
+    private final int[] NUMS1 = {1, 2, 0};
+    private final int EXPECTED1 = 3;
+
+    private final int[] NUMS2 = {3, 4, -1, 1};
+    private final int EXPECTED2 = 2;
+
+    private final int[] NUMS3 = {7, 8, 9, 11, 12};
+    private final int EXPECTED3 = 1;
 
     @Test
     void test1() {
-        int nums1[] = {1, 2, 0};
-        assertEquals(3, solution1.firstMissingPositive(nums1));
-        int nums2[] = {3, 4, -1, 1};
-        assertEquals(2, solution1.firstMissingPositive(nums2));
-        int nums3[] = {7, 8, 9, 11, 12};
-        assertEquals(1, solution1.firstMissingPositive(nums3));
+        assertEquals(EXPECTED1, SOLUTION1.firstMissingPositive(NUMS1));
+        assertEquals(EXPECTED2, SOLUTION1.firstMissingPositive(NUMS2));
+        assertEquals(EXPECTED3, SOLUTION1.firstMissingPositive(NUMS3));
     }
 }
