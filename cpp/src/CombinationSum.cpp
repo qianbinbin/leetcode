@@ -5,8 +5,8 @@ using namespace lcpp;
 typedef std::vector<int> Vec;
 typedef std::vector<Vec> Vec2D;
 
-static void combination(Vec::iterator I, Vec::iterator E, int Target,
-                        Vec &Path, int Sum, Vec2D &Result) {
+static void combination(Vec::iterator I, Vec::iterator E, int Target, Vec &Path,
+                        int Sum, Vec2D &Result) {
   if (Sum == Target) {
     Result.push_back(Path);
     return;
