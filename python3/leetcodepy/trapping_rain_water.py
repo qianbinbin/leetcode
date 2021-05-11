@@ -1,50 +1,50 @@
 """
-Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
-http://www.leetcode.com/static/images/problemset/rainwatertrap.png
 
-The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped. Thanks Marcos for contributing this image!
 
-Example:
+Example 1:
 
-Input: [0,1,0,2,1,0,1,3,2,1,2,1]
+https://assets.leetcode.com/uploads/2018/10/22/rainwatertrap.png
+Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+
+Example 2:
+
+Input: height = [4,2,0,3,2,5]
+Output: 9
+
+
+Constraints:
+
+n == height.length
+0 <= n <= 3 * 10^4
+0 <= height[i] <= 10^5
 """
+from typing import List
 
 
 class Solution1:
-    def trap(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
-        if not height:
-            return 0
+    def trap(self, height: List[int]) -> int:
         size = len(height)
-        dp_left = [0] * size
-        maximum = height[0]
-        for i in range(1, size):
-            dp_left[i] = maximum
-            maximum = max(maximum, height[i])
-        dp_right = [0] * size
-        maximum = height[size - 1]
-        for i in range(size - 2, -1, -1):
-            dp_right[i] = maximum
-            maximum = max(maximum, height[i])
+        if size < 3:
+            return 0
         result = 0
-        for i in range(1, size - 1):
-            h = min(dp_left[i], dp_right[i]) - height[i]
+        left_max = [0] * size
+        for i in range(1, size):
+            left_max[i] = max(left_max[i - 1], height[i - 1])
+        right_max = [0] * size
+        for i in range(size - 2, 0, -1):
+            right_max[i] = max(right_max[i + 1], height[i + 1])
+            h = min(left_max[i], right_max[i]) - height[i]
             if h > 0:
                 result += h
         return result
 
 
 class Solution2:
-    def trap(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
+    def trap(self, height: List[int]) -> int:
         if not height:
             return 0
         result = 0
@@ -64,29 +64,23 @@ class Solution2:
 
 
 class Solution3:
-    def trap(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
+    def trap(self, height: List[int]) -> int:
         if not height:
             return 0
         result = 0
         i, j = 0, len(height) - 1
         left_max, right_max = 0, 0
         while i < j:
-            if height[i] < height[j]:
-                h = left_max - height[i]
-                if h > 0:
-                    result += h
-                else:
+            if height[i] <= height[j]:
+                if left_max <= height[i]:
                     left_max = height[i]
+                else:
+                    result += left_max - height[i]
                 i += 1
             else:
-                h = right_max - height[j]
-                if h > 0:
-                    result += h
-                else:
+                if right_max <= height[j]:
                     right_max = height[j]
+                else:
+                    result += right_max - height[j]
                 j -= 1
         return result

@@ -7,22 +7,20 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int trap_42_1(int *height, int heightSize) {
-    if (height == NULL || heightSize < 0) return -1;
     if (heightSize < 3) return 0;
+
+    int ret = 0;
 
     int *left_max = (int *) malloc(heightSize * sizeof(int));
     left_max[0] = 0;
-    for (int i = 1; i < heightSize; ++i)
+    for (int i = 1; i < heightSize - 1; ++i)
         left_max[i] = MAX(left_max[i - 1], height[i - 1]);
 
     int *right_max = (int *) malloc(heightSize * sizeof(int));
     right_max[heightSize - 1] = 0;
-    for (int i = heightSize - 2; i >= 0; --i)
+    for (int i = heightSize - 2, h; i > 0; --i) {
         right_max[i] = MAX(right_max[i + 1], height[i + 1]);
-
-    int ret = 0;
-    for (int i = 0; i < heightSize; ++i) {
-        int h = MIN(left_max[i], right_max[i]) - height[i];
+        h = MIN(left_max[i], right_max[i]) - height[i];
         if (h > 0) ret += h;
     }
     free(left_max);
@@ -31,20 +29,17 @@ int trap_42_1(int *height, int heightSize) {
 }
 
 int trap_42_2(int *height, int heightSize) {
-    if (height == NULL || heightSize < 0) return -1;
     if (heightSize < 3) return 0;
 
     int *stack = (int *) malloc(heightSize * sizeof(int));
     int top = -1;
     int ret = 0;
-    for (int i = 0; i < heightSize; ++i) {
-        while (top != -1 && height[stack[top]] < height[i]) {
-            int j = stack[top--];
-            if (top == -1) break;
-            int left_bound = stack[top];
-            int length = i - left_bound - 1;
-            int h = MIN(height[left_bound], height[i]) - height[j];
-            ret += h * length;
+    for (int i = 0, j, left_bound; i < heightSize; ++i) {
+        while (top != -1 && height[j = stack[top]] < height[i]) {
+            if (--top == -1) break;
+            left_bound = stack[top];
+            ret += (MIN(height[left_bound], height[i]) - height[j]) *
+                   (i - left_bound - 1);
         }
         stack[++top] = i;
     }
@@ -53,25 +48,24 @@ int trap_42_2(int *height, int heightSize) {
 }
 
 int trap_42_3(int *height, int heightSize) {
-    if (height == NULL || heightSize < 0) return -1;
     if (heightSize < 3) return 0;
 
-    int left = 0, right = heightSize - 1;
-    int left_max = 0, right_max = 0;
     int ret = 0;
-    while (left < right) {
-        if (height[left] < height[right]) {
-            if (height[left] < left_max)
-                ret += left_max - height[left];
+    int i = 0, j = heightSize - 1;
+    int left_max = 0, right_max = 0;
+    while (i < j) {
+        if (height[i] <= height[j]) {
+            if (left_max <= height[i])
+                left_max = height[i];
             else
-                left_max = height[left];
-            ++left;
+                ret += left_max - height[i];
+            ++i;
         } else {
-            if (height[right] < right_max)
-                ret += right_max - height[right];
+            if (right_max <= height[j])
+                right_max = height[j];
             else
-                right_max = height[right];
-            --right;
+                ret += right_max - height[j];
+            --j;
         }
     }
     return ret;
