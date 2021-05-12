@@ -2,22 +2,18 @@ from unittest import TestCase
 
 from leetcodepy.multiply_strings import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-num11 = "2"
+NUM11 = "2"
+NUM12 = "3"
+EXPECTED1 = "6"
 
-num12 = "3"
-
-expected1 = "6"
-
-num21 = "123"
-
-num22 = "456"
-
-expected2 = "56088"
+NUM21 = "123"
+NUM22 = "456"
+EXPECTED2 = "56088"
 
 
 class TestMultiplyStrings(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.multiply(num11, num12))
-        self.assertEqual(expected2, solution1.multiply(num21, num22))
+        self.assertEqual(EXPECTED1, SOLUTION1.multiply(NUM11, NUM12))
+        self.assertEqual(EXPECTED2, SOLUTION1.multiply(NUM21, NUM22))

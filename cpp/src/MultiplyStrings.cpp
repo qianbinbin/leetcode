@@ -1,15 +1,13 @@
 #include "MultiplyStrings.h"
-#include <cassert>
 
 using namespace lcpp;
 
-static std::string operator*(const std::string &Int1, const std::string &Int2) {
-  const auto &Size1 = Int1.size(), &Size2 = Int2.size();
-  assert(Size1 != 0 && Size2 != 0);
+static std::string operator*(std::string const &Int1, std::string const &Int2) {
+  auto const &Size1 = Int1.size(), &Size2 = Int2.size();
   std::string Result;
   Result.resize(Size1 + Size2);
-  for (std::string::size_type J = Size2 - 1; J != -1; --J) {
-    for (std::string::size_type I = Size1 - 1; I != -1; --I) {
+  for (std::string::size_type J = Size2 - 1, I, E = -1; J != E; --J) {
+    for (I = Size1 - 1; I != E; --I) {
       Result[I + J + 1] += (Int1[I] - '0') * (Int2[J] - '0');
       Result[I + J] += Result[I + J + 1] / 10;
       Result[I + J + 1] %= 10;

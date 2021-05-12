@@ -4,26 +4,21 @@
 #include <string.h>
 
 char *multiply_43_1(char *num1, char *num2) {
-    if (num1 == NULL || num2 == NULL) return NULL;
-
-    const size_t len1 = strlen(num1), len2 = strlen(num2);
-    const size_t max_len = len1 + len2;
-    int *result = (int *) calloc(max_len, sizeof(int));
-    for (int i = (int) (len1 - 1); i >= 0; --i) {
-        for (int j = (int) (len2 - 1); j >= 0; --j) {
-            int tmp = (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1];
-            result[i + j + 1] = tmp % 10;
-            result[i + j] += tmp / 10;
+    size_t const len1 = strlen(num1), len2 = strlen(num2);
+    size_t const max_len = len1 + len2;
+    char *product = (char *) calloc(max_len + 1, sizeof(int));
+    for (size_t i = len1 - 1, j, e = -1; i != e; --i) {
+        for (j = len2 - 1; j != e; --j) {
+            product[i + j + 1] += (num1[i] - '0') * (num2[j] - '0');
+            product[i + j] += product[i + j + 1] / 10;
+            product[i + j + 1] %= 10;
         }
     }
-    size_t offset = 0;
-    while (offset < max_len - 1 && result[offset] == 0) ++offset;
-    const size_t size = max_len - offset;
-
-    char *ret = (char *) malloc(size + 1);
-    ret[size] = '\0';
-    for (size_t i = 0; i < size; ++i) ret[i] = (char) (result[i + offset] + '0');
-
-    free(result);
+    for (size_t i = 0; i != max_len; ++i) product[i] += '0';
+    size_t high = 0;
+    while (high + 1 < max_len && product[high] == '0') ++high;
+    char *ret = (char *) malloc(max_len - high + 1);
+    strcpy(ret, product + high);
+    free(product);
     return ret;
 }
