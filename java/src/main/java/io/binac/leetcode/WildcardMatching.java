@@ -1,107 +1,105 @@
 package io.binac.leetcode;
 
 /**
- * Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*'.
- * <blockquote><pre>
- *     '?' Matches any single character.
- *     '*' Matches any sequence of characters (including the empty sequence).
- * </blockquote></pre>
- * <p>The matching should cover the entire input string (not partial).
- * <p>
- * <p>Note:
- * <p>
- * <p>s could be empty and contains only lowercase letters a-z.
- * <p>p could be empty and contains only lowercase letters a-z, and characters like ? or *.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input:
- *     s = "aa"
- *     p = "a"
- *     Output: false
- *     Explanation: "a" does not match the entire string "aa".
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input:
- *     s = "aa"
- *     p = "*"
- *     Output: true
- *     Explanation: '*' matches any sequence.
- * </blockquote></pre>
- * Example 3:
- * <blockquote><pre>
- *     Input:
- *     s = "cb"
- *     p = "?a"
- *     Output: false
- *     Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
- * </blockquote></pre>
- * Example 4:
- * <blockquote><pre>
- *     Input:
- *     s = "adceb"
- *     p = "*a*b"
- *     Output: true
- *     Explanation: The first '*' matches the empty sequence, while the second '*' matches the substring "dce".
- * </blockquote></pre>
- * Example 5:
- * <blockquote><pre>
- *     Input:
- *     s = "acdcb"
- *     p = "a*c?b"
- *     Output: false
- * </blockquote></pre>
+ * <p>Given an input string (<code>s</code>) and a pattern (<code>p</code>), implement wildcard pattern matching with support for <code>'?'</code> and <code>'*'</code> where:</p>
+ *
+ * <ul>
+ * 	<li><code>'?'</code> Matches any single character.</li>
+ * 	<li><code>'*'</code> Matches any sequence of characters (including the empty sequence).</li>
+ * </ul>
+ *
+ * <p>The matching should cover the <strong>entire</strong> input string (not partial).</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> s = "aa", p = "a"
+ * <strong>Output:</strong> false
+ * <strong>Explanation:</strong> "a" does not match the entire string "aa".
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> s = "aa", p = "*"
+ * <strong>Output:</strong> true
+ * <strong>Explanation:</strong>&nbsp;'*' matches any sequence.
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> s = "cb", p = "?a"
+ * <strong>Output:</strong> false
+ * <strong>Explanation:</strong>&nbsp;'?' matches 'c', but the second letter is 'a', which does not match 'b'.
+ * </pre>
+ *
+ * <p><strong>Example 4:</strong></p>
+ *
+ * <pre><strong>Input:</strong> s = "adceb", p = "*a*b"
+ * <strong>Output:</strong> true
+ * <strong>Explanation:</strong>&nbsp;The first '*' matches the empty sequence, while the second '*' matches the substring "dce".
+ * </pre>
+ *
+ * <p><strong>Example 5:</strong></p>
+ *
+ * <pre><strong>Input:</strong> s = "acdcb", p = "a*c?b"
+ * <strong>Output:</strong> false
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>0 &lt;= s.length, p.length &lt;= 2000</code></li>
+ * 	<li><code>s</code> contains only lowercase English letters.</li>
+ * 	<li><code>p</code> contains only lowercase English letters, <code>'?'</code> or <code>'*'</code>.</li>
+ * </ul>
  */
 public class WildcardMatching {
     public static class Solution1 {
         public boolean isMatch(String s, String p) {
-            final int lenS = s.length(), lenP = p.length();
-
-            boolean match[][] = new boolean[lenS + 1][lenP + 1];
+            final int m = s.length(), n = p.length();
+            boolean[][] match = new boolean[m + 1][n + 1];
             match[0][0] = true;
-            for (int j = 1; j <= lenP; ++j) {
-                if (p.charAt(j - 1) == '*' && match[0][j - 1])
-                    match[0][j] = true;
-                else break;
-            }
+            for (int j = 1; j <= n && p.charAt(j - 1) == '*'; ++j)
+                match[0][j] = true;
 
-            for (int i = 1; i <= lenS; ++i) {
-                for (int j = 1; j <= lenP; ++j) {
-                    final char ch = p.charAt(j - 1);
+            char ch;
+            for (int i = 1; i <= m; ++i) {
+                for (int j = 1; j <= n; ++j) {
+                    ch = p.charAt(j - 1);
                     if (ch == '*')
                         match[i][j] = match[i - 1][j] || match[i][j - 1];
                     else if (ch == '?' || ch == s.charAt(i - 1))
                         match[i][j] = match[i - 1][j - 1];
                 }
             }
-            return match[lenS][lenP];
+            return match[m][n];
         }
     }
 
     public static class Solution2 {
         public boolean isMatch(String s, String p) {
-            final int lenS = s.length(), lenP = p.length();
-
+            final int m = s.length(), n = p.length();
             int i = 0, j = 0;
-            int star = -1, lastStr = -1;
-            while (i < lenS) {
-                final char ch = j < lenP ? p.charAt(j) : '\0';
+            int star = -1, lastI = -1;
+            char ch;
+            while (i < m) {
+                ch = j < n ? p.charAt(j) : '\0';
                 if (ch == '?' || ch == s.charAt(i)) {
                     ++i;
                     ++j;
                 } else if (ch == '*') {
+                    lastI = i;
                     star = j;
-                    lastStr = i;
                     ++j;
                 } else if (star != -1) {
-                    i = ++lastStr;
+                    i = ++lastI;
                     j = star + 1;
                 } else
                     return false;
             }
-            while (j < lenP && p.charAt(j) == '*') ++j;
-            return j == lenP;
+            while (j < n && p.charAt(j) == '*') ++j;
+            return j == n;
         }
     }
 }
