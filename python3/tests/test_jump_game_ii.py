@@ -2,13 +2,16 @@ from unittest import TestCase
 
 from leetcodepy.jump_game_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-nums = [2, 3, 1, 1, 4]
+NUMS1 = [2, 3, 1, 1, 4]
+EXPECTED1 = 2
 
-expected = 2
+NUMS2 = [2, 3, 0, 1, 4]
+EXPECTED2 = 2
 
 
 class TestJumpGameII(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.jump(nums))
+        self.assertEqual(EXPECTED1, SOLUTION1.jump(NUMS1))
+        self.assertEqual(EXPECTED2, SOLUTION1.jump(NUMS2))
