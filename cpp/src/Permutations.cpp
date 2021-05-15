@@ -2,11 +2,10 @@
 
 using namespace lcpp;
 
-static void permute(std::vector<int> &Nums,
-                    std::vector<bool> &Visited,
+static void permute(std::vector<int> &Nums, std::vector<bool> &Visited,
                     std::vector<int> &Path,
                     std::vector<std::vector<int>> &Result) {
-  const auto &E = Nums.size();
+  auto const &E = Nums.size();
   if (Path.size() == E) {
     Result.push_back(Path);
     return;

@@ -4,11 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void permute_dfs(int *nums, int nums_size,
-                        int **permutations, int *size, int *path, int *path_size, bool *visited) {
+static void permute_dfs(int *nums, int nums_size, bool *visited,
+                        int **permutations, int *column_sizes, int *size,
+                        int *path, int *path_size) {
     if (*path_size == nums_size) {
-        permutations[*size] = (int *) malloc((*path_size) * sizeof(int));
-        memcpy(permutations[*size], path, (*path_size) * sizeof(int));
+        permutations[*size] = (int *) malloc((nums_size) * sizeof(int));
+        memcpy(permutations[*size], path, (nums_size) * sizeof(int));
+        column_sizes[*size] = nums_size;
         ++(*size);
         return;
     }
@@ -16,7 +18,8 @@ static void permute_dfs(int *nums, int nums_size,
         if (visited[i]) continue;
         path[(*path_size)++] = nums[i];
         visited[i] = true;
-        permute_dfs(nums, nums_size, permutations, size, path, path_size, visited);
+        permute_dfs(nums, nums_size, visited, permutations, column_sizes, size,
+                    path, path_size);
         visited[i] = false;
         --(*path_size);
     }
@@ -29,17 +32,18 @@ static int factorial(int n) {
     return ret;
 }
 
-int **permute_46_1(int *nums, int numsSize, int *returnSize) {
-    if (nums == NULL || numsSize < 0 || returnSize == NULL) return NULL;
-
-    const int capacity = factorial(numsSize);
+int **permute_46_1(int *nums, int numsSize, int *returnSize,
+                   int **returnColumnSizes) {
+    int const capacity = factorial(numsSize);
     int **permutations = (int **) malloc(capacity * sizeof(int *));
+    *returnColumnSizes = (int *) calloc(capacity, sizeof(int));
     *returnSize = 0;
-    int *path = (int *) malloc(capacity * sizeof(int));
+    int *path = (int *) malloc(numsSize * sizeof(int));
     int path_size = 0;
     bool *visited = (bool *) calloc(numsSize, sizeof(bool));
 
-    permute_dfs(nums, numsSize, permutations, returnSize, path, &path_size, visited);
+    permute_dfs(nums, numsSize, visited, permutations, *returnColumnSizes,
+                returnSize, path, &path_size);
 
     free(visited);
     free(path);
