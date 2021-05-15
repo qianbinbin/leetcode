@@ -8,21 +8,27 @@ static int compare(const void *a, const void *b) {
     return *(int *) a - *(int *) b;
 }
 
-static void permute_unique_dfs(int *nums, int nums_size, int **permutations, int *p_size,
-                               int *path, int *path_size, bool *used) {
+static void
+permute_unique_dfs(int *nums, int nums_size, bool *visited, int **permutations,
+                   int *column_sizes, int *size, int *path, int *path_size) {
     if (*path_size == nums_size) {
-        permutations[*p_size] = (int *) malloc((*path_size) * sizeof(int));
-        memcpy(permutations[*p_size], path, (*path_size) * sizeof(int));
-        ++(*p_size);
+        permutations[*size] = (int *) malloc((nums_size) * sizeof(int));
+        memcpy(permutations[*size], path, (nums_size) * sizeof(int));
+        column_sizes[*size] = nums_size;
+        ++(*size);
         return;
     }
-    for (int i = 0; i < nums_size; ++i) {
-        if (used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])) continue;
+    for (int i = 0, last = -1; i < nums_size; ++i) {
+        if (visited[i] ||
+            (last != -1 && nums[i] == nums[last]))
+            continue;
+        last = i;
         path[(*path_size)++] = nums[i];
-        used[i] = true;
-        permute_unique_dfs(nums, nums_size, permutations, p_size, path, path_size, used);
+        visited[i] = true;
+        permute_unique_dfs(nums, nums_size, visited, permutations,
+                           column_sizes, size, path, path_size);
+        visited[i] = false;
         --(*path_size);
-        used[i] = false;
     }
 }
 
@@ -33,23 +39,26 @@ static int factorial(int n) {
     return ret;
 }
 
-int **permuteUnique_47_1(int *nums, int numsSize, int *returnSize) {
-    if (nums == NULL || numsSize < 0 || returnSize == NULL) return NULL;
-
+int **permuteUnique_47_1(int *nums, int numsSize, int *returnSize,
+                         int **returnColumnSizes) {
     qsort(nums, numsSize, sizeof(int), compare);
 
-    const int capacity = factorial(numsSize);
+    int const capacity = factorial(numsSize);
     int **ret = (int **) malloc(capacity * sizeof(int *));
+    *returnColumnSizes = (int *) calloc(capacity, sizeof(int));
     *returnSize = 0;
 
-    int *path = (int *) malloc(capacity * sizeof(int));
+    int *path = (int *) malloc(numsSize * sizeof(int));
     int path_size = 0;
     bool *visited = (bool *) calloc(numsSize, sizeof(bool));
 
-    permute_unique_dfs(nums, numsSize, ret, returnSize, path, &path_size, visited);
+    permute_unique_dfs(nums, numsSize, visited, ret, *returnColumnSizes,
+                       returnSize, path, &path_size);
 
     free(path);
     free(visited);
     ret = (int **) realloc(ret, (*returnSize) * sizeof(int *));
+    *returnColumnSizes = (int *) realloc(*returnColumnSizes,
+                                         (*returnSize) * sizeof(int));
     return ret;
 }
