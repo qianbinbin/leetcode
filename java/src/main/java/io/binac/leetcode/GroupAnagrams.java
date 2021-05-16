@@ -3,58 +3,42 @@ package io.binac.leetcode;
 import java.util.*;
 
 /**
- * Given an array of strings, group anagrams together.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
- *     Output:
- *     [
- *       ["ate","eat","tea"],
- *       ["nat","tan"],
- *       ["bat"]
- *     ]
- * </blockquote></pre>
- * Note:
- * <p>
- * <p>All inputs will be in lowercase.
- * <p>The order of your output does not matter.
+ * <p>Given an array of strings <code>strs</code>, group <strong>the anagrams</strong> together. You can return the answer in <strong>any order</strong>.</p>
+ *
+ * <p>An <strong>Anagram</strong> is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> strs = ["eat","tea","tan","ate","nat","bat"]
+ * <strong>Output:</strong> [["bat"],["nat","tan"],["ate","eat","tea"]]
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> strs = [""]
+ * <strong>Output:</strong> [[""]]
+ * </pre><p><strong>Example 3:</strong></p>
+ * <pre><strong>Input:</strong> strs = ["a"]
+ * <strong>Output:</strong> [["a"]]
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= strs.length &lt;= 10<sup>4</sup></code></li>
+ * 	<li><code>0 &lt;= strs[i].length &lt;= 100</code></li>
+ * 	<li><code>strs[i]</code> consists of lower-case English letters.</li>
+ * </ul>
  */
 public class GroupAnagrams {
     public static class Solution1 {
-        private static class Anagram {
-            private final String str;
-
-            private final int count[] = new int[26];
-
-            private final int hashCode;
-
-            public Anagram(String s) {
-                str = s;
-                for (int i = 0; i < str.length(); ++i)
-                    ++count[str.charAt(i) - 'a'];
-                hashCode = Arrays.hashCode(count);
-            }
-
-            @Override
-            public boolean equals(Object obj) {
-                if (this == obj) return true;
-                if (obj instanceof Anagram)
-                    return Arrays.equals(count, ((Anagram) obj).count);
-                return false;
-            }
-
-            @Override
-            public int hashCode() {
-                return hashCode;
-            }
+        private String sort(String str) {
+            char[] s = str.toCharArray();
+            Arrays.sort(s);
+            return new String(s);
         }
 
         public List<List<String>> groupAnagrams(String[] strs) {
-            Map<Anagram, List<String>> map = new HashMap<>();
+            Map<String, List<String>> map = new HashMap<>();
             for (String str : strs) {
-                Anagram key = new Anagram(str);
-                List<String> list = map.computeIfAbsent(key, k -> new ArrayList<>());
+                List<String> list = map.computeIfAbsent(sort(str), k -> new ArrayList<>());
                 list.add(str);
             }
             return new ArrayList<>(map.values());
