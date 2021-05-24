@@ -1,43 +1,41 @@
 package io.binac.leetcode;
 
 /**
- * Implement pow(x, n), which calculates x raised to the power n (x^n).
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: 2.00000, 10
- *     Output: 1024.00000
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: 2.10000, 3
- *     Output: 9.26100
- * </blockquote></pre>
- * Example 3:
- * <blockquote><pre>
- *     Input: 2.00000, -2
- *     Output: 0.25000
- *     Explanation: 2^(-2) = 1/2^2 = 1/4 = 0.25
- * </blockquote></pre>
- * Note:
- * <p>
- * <p>-100.0 < x < 100.0
- * <p>n is a 32-bit signed integer, within the range [−2^31, 2^31 − 1]
+ * <p>Implement <a href="http://www.cplusplus.com/reference/valarray/pow/" target="_blank">pow(<em>x</em>, <em>n</em>)</a>, which calculates&nbsp;<em>x</em> raised to the power <em>n</em> (i.e. x<sup><span style="font-size:10.8333px">n</span></sup>).</p>
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> x = 2.00000, n = 10
+ * <strong>Output:</strong> 1024.00000
+ * </pre>
+ * <p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> x = 2.10000, n = 3
+ * <strong>Output:</strong> 9.26100
+ * </pre>
+ * <p><strong>Example 3:</strong></p>
+ * <pre><strong>Input:</strong> x = 2.00000, n = -2
+ * <strong>Output:</strong> 0.25000
+ * <strong>Explanation:</strong> 2<sup>-2</sup> = 1/2<sup>2</sup> = 1/4 = 0.25
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ * <ul>
+ * <li><code>-100.0 &lt;&nbsp;x&nbsp;&lt; 100.0</code></li>
+ * <li><code>-2<sup>31</sup>&nbsp;&lt;= n &lt;=&nbsp;2<sup>31</sup>-1</code></li>
+ * <li><code>-10<sup>4</sup> &lt;= x<sup>n</sup> &lt;= 10<sup>4</sup></code></li>
+ * </ul>
  */
 public class PowXN {
     public static class Solution1 {
         public double myPow(double x, int n) {
             if (n == 0) return 1;
 
-            long e = Math.abs((long) n);
             double result = 1;
-            while (e > 0) {
+            for (long e = Math.abs((long) n); e > 0; e >>= 1) {
                 if ((e & 1) == 1)
                     result = result * x;
                 x *= x;
-                e >>= 1;
             }
-            return n > 0 ? result : 1 / result;
+            return n >= 0 ? result : 1 / result;
         }
     }
 }

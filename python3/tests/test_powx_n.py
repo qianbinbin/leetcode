@@ -2,31 +2,25 @@ from unittest import TestCase
 
 from leetcodepy.powx_n import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-delta = 0.00001
+DELTA = 0.00001
 
-x1 = 2.00000
+X1 = 2.00000
+N1 = 10
+EXPECTED1 = 1024.00000
 
-n1 = 10
+X2 = 2.10000
+N2 = 3
+EXPECTED2 = 9.26100
 
-expected1 = 1024.00000
-
-x2 = 2.10000
-
-n2 = 3
-
-expected2 = 9.26100
-
-x3 = 2.00000
-
-n3 = -2
-
-expected3 = 0.25000
+X3 = 2.00000
+N3 = -2
+EXPECTED3 = 0.25000
 
 
 class TestPowXN(TestCase):
     def test1(self):
-        self.assertAlmostEqual(expected1, solution1.myPow(x1, n1), delta=delta)
-        self.assertAlmostEqual(expected2, solution1.myPow(x2, n2), delta=delta)
-        self.assertAlmostEqual(expected3, solution1.myPow(x3, n3), delta=delta)
+        self.assertAlmostEqual(EXPECTED1, SOLUTION1.myPow(X1, N1), delta=DELTA)
+        self.assertAlmostEqual(EXPECTED2, SOLUTION1.myPow(X2, N2), delta=DELTA)
+        self.assertAlmostEqual(EXPECTED3, SOLUTION1.myPow(X3, N3), delta=DELTA)
