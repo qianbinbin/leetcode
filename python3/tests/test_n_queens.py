@@ -2,23 +2,21 @@ from unittest import TestCase
 
 from leetcodepy.n_queens import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n = 4
+N1 = 4
+EXPECTED1 = [
+    [".Q..", "...Q", "Q...", "..Q."],
+    ["..Q.", "Q...", "...Q", ".Q.."]
+]
 
-expected = [
-    [".Q..",
-     "...Q",
-     "Q...",
-     "..Q."],
-
-    ["..Q.",
-     "Q...",
-     "...Q",
-     ".Q.."]
+N2 = 1
+EXPECTED2 = [
+    ["Q"]
 ]
 
 
 class TestNQueens(TestCase):
     def test1(self):
-        self.assertListEqual(expected, solution1.solveNQueens(n))
+        self.assertListEqual(EXPECTED1, SOLUTION1.solveNQueens(N1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.solveNQueens(N2))
