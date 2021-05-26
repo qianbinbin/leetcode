@@ -5,19 +5,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaximumSubarrayTest {
-    private final MaximumSubarray.Solution1 solution1 = new MaximumSubarray.Solution1();
+    private static final MaximumSubarray.Solution1 SOLUTION1 = new MaximumSubarray.Solution1();
 
-    private final MaximumSubarray.Solution2 solution2 = new MaximumSubarray.Solution2();
+    private final int[] NUMS1 = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    private final int EXPECTED1 = 6;
+
+    private final int[] NUMS2 = {1};
+    private final int EXPECTED2 = 1;
+
+    private final int[] NUMS3 = {5, 4, -1, 7, 8};
+    private final int EXPECTED3 = 23;
 
     @Test
     void test1() {
-        int nums[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        assertEquals(6, solution1.maxSubArray(nums));
-    }
-
-    @Test
-    void test2() {
-        int nums[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        assertEquals(6, solution2.maxSubArray(nums));
+        assertEquals(EXPECTED1, SOLUTION1.maxSubArray(NUMS1));
+        assertEquals(EXPECTED2, SOLUTION1.maxSubArray(NUMS2));
+        assertEquals(EXPECTED3, SOLUTION1.maxSubArray(NUMS3));
     }
 }
