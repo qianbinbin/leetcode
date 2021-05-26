@@ -2,13 +2,16 @@ from unittest import TestCase
 
 from leetcodepy.n_queens_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n = 4
+N1 = 4
+EXPECTED1 = 2
 
-expected = 2
+N2 = 1
+EXPECTED2 = 1
 
 
 class TestNQueensII(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.totalNQueens(n))
+        self.assertEqual(EXPECTED1, SOLUTION1.totalNQueens(N1))
+        self.assertEqual(EXPECTED2, SOLUTION1.totalNQueens(N2))

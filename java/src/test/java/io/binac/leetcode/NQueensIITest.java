@@ -5,10 +5,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NQueensIITest {
-    private final NQueensII.Solution1 solution1 = new NQueensII.Solution1();
+    private static final NQueensII.Solution1 SOLUTION1 = new NQueensII.Solution1();
+
+    private final int N1 = 4, EXPECTED1 = 2;
+
+    private final int N2 = 1, EXPECTED2 = 1;
 
     @Test
     void test1() {
-        assertEquals(2, solution1.totalNQueens(4));
+        assertEquals(EXPECTED1, SOLUTION1.totalNQueens(N1));
+        assertEquals(EXPECTED2, SOLUTION1.totalNQueens(N2));
     }
 }

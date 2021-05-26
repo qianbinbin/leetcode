@@ -3,39 +3,40 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-static void n_queens_dfs(int n, int row, bool *columns, bool *main_diagonal, bool *anti_diagonal, int *count) {
-    if (row == n) {
+static void n_queens_dfs(int n, int i, bool *columns, bool *main_diag,
+                         bool *anti_diag, int *count) {
+    if (i == n) {
         ++(*count);
         return;
     }
-    for (int col = 0; col < n; ++col) {
-        const int main = n - 1 - row + col, anti = row + col;
-        if (columns[col] || main_diagonal[main] || anti_diagonal[anti]) continue;
-        columns[col] = true;
-        main_diagonal[main] = true;
-        anti_diagonal[anti] = true;
+    for (int j = 0, d, a; j < n; ++j) {
+        d = n - 1 + i - j;
+        a = i + j;
+        if (columns[j] || main_diag[d] || anti_diag[a])
+            continue;
+        columns[j] = true;
+        main_diag[d] = true;
+        anti_diag[a] = true;
 
-        n_queens_dfs(n, row + 1, columns, main_diagonal, anti_diagonal, count);
+        n_queens_dfs(n, i + 1, columns, main_diag, anti_diag, count);
 
-        columns[col] = false;
-        main_diagonal[main] = false;
-        anti_diagonal[anti] = false;
+        columns[j] = false;
+        main_diag[d] = false;
+        anti_diag[a] = false;
     }
 }
 
 int totalNQueens_52_1(int n) {
-    if (n < 1) return -1;
-
     bool *columns = (bool *) calloc(n, sizeof(bool));
-    bool *main_diagonal = (bool *) calloc(2 * n - 1, sizeof(bool));
-    bool *anti_diagonal = (bool *) calloc(2 * n - 1, sizeof(bool));
+    bool *main_diag = (bool *) calloc(2 * n - 1, sizeof(bool));
+    bool *anti_diag = (bool *) calloc(2 * n - 1, sizeof(bool));
 
     int ret = 0;
 
-    n_queens_dfs(n, 0, columns, main_diagonal, anti_diagonal, &ret);
+    n_queens_dfs(n, 0, columns, main_diag, anti_diag, &ret);
 
     free(columns);
-    free(main_diagonal);
-    free(anti_diagonal);
+    free(main_diag);
+    free(anti_diag);
     return ret;
 }

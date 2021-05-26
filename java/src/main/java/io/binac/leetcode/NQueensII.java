@@ -1,8 +1,5 @@
 package io.binac.leetcode;
 
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
  * <p>
@@ -30,35 +27,30 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class NQueensII {
     public static class Solution1 {
-        private void totalNQueens(int n, int row,
-                                  AtomicInteger count, boolean column[], boolean mainDiagonal[], boolean antiDiagonal[]) {
-            if (row == n) {
-                count.incrementAndGet();
+        private void totalNQueens(int n, int i, int[] count,
+                                  boolean[] column, boolean[] mainDiagonal, boolean[] antiDiagonal) {
+            if (i == n) {
+                ++count[0];
                 return;
             }
-            for (int j = 0; j < n; ++j) {
-                final int main = -row + j + n - 1;
-                final int anti = row + j;
-                if (column[j] || mainDiagonal[main] || antiDiagonal[anti]) continue;
+            for (int j = 0, d, a; j < n; ++j) {
+                d = i - j + n - 1;
+                a = i + j;
+                if (column[j] || mainDiagonal[d] || antiDiagonal[a]) continue;
                 column[j] = true;
-                mainDiagonal[main] = true;
-                antiDiagonal[anti] = true;
-                totalNQueens(n, row + 1, count, column, mainDiagonal, antiDiagonal);
+                mainDiagonal[d] = true;
+                antiDiagonal[a] = true;
+                totalNQueens(n, i + 1, count, column, mainDiagonal, antiDiagonal);
                 column[j] = false;
-                mainDiagonal[main] = false;
-                antiDiagonal[anti] = false;
+                mainDiagonal[d] = false;
+                antiDiagonal[a] = false;
             }
         }
 
         public int totalNQueens(int n) {
-            if (n < 1) throw new IllegalArgumentException("n must be positive");
-
-            boolean column[] = new boolean[n];
-            boolean mainDiagonal[] = new boolean[2 * n - 1];
-            boolean antiDiagonal[] = new boolean[2 * n - 1];
-            AtomicInteger result = new AtomicInteger();
-            totalNQueens(n, 0, result, column, mainDiagonal, antiDiagonal);
-            return result.get();
+            int[] result = new int[1];
+            totalNQueens(n, 0, result, new boolean[n], new boolean[2 * n - 1], new boolean[2 * n - 1]);
+            return result[0];
         }
     }
 }
