@@ -16,29 +16,22 @@ Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 """
 from typing import List
 
-from .utils import Interval
-
 
 class Solution1:
-    def insert(self, intervals, newInterval):
-        """
-        :type intervals: List[Interval]
-        :type newInterval: Interval
-        :rtype: List[Interval]
-        """
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         result = []
         size = len(intervals)
         i = 0
-        while i < size and intervals[i].end < newInterval.start:
-            result.append(Interval(intervals[i].start, intervals[i].end))
+        while i < size and intervals[i][1] < newInterval[0]:
+            result.append(intervals[i][:])
             i += 1
-        merge = Interval(newInterval.start, newInterval.end)
-        while i < size and merge.end >= intervals[i].start:
-            merge.start = min(merge.start, intervals[i].start)
-            merge.end = max(merge.end, intervals[i].end)
+        merge = newInterval[:]
+        while i < size and merge[1] >= intervals[i][0]:
+            merge[0] = min(merge[0], intervals[i][0])
+            merge[1] = max(merge[1], intervals[i][1])
             i += 1
         result.append(merge)
         while i < size:
-            result.append(Interval(intervals[i].start, intervals[i].end))
+            result.append(intervals[i][:])
             i += 1
         return result

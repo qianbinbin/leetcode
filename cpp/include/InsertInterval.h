@@ -1,8 +1,16 @@
-// Given a set of non-overlapping intervals, insert a new interval into the
-// intervals (merge if necessary).
+// You are given an array of non-overlapping intervals intervals where
+// intervals[i] = [starti, endi] represent the start and the end of the ith
+// interval and intervals is sorted in ascending order by starti. You are also
+// given an interval newInterval = [start, end] that represents the start and
+// end of another interval.
 //
-// You may assume that the intervals were initially sorted according to their
-// start times.
+// Insert newInterval into intervals such that intervals is still sorted in
+// ascending order by starti and intervals still does not have any overlapping
+// intervals (merge overlapping intervals if necessary).
+//
+// Return intervals after the insertion.
+//
+//
 //
 // Example 1:
 //
@@ -14,21 +22,45 @@
 // Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
 // Output: [[1,2],[3,10],[12,16]]
 // Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+//
+// Example 3:
+//
+// Input: intervals = [], newInterval = [5,7]
+// Output: [[5,7]]
+//
+// Example 4:
+//
+// Input: intervals = [[1,5]], newInterval = [2,3]
+// Output: [[1,5]]
+//
+// Example 5:
+//
+// Input: intervals = [[1,5]], newInterval = [2,7]
+// Output: [[1,7]]
+//
+//
+// Constraints:
+//
+// 0 <= intervals.length <= 10^4
+// intervals[i].length == 2
+// 0 <= starti <= endi <= 10^5
+// intervals is sorted by starti in ascending order.
+// newInterval.length == 2
+// 0 <= start <= end <= 10^5
 
 #ifndef LEETCODECPP_INSERTINTERVAL_H
 #define LEETCODECPP_INSERTINTERVAL_H
 
-#include "Interval.h"
 #include <vector>
 
 namespace lcpp {
 
 class Solution57_1 {
 public:
-  std::vector<Interval> insert(std::vector<Interval> &intervals,
-                               Interval newInterval);
+  std::vector<std::vector<int>> insert(std::vector<std::vector<int>> &intervals,
+                                       std::vector<int> &newInterval);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_INSERTINTERVAL_H
+#endif // LEETCODECPP_INSERTINTERVAL_H
