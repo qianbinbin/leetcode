@@ -5,5 +5,5 @@ extern "C" {
 }
 
 TEST(length_of_last_word_test, lengthOfLastWord_58_1) {
-    EXPECT_EQ(lengthOfLastWord_58_1("Hello World"), 5);
+    EXPECT_EQ(5, lengthOfLastWord_58_1("Hello World"));
 }

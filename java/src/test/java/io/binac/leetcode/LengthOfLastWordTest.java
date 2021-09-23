@@ -5,10 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LengthOfLastWordTest {
-    private final LengthOfLastWord.Solution1 solution1 = new LengthOfLastWord.Solution1();
+    private static final LengthOfLastWord.Solution1 SOLUTION1 = new LengthOfLastWord.Solution1();
+
+    private final String S1 = "Hello World";
+    private final int EXPECTED1 = 5;
 
     @Test
     void test1() {
-        assertEquals(5, solution1.lengthOfLastWord("Hello World"));
+        assertEquals(EXPECTED1, SOLUTION1.lengthOfLastWord(S1));
     }
 }

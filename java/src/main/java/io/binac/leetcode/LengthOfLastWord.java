@@ -1,27 +1,33 @@
 package io.binac.leetcode;
 
 /**
- * Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
- * <p>
- * <p>If the last word does not exist, return 0.
- * <p>
- * <p>Note: A word is defined as a character sequence consists of non-space characters only.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: "Hello World"
- *     Output: 5
- * </blockquote></pre>
+ * <p>Given a string <code>s</code> consists of some words separated by spaces, return <em>the length of the last word&nbsp;in the string. If the last word does not exist, return </em><code>0</code>.</p>
+ *
+ * <p>A <strong>word</strong> is a maximal substring consisting&nbsp;of non-space characters only.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> s = "Hello World"
+ * <strong>Output:</strong> 5
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> s = " "
+ * <strong>Output:</strong> 0
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>
+ * 	<li><code>s</code> consists of only English letters and spaces <code>' '</code>.</li>
+ * </ul>
  */
 public class LengthOfLastWord {
     public static class Solution1 {
         public int lengthOfLastWord(String s) {
             final int len = s.length();
-            if (len == 0) return 0;
             int end = len - 1;
             while (end >= 0 && s.charAt(end) == ' ')
                 --end;
-            if (end < 0) return 0;
             int start = end - 1;
             while (start >= 0 && s.charAt(start) != ' ')
                 --start;

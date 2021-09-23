@@ -1,15 +1,34 @@
-// Given a string s consists of upper/lower-case alphabets and empty space
-// characters ' ', return the length of last word in the string.
+// Given a string s consisting of some words separated by some number of spaces,
+// return the length of the last word in the string.
 //
-// If the last word does not exist, return 0.
+// A word is a maximal substring consisting of non-space characters only.
 //
-// Note: A word is defined as a character sequence consists of non-space
-// characters only.
 //
-// Example:
 //
-// Input: "Hello World"
+// Example 1:
+//
+// Input: s = "Hello World"
 // Output: 5
+// Explanation: The last word is "World" with length 5.
+//
+// Example 2:
+//
+// Input: s = "   fly me   to   the moon  "
+// Output: 4
+// Explanation: The last word is "moon" with length 4.
+//
+// Example 3:
+//
+// Input: s = "luffy is still joyboy"
+// Output: 6
+// Explanation: The last word is "joyboy" with length 6.
+//
+//
+// Constraints:
+//
+// 1 <= s.length <= 10^4
+// s consists of only English letters and spaces ' '.
+// There will be at least one word in s.
 
 #ifndef LEETCODECPP_LENGTHOFLASTWORD_H
 #define LEETCODECPP_LENGTHOFLASTWORD_H
@@ -23,6 +42,6 @@ public:
   int lengthOfLastWord(std::string s);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_LENGTHOFLASTWORD_H
+#endif // LEETCODECPP_LENGTHOFLASTWORD_H
