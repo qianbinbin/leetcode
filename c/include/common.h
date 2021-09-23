@@ -18,11 +18,6 @@ struct ListNode *list_create(int *nums, int numsSize);
 
 void list_free(struct ListNode *head);
 
-struct Interval {
-    int start;
-    int end;
-};
-
 struct TreeNode {
     int val;
     struct TreeNode *left;
