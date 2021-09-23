@@ -2,11 +2,11 @@ from unittest import TestCase
 
 from leetcodepy.spiral_matrix_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n = 3
+N1 = 3
 
-expected = [
+EXPECTED1 = [
     [1, 2, 3],
     [8, 9, 4],
     [7, 6, 5]
@@ -15,4 +15,4 @@ expected = [
 
 class TestSpiralMatrixII(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.generateMatrix(n))
+        self.assertEqual(EXPECTED1, SOLUTION1.generateMatrix(N1))
