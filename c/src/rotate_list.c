@@ -3,8 +3,6 @@
 #include <stddef.h>
 
 struct ListNode *rotateRight_61_1(struct ListNode *head, int k) {
-    if (head == NULL || k < 1) return head;
-
     int size = 0;
     for (struct ListNode *p = head; p != NULL; p = p->next) ++size;
     k %= size;
