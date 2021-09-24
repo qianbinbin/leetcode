@@ -1,4 +1,4 @@
-// The set [1,2,3,...,n] contains a total of n! unique permutations.
+// The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
 //
 // By listing and labeling all of the permutations in order, we get the
 // following sequence for n = 3:
@@ -12,10 +12,7 @@
 //
 // Given n and k, return the kth permutation sequence.
 //
-// Note:
 //
-// Given n will be between 1 and 9 inclusive.
-// Given k will be between 1 and n! inclusive.
 //
 // Example 1:
 //
@@ -26,6 +23,17 @@
 //
 // Input: n = 4, k = 9
 // Output: "2314"
+//
+// Example 3:
+//
+// Input: n = 3, k = 1
+// Output: "123"
+//
+//
+// Constraints:
+//
+// 1 <= n <= 9
+// 1 <= k <= n!
 
 #ifndef LEETCODECPP_PERMUTATIONSEQUENCE_H
 #define LEETCODECPP_PERMUTATIONSEQUENCE_H
@@ -39,6 +47,6 @@ public:
   std::string getPermutation(int n, int k);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_PERMUTATIONSEQUENCE_H
+#endif // LEETCODECPP_PERMUTATIONSEQUENCE_H

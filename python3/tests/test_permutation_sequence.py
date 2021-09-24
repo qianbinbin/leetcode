@@ -2,18 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.permutation_sequence import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n1, k1 = 3, 3
+N1, K1 = 3, 3
+EXPECTED1 = "213"
 
-expected1 = "213"
+N2, K2 = 4, 9
+EXPECTED2 = "2314"
 
-n2, k2 = 4, 9
-
-expected2 = "2314"
+N3, K3 = 3, 1
+EXPECTED3 = "123"
 
 
 class TestPermutationSequence(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.getPermutation(n1, k1))
-        self.assertEqual(expected2, solution1.getPermutation(n2, k2))
+        self.assertEqual(EXPECTED1, SOLUTION1.getPermutation(N1, K1))
+        self.assertEqual(EXPECTED2, SOLUTION1.getPermutation(N2, K2))
+        self.assertEqual(EXPECTED3, SOLUTION1.getPermutation(N3, K3))

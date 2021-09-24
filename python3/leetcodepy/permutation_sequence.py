@@ -30,21 +30,10 @@ Output: "2314"
 
 
 class Solution1:
-    def getPermutation(self, n, k):
-        """
-        :type n: int
-        :type k: int
-        :rtype: str
-        """
-        if n < 1 or n > 9:
-            raise ValueError
-        if k < 1:
-            raise ValueError
+    def getPermutation(self, n: int, k: int) -> str:
         factorials = [1] * (n + 1)
         for i in range(2, n + 1):
             factorials[i] = factorials[i - 1] * i
-        if k > factorials[n]:
-            raise ValueError
 
         values = [str(i) for i in range(1, n + 1)]
         result = ""

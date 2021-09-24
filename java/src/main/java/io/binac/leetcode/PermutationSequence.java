@@ -5,80 +5,55 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * The set [1,2,3,...,n] contains a total of n! unique permutations.
- * <p>
- * <p>By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
- * <p>
- * <p>"123"
- * <p>"132"
- * <p>"213"
- * <p>"231"
- * <p>"312"
- * <p>"321"
- * <p>
- * <p>Given n and k, return the kth permutation sequence.
- * <p>
- * <p>Note:
- * <p>
- * <p>Given n will be between 1 and 9 inclusive.
- * <p>Given k will be between 1 and n! inclusive.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: n = 3, k = 3
- *     Output: "213"
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: n = 4, k = 9
- *     Output: "2314"
- * </blockquote></pre>
+ * <p>The set <code>[1, 2, 3, ...,&nbsp;n]</code> contains a total of <code>n!</code> unique permutations.</p>
+ *
+ * <p>By listing and labeling all of the permutations in order, we get the following sequence for <code>n = 3</code>:</p>
+ *
+ * <ol>
+ * 	<li><code>"123"</code></li>
+ * 	<li><code>"132"</code></li>
+ * 	<li><code>"213"</code></li>
+ * 	<li><code>"231"</code></li>
+ * 	<li><code>"312"</code></li>
+ * 	<li><code>"321"</code></li>
+ * </ol>
+ *
+ * <p>Given <code>n</code> and <code>k</code>, return the <code>k<sup>th</sup></code> permutation sequence.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> n = 3, k = 3
+ * <strong>Output:</strong> "213"
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> n = 4, k = 9
+ * <strong>Output:</strong> "2314"
+ * </pre><p><strong>Example 3:</strong></p>
+ * <pre><strong>Input:</strong> n = 3, k = 1
+ * <strong>Output:</strong> "123"
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= n &lt;= 9</code></li>
+ * 	<li><code>1 &lt;= k &lt;= n!</code></li>
+ * </ul>
  */
 public class PermutationSequence {
     public static class Solution1 {
-        private boolean getPermutation(int n, int k, boolean[] visited, AtomicInteger count, char[] path, int index) {
-            if (index == n)
-                return count.incrementAndGet() == k;
-
-            for (int i = 0; i < n; ++i) {
-                if (visited[i]) continue;
-                visited[i] = true;
-                path[index] = (char) ('1' + i);
-                if (getPermutation(n, k, visited, count, path, index + 1)) return true;
-                visited[i] = false;
-            }
-            return false;
-        }
-
         public String getPermutation(int n, int k) {
-            if (n < 1 || n > 9)
-                throw new IllegalArgumentException("n must be between 1 and 9 inclusive");
-            char path[] = new char[n];
-            boolean visited[] = new boolean[n];
-            if (getPermutation(n, k, visited, new AtomicInteger(), path, 0))
-                return new String(path);
-            throw new IllegalArgumentException("k must be between 1 and n! inclusive");
-        }
-    }
-
-    public static class Solution2 {
-        public String getPermutation(int n, int k) {
-            if (n < 1 || n > 9)
-                throw new IllegalArgumentException("n must be between 1 and 9 inclusive");
-            int factorial[] = new int[n + 1];
+            int[] factorial = new int[n + 1];
             factorial[0] = 1;
             factorial[1] = 1;
             for (int i = 2; i <= n; ++i)
                 factorial[i] = i * factorial[i - 1];
-            if (k > factorial[n])
-                throw new IllegalArgumentException("k must be between 1 and n! inclusive");
 
             List<Character> chars = new ArrayList<>();
             for (int i = 0; i < n; ++i) chars.add((char) ('1' + i));
-            char result[] = new char[n];
+            char[] result = new char[n];
             --k;
-            for (int i = 0; i < n; ++i) {
-                final int index = k / factorial[n - i - 1];
+            for (int i = 0, index; i < n; ++i) {
+                index = k / factorial[n - i - 1];
                 result[i] = chars.remove(index);
                 k = k % factorial[n - i - 1];
             }
