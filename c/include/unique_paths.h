@@ -5,38 +5,46 @@
  *
  * How many possible unique paths are there?
  *
- * https://leetcode.com/static/images/problemset/robot_maze.png
- * Above is a 7 x 3 grid. How many possible unique paths are there?
  *
- * Note: m and n will be at most 100.
  *
  * Example 1:
+ * https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png
+ *
+ * Input: m = 3, n = 7
+ * Output: 28
+ *
+ * Example 2:
  *
  * Input: m = 3, n = 2
  * Output: 3
  * Explanation:
  * From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
- * 1. Right -> Right -> Down
- * 2. Right -> Down -> Right
- * 3. Down -> Right -> Right
+ * 1. Right -> Down -> Down
+ * 2. Down -> Down -> Right
+ * 3. Down -> Right -> Down
  *
- * Example 2:
+ * Example 3:
  *
  * Input: m = 7, n = 3
  * Output: 28
+ *
+ * Example 4:
+ *
+ * Input: m = 3, n = 3
+ * Output: 6
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= m, n <= 100
+ * It's guaranteed that the answer will be less than or equal to 2 * 10^9.
  */
 
 #ifndef LEETCODE_UNIQUE_PATHS_H
 #define LEETCODE_UNIQUE_PATHS_H
 
-/**
- * Dynamic programming
- */
 int uniquePaths_62_1(int m, int n);
 
-/**
- * Combination
- */
 int uniquePaths_62_2(int m, int n);
 
 #endif //LEETCODE_UNIQUE_PATHS_H

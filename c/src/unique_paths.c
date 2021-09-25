@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 int uniquePaths_62_1(int m, int n) {
-    if (m < 1 || n < 1) return 0;
     if (m < n) {
         int tmp = m;
         m = n;
@@ -13,7 +12,7 @@ int uniquePaths_62_1(int m, int n) {
     dp[0] = 1;
     for (int i = 0; i < m; ++i) {
         for (int j = 1; j < n; ++j) {
-            dp[j] = dp[j] + dp[j - 1];
+            dp[j] += dp[j - 1];
         }
     }
     int ret = dp[n - 1];
@@ -35,6 +34,5 @@ static int64_t combination(int m, int n) {
 }
 
 int uniquePaths_62_2(int m, int n) {
-    if (m < 1 || n < 1) return 0;
     return (int) combination(m + n - 2, m - 1);
 }

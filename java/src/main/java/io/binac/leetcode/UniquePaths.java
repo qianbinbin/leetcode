@@ -3,41 +3,54 @@ package io.binac.leetcode;
 import java.util.Arrays;
 
 /**
- * A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
- * <p>
- * <p>The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
- * <p>
- * <p>How many possible unique paths are there?
- * <p>
- * <p>https://leetcode.com/static/images/problemset/robot_maze.png
- * <p>Above is a 7 x 3 grid. How many possible unique paths are there?
- * <p>
- * <p>Note: m and n will be at most 100.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: m = 3, n = 2
- *     Output: 3
- *     Explanation:
- *     From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
- *     1. Right -> Right -> Down
- *     2. Right -> Down -> Right
- *     3. Down -> Right -> Right
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: m = 7, n = 3
- *     Output: 28
- * </blockquote></pre>
+ * <p>A robot is located at the top-left corner of a <code>m x n</code> grid (marked 'Start' in the diagram below).</p>
+ *
+ * <p>The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).</p>
+ *
+ * <p>How many possible unique paths are there?</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img src="https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png" style="width: 400px; height: 183px;">
+ * <pre><strong>Input:</strong> m = 3, n = 7
+ * <strong>Output:</strong> 28
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> m = 3, n = 2
+ * <strong>Output:</strong> 3
+ * <strong>Explanation:</strong>
+ * From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+ * 1. Right -&gt; Down -&gt; Down
+ * 2. Down -&gt; Down -&gt; Right
+ * 3. Down -&gt; Right -&gt; Down
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> m = 7, n = 3
+ * <strong>Output:</strong> 28
+ * </pre>
+ *
+ * <p><strong>Example 4:</strong></p>
+ *
+ * <pre><strong>Input:</strong> m = 3, n = 3
+ * <strong>Output:</strong> 6
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= m, n &lt;= 100</code></li>
+ * 	<li>It's guaranteed that the answer will be less than or equal to <code>2 * 10<sup>9</sup></code>.</li>
+ * </ul>
  */
 public class UniquePaths {
     public static class Solution1 {
         public int uniquePaths(int m, int n) {
-            if (m < 1)
-                throw new IllegalArgumentException("m must be positive");
-            if (n < 1)
-                throw new IllegalArgumentException("n must be positive");
-            int dp[] = new int[m];
+            int[] dp = new int[m];
             Arrays.fill(dp, 1);
             for (int i = 1; i < n; ++i) {
                 for (int j = 1; j < m; ++j)
@@ -60,10 +73,6 @@ public class UniquePaths {
         }
 
         public int uniquePaths(int m, int n) {
-            if (m < 1)
-                throw new IllegalArgumentException("m must be positive");
-            if (n < 1)
-                throw new IllegalArgumentException("n must be positive");
             return (int) combination(m + n - 2, m - 1);
         }
     }
