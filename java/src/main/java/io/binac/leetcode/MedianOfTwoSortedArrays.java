@@ -51,9 +51,9 @@ public class MedianOfTwoSortedArrays {
             while (low <= high) {
                 i = (low + high) >>> 1;
                 j = sum - i;
-                if (i > 0 && j < nums2.length && nums1[i - 1] > nums2[j])
+                if (i > 0 && j < n && nums1[i - 1] > nums2[j])
                     high = i - 1;
-                else if (i < nums1.length && j > 0 && nums2[j - 1] > nums1[i])
+                else if (i < m && j > 0 && nums2[j - 1] > nums1[i])
                     low = i + 1;
                 else
                     break;
@@ -67,13 +67,13 @@ public class MedianOfTwoSortedArrays {
             else
                 left = Math.max(nums1[i - 1], nums2[j - 1]);
 
-            if ((nums1.length + nums2.length) % 2 != 0)
+            if ((m + n) % 2 != 0)
                 return left;
 
             int right;
-            if (i == nums1.length)
+            if (i == m)
                 right = nums2[j];
-            else if (j == nums2.length)
+            else if (j == n)
                 right = nums1[i];
             else
                 right = Math.min(nums1[i], nums2[j]);
