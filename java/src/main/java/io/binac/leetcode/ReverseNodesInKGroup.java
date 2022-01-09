@@ -62,12 +62,10 @@ public class ReverseNodesInKGroup {
                 if (i < k)
                     break;
 
-                p = first.next;
-                while (p != end) {
+                while ((p = first.next) != end) {
                     first.next = p.next;
                     p.next = tail.next;
                     tail.next = p;
-                    p = first.next;
                 }
                 tail = first;
             }

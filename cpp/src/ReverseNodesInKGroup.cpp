@@ -11,12 +11,10 @@ ListNode *Solution25_1::reverseKGroup(ListNode *head, int k) {
       E = E->next;
     if (Count != k)
       break;
-    P = First->next;
-    while (P != E) {
+    while ((P = First->next) != E) {
       First->next = P->next;
       P->next = Tail->next;
       Tail->next = P;
-      P = First->next;
     }
     Tail = First;
   }
