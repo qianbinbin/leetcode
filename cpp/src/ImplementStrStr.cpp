@@ -24,13 +24,11 @@ static std::vector<int> getNext(std::string const &Str) {
   int Size = Str.size();
   std::vector<int> Next(Size, 0);
   Next[0] = -1;
-  int I = 0, J = -1;
-  while (I < Size - 1) {
-    while (J != -1 && Str[J] != Str[I])
+  for (int I = 1, J = -1; I != Size; ++I) {
+    while (J != -1 && Str[I - 1] != Str[J])
       J = Next[J];
-    ++I;
     ++J;
-    Next[I] = Str[J] == Str[I] ? Next[J] : J;
+    Next[I] = Str[I] != Str[J] ? J : Next[J];
   }
   return Next;
 }

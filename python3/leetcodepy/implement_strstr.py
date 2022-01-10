@@ -57,13 +57,12 @@ class Solution2:
     def _get_next(s: str) -> list:
         _next = [0] * len(s)
         _next[0] = -1
-        i, j = 0, -1
-        while i < len(s) - 1:
-            while j != -1 and s[i] != s[j]:
+        j = -1
+        for i in range(1, len(s)):
+            while j != -1 and s[i - 1] != s[j]:
                 j = _next[j]
-            i += 1
             j += 1
-            _next[i] = _next[j] if s[i] == s[j] else j
+            _next[i] = j if s[i] != s[j] else _next[j]
         return _next
 
     def strStr(self, haystack: str, needle: str) -> int:

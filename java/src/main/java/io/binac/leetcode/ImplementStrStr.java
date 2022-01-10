@@ -55,15 +55,14 @@ public class ImplementStrStr {
 
     public static class Solution2 {
         private int[] getNext(String str) {
-            int[] next = new int[str.length()];
+            final int size = str.length();
+            int[] next = new int[size];
             next[0] = -1;
-            int i = 0, j = -1, end = str.length() - 1;
-            while (i < end) {
-                while (j != -1 && str.charAt(j) != str.charAt(i))
+            for (int i = 1, j = -1; i < size; ++i) {
+                while (j != -1 && str.charAt(i - 1) != str.charAt(j))
                     j = next[j];
-                ++i;
                 ++j;
-                next[i] = str.charAt(j) == str.charAt(i) ? next[j] : j;
+                next[i] = str.charAt(i) != str.charAt(j) ? j : next[j];
             }
             return next;
         }

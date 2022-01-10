@@ -27,13 +27,11 @@ int strStr_28_1(char *haystack, char *needle) {
 static int *get_next(char const *p, int size) {
     int *next = (int *) malloc(size * sizeof(int));
     next[0] = -1;
-    int i = 0, j = -1;
-    while (i < size - 1) {
-        while (j != -1 && p[j] != p[i])
+    for (int i = 1, j = -1; i < size; ++i) {
+        while (j != -1 && p[j] != p[i - 1])
             j = next[j];
-        ++i;
         ++j;
-        next[i] = p[j] != p[i] ? j : next[j];
+        next[i] = p[i] != p[j] ? j : next[j];
     }
     return next;
 }
