@@ -40,38 +40,31 @@ public class LongestValidParentheses {
         public int longestValidParentheses(String s) {
             final int len = s.length();
             int result = 0;
+            int i, pre;
             int top = -1;
-            int start = -1;
-            for (int i = 0; i < len; ++i) {
-                switch (s.charAt(i)) {
-                    case '(':
-                        ++top;
-                        break;
-                    case ')':
-                        if (top >= 0) {
-                            if (--top == -1)
-                                result = Math.max(result, i - start);
-                        } else {
-                            start = i;
-                        }
-                        break;
+            for (i = 0, pre = -1; i < len; ++i) {
+                if (s.charAt(i) == '(') {
+                    ++top;
+                } else {
+                    if (top == -1) {
+                        pre = i;
+                    } else {
+                        if (--top == -1)
+                            result = Math.max(result, i - pre);
+                    }
                 }
             }
             top = -1;
-            start = len;
-            for (int i = len - 1; i >= 0; --i) {
-                switch (s.charAt(i)) {
-                    case ')':
-                        ++top;
-                        break;
-                    case '(':
-                        if (top >= 0) {
-                            if (--top == -1)
-                                result = Math.max(result, start - i);
-                        } else {
-                            start = i;
-                        }
-                        break;
+            for (i = len - 1, pre = len; i >= 0; --i) {
+                if (s.charAt(i) == ')') {
+                    ++top;
+                } else {
+                    if (top == -1) {
+                        pre = i;
+                    } else {
+                        if (--top == -1)
+                            result = Math.max(result, pre - i);
+                    }
                 }
             }
             return result;

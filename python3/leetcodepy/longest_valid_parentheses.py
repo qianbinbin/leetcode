@@ -32,7 +32,7 @@ class Solution1:
     def longestValidParentheses(self, s: str) -> int:
         result = 0
         top = -1
-        start = -1
+        pre = -1
         for i in range(len(s)):
             if s[i] == '(':
                 top += 1
@@ -40,11 +40,11 @@ class Solution1:
                 if top >= 0:
                     top -= 1
                     if top == -1:
-                        result = max(result, i - start)
+                        result = max(result, i - pre)
                 else:
-                    start = i
+                    pre = i
         top = -1
-        start = len(s)
+        pre = len(s)
         for i in range(len(s) - 1, -1, -1):
             if s[i] == ')':
                 top += 1
@@ -52,9 +52,9 @@ class Solution1:
                 if top >= 0:
                     top -= 1
                     if top == -1:
-                        result = max(result, start - i)
+                        result = max(result, pre - i)
                 else:
-                    start = i
+                    pre = i
         return result
 
 
