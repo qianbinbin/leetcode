@@ -23,20 +23,21 @@ combination_sum_dfs(int *sorted_candidates, int c_size, int index, int target,
         ++(*size);
         return;
     }
-    for (int prev = -1, val; index < c_size; ++index) {
-        val = sorted_candidates[index];
-        if (sum + val > target) break;
-        if (val == prev) continue;
-        prev = val;
+    while (index < c_size) {
+        if (sum + sorted_candidates[index] > target) break;
         if (*path_size >= *path_capacity) {
             *path_capacity *= 2;
             *path = (int *) realloc(*path, *path_capacity * sizeof(int));
         }
-        (*path)[(*path_size)++] = val;
+        (*path)[(*path_size)++] = sorted_candidates[index];
         combination_sum_dfs(sorted_candidates, c_size, index + 1, target,
-                            sum + val, combinations, capacity, size, col_sizes,
+                            sum + sorted_candidates[index], combinations,
+                            capacity, size, col_sizes,
                             path, path_capacity, path_size);
         --(*path_size);
+        do { ++index; }
+        while (index < c_size && sorted_candidates[index] ==
+                                 sorted_candidates[index - 1]);
     }
 }
 

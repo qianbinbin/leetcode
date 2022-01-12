@@ -12,13 +12,15 @@ static void combination(Vec::iterator I, Vec::iterator E, int Target, Vec &Path,
     Result.push_back(Path);
     return;
   }
-  for (int Last = -1, Diff = Target - Sum; I != E && *I <= Diff; ++I) {
-    if (*I == Last)
-      continue;
-    Last = *I;
-    Path.push_back(Last);
-    combination(I + 1, E, Target, Path, Sum + Last, Result);
+  while (I != E) {
+    if (Sum + *I > Target)
+      break;
+    Path.push_back(*I);
+    combination(I + 1, E, Target, Path, Sum + *I, Result);
     Path.pop_back();
+    do {
+      ++I;
+    } while (I != E && *I == *(I - 1));
   }
 }
 

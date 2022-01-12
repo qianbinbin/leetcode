@@ -51,15 +51,15 @@ public class CombinationSumII {
                 result.add(new ArrayList<>(path));
                 return;
             }
-            for (int prev = -1, val; index < sortedArray.length; ++index) {
-                val = sortedArray[index];
-                if (sum + val > target) break;
-                if (val == prev) continue;
-                prev = val;
-
-                path.add(val);
-                combinationSum2(sortedArray, index + 1, target, sum + val, result, path);
+            while (index < sortedArray.length) {
+                if (sortedArray[index] + sum > target)
+                    break;
+                path.add(sortedArray[index]);
+                combinationSum2(sortedArray, index + 1, target, sum + sortedArray[index], result, path);
                 path.remove(path.size() - 1);
+                do {
+                    ++index;
+                } while (index < sortedArray.length && sortedArray[index] == sortedArray[index - 1]);
             }
         }
 
