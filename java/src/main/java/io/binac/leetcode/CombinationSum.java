@@ -59,11 +59,13 @@ public class CombinationSum {
     public static class Solution1 {
         private void combinationSum(int[] candidates, int index, int target, List<List<Integer>> result,
                                     List<Integer> path, int sum) {
-            if (sum == target)
+            if (sum == target) {
                 result.add(new ArrayList<>(path));
-            if (sum > target)
                 return;
+            }
             for (; index < candidates.length; ++index) {
+                if (candidates[index] + sum > target)
+                    continue;
                 path.add(candidates[index]);
                 combinationSum(candidates, index, target, result, path, sum + candidates[index]);
                 path.remove(path.size() - 1);

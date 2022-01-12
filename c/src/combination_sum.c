@@ -22,8 +22,9 @@ combination_sum_dfs(int *candidates, int c_size, int index, int target, int sum,
         ++(*size);
         return;
     }
-    if (sum > target) return;
     for (; index < c_size; ++index) {
+        if (candidates[index] + sum > target)
+            continue;
         if (*path_size >= *path_capacity) {
             *path_capacity *= 2;
             *path = (int *) realloc(*path, *path_capacity * sizeof(int));
