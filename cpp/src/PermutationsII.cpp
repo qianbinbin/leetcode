@@ -11,16 +11,19 @@ static void permute(std::vector<int> &Nums, std::vector<bool> &Visited,
     Result.push_back(Path);
     return;
   }
-  std::vector<int>::difference_type Last = -1;
-  for (std::vector<int>::size_type I = 0; I != E; ++I) {
-    if (Visited[I] || (Last != -1 && Nums[Last] == Nums[I]))
+  for (std::vector<int>::size_type I = 0; I != E;) {
+    if (Visited[I]) {
+      ++I;
       continue;
-    Last = I;
+    }
     Path.push_back(Nums[I]);
     Visited[I] = true;
     permute(Nums, Visited, Path, Result);
     Visited[I] = false;
     Path.pop_back();
+    do {
+      ++I;
+    } while (I != E && Nums[I] == Nums[I - 1]);
   }
 }
 

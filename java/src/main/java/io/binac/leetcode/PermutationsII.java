@@ -38,15 +38,19 @@ public class PermutationsII {
                 result.add(new ArrayList<>(path));
                 return;
             }
-            for (int i = 0, last = -1; i < sorted.length; ++i) {
-                if (visited[i] || (last != -1 && sorted[i] == sorted[last]))
+            for (int i = 0; i < sorted.length; ) {
+                if (visited[i]) {
+                    ++i;
                     continue;
-                last = i;
+                }
                 path.add(sorted[i]);
                 visited[i] = true;
                 permuteUnique(sorted, result, path, visited);
                 visited[i] = false;
                 path.remove(path.size() - 1);
+                do {
+                    ++i;
+                } while (i < sorted.length && sorted[i] == sorted[i - 1]);
             }
         }
 

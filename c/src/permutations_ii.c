@@ -18,17 +18,18 @@ permute_unique_dfs(int *nums, int nums_size, bool *visited, int **permutations,
         ++(*size);
         return;
     }
-    for (int i = 0, last = -1; i < nums_size; ++i) {
-        if (visited[i] ||
-            (last != -1 && nums[i] == nums[last]))
+    for (int i = 0; i < nums_size;) {
+        if (visited[i]) {
+            ++i;
             continue;
-        last = i;
+        }
         path[(*path_size)++] = nums[i];
         visited[i] = true;
         permute_unique_dfs(nums, nums_size, visited, permutations,
                            column_sizes, size, path, path_size);
         visited[i] = false;
         --(*path_size);
+        do { ++i; } while (i < nums_size && nums[i] == nums[i - 1]);
     }
 }
 
