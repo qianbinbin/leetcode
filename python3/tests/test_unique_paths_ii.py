@@ -2,17 +2,23 @@ from unittest import TestCase
 
 from leetcodepy.unique_paths_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-obstacle_grid = [
+OBSTACLE_GRID1 = [
     [0, 0, 0],
     [0, 1, 0],
     [0, 0, 0]
 ]
+EXPECTED1 = 2
 
-expected = 2
+OBSTACLE_GRID2 = [
+    [0, 1],
+    [0, 0]
+]
+EXPECTED2 = 1
 
 
 class TestUniquePathsII(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.uniquePathsWithObstacles(obstacle_grid))
+        self.assertEqual(EXPECTED1, SOLUTION1.uniquePathsWithObstacles(OBSTACLE_GRID1))
+        self.assertEqual(EXPECTED2, SOLUTION1.uniquePathsWithObstacles(OBSTACLE_GRID2))

@@ -5,18 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UniquePathsIITest {
-    private final UniquePathsII.Solution1 solution1 = new UniquePathsII.Solution1();
+    private static final UniquePathsII.Solution1 SOLUTION1 = new UniquePathsII.Solution1();
 
-    private final int obstacleGrid[][] = {
+    private final int[][] OBSTACLEGRID1 = {
             {0, 0, 0},
             {0, 1, 0},
             {0, 0, 0}
     };
+    private final int EXPECTED1 = 2;
 
-    private final int expected = 2;
+    private final int[][] OBSTACLEGRID2 = {
+            {0, 1},
+            {0, 0}
+    };
+    private final int EXPECTED2 = 1;
 
     @Test
     void test1() {
-        assertEquals(expected, solution1.uniquePathsWithObstacles(obstacleGrid));
+        assertEquals(EXPECTED1, SOLUTION1.uniquePathsWithObstacles(OBSTACLEGRID1));
+        assertEquals(EXPECTED2, SOLUTION1.uniquePathsWithObstacles(OBSTACLEGRID2));
     }
 }

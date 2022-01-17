@@ -1,15 +1,11 @@
 #include "UniquePathsII.h"
-#include <cassert>
-#include <cstdint>
-#include <limits>
 
 using namespace lcpp;
 
 int Solution63_1::uniquePathsWithObstacles(
     std::vector<std::vector<int>> &obstacleGrid) {
   const auto &M = obstacleGrid.size(), &N = obstacleGrid[0].size();
-  assert(M != 0 && N != 0);
-  std::vector<uint64_t> Dp(N);
+  std::vector<int> Dp(N);
   if (obstacleGrid[0][0] == 0)
     Dp[0] = 1;
   for (std::vector<int>::size_type J = 1;
@@ -26,6 +22,5 @@ int Solution63_1::uniquePathsWithObstacles(
         Dp[J] = 0;
     }
   }
-  assert(Dp[N - 1] <= std::numeric_limits<int>::max() && "Result overflow!");
   return Dp[N - 1];
 }
