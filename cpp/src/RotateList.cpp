@@ -3,6 +3,8 @@
 using namespace lcpp;
 
 ListNode *Solution61_1::rotateRight(ListNode *head, int k) {
+  if (head == nullptr)
+    return nullptr;
   int Size = 0;
   for (auto P = head; P != nullptr; P = P->next)
     ++Size;

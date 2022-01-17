@@ -30,6 +30,8 @@ import io.binac.leetcode.util.ListNode;
 public class RotateList {
     public static class Solution1 {
         public ListNode rotateRight(ListNode head, int k) {
+            if (head == null)
+                return null;
             int n = 0;
             for (ListNode p = head; p != null; p = p.next)
                 ++n;

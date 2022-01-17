@@ -37,6 +37,8 @@ class Solution1:
         return result
 
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return None
         k %= self.linked_list_length(head)
 
         fast = head
