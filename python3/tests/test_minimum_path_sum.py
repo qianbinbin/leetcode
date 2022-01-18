@@ -2,17 +2,23 @@ from unittest import TestCase
 
 from leetcodepy.minimum_path_sum import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-grid = [
+GRID1 = [
     [1, 3, 1],
     [1, 5, 1],
     [4, 2, 1]
 ]
+EXPECTED1 = 7
 
-expected = 7
+GRID2 = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+EXPECTED2 = 12
 
 
 class TestMinimumPathSum(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.minPathSum(grid))
+        self.assertEqual(EXPECTED1, SOLUTION1.minPathSum(GRID1))
+        self.assertEqual(EXPECTED2, SOLUTION1.minPathSum(GRID2))
