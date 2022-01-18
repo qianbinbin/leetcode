@@ -6,8 +6,6 @@ extern "C" {
 
 TEST(valid_number_test, isNumber_65_1) {
     EXPECT_TRUE(isNumber_65_1("0"));
-    EXPECT_TRUE(isNumber_65_1(" 0.1 "));
-    EXPECT_FALSE(isNumber_65_1("abc"));
-    EXPECT_FALSE(isNumber_65_1("1 a"));
-    EXPECT_TRUE(isNumber_65_1("2e10"));
+    EXPECT_FALSE(isNumber_65_1("e"));
+    EXPECT_FALSE(isNumber_65_1("."));
 }

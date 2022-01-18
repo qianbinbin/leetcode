@@ -1,30 +1,26 @@
 #include "valid_number.h"
 
-#include <string.h>
-
 bool isNumber_65_1(char *s) {
-    if (s == NULL) return false;
-    while (*s == ' ') ++s;
-    if (*s == '+' || *s == '-') ++s;
-    int dot = 0, exponent = 0, num = 0;
-    while (*s != '\0') {
-        if (*s == '.') {
-            if (dot > 0 || exponent > 0) return false;
-            ++dot;
-            ++s;
-        } else if (*s == 'e') {
-            if (exponent > 0 || num < 1) return false;
+    int point = 0, exponent = 0, digit = 0;
+    char *p = s;
+    for (; *p != '\0'; ++p) {
+        if (*p == '+' || *p == '-') {
+            if (p != s && *(p - 1) != 'e' && *(p - 1) != 'E')
+                return false;
+        } else if ('0' <= *p && *p <= '9') {
+            ++digit;
+        } else if (*p == '.') {
+            if (point > 0 || exponent > 0)
+                return false;
+            ++point;
+        } else if (*p == 'e' || *p == 'E') {
+            if (exponent > 0 || digit == 0)
+                return false;
             ++exponent;
-            num = 0;
-            if (*(s + 1) == '+' || *(s + 1) == '-')
-                s += 2;
-            else
-                ++s;
-        } else if ('0' <= *s && *s <= '9') {
-            ++num;
-            ++s;
-        } else break;
+            digit = 0;
+        } else {
+            break;
+        }
     }
-    while (*s == ' ') ++s;
-    return num > 0 && *s == '\0';
+    return digit > 0 && *p == '\0';
 }

@@ -2,32 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.valid_number import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-solution2 = Solution2()
+S1 = "0"
+EXPECTED1 = True
 
-s1 = "0"
+S2 = "e"
+EXPECTED2 = False
 
-s2 = " 0.1 "
-
-s3 = "abc"
-
-s4 = "1 a"
-
-s5 = "2e10"
+S3 = "."
+EXPECTED3 = False
 
 
 class TestValidNumber(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isNumber(s1))
-        self.assertTrue(solution1.isNumber(s2))
-        self.assertFalse(solution1.isNumber(s3))
-        self.assertFalse(solution1.isNumber(s4))
-        self.assertTrue(solution1.isNumber(s5))
-
-    def test2(self):
-        self.assertTrue(solution2.isNumber(s1))
-        self.assertTrue(solution2.isNumber(s2))
-        self.assertFalse(solution2.isNumber(s3))
-        self.assertFalse(solution2.isNumber(s4))
-        self.assertTrue(solution2.isNumber(s5))
+        self.assertEqual(EXPECTED1, SOLUTION1.isNumber(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isNumber(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.isNumber(S3))
