@@ -2,24 +2,24 @@ from unittest import TestCase
 
 from leetcodepy.plus_one import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
+DIGITS1 = [1, 2, 3]
+EXPECTED1 = [1, 2, 4]
 
-digits1 = [1, 2, 3]
+DIGITS2 = [4, 3, 2, 1]
+EXPECTED2 = [4, 3, 2, 2]
 
-expected1 = [1, 2, 4]
-
-digits2 = [4, 3, 2, 1]
-
-expected2 = [4, 3, 2, 2]
+DIGITS3 = [9]
+EXPECTED3 = [1]
 
 
 class TestPlusOne(TestCase):
     def test1(self):
-        self.assertListEqual(expected1, solution1.plusOne(digits1))
-        self.assertListEqual(expected2, solution1.plusOne(digits2))
+        self.assertListEqual(EXPECTED1, SOLUTION1.plusOne(DIGITS1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.plusOne(DIGITS2))
 
     def test2(self):
-        self.assertListEqual(expected1, solution2.plusOne(digits1))
-        self.assertListEqual(expected2, solution2.plusOne(digits2))
+        self.assertListEqual(EXPECTED1, SOLUTION2.plusOne(DIGITS1))
+        self.assertListEqual(EXPECTED2, SOLUTION2.plusOne(DIGITS2))
