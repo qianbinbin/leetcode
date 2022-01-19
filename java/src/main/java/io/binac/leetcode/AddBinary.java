@@ -1,30 +1,31 @@
 package io.binac.leetcode;
 
 /**
- * Given two binary strings, return their sum (also a binary string).
- * <p>
- * <p>The input strings are both non-empty and contains only characters 1 or 0.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: a = "11", b = "1"
- *     Output: "100"
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: a = "1010", b = "1011"
- *     Output: "10101"
- * </blockquote></pre>
+ * <p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> a = "11", b = "1"
+ * <strong>Output:</strong> "100"
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> a = "1010", b = "1011"
+ * <strong>Output:</strong> "10101"
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= a.length, b.length &lt;= 10<sup>4</sup></code></li>
+ * 	<li><code>a</code> and <code>b</code> consist&nbsp;only of <code>'0'</code> or <code>'1'</code> characters.</li>
+ * 	<li>Each string does not contain leading zeros except for the zero itself.</li>
+ * </ul>
  */
 public class AddBinary {
     public static class Solution1 {
         public String addBinary(String a, String b) {
             final int len1 = a.length(), len2 = b.length();
-            if (len1 == 0) return b;
-            if (len2 == 0) return a;
-
             final int len = Math.max(len1, len2) + 1;
-            char bits[] = new char[len];
+            char[] bits = new char[len];
             int i = len1 - 1, j = len2 - 1, k = len - 1;
             int carry = 0;
             for (; i >= 0 && j >= 0; --i, --j, --k) {

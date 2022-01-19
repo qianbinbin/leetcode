@@ -5,11 +5,11 @@ extern "C" {
 }
 
 TEST(add_binary_test, addBinary_67_1) {
-    char *ret1 = addBinary_67_1("11", "1");
-    EXPECT_STREQ(ret1, "100");
-    free(ret1);
+    char *actual1 = addBinary_67_1("11", "1");
+    EXPECT_STREQ("100", actual1);
+    free(actual1);
 
-    char *ret2 = addBinary_67_1("1010", "1011");
-    EXPECT_STREQ(ret2, "10101");
-    free(ret2);
+    char *actual2 = addBinary_67_1("1010", "1011");
+    EXPECT_STREQ("10101", actual2);
+    free(actual2);
 }

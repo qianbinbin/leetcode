@@ -1,6 +1,6 @@
-// Given two binary strings, return their sum (also a binary string).
+// Given two binary strings a and b, return their sum as a binary string.
 //
-// The input strings are both non-empty and contains only characters 1 or 0.
+//
 //
 // Example 1:
 //
@@ -11,6 +11,13 @@
 //
 // Input: a = "1010", b = "1011"
 // Output: "10101"
+//
+//
+// Constraints:
+//
+// 1 <= a.length, b.length <= 104
+// a and b consist only of '0' or '1' characters.
+// Each string does not contain leading zeros except for the zero itself.
 
 #ifndef LEETCODECPP_ADDBINARY_H
 #define LEETCODECPP_ADDBINARY_H
@@ -24,6 +31,6 @@ public:
   std::string addBinary(std::string a, std::string b);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_ADDBINARY_H
+#endif // LEETCODECPP_ADDBINARY_H

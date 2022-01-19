@@ -4,11 +4,8 @@
 using namespace lcpp;
 
 TEST(AddBinary, Solution67_1) {
-  std::string A1 = "11", B1 = "1";
-  const std::string Expected1 = "100";
-  EXPECT_EQ(Expected1, Solution67_1().addBinary(A1, B1));
+  auto S67_1 = Solution67_1();
 
-  std::string A2 = "1010", B2 = "1011";
-  const std::string Expected2 = "10101";
-  EXPECT_EQ(Expected2, Solution67_1().addBinary(A2, B2));
+  EXPECT_EQ("100", S67_1.addBinary("11", "1"));
+  EXPECT_EQ("10101", S67_1.addBinary("1010", "1011"));
 }
