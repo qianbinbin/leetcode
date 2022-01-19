@@ -13,8 +13,8 @@ void rotate_48_1(int **matrix, int matrixSize, int *matrixColSize) {
             swap(matrix[i] + j, matrix[j] + i);
         }
     }
-    for (int i = 0, j, h; i < n; ++i) {
-        for (j = 0, h = n / 2; j < h; ++j) {
+    for (int i = 0, j, h = n / 2; i < n; ++i) {
+        for (j = 0; j < h; ++j) {
             swap(matrix[i] + j, matrix[i] + n - 1 - j);
         }
     }

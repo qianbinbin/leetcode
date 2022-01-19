@@ -95,8 +95,9 @@ public class WildcardMatching {
                 } else if (star != -1) {
                     i = ++lastI;
                     j = star + 1;
-                } else
+                } else {
                     return false;
+                }
             }
             while (j < n && p.charAt(j) == '*') ++j;
             return j == n;

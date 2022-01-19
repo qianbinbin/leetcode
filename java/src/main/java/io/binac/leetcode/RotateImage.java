@@ -51,8 +51,8 @@ public class RotateImage {
                     matrix[j][i] = tmp;
                 }
             }
-            for (int i = 0, j, h, tmp; i < n; ++i) {
-                for (j = 0, h = n / 2; j < h; ++j) {
+            for (int i = 0, j, h = n / 2, tmp; i < n; ++i) {
+                for (j = 0; j < h; ++j) {
                     tmp = matrix[i][j];
                     matrix[i][j] = matrix[i][n - j - 1];
                     matrix[i][n - j - 1] = tmp;
