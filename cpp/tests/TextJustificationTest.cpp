@@ -4,6 +4,8 @@
 using namespace lcpp;
 
 TEST(TextJustification, Solution68_1) {
+  auto S68_1 = Solution68_1();
+
   std::vector<std::string> Words1{
       "This", "is", "an", "example", "of", "text", "justification."
   };
@@ -13,7 +15,7 @@ TEST(TextJustification, Solution68_1) {
       "example  of text",
       "justification.  "
   };
-  EXPECT_EQ(Expected1, Solution68_1().fullJustify(Words1, MaxWidth1));
+  EXPECT_EQ(Expected1, S68_1.fullJustify(Words1, MaxWidth1));
 
   std::vector<std::string> Words2{
       "What", "must", "be", "acknowledgment", "shall", "be"
@@ -24,7 +26,7 @@ TEST(TextJustification, Solution68_1) {
       "acknowledgment  ",
       "shall be        "
   };
-  EXPECT_EQ(Expected2, Solution68_1().fullJustify(Words2, MaxWidth2));
+  EXPECT_EQ(Expected2, S68_1.fullJustify(Words2, MaxWidth2));
 
   std::vector<std::string> Words3{
       "Science", "is", "what", "we", "understand", "well", "enough", "to",
@@ -40,5 +42,5 @@ TEST(TextJustification, Solution68_1) {
       "everything  else  we",
       "do                  "
   };
-  EXPECT_EQ(Expected3, Solution68_1().fullJustify(Words3, MaxWidth3));
+  EXPECT_EQ(Expected3, S68_1.fullJustify(Words3, MaxWidth3));
 }

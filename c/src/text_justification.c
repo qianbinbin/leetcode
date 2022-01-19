@@ -3,9 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char **fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSize) {
-    if (words == NULL || wordsSize < 1 || maxWidth < 1 || returnSize == NULL) return NULL;
-
+char **
+fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSize) {
     char **ret = (char **) malloc(wordsSize * sizeof(char *));
     *returnSize = 0;
 
@@ -17,7 +16,9 @@ char **fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSi
         memcpy(str, words[start], size);
 
         size_t length = size;
-        for (end = start; end + 1 < wordsSize && length + end - start + 1 + strlen(words[end + 1]) <= maxWidth;
+        for (end = start; end + 1 < wordsSize &&
+                          length + end - start + 1 + strlen(words[end + 1]) <=
+                          maxWidth;
              ++end) {
             length += strlen(words[end + 1]);
         }

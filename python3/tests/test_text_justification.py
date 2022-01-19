@@ -2,34 +2,28 @@ from unittest import TestCase
 
 from leetcodepy.text_justification import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-words1 = ["This", "is", "an", "example", "of", "text", "justification."]
-
-max_width1 = 16
-
-expected1 = [
+WORDS1 = ["This", "is", "an", "example", "of", "text", "justification."]
+MAXWIDTH1 = 16
+EXPECTED1 = [
     "This    is    an",
     "example  of text",
     "justification.  "
 ]
 
-words2 = ["What", "must", "be", "acknowledgment", "shall", "be"]
-
-max_width2 = 16
-
-expected2 = [
+WORDS2 = ["What", "must", "be", "acknowledgment", "shall", "be"]
+MAXWIDTH2 = 16
+EXPECTED2 = [
     "What   must   be",
     "acknowledgment  ",
     "shall be        "
 ]
 
-words3 = ["Science", "is", "what", "we", "understand", "well", "enough", "to", "explain",
+WORDS3 = ["Science", "is", "what", "we", "understand", "well", "enough", "to", "explain",
           "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"]
-
-max_width3 = 20
-
-expected3 = [
+MAXWIDTH3 = 20
+EXPECTED3 = [
     "Science  is  what we",
     "understand      well",
     "enough to explain to",
@@ -41,6 +35,6 @@ expected3 = [
 
 class TestTextJustification(TestCase):
     def test1(self):
-        self.assertListEqual(expected1, solution1.fullJustify(words1, max_width1))
-        self.assertListEqual(expected2, solution1.fullJustify(words2, max_width2))
-        self.assertListEqual(expected3, solution1.fullJustify(words3, max_width3))
+        self.assertListEqual(EXPECTED1, SOLUTION1.fullJustify(WORDS1, MAXWIDTH1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.fullJustify(WORDS2, MAXWIDTH2))
+        self.assertListEqual(EXPECTED3, SOLUTION1.fullJustify(WORDS3, MAXWIDTH3))

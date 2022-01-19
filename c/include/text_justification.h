@@ -61,9 +61,9 @@
 #define LEETCODE_TEXT_JUSTIFICATION_H
 
 /**
- * Return an array of size *returnSize.
  * Note: The returned array must be malloced, assume caller calls free().
  */
-char **fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSize);
+char **
+fullJustify_68_1(char **words, int wordsSize, int maxWidth, int *returnSize);
 
 #endif //LEETCODE_TEXT_JUSTIFICATION_H

@@ -8,36 +8,40 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TextJustificationTest {
-    private final TextJustification.Solution1 solution1 = new TextJustification.Solution1();
+    private static final TextJustification.Solution1 SOLUTION1 = new TextJustification.Solution1();
+
+    private final String[] WORDS1 = {"This", "is", "an", "example", "of", "text", "justification."};
+    private final int MAXWIDTH1 = 16;
+    private final List<String> EXPECTED1 = Arrays.asList(
+            "This    is    an",
+            "example  of text",
+            "justification.  "
+    );
+
+    private final String[] WORDS2 = {"What", "must", "be", "acknowledgment", "shall", "be"};
+    private final int MAXWIDTH2 = 16;
+    private final List<String> EXPECTED2 = Arrays.asList(
+            "What   must   be",
+            "acknowledgment  ",
+            "shall be        "
+    );
+
+    private final String[] WORDS3 = {"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain",
+            "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
+    private final int MAXWIDTH3 = 20;
+    private final List<String> EXPECTED3 = Arrays.asList(
+            "Science  is  what we",
+            "understand      well",
+            "enough to explain to",
+            "a  computer.  Art is",
+            "everything  else  we",
+            "do                  "
+    );
 
     @Test
     void test1() {
-        String words1[] = {"This", "is", "an", "example", "of", "text", "justification."};
-        List<String> expected1 = Arrays.asList(
-                "This    is    an",
-                "example  of text",
-                "justification.  "
-        );
-        assertEquals(expected1, solution1.fullJustify(words1, 16));
-
-        String words2[] = {"What", "must", "be", "acknowledgment", "shall", "be"};
-        List<String> expected2 = Arrays.asList(
-                "What   must   be",
-                "acknowledgment  ",
-                "shall be        "
-        );
-        assertEquals(expected2, solution1.fullJustify(words2, 16));
-
-        String words3[] = {"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain",
-                "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
-        List<String> expected3 = Arrays.asList(
-                "Science  is  what we",
-                "understand      well",
-                "enough to explain to",
-                "a  computer.  Art is",
-                "everything  else  we",
-                "do                  "
-        );
-        assertEquals(expected3, solution1.fullJustify(words3, 20));
+        assertEquals(EXPECTED1, SOLUTION1.fullJustify(WORDS1, MAXWIDTH1));
+        assertEquals(EXPECTED2, SOLUTION1.fullJustify(WORDS2, MAXWIDTH2));
+        assertEquals(EXPECTED3, SOLUTION1.fullJustify(WORDS3, MAXWIDTH3));
     }
 }
