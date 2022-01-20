@@ -2,18 +2,16 @@ from unittest import TestCase
 
 from leetcodepy.climbing_stairs import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n1 = 2
+N1 = 2
+EXPECTED1 = 2
 
-expected1 = 2
-
-n2 = 3
-
-expected2 = 3
+N2 = 3
+EXPECTED2 = 3
 
 
 class TestClimbingStairs(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.climbStairs(n1))
-        self.assertEqual(expected2, solution1.climbStairs(n2))
+        self.assertEqual(EXPECTED1, SOLUTION1.climbStairs(N1))
+        self.assertEqual(EXPECTED2, SOLUTION1.climbStairs(N2))
