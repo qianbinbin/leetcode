@@ -1,10 +1,8 @@
 #include "sqrtx.h"
 
-#include <limits.h>
-
 int mySqrt_69_1(int x) {
-    if (x < 0) return INT_MIN;
-    if (x < 2) return x;
+    if (x < 2)
+        return x;
     int start = 1, end = x / 2, mid;
     int x_mid;
     while (start <= end) {
@@ -22,12 +20,22 @@ int mySqrt_69_1(int x) {
 }
 
 int mySqrt_69_2(int x) {
-    if (x < 0) return INT_MIN;
-    if (x < 2) return x;
-
+    if (x < 2)
+        return x;
     int ret = x / 2;
     while (ret > x / ret || x / (ret + 1) >= ret + 1) {
         ret = (ret + x / ret) / 2;
+    }
+    return ret;
+}
+
+int mySqrt_69_3(int x) {
+    int ret = 0;
+    int odd = 1;
+    while (x >= odd) {
+        x -= odd;
+        ++ret;
+        odd += 2;
     }
     return ret;
 }

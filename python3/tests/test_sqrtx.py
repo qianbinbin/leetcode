@@ -2,24 +2,26 @@ from unittest import TestCase
 
 from leetcodepy.sqrtx import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
+SOLUTION3 = Solution3()
 
-solution2 = Solution2()
+X1 = 4
+EXPECTED1 = 2
 
-x1 = 4
-
-expected1 = 2
-
-x2 = 8
-
-expected2 = 2
+X2 = 8
+EXPECTED2 = 2
 
 
 class TestSqrt(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.mySqrt(x1))
-        self.assertEqual(expected2, solution1.mySqrt(x2))
+        self.assertEqual(EXPECTED1, SOLUTION1.mySqrt(X1))
+        self.assertEqual(EXPECTED2, SOLUTION1.mySqrt(X2))
 
     def test2(self):
-        self.assertEqual(expected1, solution2.mySqrt(x1))
-        self.assertEqual(expected2, solution2.mySqrt(x2))
+        self.assertEqual(EXPECTED1, SOLUTION2.mySqrt(X1))
+        self.assertEqual(EXPECTED2, SOLUTION2.mySqrt(X2))
+
+    def test3(self):
+        self.assertEqual(EXPECTED1, SOLUTION3.mySqrt(X1))
+        self.assertEqual(EXPECTED2, SOLUTION3.mySqrt(X2))
