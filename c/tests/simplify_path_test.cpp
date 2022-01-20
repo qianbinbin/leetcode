@@ -5,19 +5,15 @@ extern "C" {
 }
 
 TEST(simplify_path_test, simplifyPath_71_1) {
-    char *path1 = simplifyPath_71_1("/home/");
-    EXPECT_STREQ(path1, "/home");
-    free(path1);
+    char *actual1 = simplifyPath_71_1("/home/");
+    EXPECT_STREQ("/home", actual1);
+    free(actual1);
 
-    char *path2 = simplifyPath_71_1("/a/./b/../../c/");
-    EXPECT_STREQ(path2, "/c");
-    free(path2);
+    char *actual2 = simplifyPath_71_1("/../");
+    EXPECT_STREQ("/", actual2);
+    free(actual2);
 
-    char *path3 = simplifyPath_71_1("/../");
-    EXPECT_STREQ(path3, "/");
-    free(path3);
-
-    char *path4 = simplifyPath_71_1("/home//foo/");
-    EXPECT_STREQ(path4, "/home/foo");
-    free(path4);
+    char *actual3 = simplifyPath_71_1("/home//foo/");
+    EXPECT_STREQ("/home/foo", actual3);
+    free(actual3);
 }

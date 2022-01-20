@@ -18,11 +18,8 @@ std::string Solution71_1::simplifyPath(std::string path) {
       Stack.push_back(Str);
     }
   }
-  Str = "";
-  for (const auto &S : Stack) {
-    Str += "/" + S;
-  }
-  if (Str.empty())
-    Str = "/";
-  return Str;
+  std::string Result;
+  for (const auto &S : Stack)
+    Result += "/" + S;
+  return Result.empty() ? "/" : Result;
 }

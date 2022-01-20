@@ -4,10 +4,9 @@
 using namespace lcpp;
 
 TEST(SimplifyPath, Solution71_1) {
-  EXPECT_EQ("/home", Solution71_1().simplifyPath("/home/"));
-  EXPECT_EQ("/", Solution71_1().simplifyPath("/../"));
-  EXPECT_EQ("/home/foo", Solution71_1().simplifyPath("/home//foo/"));
-  EXPECT_EQ("/c", Solution71_1().simplifyPath("/a/./b/../../c/"));
-  EXPECT_EQ("/c", Solution71_1().simplifyPath("/a/../../b/../c//.//"));
-  EXPECT_EQ("/a/b/c", Solution71_1().simplifyPath("/a//b////c/d//././/.."));
+  auto S71_1 = Solution71_1();
+
+  EXPECT_EQ("/home", S71_1.simplifyPath("/home/"));
+  EXPECT_EQ("/", S71_1.simplifyPath("/../"));
+  EXPECT_EQ("/home/foo", S71_1.simplifyPath("/home//foo/"));
 }

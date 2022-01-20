@@ -2,28 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.simplify_path import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-path1 = "/home/"
+PATH1 = "/home/"
+EXPECTED1 = "/home"
 
-expected1 = "/home"
+PATH2 = "/../"
+EXPECTED2 = "/"
 
-path2 = "/a/./b/../../c/"
-
-expected2 = "/c"
-
-path3 = "/../"
-
-expected3 = "/"
-
-path4 = "/home//foo/"
-
-expected4 = "/home/foo"
+PATH3 = "/home//foo/"
+EXPECTED3 = "/home/foo"
 
 
 class TestSimplifyPath(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.simplifyPath(path1))
-        self.assertEqual(expected2, solution1.simplifyPath(path2))
-        self.assertEqual(expected3, solution1.simplifyPath(path3))
-        self.assertEqual(expected4, solution1.simplifyPath(path4))
+        self.assertEqual(EXPECTED1, SOLUTION1.simplifyPath(PATH1))
+        self.assertEqual(EXPECTED2, SOLUTION1.simplifyPath(PATH2))
+        self.assertEqual(EXPECTED3, SOLUTION1.simplifyPath(PATH3))

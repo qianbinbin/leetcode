@@ -4,8 +4,6 @@
 #include <string.h>
 
 char *simplifyPath_71_1(char *path) {
-    if (path == NULL) return NULL;
-
     char *ret = (char *) malloc(strlen(path) + 1);
     int index = -1;
     int start = 1, end = 1;
@@ -13,7 +11,8 @@ char *simplifyPath_71_1(char *path) {
         while (path[end] != '/' && path[end] != '\0') ++end;
         if (start == end || (start + 1 == end && path[start] == '.')) {
             // skip
-        } else if (start + 2 == end && path[start] == '.' && path[start + 1] == '.') {
+        } else if (start + 2 == end && path[start] == '.' &&
+                   path[start + 1] == '.') {
             while (index >= 0 && ret[index] != '/') --index;
             if (index >= 0) --index;
         } else {
