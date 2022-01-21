@@ -4,6 +4,7 @@ import io.binac.leetcode.util.ListNode;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * <p>You are given an array of <code>k</code> linked-lists <code>lists</code>, each linked-list is sorted in ascending order.</p>
@@ -85,7 +86,7 @@ public class MergeKSortedLists {
             if (lists.length == 0)
                 return null;
 
-            PriorityQueue<ListNode> heap = new PriorityQueue<>(lists.length, Comparator.comparingInt(o -> o.val));
+            Queue<ListNode> heap = new PriorityQueue<>(lists.length, Comparator.comparingInt(o -> o.val));
             for (ListNode node : lists)
                 if (node != null)
                     heap.offer(node);
