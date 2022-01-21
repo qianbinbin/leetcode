@@ -4,11 +4,7 @@ using namespace lcpp;
 
 void Solution73_1::setZeroes(std::vector<std::vector<int>> &matrix) {
   auto M = matrix.size();
-  if (M == 0)
-    return;
   auto N = matrix[0].size();
-  if (N == 0)
-    return;
   bool SetFirstRow = false, SetFirstColumn = false;
   for (const auto &I : matrix[0]) {
     if (I == 0) {
