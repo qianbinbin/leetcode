@@ -5,6 +5,6 @@ extern "C" {
 }
 
 TEST(edit_distance_test, minDistance_72_1) {
-    EXPECT_EQ(minDistance_72_1("horse", "ros"), 3);
-    EXPECT_EQ(minDistance_72_1("intention", "execution"), 5);
+    EXPECT_EQ(3, minDistance_72_1("horse", "ros"));
+    EXPECT_EQ(5, minDistance_72_1("intention", "execution"));
 }

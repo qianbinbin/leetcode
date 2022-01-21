@@ -2,22 +2,18 @@ from unittest import TestCase
 
 from leetcodepy.edit_distance import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-word11 = "horse"
+WORD11 = "horse"
+WORD12 = "ros"
+EXPECTED1 = 3
 
-word12 = "ros"
-
-expected1 = 3
-
-word21 = "intention"
-
-word22 = "execution"
-
-expected2 = 5
+WORD21 = "intention"
+WORD22 = "execution"
+EXPECTED2 = 5
 
 
 class TestEditDistance(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.minDistance(word11, word12))
-        self.assertEqual(expected2, solution1.minDistance(word21, word22))
+        self.assertEqual(EXPECTED1, SOLUTION1.minDistance(WORD11, WORD12))
+        self.assertEqual(EXPECTED2, SOLUTION1.minDistance(WORD21, WORD22))
