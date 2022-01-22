@@ -1,9 +1,6 @@
 #include "sort_colors.h"
 
-#include <stddef.h>
-
 void sortColors_75_1(int *nums, int numsSize) {
-    if (nums == NULL || numsSize < 2) return;
     int count0 = 0, count1 = 0;
     for (int i = 0; i < numsSize; ++i) {
         if (nums[i] == 0)
@@ -30,15 +27,13 @@ static void swap(int *a, int *b) {
 }
 
 void sortColors_75_2(int *nums, int numsSize) {
-    if (nums == NULL || numsSize < 2) return;
-    int i0 = 0, i2 = numsSize - 1;
-    for (int i1 = 0; i1 <= i2;) {
-        if (nums[i1] == 0) {
-            swap(nums + i1++, nums + i0++);
-        } else if (nums[i1] == 2) {
-            swap(nums + i1, nums + i2--);
-        } else {
-            ++i1;
-        }
+    int last0 = -1, first2 = numsSize;
+    for (int i = 0; i < first2;) {
+        if (nums[i] == 0)
+            swap(nums + ++last0, nums + i++);
+        else if (nums[i] == 2)
+            swap(nums + i, nums + --first2);
+        else
+            ++i;
     }
 }

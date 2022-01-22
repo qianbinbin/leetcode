@@ -1,22 +1,38 @@
 package io.binac.leetcode;
 
+import java.util.Arrays;
+
 /**
- * Given an array with n objects colored red, white or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white and blue.
- * <p>
- * <p>Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.
- * <p>
- * <p>Note: You are not suppose to use the library's sort function for this problem.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: [2,0,2,1,1,0]
- *     Output: [0,0,1,1,2,2]
- * </blockquote></pre>
- * <p>Follow up:
- * <p>
- * <p>A rather straight forward solution is a two-pass algorithm using counting sort.
- * <p>First, iterate the array counting number of 0's, 1's, and 2's, then overwrite array with total number of 0's, then 1's and followed by 2's.
- * <p>Could you come up with a one-pass algorithm using only constant space?
+ * <p>Given an array <code>nums</code> with <code>n</code> objects colored red, white, or blue, sort them <strong><a href="https://en.wikipedia.org/wiki/In-place_algorithm" target="_blank">in-place</a> </strong>so that objects of the same color are adjacent, with the colors in the order red, white, and blue.</p>
+ *
+ * <p>We will use the integers <code>0</code>, <code>1</code>, and <code>2</code> to represent the color red, white, and blue, respectively.</p>
+ *
+ * <p>You must solve this problem without using the library's sort function.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [2,0,2,1,1,0]
+ * <strong>Output:</strong> [0,0,1,1,2,2]
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [2,0,1]
+ * <strong>Output:</strong> [0,1,2]
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>n == nums.length</code></li>
+ * 	<li><code>1 &lt;= n &lt;= 300</code></li>
+ * 	<li><code>nums[i]</code> is either <code>0</code>, <code>1</code>, or <code>2</code>.</li>
+ * </ul>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Follow up:</strong>&nbsp;Could you come up with a one-pass algorithm using only&nbsp;constant extra space?</p>
  */
 public class SortColors {
     public static class Solution1 {
@@ -28,14 +44,9 @@ public class SortColors {
                 else if (num == 1)
                     ++count1;
             }
-            int i = 0;
-            for (; i < count0; ++i)
-                nums[i] = 0;
-            count1 += count0;
-            for (; i < count1; ++i)
-                nums[i] = 1;
-            for (; i < nums.length; ++i)
-                nums[i] = 2;
+            Arrays.fill(nums, 0, count0, 0);
+            Arrays.fill(nums, count0, count0 + count1, 1);
+            Arrays.fill(nums, count0 + count1, nums.length, 2);
         }
     }
 
@@ -47,15 +58,14 @@ public class SortColors {
         }
 
         public void sortColors(int[] nums) {
-            int i0 = 0, i2 = nums.length - 1;
-            for (int i1 = 0; i1 <= i2; ) {
-                if (nums[i1] == 0) {
-                    swap(nums, i0++, i1++);
-                } else if (nums[i1] == 2) {
-                    swap(nums, i1, i2--);
-                } else {
-                    ++i1;
-                }
+            int last0 = -1, first2 = nums.length;
+            for (int i = 0; i < first2; ) {
+                if (nums[i] == 0)
+                    swap(nums, ++last0, i++);
+                else if (nums[i] == 2)
+                    swap(nums, i, --first2);
+                else
+                    ++i;
             }
         }
     }
