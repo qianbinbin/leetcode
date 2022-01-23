@@ -2,23 +2,27 @@ from unittest import TestCase
 
 from leetcodepy.word_search import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-board = [
+BOARD1 = [
     ['A', 'B', 'C', 'E'],
     ['S', 'F', 'C', 'S'],
     ['A', 'D', 'E', 'E']
 ]
+WORD1 = "ABCCED"
+EXPECTED1 = True
 
-word1 = "ABCCED"
+BOARD2 = BOARD1
+WORD2 = "SEE"
+EXPECTED2 = True
 
-word2 = "SEE"
-
-word3 = "ABCB"
+BOARD3 = BOARD1
+WORD3 = "ABCB"
+EXPECTED3 = False
 
 
 class TestWordSearch(TestCase):
     def test1(self):
-        self.assertTrue(solution1.exist(board, word1))
-        self.assertTrue(solution1.exist(board, word2))
-        self.assertFalse(solution1.exist(board, word3))
+        self.assertEqual(EXPECTED1, SOLUTION1.exist(BOARD1, WORD1))
+        self.assertEqual(EXPECTED2, SOLUTION1.exist(BOARD2, WORD2))
+        self.assertEqual(EXPECTED3, SOLUTION1.exist(BOARD3, WORD3))
