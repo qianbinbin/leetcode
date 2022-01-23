@@ -1,48 +1,63 @@
 """
-Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
 
-Example:
+The testcases will be generated such that the answer is unique.
 
-Input: S = "ADOBECODEBANC", T = "ABC"
+A substring is a contiguous sequence of characters within the string.
+
+
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
 Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
 
-Note:
+Example 2:
 
-If there is no such window in S that covers all characters in T, return the empty string "".
-If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+
+Example 3:
+
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+
+
+Constraints:
+
+m == s.length
+n == t.length
+1 <= m, n <= 10^5
+s and t consist of uppercase and lowercase English letters.
+
+
+Follow up: Could you find an algorithm that runs in O(m + n) time?
 """
 from collections import Counter
 
 
 class Solution1:
-    def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        len_s = len(s)
-        len_t = len(t)
-        t = Counter(t)
-        count = 0
-        counter = Counter()
+    def minWindow(self, s: str, t: str) -> str:
+        m, n = len(s), len(t)
+        expected = Counter(t)
+        expected_count = 0
         i, j = 0, 0
-        min_start, min_len = 0, len_s + 1
-        while j < len_s:
-            if s[j] in t:
-                if counter[s[j]] < t[s[j]]:
-                    count += 1
-                counter[s[j]] += 1
-            j += 1
-            while count == len_t:
-                if j - i < min_len:
-                    min_len = j - i
-                    min_start = i
-                if s[i] in t:
-                    counter[s[i]] -= 1
-                    if counter[s[i]] < t[s[i]]:
-                        count -= 1
+        start, _len = -1, len(s) + 1
+        while j < m:
+            if expected[s[j]] > 0:
+                expected_count += 1
+            expected[s[j]] -= 1
+            while expected_count == n:
+                if j - i + 1 < _len:
+                    _len = j - i + 1
+                    start = i
+                expected[s[i]] += 1
+                if expected[s[i]] > 0:
+                    expected_count -= 1
                 i += 1
-        if min_len > len_s:
-            return ''
-        return s[min_start:min_start + min_len]
+            j += 1
+        return "" if start == -1 else s[start:start + _len]

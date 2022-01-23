@@ -6,7 +6,15 @@ extern "C" {
 }
 
 TEST(minimum_window_substring_test, minWindow_76_1) {
-    char *window = minWindow_76_1("ADOBECODEBANC", "ABC");
-    EXPECT_STREQ(window, "BANC");
-    free(window);
+    char *actual1 = minWindow_76_1("ADOBECODEBANC", "ABC");
+    EXPECT_STREQ("BANC", actual1);
+    free(actual1);
+
+    char *actual2 = minWindow_76_1("a", "a");
+    EXPECT_STREQ("a", actual2);
+    free(actual2);
+
+    char *actual3 = minWindow_76_1("a", "aa");
+    EXPECT_STREQ("", actual3);
+    free(actual3);
 }

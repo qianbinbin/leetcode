@@ -4,6 +4,9 @@
 using namespace lcpp;
 
 TEST(MinimumWindowSubstring, Solution76_1) {
-  const std::string S = "ADOBECODEBANC", T = "ABC", Expected = "BANC";
-  EXPECT_EQ(Expected, Solution76_1().minWindow(S, T));
+  auto S76_1 = Solution76_1();
+
+  EXPECT_EQ("BANC", S76_1.minWindow("ADOBECODEBANC", "ABC"));
+  EXPECT_EQ("a", S76_1.minWindow("a", "a"));
+  EXPECT_EQ("", S76_1.minWindow("a", "aa"));
 }

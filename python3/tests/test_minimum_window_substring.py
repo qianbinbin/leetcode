@@ -2,15 +2,23 @@ from unittest import TestCase
 
 from leetcodepy.minimum_window_substring import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s = "ADOBECODEBANC"
+S1 = "ADOBECODEBANC"
+T1 = "ABC"
+EXPECTED1 = "BANC"
 
-t = "ABC"
+S2 = "a"
+T2 = "a"
+EXPECTED2 = "a"
 
-expected = "BANC"
+S3 = "a"
+T3 = "aa"
+EXPECTED3 = ""
 
 
 class TestMinimumWindowSubstring(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.minWindow(s, t))
+        self.assertEqual(EXPECTED1, SOLUTION1.minWindow(S1, T1))
+        self.assertEqual(EXPECTED2, SOLUTION1.minWindow(S2, T2))
+        self.assertEqual(EXPECTED3, SOLUTION1.minWindow(S3, T3))
