@@ -39,13 +39,12 @@ public class SwapNodesInPairs {
     public static class Solution1 {
         public ListNode swapPairs(ListNode head) {
             ListNode dummy = new ListNode(0, head);
-            ListNode tail = dummy, p1 = head, p2;
-            while (p1 != null && (p2 = p1.next) != null) {
+            ListNode tail = dummy, p1, p2;
+            while ((p1 = tail.next) != null && (p2 = p1.next) != null) {
                 p1.next = p2.next;
                 p2.next = p1;
                 tail.next = p2;
                 tail = p1;
-                p1 = p1.next;
             }
             return dummy.next;
         }
