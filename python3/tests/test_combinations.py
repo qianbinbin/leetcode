@@ -2,13 +2,12 @@ from unittest import TestCase
 
 from leetcodepy.combinations import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-n = 4
+N1 = 4
+K1 = 2
 
-k = 2
-
-expected = [
+EXPECTED1 = [
     [1, 2],
     [1, 3],
     [1, 4],
@@ -17,7 +16,15 @@ expected = [
     [3, 4]
 ]
 
+N2 = 1
+K2 = 1
+
+EXPECTED2 = [
+    [1]
+]
+
 
 class TestCombinations(TestCase):
     def test1(self):
-        self.assertListEqual(expected, solution1.combine(n, k))
+        self.assertListEqual(EXPECTED1, SOLUTION1.combine(N1, K1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.combine(N2, K2))

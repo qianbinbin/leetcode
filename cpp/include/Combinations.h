@@ -1,7 +1,11 @@
 // Given two integers n and k, return all possible combinations of k numbers out
-// of 1 ... n.
+// of the range [1, n].
 //
-// Example:
+// You may return the answer in any order.
+//
+//
+//
+// Example 1:
 //
 // Input: n = 4, k = 2
 // Output:
@@ -13,6 +17,17 @@
 //   [1,3],
 //   [1,4],
 // ]
+//
+// Example 2:
+//
+// Input: n = 1, k = 1
+// Output: [[1]]
+//
+//
+// Constraints:
+//
+// 1 <= n <= 20
+// 1 <= k <= n
 
 #ifndef LEETCODECPP_COMBINATIONS_H
 #define LEETCODECPP_COMBINATIONS_H
@@ -26,6 +41,6 @@ public:
   std::vector<std::vector<int>> combine(int n, int k);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_COMBINATIONS_H
+#endif // LEETCODECPP_COMBINATIONS_H

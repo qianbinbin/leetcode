@@ -15,8 +15,9 @@ static int combination(int n, int k) {
     return factorial(n, n - k + 1) / factorial(k, 1);
 }
 
-static void combine_dfs(int n, int k, int begin,
-                        int **combinations, int *c_size, int *col_sizes, int *path, int *path_size) {
+static void combine_dfs(int n, int k, int i,
+                        int **combinations, int *c_size, int *col_sizes,
+                        int *path, int *path_size) {
     if (*path_size == k) {
         combinations[*c_size] = (int *) malloc(k * sizeof(int));
         memcpy(combinations[*c_size], path, k * sizeof(int));
@@ -24,27 +25,27 @@ static void combine_dfs(int n, int k, int begin,
         ++(*c_size);
         return;
     }
-    for (int i = begin; i <= n; ++i) {
+    for (int e = n - k + *path_size + 1; i <= e; ++i) {
         path[(*path_size)++] = i;
-        combine_dfs(n, k, i + 1, combinations, c_size, col_sizes, path, path_size);
+        combine_dfs(n, k, i + 1, combinations, c_size, col_sizes, path,
+                    path_size);
         --(*path_size);
     }
 }
 
-int **combine_77_1(int n, int k, int **columnSizes, int *returnSize) {
-    if (n < 1 || k < 1 || k > n || columnSizes == NULL || returnSize == NULL) return NULL;
-
+int **combine_77_1(int n, int k, int *returnSize, int **returnColumnSizes) {
     int capacity = combination(n, k);
     int **ret = (int **) malloc(capacity * sizeof(int *));
     *returnSize = 0;
-    *columnSizes = (int *) malloc(capacity * sizeof(int));
+    *returnColumnSizes = (int *) malloc(capacity * sizeof(int));
 
     int *path = (int *) malloc(k * sizeof(int));
     int path_size = 0;
 
-    combine_dfs(n, k, 1, ret, returnSize, *columnSizes, path, &path_size);
+    combine_dfs(n, k, 1, ret, returnSize, *returnColumnSizes, path, &path_size);
     free(path);
     ret = (int **) realloc(ret, *returnSize * sizeof(int *));
-    *columnSizes = (int *) realloc(*columnSizes, *returnSize * sizeof(int));
+    *returnColumnSizes = (int *) realloc(*returnColumnSizes,
+                                         *returnSize * sizeof(int));
     return ret;
 }
