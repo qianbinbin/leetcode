@@ -1,22 +1,26 @@
 /*
- * Given a set of distinct integers, nums, return all possible subsets (the power set).
+ * Given an integer array nums of unique elements, return all possible subsets (the power set).
  *
- * Note: The solution set must not contain duplicate subsets.
+ * The solution set must not contain duplicate subsets. Return the solution in any order.
  *
- * Example:
+ *
+ *
+ * Example 1:
  *
  * Input: nums = [1,2,3]
- * Output:
- * [
- *   [3],
- *   [1],
- *   [2],
- *   [1,2,3],
- *   [1,3],
- *   [2,3],
- *   [1,2],
- *   []
- * ]
+ * Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+ *
+ * Example 2:
+ *
+ * Input: nums = [0]
+ * Output: [[],[0]]
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= nums.length <= 10
+ * -10 <= nums[i] <= 10
+ * All the numbers of nums are unique.
  */
 
 #ifndef LEETCODE_SUBSETS_H
@@ -24,9 +28,10 @@
 
 /**
  * Return an array of arrays of size *returnSize.
- * The sizes of the arrays are returned as *columnSizes array.
+ * The sizes of the arrays are returned as *returnColumnSizes array.
  * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().
  */
-int **subsets_78_1(int *nums, int numsSize, int **columnSizes, int *returnSize);
+int **
+subsets_78_1(int *nums, int numsSize, int *returnSize, int **returnColumnSizes);
 
 #endif //LEETCODE_SUBSETS_H

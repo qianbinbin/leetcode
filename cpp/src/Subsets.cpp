@@ -2,8 +2,7 @@
 
 using namespace lcpp;
 
-static void subsets(std::vector<int>::iterator I,
-                    std::vector<int>::iterator E,
+static void subsets(std::vector<int>::iterator I, std::vector<int>::iterator E,
                     std::vector<int> &Path,
                     std::vector<std::vector<int>> &Result) {
   Result.push_back(Path);
@@ -14,7 +13,7 @@ static void subsets(std::vector<int>::iterator I,
   }
 }
 
-std::vector<std::vector<int>> Solution77_1::subsets(std::vector<int> &nums) {
+std::vector<std::vector<int>> Solution78_1::subsets(std::vector<int> &nums) {
   std::vector<std::vector<int>> Result;
   std::vector<int> Path;
   ::subsets(nums.begin(), nums.end(), Path, Result);
