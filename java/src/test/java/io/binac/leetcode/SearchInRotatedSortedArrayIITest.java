@@ -5,15 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SearchInRotatedSortedArrayIITest {
-    private final SearchInRotatedSortedArrayII.Solution1 solution1 = new SearchInRotatedSortedArrayII.Solution1();
+    private static final SearchInRotatedSortedArrayII.Solution1 SOLUTION1 = new SearchInRotatedSortedArrayII.Solution1();
+
+    private final int[] NUMS1 = {2, 5, 6, 0, 0, 1, 2};
+    private final int TARGET1 = 0;
+    private final boolean EXPECTED1 = true;
+
+    private final int[] NUMS2 = NUMS1;
+    private final int TARGET2 = 3;
+    private final boolean EXPECTED2 = false;
 
     @Test
     void test1() {
-        int nums1[] = {2, 5, 6, 0, 0, 1, 2};
-        assertTrue(solution1.search(nums1, 0));
-        int nums2[] = {2, 5, 6, 0, 0, 1, 2};
-        assertFalse(solution1.search(nums2, 3));
-        int nums3[] = {1,1,3,1};
-        assertTrue(solution1.search(nums3, 3));
+        assertEquals(EXPECTED1, SOLUTION1.search(NUMS1, TARGET1));
+        assertEquals(EXPECTED2, SOLUTION1.search(NUMS2, TARGET2));
     }
 }

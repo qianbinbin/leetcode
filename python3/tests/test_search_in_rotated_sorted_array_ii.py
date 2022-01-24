@@ -2,18 +2,18 @@ from unittest import TestCase
 
 from leetcodepy.search_in_rotated_sorted_array_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-nums1 = [2, 5, 6, 0, 0, 1, 2]
+NUMS1 = [2, 5, 6, 0, 0, 1, 2]
+TARGET1 = 0
+EXPECTED1 = True
 
-target1 = 0
-
-nums2 = [2, 5, 6, 0, 0, 1, 2]
-
-target2 = 3
+NUMS2 = [2, 5, 6, 0, 0, 1, 2]
+TARGET2 = 3
+EXPECTED2 = False
 
 
 class TestSearchInRotatedSortedArrayII(TestCase):
     def test1(self):
-        self.assertTrue(solution1.search(nums1, target1))
-        self.assertFalse(solution1.search(nums2, target2))
+        self.assertEqual(EXPECTED1, SOLUTION1.search(NUMS1, TARGET1))
+        self.assertEqual(EXPECTED2, SOLUTION1.search(NUMS2, TARGET2))

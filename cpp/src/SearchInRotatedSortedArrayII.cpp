@@ -1,11 +1,8 @@
 #include "SearchInRotatedSortedArrayII.h"
-#include <cassert>
-#include <limits>
 
 using namespace lcpp;
 
 bool Solution81_1::search(std::vector<int> &nums, int target) {
-  assert(nums.size() <= std::numeric_limits<int>::max() && "Size overflow!");
   int Low = 0, High = static_cast<int>(nums.size()) - 1, Mid;
   while (Low <= High) {
     Mid = Low + (High - Low) / 2;
