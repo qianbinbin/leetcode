@@ -3,26 +3,21 @@
 #include <stdlib.h>
 
 struct ListNode *deleteDuplicates_82_1(struct ListNode *head) {
-    if (head == NULL) return NULL;
-
-    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
-    struct ListNode *tail = dummy, *p = head, *rm;
+    struct ListNode dummy = {0, head};
+    struct ListNode *tail = &dummy, *p = head;
+    int skip;
     while (p != NULL) {
-        if (p->next == NULL || p->next->val != p->val) {
-            tail->next = p;
+        if (p->next != NULL && p->next->val == p->val) {
+            skip = p->val;
+            while (p != NULL && p->val == skip) {
+                tail->next = p->next;
+                free(p);
+                p = tail->next;
+            }
+        } else {
             tail = p;
             p = p->next;
-        } else {
-            int skip = p->val;
-            while (p != NULL && p->val == skip) {
-                rm = p;
-                p = p->next;
-                free(rm);
-            }
         }
     }
-    tail->next = NULL;
-    head = dummy->next;
-    free(dummy);
-    return head;
+    return dummy.next;
 }

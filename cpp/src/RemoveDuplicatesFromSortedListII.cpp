@@ -3,11 +3,10 @@
 using namespace lcpp;
 
 ListNode *Solution82_1::deleteDuplicates(ListNode *head) {
-  ListNode Dummy(0), *Tail = &Dummy, *P = head;
-  Dummy.next = head;
+  ListNode Dummy(0, head), *Tail = &Dummy, *P = head;
   int Remove;
-  while (P != nullptr && P->next != nullptr) {
-    if (P->val == P->next->val) {
+  while (P != nullptr) {
+    if (P->next != nullptr && P->val == P->next->val) {
       Remove = P->val;
       while (P != nullptr && P->val == Remove) {
         Tail->next = P->next;
@@ -15,7 +14,6 @@ ListNode *Solution82_1::deleteDuplicates(ListNode *head) {
         P = Tail->next;
       }
     } else {
-      Tail->next = P;
       Tail = P;
       P = P->next;
     }
