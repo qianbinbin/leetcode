@@ -3,20 +3,19 @@
 #include <stdlib.h>
 
 struct ListNode *deleteDuplicates_83_1(struct ListNode *head) {
-    if (head == NULL) return NULL;
+    if (head == NULL)
+        return NULL;
 
-    struct ListNode *tail = head, *p = head->next, *rm;
+    struct ListNode *tail = head, *p = head->next;
     while (p != NULL) {
         if (p->val != tail->val) {
             tail->next = p;
             tail = p;
-            p = p->next;
         } else {
-            rm = p;
-            p = p->next;
-            free(rm);
+            tail->next = p->next;
+            free(p);
         }
+        p = tail->next;
     }
-    tail->next = NULL;
     return head;
 }
