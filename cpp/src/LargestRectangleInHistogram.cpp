@@ -6,19 +6,17 @@ using namespace lcpp;
 int Solution84_1::largestRectangleArea(std::vector<int> &heights) {
   heights.push_back(0);
   typedef std::vector<int>::size_type SizeType;
-  SizeType Largest = 0;
+  SizeType Result = 0;
   std::stack<SizeType> Stack;
-  for (SizeType I = 0, E = heights.size(), J, Area; I != E;) {
-    if (Stack.empty() || heights[I] >= heights[Stack.top()]) {
-      Stack.push(I++);
-    } else {
+  for (SizeType I = 0, E = heights.size(), J, Left; I != E; ++I) {
+    while (!Stack.empty() && heights[I] <= heights[Stack.top()]) {
       J = Stack.top();
       Stack.pop();
-      Area = heights[J] * (Stack.empty() ? I : I - Stack.top() - 1);
-      if (Area > Largest)
-        Largest = Area;
+      Left = Stack.empty() ? 0 : Stack.top() + 1;
+      Result = std::max(Result, heights[J] * (I - Left));
     }
+    Stack.push(I);
   }
   heights.pop_back();
-  return static_cast<int>(Largest);
+  return static_cast<int>(Result);
 }
