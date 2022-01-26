@@ -3,37 +3,46 @@ package io.binac.leetcode;
 import io.binac.leetcode.util.ListNode;
 
 /**
- * Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
- * <p>
- * <p>You should preserve the original relative order of the nodes in each of the two partitions.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: head = 1->4->3->2->5->2, x = 3
- *     Output: 1->2->2->4->3->5
- * </blockquote></pre>
+ * <p>Given the <code>head</code> of a linked list and a value <code>x</code>, partition it such that all nodes <strong>less than</strong> <code>x</code> come before nodes <strong>greater than or equal</strong> to <code>x</code>.</p>
+ *
+ * <p>You should <strong>preserve</strong> the original relative order of the nodes in each of the two partitions.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2021/01/04/partition.jpg" style="width: 662px; height: 222px;">
+ * <pre><strong>Input:</strong> head = [1,4,3,2,5,2], x = 3
+ * <strong>Output:</strong> [1,2,2,4,3,5]
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> head = [2,1], x = 2
+ * <strong>Output:</strong> [1,2]
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li>The number of nodes in the list is in the range <code>[0, 200]</code>.</li>
+ * 	<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+ * 	<li><code>-200 &lt;= x &lt;= 200</code></li>
+ * </ul>
  */
 public class PartitionList {
     public static class Solution1 {
         public ListNode partition(ListNode head, int x) {
-            ListNode dummy = new ListNode(0);
-            dummy.next = head;
-            ListNode tail = dummy;
-            while (tail.next != null && tail.next.val < x) tail = tail.next;
-            ListNode pre = tail, p = tail.next;
-            while (p != null) {
-                if (p.val < x) {
-                    pre.next = p.next;
-                    p.next = tail.next;
-                    tail.next = p;
-                    tail = p;
-                    p = pre.next;
-                } else {
-                    pre = p;
-                    p = p.next;
-                }
+            ListNode dummy1 = new ListNode(0), tail1 = dummy1;
+            ListNode dummy2 = new ListNode(0), tail2 = dummy2;
+            for (ListNode p = head; p != null; p = p.next) {
+                if (p.val < x)
+                    tail1 = (tail1.next = p);
+                else
+                    tail2 = (tail2.next = p);
             }
-            return dummy.next;
+            tail1.next = dummy2.next;
+            tail2.next = null;
+            return dummy1.next;
         }
     }
 }

@@ -3,23 +3,14 @@
 using namespace lcpp;
 
 ListNode *Solution86_1::partition(ListNode *head, int x) {
-  ListNode Dummy(0), *LessTail = &Dummy, *Pre = LessTail, *P = head;
-  Dummy.next = head;
-  while (P != nullptr && P->val < x) {
-    Pre = P;
-    P = P->next;
+  ListNode Dummy1, *Tail1 = &Dummy1, Dummy2, *Tail2 = &Dummy2;
+  for (ListNode *p = head; p != nullptr; p = p->next) {
+    if (p->val < x)
+      Tail1 = (Tail1->next = p);
+    else
+      Tail2 = (Tail2->next = p);
   }
-  LessTail = Pre;
-  while (P != nullptr) {
-    if (P->val < x) {
-      Pre->next = P->next;
-      P->next = LessTail->next;
-      LessTail->next = P;
-      LessTail = P;
-    } else {
-      Pre = P;
-    }
-    P = Pre->next;
-  }
-  return Dummy.next;
+  Tail1->next = Dummy2.next;
+  Tail2->next = nullptr;
+  return Dummy1.next;
 }

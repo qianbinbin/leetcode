@@ -3,26 +3,14 @@
 #include <stdlib.h>
 
 struct ListNode *partition_86_1(struct ListNode *head, int x) {
-    if (head == NULL) return NULL;
-
-    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
-    dummy->next = head;
-    struct ListNode *tail = dummy;
-    while (tail->next != NULL && tail->next->val < x) tail = tail->next;
-    struct ListNode *pre = tail, *p = tail->next;
-    while (p != NULL) {
-        if (p->val < x) {
-            pre->next = p->next;
-            p->next = tail->next;
-            tail->next = p;
-            tail = p;
-            p = pre->next;
-        } else {
-            pre = p;
-            p = p->next;
-        }
+    struct ListNode dummy1 = {}, *tail1 = &dummy1, dummy2 = {}, *tail2 = &dummy2;
+    for (struct ListNode *p = head; p != NULL; p = p->next) {
+        if (p->val < x)
+            tail1 = (tail1->next = p);
+        else
+            tail2 = (tail2->next = p);
     }
-    head = dummy->next;
-    free(dummy);
-    return head;
+    tail1->next = dummy2.next;
+    tail2->next = NULL;
+    return dummy1.next;
 }
