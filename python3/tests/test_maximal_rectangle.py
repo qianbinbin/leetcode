@@ -2,23 +2,31 @@ from unittest import TestCase
 
 from leetcodepy.maximal_rectangle import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
-
-matrix = [
+MATRIX1 = [
     ["1", "0", "1", "0", "0"],
     ["1", "0", "1", "1", "1"],
     ["1", "1", "1", "1", "1"],
     ["1", "0", "0", "1", "0"]
 ]
+EXPECTED1 = 6
 
-expected = 6
+MATRIX2 = [["0"]]
+EXPECTED2 = 0
+
+MATRIX3 = [["1"]]
+EXPECTED3 = 1
 
 
 class TestMaximalRectangle(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.maximalRectangle(matrix))
+        self.assertEqual(EXPECTED1, SOLUTION1.maximalRectangle(MATRIX1))
+        self.assertEqual(EXPECTED2, SOLUTION1.maximalRectangle(MATRIX2))
+        self.assertEqual(EXPECTED3, SOLUTION1.maximalRectangle(MATRIX3))
 
     def test2(self):
-        self.assertEqual(expected, solution2.maximalRectangle(matrix))
+        self.assertEqual(EXPECTED1, SOLUTION2.maximalRectangle(MATRIX1))
+        self.assertEqual(EXPECTED2, SOLUTION2.maximalRectangle(MATRIX2))
+        self.assertEqual(EXPECTED3, SOLUTION2.maximalRectangle(MATRIX3))

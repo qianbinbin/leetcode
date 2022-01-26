@@ -1,15 +1,33 @@
-// Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+// Given a rows x cols binary matrix filled with 0's and 1's, find the largest
+// rectangle containing only 1's and return its area.
 //
-// Example:
 //
-// Input:
-// [
-//   ["1","0","1","0","0"],
-//   ["1","0","1","1","1"],
-//   ["1","1","1","1","1"],
-//   ["1","0","0","1","0"]
-// ]
+//
+// Example 1:
+// https://assets.leetcode.com/uploads/2020/09/14/maximal.jpg
+//
+// Input: matrix =
+// [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 // Output: 6
+// Explanation: The maximal rectangle is shown in the above picture.
+//
+// Example 2:
+//
+// Input: matrix = [["0"]]
+// Output: 0
+//
+// Example 3:
+//
+// Input: matrix = [["1"]]
+// Output: 1
+//
+//
+// Constraints:
+//
+// rows == matrix.length
+// cols == matrix[i].length
+// 1 <= row, cols <= 200
+// matrix[i][j] is '0' or '1'.
 
 #ifndef LEETCODECPP_MAXIMALRECTANGLE_H
 #define LEETCODECPP_MAXIMALRECTANGLE_H
@@ -28,6 +46,6 @@ public:
   int maximalRectangle(std::vector<std::vector<char>> &matrix);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_MAXIMALRECTANGLE_H
+#endif // LEETCODECPP_MAXIMALRECTANGLE_H

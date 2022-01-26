@@ -5,74 +5,72 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int maximalRectangle_85_1(char **matrix, int matrixRowSize, int matrixColSize) {
-    if (matrix == NULL || matrixRowSize < 0 || matrixColSize < 0) return -1;
-    const int row = matrixRowSize, col = matrixColSize;
+int maximalRectangle_85_1(char **matrix, int matrixSize, int *matrixColSize) {
+    const int m = matrixSize, n = matrixColSize[0];
 
-    int *height = (int *) calloc(col, sizeof(int));
-    int *start = (int *) calloc(col, sizeof(int));
-    int *end = (int *) malloc(col * sizeof(int));
-    for (int i = 0; i < col; ++i) end[i] = col;
+    int *height = (int *) calloc(n, sizeof(int));
+    int *begin = (int *) calloc(n, sizeof(int));
+    int *end = (int *) malloc(n * sizeof(int));
+    for (int i = 0; i < n; ++i) end[i] = n;
+    int b, e;
 
-    int max = 0;
-    for (int i = 0; i < row; ++i) {
-        int start1 = 0;
-        for (int j = 0; j < col; ++j) {
-            if (matrix[i][j] == '1') {
-                start[j] = MAX(start[j], start1);
-                ++height[j];
-            } else {
-                start[j] = 0;
-                start1 = j + 1;
+    int result = 0, area;
+    for (int i = 0, j; i < m; ++i) {
+        b = 0;
+        for (j = 0; j < n; ++j) {
+            if (matrix[i][j] == '0') {
+                begin[j] = 0;
+                b = j + 1;
                 height[j] = 0;
+            } else {
+                begin[j] = MAX(begin[j], b);
+                ++height[j];
             }
         }
-        int end1 = col;
-        for (int j = col - 1; j >= 0; --j) {
-            if (matrix[i][j] == '1') {
-                end[j] = MIN(end[j], end1);
-                int area = height[j] * (end[j] - start[j]);
-                max = MAX(max, area);
+        e = n;
+        for (j = n - 1; j >= 0; --j) {
+            if (matrix[i][j] == '0') {
+                end[j] = n;
+                e = j;
             } else {
-                end[j] = col;
-                end1 = j;
+                end[j] = MIN(end[j], e);
+                area = height[j] * (end[j] - begin[j]);
+                result = MAX(result, area);
             }
         }
     }
     free(height);
-    free(start);
+    free(begin);
     free(end);
-    return max;
+    return result;
 }
 
-int maximalRectangle_85_2(char **matrix, int matrixRowSize, int matrixColSize) {
-    if (matrix == NULL || matrixRowSize < 0 || matrixColSize < 0) return -1;
-    const int row = matrixRowSize, col = matrixColSize;
+int maximalRectangle_85_2(char **matrix, int matrixSize, int *matrixColSize) {
+    const int m = matrixSize, n = matrixColSize[0];
 
-    int *stack = (int *) malloc(col * sizeof(int));
+    int *stack = (int *) malloc(n * sizeof(int));
     int top = -1;
-    int *heights = (int *) calloc(col, sizeof(int));
-    int max = 0;
-    for (int i = 0; i < row; ++i) {
-        for (int j = 0; j < col; ++j) {
-            if (matrix[i][j] == '1')
-                ++heights[j];
-            else
-                heights[j] = 0;
-            while (top != -1 && heights[stack[top]] > heights[j]) {
-                int index = stack[top--];
-                int area = heights[index] * (top == -1 ? j : j - stack[top] - 1);
-                max = MAX(max, area);
+    int *heights = (int *) calloc(n, sizeof(int));
+    int result = 0, area;
+    for (int i = 0, j, k, left; i < m; ++i) {
+        for (j = 0; j < n; ++j) {
+            heights[j] = matrix[i][j] == '0' ? 0 : heights[j] + 1;
+            while (top != -1 && heights[j] <= heights[stack[top]]) {
+                k = stack[top--];
+                left = top == -1 ? 0 : stack[top] + 1;
+                area = heights[k] * (j - left);
+                result = MAX(result, area);
             }
             stack[++top] = j;
         }
         while (top != -1) {
-            int index = stack[top--];
-            int area = heights[index] * (top == -1 ? col : col - stack[top] - 1);
-            max = MAX(max, area);
+            k = stack[top--];
+            left = top == -1 ? 0 : stack[top] + 1;
+            area = heights[k] * (n - left);
+            result = MAX(result, area);
         }
     }
     free(stack);
     free(heights);
-    return max;
+    return result;
 }

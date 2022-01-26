@@ -1,87 +1,101 @@
 package io.binac.leetcode;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.Deque;
 
 /**
- * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input:
- *     [
- *       ["1","0","1","0","0"],
- *       ["1","0","1","1","1"],
- *       ["1","1","1","1","1"],
- *       ["1","0","0","1","0"]
- *     ]
- *     Output: 6
- * </blockquote></pre>
+ * <p>Given a <code>rows x cols</code>&nbsp;binary <code>matrix</code> filled with <code>0</code>'s and <code>1</code>'s, find the largest rectangle containing only <code>1</code>'s and return <em>its area</em>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2020/09/14/maximal.jpg" style="width: 402px; height: 322px;">
+ * <pre><strong>Input:</strong> matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+ * <strong>Output:</strong> 6
+ * <strong>Explanation:</strong> The maximal rectangle is shown in the above picture.
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> matrix = [["0"]]
+ * <strong>Output:</strong> 0
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> matrix = [["1"]]
+ * <strong>Output:</strong> 1
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>rows == matrix.length</code></li>
+ * 	<li><code>cols == matrix[i].length</code></li>
+ * 	<li><code>1 &lt;= row, cols &lt;= 200</code></li>
+ * 	<li><code>matrix[i][j]</code> is <code>'0'</code> or <code>'1'</code>.</li>
+ * </ul>
  */
 public class MaximalRectangle {
     public static class Solution1 {
         public int maximalRectangle(char[][] matrix) {
-            final int row = matrix.length;
-            if (row == 0) return 0;
-            final int col = matrix[0].length;
-
-            int start[] = new int[col], end[] = new int[col], height[] = new int[col];
-            Arrays.fill(end, col);
-            int max = 0;
-            for (int i = 0; i < row; ++i) {
-                int s = 0;
-                for (int j = 0; j < col; ++j) {
-                    if (matrix[i][j] == '1') {
-                        start[j] = Math.max(start[j], s);
+            final int n = matrix[0].length;
+            int[] begin = new int[n], end = new int[n], height = new int[n];
+            int b, e;
+            Arrays.fill(end, n);
+            int result = 0;
+            for (char[] row : matrix) {
+                b = 0;
+                for (int j = 0; j < n; ++j) {
+                    if (row[j] == '1') {
+                        begin[j] = Math.max(begin[j], b);
                         ++height[j];
                     } else {
-                        start[j] = 0;
-                        s = j + 1;
+                        begin[j] = 0;
+                        b = j + 1;
                         height[j] = 0;
                     }
                 }
-                int e = col;
-                for (int j = col - 1; j >= 0; --j) {
-                    if (matrix[i][j] == '1') {
+                e = n;
+                for (int j = n - 1; j >= 0; --j) {
+                    if (row[j] == '1') {
                         end[j] = Math.min(end[j], e);
-                        max = Math.max(max, height[j] * (end[j] - start[j]));
+                        result = Math.max(result, height[j] * (end[j] - begin[j]));
                     } else {
-                        end[j] = col;
+                        end[j] = n;
                         e = j;
                     }
                 }
             }
-            return max;
+            return result;
         }
     }
 
     public static class Solution2 {
         public int maximalRectangle(char[][] matrix) {
-            final int row = matrix.length;
-            if (row == 0) return 0;
-            final int col = matrix[0].length;
-
-            int max = 0;
-            int heights[] = new int[col];
-            Stack<Integer> stack = new Stack<>();
-            for (int i = 0; i < row; ++i) {
-                for (int j = 0; j < col; ++j) {
-                    if (matrix[i][j] == '1')
-                        ++heights[j];
-                    else
-                        heights[j] = 0;
-                    while (!stack.empty() && heights[stack.peek()] > heights[j]) {
-                        int index = stack.pop();
-                        max = Math.max(max, heights[index] * (stack.empty() ? j : j - stack.peek() - 1));
+            final int n = matrix[0].length;
+            int result = 0;
+            int[] heights = new int[n];
+            Deque<Integer> stack = new ArrayDeque<>();
+            int j, k, left;
+            for (char[] row : matrix) {
+                for (j = 0; j < n; ++j) {
+                    heights[j] = row[j] == '0' ? 0 : heights[j] + 1;
+                    while (!stack.isEmpty() && heights[j] <= heights[stack.peek()]) {
+                        k = stack.pop();
+                        left = stack.isEmpty() ? 0 : stack.peek() + 1;
+                        result = Math.max(result, heights[k] * (j - left));
                     }
                     stack.push(j);
                 }
-                while (!stack.empty()) {
-                    int index = stack.pop();
-                    max = Math.max(max, heights[index] * (stack.empty() ? col : col - stack.peek() - 1));
+                while (!stack.isEmpty()) {
+                    k = stack.pop();
+                    left = stack.isEmpty() ? 0 : stack.peek() + 1;
+                    result = Math.max(result, heights[k] * (n - left));
                 }
             }
-            return max;
+            return result;
         }
     }
 }
