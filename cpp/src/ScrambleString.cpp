@@ -1,14 +1,47 @@
 #include "ScrambleString.h"
-#include <cassert>
+
+#include <unordered_map>
 #include <vector>
 
 using namespace lcpp;
 
 typedef std::string::size_type SizeType;
 
+static bool isScramble(std::string S1, std::string S2,
+                       std::unordered_map<std::string, bool> &Map) {
+  std::string Key = S1 + S2;
+  if (Map.find(Key) != Map.end())
+    return Map[Key];
+  auto L = S1.size();
+  if (L == 1) {
+    return Map[Key] = S1 == S2;
+  }
+  SizeType Count[26]{0};
+  for (SizeType K = 0; K != L; ++K) {
+    ++Count[S1[K] - 'a'];
+    --Count[S2[K] - 'a'];
+  }
+  for (const auto &C : Count) {
+    if (C != 0)
+      return Map[Key] = false;
+  }
+  for (SizeType K = 1; K != L; ++K) {
+    if ((isScramble(S1.substr(0, K), S2.substr(0, K), Map) &&
+         isScramble(S1.substr(K, L - K), S2.substr(K, L - K), Map)) ||
+        (isScramble(S1.substr(0, K), S2.substr(L - K, K), Map) &&
+         isScramble(S1.substr(K, L - K), S2.substr(0, L - K), Map)))
+      return Map[Key] = true;
+  }
+  return Map[Key] = false;
+}
+
 bool Solution87_1::isScramble(std::string s1, std::string s2) {
+  std::unordered_map<std::string, bool> Map;
+  return ::isScramble(s1, s2, Map);
+}
+
+bool Solution87_2::isScramble(std::string s1, std::string s2) {
   const auto &Size = s1.size();
-  assert(Size != 0 && s2.size() == Size);
   std::vector<std::vector<std::vector<bool>>> Dp(
       Size, std::vector<std::vector<bool>>(Size, std::vector<bool>(Size)));
   for (SizeType I = 0; I != Size; ++I) {
@@ -31,33 +64,4 @@ bool Solution87_1::isScramble(std::string s1, std::string s2) {
     }
   }
   return Dp[Size - 1][0][0];
-}
-
-/// Assert both S1 and S2 only contain lower case letters.
-static bool isScramble(std::string &S1, std::string &S2, SizeType I, SizeType J,
-                       SizeType L) {
-  if (L == 1)
-    return S1[I] == S2[J];
-  SizeType Count[26]{0};
-  for (SizeType K = 0; K != L; ++K) {
-    ++Count[S1[I + K] - 'a'];
-    --Count[S2[J + K] - 'a'];
-  }
-  for (const auto &C : Count)
-    if (C != 0)
-      return false;
-  for (SizeType K = 1; K != L; ++K) {
-    if ((isScramble(S1, S2, I, J, K) &&
-         isScramble(S1, S2, I + K, J + K, L - K)) ||
-        (isScramble(S1, S2, I, J + L - K, K) &&
-         isScramble(S1, S2, I + K, J, L - K)))
-      return true;
-  }
-  return false;
-}
-
-bool Solution87_2::isScramble(std::string s1, std::string s2) {
-  const auto &Size = s1.size();
-  assert(Size != 0 && s2.size() == Size);
-  return ::isScramble(s1, s2, 0, 0, Size);
 }

@@ -2,18 +2,29 @@ from unittest import TestCase
 
 from leetcodepy.scramble_string import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-s11 = "great"
+S11 = "great"
+S12 = "rgeat"
+EXPECTED1 = True
 
-s12 = "rgeat"
+S21 = "abcde"
+S22 = "caebd"
+EXPECTED2 = False
 
-s21 = "abcde"
-
-s22 = "caebd"
+S31 = "a"
+S32 = "a"
+EXPECTED3 = True
 
 
 class TestScrambleString(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isScramble(s11, s12))
-        self.assertFalse(solution1.isScramble(s21, s22))
+        self.assertEqual(EXPECTED1, SOLUTION1.isScramble(S11, S12))
+        self.assertEqual(EXPECTED2, SOLUTION1.isScramble(S21, S22))
+        self.assertEqual(EXPECTED3, SOLUTION1.isScramble(S31, S32))
+
+    def test2(self):
+        self.assertEqual(EXPECTED1, SOLUTION2.isScramble(S11, S12))
+        self.assertEqual(EXPECTED2, SOLUTION2.isScramble(S21, S22))
+        self.assertEqual(EXPECTED3, SOLUTION2.isScramble(S31, S32))

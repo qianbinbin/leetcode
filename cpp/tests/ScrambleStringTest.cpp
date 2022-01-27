@@ -4,11 +4,17 @@
 using namespace lcpp;
 
 TEST(ScrambleString, Solution87_1) {
-  EXPECT_TRUE(Solution87_1().isScramble("great", "rgeat"));
-  EXPECT_FALSE(Solution87_1().isScramble("abcde", "caebd"));
+  auto S87_1 = Solution87_1();
+
+  EXPECT_TRUE(S87_1.isScramble("great", "rgeat"));
+  EXPECT_FALSE(S87_1.isScramble("abcde", "caebd"));
+  EXPECT_TRUE(S87_1.isScramble("a", "a"));
 }
 
 TEST(ScrambleString, Solution87_2) {
-  EXPECT_TRUE(Solution87_2().isScramble("great", "rgeat"));
-  EXPECT_FALSE(Solution87_2().isScramble("abcde", "caebd"));
+  auto S87_2 = Solution87_2();
+
+  EXPECT_TRUE(S87_2.isScramble("great", "rgeat"));
+  EXPECT_FALSE(S87_2.isScramble("abcde", "caebd"));
+  EXPECT_TRUE(S87_2.isScramble("a", "a"));
 }
