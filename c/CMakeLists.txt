@@ -1,16 +1,30 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.20)
 
 project(leetcode)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
+# UTHASH
+# include before current project
+configure_file(cmake/uthash.cmake uthash-download/CMakeLists.txt)
+execute_process(
+        COMMAND ${CMAKE_COMMAND} .
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/uthash-download
+)
+execute_process(
+        COMMAND ${CMAKE_COMMAND} --build .
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/uthash-download
+)
+include_directories("${CMAKE_BINARY_DIR}/uthash-src/include")
+
 include_directories(include)
 
 add_subdirectory(src)
 
+# GOOGLETEST
 # Download and unpack googletest at configure time
-configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+configure_file(cmake/googletest.cmake googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
         RESULT_VARIABLE result
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download)
