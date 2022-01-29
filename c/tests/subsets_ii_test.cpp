@@ -1,19 +1,43 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include "common.h"
 #include "subsets_ii.h"
 }
 
 TEST(subsets_ii_test, subsetsWithDup_90_1) {
-    int nums[] = {1, 2, 2};
-    int size = 0;
-    int *cols = NULL;
-    int **subsets = subsetsWithDup_90_1(nums, 3, &cols, &size);
-    for (int i = 0; i < size; ++i) {
-        array_print(subsets[i], cols[i]);
-        free(subsets[i]);
+    int nums1[] = {1, 2, 2};
+    int returnSize1 = 0;
+    int *returnColumnSizes1 = NULL;
+    std::vector<std::vector<int>> expected1{{},
+                                            {1},
+                                            {1, 2},
+                                            {1, 2, 2},
+                                            {2},
+                                            {2, 2}};
+    int **actual1 = subsetsWithDup_90_1(nums1, sizeof(nums1) / sizeof(nums1[0]),
+                                        &returnSize1, &returnColumnSizes1);
+    ASSERT_EQ(expected1.size(), returnSize1);
+    for (int i = 0; i < returnSize1; ++i) {
+        EXPECT_EQ(expected1[i], std::vector<int>(actual1[i], actual1[i] +
+                                                             returnColumnSizes1[i]));
+        free(actual1[i]);
     }
-    free(cols);
-    free(subsets);
+    free(returnColumnSizes1);
+    free(actual1);
+
+    int nums2[] = {0};
+    int returnSize2 = 0;
+    int *returnColumnSizes2 = NULL;
+    std::vector<std::vector<int>> expected2{{},
+                                            {0}};
+    int **actual2 = subsetsWithDup_90_1(nums2, sizeof(nums2) / sizeof(nums2[0]),
+                                        &returnSize2, &returnColumnSizes2);
+    ASSERT_EQ(expected2.size(), returnSize2);
+    for (int i = 0; i < returnSize2; ++i) {
+        EXPECT_EQ(expected2[i], std::vector<int>(actual2[i], actual2[i] +
+                                                             returnColumnSizes2[i]));
+        free(actual2[i]);
+    }
+    free(returnColumnSizes2);
+    free(actual2);
 }
