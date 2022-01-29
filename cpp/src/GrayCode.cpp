@@ -1,10 +1,8 @@
 #include "GrayCode.h"
-#include <cassert>
 
 using namespace lcpp;
 
 std::vector<int> Solution89_1::grayCode(int n) {
-  assert(n >= 0 && "n must be non-negative!");
   unsigned N = n;
   std::vector<int> Result;
   Result.reserve(1u << N);
@@ -18,7 +16,6 @@ std::vector<int> Solution89_1::grayCode(int n) {
 }
 
 std::vector<int> Solution89_2::grayCode(int n) {
-  assert(n >= 0 && "n must be non-negative!");
   unsigned Size = 1u << static_cast<unsigned>(n);
   std::vector<int> Result;
   Result.reserve(Size);

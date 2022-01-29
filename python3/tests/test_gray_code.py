@@ -2,24 +2,21 @@ from unittest import TestCase
 
 from leetcodepy.gray_code import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
+N1 = 2
+EXPECTED1 = [0, 1, 3, 2]
 
-n1 = 2
-
-expected1 = [0, 1, 3, 2]
-
-n2 = 0
-
-expected2 = [0]
+N2 = 1
+EXPECTED2 = [0, 1]
 
 
 class TestGrayCode(TestCase):
     def test1(self):
-        self.assertListEqual(expected1, solution1.grayCode(n1))
-        self.assertListEqual(expected2, solution1.grayCode(n2))
+        self.assertListEqual(EXPECTED1, SOLUTION1.grayCode(N1))
+        self.assertListEqual(EXPECTED2, SOLUTION1.grayCode(N2))
 
     def test2(self):
-        self.assertListEqual(expected1, solution2.grayCode(n1))
-        self.assertListEqual(expected2, solution2.grayCode(n2))
+        self.assertListEqual(EXPECTED1, SOLUTION2.grayCode(N1))
+        self.assertListEqual(EXPECTED2, SOLUTION2.grayCode(N2))
