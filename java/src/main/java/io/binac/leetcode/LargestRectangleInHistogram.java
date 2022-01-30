@@ -36,7 +36,7 @@ public class LargestRectangleInHistogram {
             int result = 0;
             int left, j;
             for (int i = 0; i < heights.length; ++i) {
-                while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                while (!stack.isEmpty() && heights[i] <= heights[stack.peek()]) {
                     j = stack.pop();
                     left = stack.isEmpty() ? 0 : stack.peek() + 1;
                     result = Math.max(result, heights[j] * (i - left));
