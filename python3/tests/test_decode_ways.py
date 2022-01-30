@@ -2,18 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.decode_ways import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "12"
+S1 = "12"
+EXPECTED1 = 2
 
-expected1 = 2
+S2 = "226"
+EXPECTED2 = 3
 
-s2 = "226"
-
-expected2 = 3
+S3 = "06"
+EXPECTED3 = 0
 
 
 class TestDecodeWays(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.numDecodings(s1))
-        self.assertEqual(expected2, solution1.numDecodings(s2))
+        self.assertEqual(EXPECTED1, SOLUTION1.numDecodings(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.numDecodings(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.numDecodings(S3))
