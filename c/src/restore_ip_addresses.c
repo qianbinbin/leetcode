@@ -4,47 +4,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-static bool is_valid_byte(const char *s, size_t offset, size_t count) {
-    if (count == 0 || count > 3)
+static bool is_valid_ip_segment(char const *s, size_t n) {
+    if (n == 0 || n > 3)
         return false;
-    if (s[offset] == '0')
-        return count == 1;
+    if (s[0] == '0')
+        return n == 1;
     int val = 0;
-    for (size_t i = 0; i < count; ++i)
-        val = val * 10 + s[offset + i] - '0';
+    for (size_t i = 0; i < n; ++i)
+        val = val * 10 + s[i] - '0';
     return val < 256;
 }
 
-static char *new_str(char *s, size_t offset, size_t count) {
-    char *ret = (char *) malloc(count + 1);
-    memcpy(ret, s + offset, count);
-    ret[count] = '\0';
-    return ret;
-}
-
-static void restore_ip_dfs(char *s, size_t len, size_t offset, int level,
-                           char **results, int *size, char *path, size_t path_size) {
-    if (level == 4 || offset == len) {
-        if (level == 4 && offset == len)
-            results[(*size)++] = new_str(path, 0, path_size - 1);
+static void restore_ip_dfs(char *s, size_t len, size_t index, int level,
+                           char **results, int *size, char *path,
+                           size_t path_size) {
+    if (level == 4 || index == len) {
+        if (level == 4 && index == len)
+            results[(*size)++] = strndup(path, path_size - 1);
         return;
     }
-    const size_t end = offset + 3 < len ? offset + 3 : len;
-    for (size_t i = offset; i < end; ++i) {
-        const size_t count = i - offset + 1;
-        if (is_valid_byte(s, offset, count)) {
-            memcpy(path + path_size, s + offset, count);
-            path_size += count;
-            path[path_size++] = '.';
-            restore_ip_dfs(s, len, i + 1, level + 1, results, size, path, path_size);
-            path_size -= count + 1;
-        }
+    path[path_size] = s[index];
+    path[path_size + 1] = '.';
+    restore_ip_dfs(s, len, index + 1, level + 1, results, size, path,
+                   path_size + 2);
+    if (s[index] == '0')
+        return;
+    if (index + 1 < len) {
+        path[path_size] = s[index];
+        path[path_size + 1] = s[index + 1];
+        path[path_size + 2] = '.';
+        restore_ip_dfs(s, len, index + 2, level + 1, results, size, path,
+                       path_size + 3);
+    }
+    if (index + 2 < len && is_valid_ip_segment(s + index, 3)) {
+        path[path_size] = s[index];
+        path[path_size + 1] = s[index + 1];
+        path[path_size + 2] = s[index + 2];
+        path[path_size + 3] = '.';
+        restore_ip_dfs(s, len, index + 3, level + 1, results, size, path,
+                       path_size + 4);
     }
 }
 
 char **restoreIpAddresses_93_1(char *s, int *returnSize) {
-    if (s == NULL || returnSize == NULL) return NULL;
-
     const size_t len = strlen(s);
     const size_t capacity = 27;
     char **ret = (char **) malloc(capacity * sizeof(char *));
@@ -59,11 +61,7 @@ char **restoreIpAddresses_93_1(char *s, int *returnSize) {
 }
 
 char **restoreIpAddresses_93_2(char *s, int *returnSize) {
-    if (s == NULL || returnSize == NULL) return NULL;
-
     const size_t len = strlen(s);
-    if (len < 4 || len > 12) return NULL;
-
     const size_t capacity = 27;
     char **ret = (char **) malloc(capacity * sizeof(char *));
     *returnSize = 0;
@@ -71,9 +69,11 @@ char **restoreIpAddresses_93_2(char *s, int *returnSize) {
     for (size_t a = 1; a <= 3; ++a) {
         for (size_t b = 1; b <= 3; ++b) {
             for (size_t c = 1; c <= 3; ++c) {
-                if (a + b + c >= len || a + b >= len) continue;
-                if (is_valid_byte(s, 0, a) && is_valid_byte(s, a, b) &&
-                    is_valid_byte(s, a + b, c) && is_valid_byte(s, a + b + c, len - a - b - c)) {
+                if (a + b + c >= len || a + b >= len) break;
+                if (is_valid_ip_segment(s, a) &&
+                    is_valid_ip_segment(s + a, b) &&
+                    is_valid_ip_segment(s + a + b, c) &&
+                    is_valid_ip_segment(s + a + b + c, len - a - b - c)) {
                     char *ip = (char *) malloc(len + 4);
                     size_t size = 0;
                     memcpy(ip, s, a);
