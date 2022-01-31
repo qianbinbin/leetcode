@@ -19,8 +19,6 @@ std::vector<int> Solution94_1::inorderTraversal(TreeNode *root) {
 
 std::vector<int> Solution94_2::inorderTraversal(TreeNode *root) {
   std::vector<int> Result;
-  if (root == nullptr)
-    return Result;
   std::stack<TreeNode *> Stack;
   auto Node = root;
   while (Node != nullptr || !Stack.empty()) {

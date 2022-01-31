@@ -5,26 +5,35 @@ import io.binac.leetcode.util.Trees;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinaryTreeInorderTraversalTest {
-    private final BinaryTreeInorderTraversal.Solution1 solution1 = new BinaryTreeInorderTraversal.Solution1();
+    private static final BinaryTreeInorderTraversal.Solution1 SOLUTION1 = new BinaryTreeInorderTraversal.Solution1();
+    private static final BinaryTreeInorderTraversal.Solution2 SOLUTION2 = new BinaryTreeInorderTraversal.Solution2();
 
-    private final BinaryTreeInorderTraversal.Solution2 solution2 = new BinaryTreeInorderTraversal.Solution2();
+    private final TreeNode ROOT1 = Trees.asTree(1, null, 2, 3);
+    private final List<Integer> EXPECTED1 = Arrays.asList(1, 3, 2);
+
+    private final TreeNode ROOT2 = Trees.asTree();
+    private final List<Integer> EXPECTED2 = Collections.emptyList();
+
+    private final TreeNode ROOT3 = Trees.asTree(1);
+    private final List<Integer> EXPECTED3 = Collections.singletonList(1);
 
     @Test
     void test1() {
-        TreeNode root = Trees.asTree(1, null, 2, 3);
-        List<Integer> expected = Arrays.asList(1, 3, 2);
-        assertEquals(expected, solution1.inorderTraversal(root));
+        assertEquals(EXPECTED1, SOLUTION1.inorderTraversal(ROOT1));
+        assertEquals(EXPECTED2, SOLUTION1.inorderTraversal(ROOT2));
+        assertEquals(EXPECTED3, SOLUTION1.inorderTraversal(ROOT3));
     }
 
     @Test
     void test2() {
-        TreeNode root = Trees.asTree(1, null, 2, 3);
-        List<Integer> expected = Arrays.asList(1, 3, 2);
-        assertEquals(expected, solution2.inorderTraversal(root));
+        assertEquals(EXPECTED1, SOLUTION2.inorderTraversal(ROOT1));
+        assertEquals(EXPECTED2, SOLUTION2.inorderTraversal(ROOT2));
+        assertEquals(EXPECTED3, SOLUTION2.inorderTraversal(ROOT3));
     }
 }
