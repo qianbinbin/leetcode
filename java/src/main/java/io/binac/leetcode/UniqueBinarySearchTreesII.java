@@ -7,38 +7,34 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: 3
- *     Output:
- *     [
- *       [1,null,3,2],
- *       [3,2,null,1],
- *       [3,1,null,null,2],
- *       [2,1,3],
- *       [1,null,2,null,3]
- *     ]
- *     Explanation:
- *     The above output corresponds to the 5 unique BST's shown below:
+ * <p>Given an integer <code>n</code>, return <em>all the structurally unique <strong>BST'</strong>s (binary search trees), which has exactly </em><code>n</code><em> nodes of unique values from</em> <code>1</code> <em>to</em> <code>n</code>. Return the answer in <strong>any order</strong>.</p>
  *
- *        1         3     3      2      1
- *         \       /     /      / \      \
- *          3     2     1      1   3      2
- *         /     /       \                 \
- *        2     1         2                 3
- * </blockquote></pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" style="width: 600px; height: 148px;">
+ * <pre><strong>Input:</strong> n = 3
+ * <strong>Output:</strong> [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> n = 1
+ * <strong>Output:</strong> [[1]]
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= n &lt;= 8</code></li>
+ * </ul>
  */
 public class UniqueBinarySearchTreesII {
     public static class Solution1 {
         private TreeNode cloneTree(TreeNode root) {
             if (root == null)
                 return null;
-            TreeNode result = new TreeNode(root.val);
-            result.left = cloneTree(root.left);
-            result.right = cloneTree(root.right);
-            return result;
+            return new TreeNode(root.val, cloneTree(root.left), cloneTree(root.right));
         }
 
         private List<TreeNode> generateTrees(int start, int end) {
@@ -50,10 +46,7 @@ public class UniqueBinarySearchTreesII {
                 List<TreeNode> rights = generateTrees(i + 1, end);
                 for (TreeNode left : lefts) {
                     for (TreeNode right : rights) {
-                        TreeNode root = new TreeNode(i);
-                        root.left = cloneTree(left);
-                        root.right = cloneTree(right);
-                        result.add(root);
+                        result.add(new TreeNode(i, cloneTree(left), cloneTree(right)));
                     }
                 }
             }
@@ -61,8 +54,6 @@ public class UniqueBinarySearchTreesII {
         }
 
         public List<TreeNode> generateTrees(int n) {
-            // if (n < 1) throw new IllegalArgumentException("n must be positive");
-            if (n < 1) return Collections.emptyList();
             return generateTrees(1, n + 1);
         }
     }

@@ -5,10 +5,7 @@ using namespace lcpp;
 static TreeNode *copyTree(TreeNode *Root) {
   if (Root == nullptr)
     return nullptr;
-  auto Copy = new TreeNode(Root->val);
-  Copy->left = copyTree(Root->left);
-  Copy->right = copyTree(Root->right);
-  return Copy;
+  return new TreeNode(Root->val, copyTree(Root->left), copyTree(Root->right));
 }
 
 static void delTree(TreeNode *Root) {
@@ -19,21 +16,18 @@ static void delTree(TreeNode *Root) {
   delete Root;
 }
 
-static void genTrees(int Begin, int End, std::vector<TreeNode *> &Trees) {
+static std::vector<TreeNode *> genTrees(int Begin, int End) {
+  std::vector<TreeNode *> Results;
   if (Begin == End) {
-    Trees.push_back(nullptr);
-    return;
+    Results.push_back(nullptr);
+    return Results;
   }
-  std::vector<TreeNode *> LeftTrees, RightTrees;
   for (int I = Begin; I != End; ++I) {
-    genTrees(Begin, I, LeftTrees);
-    genTrees(I + 1, End, RightTrees);
+    auto LeftTrees = genTrees(Begin, I);
+    auto RightTrees = genTrees(I + 1, End);
     for (const auto &L : LeftTrees) {
       for (const auto &R : RightTrees) {
-        auto Root = new TreeNode(I);
-        Root->left = copyTree(L);
-        Root->right = copyTree(R);
-        Trees.push_back(Root);
+        Results.push_back(new TreeNode(I, copyTree(L), copyTree(R)));
       }
     }
     for (const auto &L : LeftTrees)
@@ -43,13 +37,9 @@ static void genTrees(int Begin, int End, std::vector<TreeNode *> &Trees) {
       delTree(R);
     RightTrees.clear();
   }
+  return Results;
 }
 
 std::vector<TreeNode *> Solution95_1::generateTrees(int n) {
-  // assert(n > 0);
-  std::vector<TreeNode *> Trees;
-  if (n <= 0)
-    return Trees;
-  genTrees(1, n + 1, Trees);
-  return Trees;
+  return genTrees(1, n + 1);
 }

@@ -1,25 +1,23 @@
 """
-Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
+Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n. Return the answer in any order.
 
-Example:
 
-Input: 3
-Output:
-[
-  [1,null,3,2],
-  [3,2,null,1],
-  [3,1,null,null,2],
-  [2,1,3],
-  [1,null,2,null,3]
-]
-Explanation:
-The above output corresponds to the 5 unique BST's shown below:
 
-   1         3     3      2      1
-    \       /     /      / \      \
-     3     2     1      1   3      2
-    /     /       \                 \
-   2     1         2                 3
+Example 1:
+https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg
+
+Input: n = 3
+Output: [[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+
+Example 2:
+
+Input: n = 1
+Output: [[1]]
+
+
+Constraints:
+
+1 <= n <= 8
 """
 from typing import List, Optional
 
@@ -27,22 +25,13 @@ from .utils import TreeNode
 
 
 class Solution1:
-    def generateTrees(self, n):
-        """
-        :type n: int
-        :rtype: List[TreeNode]
-        """
-        if n < 1:
-            return []
+    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         return self.generate_trees(1, n + 1)
 
     def copy_tree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if root is None:
             return None
-        copy = TreeNode(root.val)
-        copy.left = self.copy_tree(root.left)
-        copy.right = self.copy_tree(root.right)
-        return copy
+        return TreeNode(root.val, self.copy_tree(root.left), self.copy_tree(root.right))
 
     def generate_trees(self, start: int, end: int) -> List[Optional[TreeNode]]:
         if start == end:
@@ -53,8 +42,5 @@ class Solution1:
             right_trees = self.generate_trees(i + 1, end)
             for left_tree in left_trees:
                 for right_tree in right_trees:
-                    root = TreeNode(i)
-                    root.left = self.copy_tree(left_tree)
-                    root.right = self.copy_tree(right_tree)
-                    result.append(root)
+                    result.append(TreeNode(i, self.copy_tree(left_tree), self.copy_tree(right_tree)))
         return result
