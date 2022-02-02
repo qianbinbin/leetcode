@@ -2,22 +2,26 @@ from unittest import TestCase
 
 from leetcodepy.interleaving_string import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s11 = "aabcc"
+S11 = "aabcc"
+S12 = "dbbca"
+S13 = "aadbbcbcac"
+EXPECTED1 = True
 
-s12 = "dbbca"
+S21 = "aabcc"
+S22 = "dbbca"
+S23 = "aadbbbaccc"
+EXPECTED2 = False
 
-s13 = "aadbbcbcac"
-
-s21 = "aabcc"
-
-s22 = "dbbca"
-
-s23 = "aadbbbaccc"
+S31 = ""
+S32 = ""
+S33 = ""
+EXPECTED3 = True
 
 
 class TestInterleavingString(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isInterleave(s11, s12, s13))
-        self.assertFalse(solution1.isInterleave(s21, s22, s23))
+        self.assertEqual(EXPECTED1, SOLUTION1.isInterleave(S11, S12, S13))
+        self.assertEqual(EXPECTED2, SOLUTION1.isInterleave(S21, S22, S33))
+        self.assertEqual(EXPECTED3, SOLUTION1.isInterleave(S31, S32, S33))
