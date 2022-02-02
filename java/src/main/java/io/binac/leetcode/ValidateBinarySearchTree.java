@@ -2,7 +2,8 @@ package io.binac.leetcode;
 
 import io.binac.leetcode.util.TreeNode;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * Given a binary tree, determine if it is a valid binary search tree (BST).
@@ -35,9 +36,12 @@ import java.util.Stack;
 public class ValidateBinarySearchTree {
     public static class Solution1 {
         private boolean isValidBST(TreeNode root, TreeNode[] pre) {
-            if (root == null) return true;
-            if (!isValidBST(root.left, pre)) return false;
-            if (pre[0] != null && pre[0].val >= root.val) return false;
+            if (root == null)
+                return true;
+            if (!isValidBST(root.left, pre))
+                return false;
+            if (pre[0] != null && pre[0].val >= root.val)
+                return false;
             pre[0] = root;
             return isValidBST(root.right, pre);
         }
@@ -49,10 +53,9 @@ public class ValidateBinarySearchTree {
 
     public static class Solution2 {
         public boolean isValidBST(TreeNode root) {
-            if (root == null) return true;
-            Stack<TreeNode> stack = new Stack<>();
+            Deque<TreeNode> stack = new ArrayDeque<>();
             TreeNode n = root, pre = null;
-            while (n != null || !stack.empty()) {
+            while (n != null || !stack.isEmpty()) {
                 if (n != null) {
                     stack.push(n);
                     n = n.left;
@@ -64,6 +67,20 @@ public class ValidateBinarySearchTree {
                 }
             }
             return true;
+        }
+    }
+
+    public static class Solution3 {
+        private boolean isValidBST(TreeNode root, long min, long max) {
+            if (root == null)
+                return true;
+            if (root.val <= min || root.val >= max)
+                return false;
+            return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
+        }
+
+        public boolean isValidBST(TreeNode root) {
+            return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
         }
     }
 }

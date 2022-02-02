@@ -3,9 +3,12 @@
 #include <stdlib.h>
 
 static bool is_valid_bst(struct TreeNode *root, struct TreeNode **pre) {
-    if (root == NULL) return true;
-    if (!is_valid_bst(root->left, pre)) return false;
-    if (*pre != NULL && (*pre)->val >= root->val) return false;
+    if (root == NULL)
+        return true;
+    if (!is_valid_bst(root->left, pre))
+        return false;
+    if (*pre != NULL && (*pre)->val >= root->val)
+        return false;
     *pre = root;
     return is_valid_bst(root->right, pre);
 }
@@ -18,14 +21,16 @@ bool isValidBST_98_1(struct TreeNode *root) {
 bool isValidBST_98_2(struct TreeNode *root) {
     if (root == NULL) return true;
     int capacity = 16;
-    struct TreeNode **stack = (struct TreeNode **) malloc(capacity * sizeof(struct TreeNode *));
+    struct TreeNode **stack = (struct TreeNode **) malloc(
+            capacity * sizeof(struct TreeNode *));
     int top = -1;
     struct TreeNode *n = root, *pre = NULL;
     while (n != NULL || top != -1) {
         if (n != NULL) {
             if (top + 1 >= capacity) {
                 capacity *= 2;
-                stack = (struct TreeNode **) realloc(stack, capacity * sizeof(struct TreeNode *));
+                stack = (struct TreeNode **) realloc(stack, capacity *
+                                                            sizeof(struct TreeNode *));
             }
             stack[++top] = n;
             n = n->left;
@@ -41,4 +46,17 @@ bool isValidBST_98_2(struct TreeNode *root) {
     }
     free(stack);
     return true;
+}
+
+static bool is_valid_bst2(struct TreeNode *root, int64_t min, int64_t max) {
+    if (root == NULL)
+        return true;
+    if (root->val <= min || root->val >= max)
+        return false;
+    return is_valid_bst2(root->left, min, root->val) &&
+           is_valid_bst2(root->right, root->val, max);
+}
+
+bool isValidBST_98_3(struct TreeNode *root) {
+    return is_valid_bst2(root, INT64_MIN, INT64_MAX);
 }
