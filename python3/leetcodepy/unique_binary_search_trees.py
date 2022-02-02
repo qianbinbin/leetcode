@@ -1,32 +1,29 @@
 """
-Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.
 
-Example:
 
-Input: 3
+
+Example 1:
+https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg
+
+Input: n = 3
 Output: 5
-Explanation:
-Given n = 3, there are a total of 5 unique BST's:
 
-   1         3     3      2      1
-    \       /     /      / \      \
-     3     2     1      1   3      2
-    /     /       \                 \
-   2     1         2                 3
+Example 2:
+
+Input: n = 1
+Output: 1
+
+
+Constraints:
+
+1 <= n <= 19
 """
 from math import factorial
 
 
 class Solution1:
-    def numTrees(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        if n < 0:
-            raise ValueError
-        if n < 2:
-            return 1
+    def numTrees(self, n: int) -> int:
         dp = [0] * (n + 1)
         dp[0], dp[1] = 1, 1
         for i in range(2, n + 1):
@@ -36,13 +33,5 @@ class Solution1:
 
 
 class Solution2:
-    def numTrees(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        if n < 0:
-            raise ValueError
-        if n < 2:
-            return 1
-        return factorial(2 * n) // pow(factorial(n), 2) // (n + 1)
+    def numTrees(self, n: int) -> int:
+        return factorial(2 * n) // factorial(n) ** 2 // (n + 1)

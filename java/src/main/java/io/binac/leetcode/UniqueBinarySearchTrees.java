@@ -1,28 +1,32 @@
 package io.binac.leetcode;
 
 /**
- * Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: 3
- *     Output: 5
- *     Explanation:
- *     Given n = 3, there are a total of 5 unique BST's:
+ * <p>Given an integer <code>n</code>, return <em>the number of structurally unique <strong>BST'</strong>s (binary search trees) which has exactly </em><code>n</code><em> nodes of unique values from</em> <code>1</code> <em>to</em> <code>n</code>.</p>
  *
- *        1         3     3      2      1
- *         \       /     /      / \      \
- *          3     2     1      1   3      2
- *         /     /       \                 \
- *        2     1         2                 3
- * </blockquote></pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" style="width: 600px; height: 148px;">
+ * <pre><strong>Input:</strong> n = 3
+ * <strong>Output:</strong> 5
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> n = 1
+ * <strong>Output:</strong> 1
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= n &lt;= 19</code></li>
+ * </ul>
  */
 public class UniqueBinarySearchTrees {
     public static class Solution1 {
         public int numTrees(int n) {
-            // if (n < 1) throw new IllegalArgumentException("n must be positive");
-            if (n < 2) return 1;
-            int dp[] = new int[n + 1];
+            int[] dp = new int[n + 1];
             dp[0] = 1;
             dp[1] = 1;
             for (int count = 2; count <= n; ++count) {
@@ -35,8 +39,6 @@ public class UniqueBinarySearchTrees {
 
     public static class Solution2 {
         public int numTrees(int n) {
-            // if (n < 1) throw new IllegalArgumentException("n must be positive");
-            if (n < 2) return 1;
             long result = 1;
             for (int i = 1; i <= n; ++i)
                 result = result * (n + i) / i;
