@@ -6,50 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Two elements of a binary search tree (BST) are swapped by mistake.
- * <p>
- * <p>Recover the tree without changing its structure.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: [1,3,null,null,2]
+ * <p>You are given the <code>root</code> of a binary search tree (BST), where the values of <strong>exactly</strong> two nodes of the tree were swapped by mistake. <em>Recover the tree without changing its structure</em>.</p>
  *
- *        1
- *       /
- *      3
- *       \
- *        2
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2020/10/28/recover1.jpg" style="width: 422px; height: 302px;">
+ * <pre><strong>Input:</strong> root = [1,3,null,null,2]
+ * <strong>Output:</strong> [3,1,null,null,2]
+ * <strong>Explanation:</strong> 3 cannot be a left child of 1 because 3 &gt; 1. Swapping 1 and 3 makes the BST valid.
+ * </pre>
  *
- *     Output: [3,1,null,null,2]
+ * <p><strong>Example 2:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2020/10/28/recover2.jpg" style="width: 581px; height: 302px;">
+ * <pre><strong>Input:</strong> root = [3,1,4,null,null,2]
+ * <strong>Output:</strong> [2,1,4,null,null,3]
+ * <strong>Explanation:</strong> 2 cannot be in the right subtree of 3 because 2 &lt; 3. Swapping 2 and 3 makes the BST valid.
+ * </pre>
  *
- *        3
- *       /
- *      1
- *       \
- *        2
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: [3,1,4,null,null,2]
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
  *
- *        3
- *       / \
- *      1   4
- *         /
- *        2
+ * <ul>
+ * 	<li>The number of nodes in the tree is in the range <code>[2, 1000]</code>.</li>
+ * 	<li><code>-2<sup>31</sup> &lt;= Node.val &lt;= 2<sup>31</sup> - 1</code></li>
+ * </ul>
  *
- *     Output: [2,1,4,null,null,3]
- *
- *        2
- *       / \
- *      1   4
- *         /
- *        3
- * </blockquote></pre>
- * Follow up:
- * <p>
- * <p>A solution using O(n) space is pretty straight forward.
- * <p>Could you devise a constant space solution?
+ * <p>&nbsp;</p>
+ * <strong>Follow up:</strong> A solution using <code>O(n)</code> space is pretty straight-forward. Could you devise a constant <code>O(1)</code> space solution?
  */
 public class RecoverBinarySearchTree {
     public static class Solution1 {
@@ -64,40 +47,33 @@ public class RecoverBinarySearchTree {
             List<TreeNode> nodes = new ArrayList<>();
             inOrder(root, nodes);
             int i = 0, j = nodes.size() - 1;
-            while (i < nodes.size() - 1 && nodes.get(i).val < nodes.get(i + 1).val) ++i;
-            while (j > 0 && nodes.get(j).val > nodes.get(j - 1).val) --j;
-            if (i < nodes.size() - 1 && j > 0) {
-                int tmp = nodes.get(i).val;
-                nodes.get(i).val = nodes.get(j).val;
-                nodes.get(j).val = tmp;
-            }
+            while (i < j && nodes.get(i).val < nodes.get(i + 1).val) ++i;
+            while (j > i && nodes.get(j).val > nodes.get(j - 1).val) --j;
+            int tmp = nodes.get(i).val;
+            nodes.get(i).val = nodes.get(j).val;
+            nodes.get(j).val = tmp;
         }
     }
 
     public static class Solution2 {
-        private void inOrder(TreeNode root, TreeNode temp[]) {
+        private void inOrder(TreeNode root, TreeNode[] pre, TreeNode[] invalid1, TreeNode[] invalid2) {
             if (root == null) return;
-            inOrder(root.left, temp);
-            if (temp[0] != null && temp[0].val > root.val) {
-                if (temp[1] == null)
-                    temp[1] = temp[0];
-                temp[2] = root;
+            inOrder(root.left, pre, invalid1, invalid2);
+            if (pre[0] != null && pre[0].val > root.val) {
+                if (invalid1[0] == null)
+                    invalid1[0] = pre[0];
+                invalid2[0] = root;
             }
-            temp[0] = root;
-            inOrder(root.right, temp);
+            pre[0] = root;
+            inOrder(root.right, pre, invalid1, invalid2);
         }
 
         public void recoverTree(TreeNode root) {
-            // Make it reentrant
-            // [pre, invalid1, invalid2]
-            TreeNode temp[] = new TreeNode[3];
-            inOrder(root, temp);
-            TreeNode invalid1 = temp[1], invalid2 = temp[2];
-            if (invalid1 != null && invalid2 != null) {
-                int tmp = invalid1.val;
-                invalid1.val = invalid2.val;
-                invalid2.val = tmp;
-            }
+            TreeNode[] pre = new TreeNode[1], invalid1 = new TreeNode[1], invalid2 = new TreeNode[1];
+            inOrder(root, pre, invalid1, invalid2);
+            int tmp = invalid1[0].val;
+            invalid1[0].val = invalid2[0].val;
+            invalid2[0].val = tmp;
         }
     }
 }
