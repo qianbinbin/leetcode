@@ -5,7 +5,8 @@
 #include <string.h>
 
 static void pre_order(struct TreeNode *root, int level,
-                      int ***lists, int *size, int *capacity, int **col_sizes, int **col_caps) {
+                      int ***lists, int *size, int *capacity, int **col_sizes,
+                      int **col_caps) {
     if (root == NULL) return;
     if (level == *size) {
         if (*size >= *capacity) {
@@ -32,24 +33,29 @@ static void pre_order(struct TreeNode *root, int level,
         *l = (int *) realloc(*l, *col_cap * sizeof(int));
     }
     (*l)[(*col_size)++] = root->val;
-    pre_order(root->left, level + 1, lists, size, capacity, col_sizes, col_caps);
-    pre_order(root->right, level + 1, lists, size, capacity, col_sizes, col_caps);
+    pre_order(root->left, level + 1, lists, size, capacity, col_sizes,
+              col_caps);
+    pre_order(root->right, level + 1, lists, size, capacity, col_sizes,
+              col_caps);
 }
 
-int **levelOrder_102_1(struct TreeNode *root, int **columnSizes, int *returnSize) {
-    if (root == NULL || columnSizes == NULL || returnSize == NULL) return NULL;
-
+int **levelOrder_102_1(struct TreeNode *root, int *returnSize,
+                       int **returnColumnSizes) {
     int capacity = 8;
     int **ret = (int **) calloc(capacity, sizeof(int *));
     *returnSize = 0;
-    *columnSizes = (int *) calloc(capacity, sizeof(int));
+    *returnColumnSizes = (int *) calloc(capacity, sizeof(int));
     int *col_caps = (int *) calloc(capacity, sizeof(int));
 
-    pre_order(root, 0, &ret, returnSize, &capacity, columnSizes, &col_caps);
+    pre_order(root, 0, &ret, returnSize, &capacity, returnColumnSizes,
+              &col_caps);
 
     ret = (int **) realloc(ret, *returnSize * sizeof(int *));
-    for (int i = 0; i < *returnSize; ++i) ret[i] = (int *) realloc(ret[i], ((*columnSizes)[i] * sizeof(int)));
-    *columnSizes = (int *) realloc(*columnSizes, *returnSize * sizeof(int));
+    for (int i = 0; i < *returnSize; ++i)
+        ret[i] = (int *) realloc(ret[i], ((*returnColumnSizes)[i] *
+                                          sizeof(int)));
+    *returnColumnSizes = (int *) realloc(*returnColumnSizes,
+                                         *returnSize * sizeof(int));
     free(col_caps);
     return ret;
 }
@@ -111,14 +117,15 @@ static void queue_free(queue *q) {
     free(q);
 }
 
-int **levelOrder_102_2(struct TreeNode *root, int **columnSizes, int *returnSize) {
-    if (root == NULL || columnSizes == NULL || returnSize == NULL) return NULL;
-
+int **levelOrder_102_2(struct TreeNode *root, int *returnSize,
+                       int **returnColumnSizes) {
     int capacity = 8;
     int **ret = (int **) calloc(capacity, sizeof(int *));
-    *columnSizes = (int *) calloc(capacity, sizeof(int));
+    *returnColumnSizes = (int *) calloc(capacity, sizeof(int));
     int *col_caps = (int *) calloc(capacity, sizeof(int));
     *returnSize = 0;
+    if (root == NULL)
+        goto ret;
 
     queue *q = queue_create();
     queue_offer(q, root);
@@ -127,8 +134,9 @@ int **levelOrder_102_2(struct TreeNode *root, int **columnSizes, int *returnSize
             int new_cap = capacity << 1;
             ret = (int **) realloc(ret, new_cap * sizeof(int *));
             memset(ret + capacity, 0, capacity * sizeof(int *));
-            *columnSizes = (int *) realloc(*columnSizes, new_cap * sizeof(int));
-            memset(*columnSizes + capacity, 0, capacity * sizeof(int));
+            *returnColumnSizes = (int *) realloc(*returnColumnSizes,
+                                                 new_cap * sizeof(int));
+            memset(*returnColumnSizes + capacity, 0, capacity * sizeof(int));
             col_caps = (int *) realloc(col_caps, new_cap * sizeof(int));
             memset(col_caps + capacity, 0, capacity * sizeof(int));
             capacity = new_cap;
@@ -139,21 +147,27 @@ int **levelOrder_102_2(struct TreeNode *root, int **columnSizes, int *returnSize
                 ret[*returnSize] = (int *) malloc(8 * sizeof(int));
                 col_caps[*returnSize] = 8;
             }
-            if ((*columnSizes)[*returnSize] >= col_caps[*returnSize]) {
+            if ((*returnColumnSizes)[*returnSize] >= col_caps[*returnSize]) {
                 col_caps[*returnSize] *= 2;
-                ret[*returnSize] = (int *) realloc(ret[*returnSize], col_caps[*returnSize] * sizeof(int));
+                ret[*returnSize] = (int *) realloc(ret[*returnSize],
+                                                   col_caps[*returnSize] *
+                                                   sizeof(int));
             }
             struct TreeNode *n = queue_poll(q);
-            ret[*returnSize][(*columnSizes)[*returnSize]++] = n->val;
+            ret[*returnSize][(*returnColumnSizes)[*returnSize]++] = n->val;
             if (n->left != NULL) queue_offer(q, n->left);
             if (n->right != NULL) queue_offer(q, n->right);
         }
         ++(*returnSize);
     }
     queue_free(q);
+
+    ret:
     ret = (int **) realloc(ret, *returnSize * sizeof(int *));
-    for (int i = 0; i < *returnSize; ++i) ret[i] = (int *) realloc(ret[i], (*columnSizes)[i] * sizeof(int));
-    *columnSizes = (int *) realloc(*columnSizes, *returnSize * sizeof(int));
+    for (int i = 0; i < *returnSize; ++i)
+        ret[i] = (int *) realloc(ret[i], (*returnColumnSizes)[i] * sizeof(int));
+    *returnColumnSizes = (int *) realloc(*returnColumnSizes,
+                                         *returnSize * sizeof(int));
     free(col_caps);
     return ret;
 }

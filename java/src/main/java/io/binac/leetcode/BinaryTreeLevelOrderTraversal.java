@@ -4,26 +4,36 @@ import io.binac.leetcode.util.TreeNode;
 
 import java.util.*;
 
+
 /**
- * Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
- * <p>
- * <p>For example:
- * <p>Given binary tree [3,9,20,null,null,15,7],
- * <blockquote><pre>
- *         3
- *        / \
- *       9  20
- *         /  \
- *        15   7
- * </blockquote></pre>
- * return its level order traversal as:
- * <blockquote><pre>
- *     [
- *       [3],
- *       [9,20],
- *       [15,7]
- *     ]
- * </blockquote></pre>
+ * <p>Given the <code>root</code> of a binary tree, return <em>the level order traversal of its nodes' values</em>. (i.e., from left to right, level by level).</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree1.jpg" style="width: 277px; height: 302px;">
+ * <pre><strong>Input:</strong> root = [3,9,20,null,null,15,7]
+ * <strong>Output:</strong> [[3],[9,20],[15,7]]
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> root = [1]
+ * <strong>Output:</strong> [[1]]
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> root = []
+ * <strong>Output:</strong> []
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li>The number of nodes in the tree is in the range <code>[0, 2000]</code>.</li>
+ * 	<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+ * </ul>
  */
 public class BinaryTreeLevelOrderTraversal {
     public static class Solution1 {
@@ -48,17 +58,15 @@ public class BinaryTreeLevelOrderTraversal {
 
     public static class Solution2 {
         public List<List<Integer>> levelOrder(TreeNode root) {
-            if (root == null) return Collections.emptyList();
-
             List<List<Integer>> result = new ArrayList<>();
-            Queue<TreeNode> queue = new LinkedList<>();
+            if (root == null) return result;
+
+            Queue<TreeNode> queue = new ArrayDeque<>();
             queue.offer(root);
             while (!queue.isEmpty()) {
                 List<Integer> level = new ArrayList<>();
-                final int size = queue.size();
-                for (int i = 0; i < size; ++i) {
-                    TreeNode n = queue.poll();
-                    assert n != null;
+                for (int i = queue.size(); i > 0; --i) {
+                    TreeNode n = Objects.requireNonNull(queue.poll());
                     level.add(n.val);
                     if (n.left != null) queue.offer(n.left);
                     if (n.right != null) queue.offer(n.right);

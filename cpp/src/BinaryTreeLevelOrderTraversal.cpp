@@ -3,7 +3,7 @@
 
 using namespace lcpp;
 
-template<typename T> using TwoDimVec = std::vector<std::vector<T>>;
+template <typename T> using TwoDimVec = std::vector<std::vector<T>>;
 
 using SizeType = TwoDimVec<int>::size_type;
 
