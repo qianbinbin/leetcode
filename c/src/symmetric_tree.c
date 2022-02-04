@@ -6,11 +6,13 @@
 static bool is_symmetric(struct TreeNode *p, struct TreeNode *q) {
     if (p == q) return true;
     if (p == NULL || q == NULL) return p == q;
-    return p->val == q->val && is_symmetric(p->left, q->right) && is_symmetric(p->right, q->left);
+    if (p->val != q->val)
+        return false;
+    return is_symmetric(p->left, q->right) &&
+           is_symmetric(p->right, q->left);
 }
 
 bool isSymmetric_101_1(struct TreeNode *root) {
-    if (root == NULL) return true;
     return is_symmetric(root->left, root->right);
 }
 
@@ -39,7 +41,7 @@ static void queue_offer(queue *q, void *e) {
         int new_cap = n << 1;
         void **a = (void **) malloc(new_cap * sizeof(void *));
         int left = q->head, right = n - q->head;
-        memcpy(a, q->elements + q->head, right * sizeof(void *));
+        memcpy(a, q->elements + left, right * sizeof(void *));
         memcpy(a + right, q->elements, left * sizeof(void *));
         free(q->elements);
         q->elements = a;
@@ -53,7 +55,6 @@ static void *queue_poll(queue *q) {
     int h = q->head;
     if (h == q->tail) return NULL;
     void *ret = q->elements[h];
-    q->elements[h] = NULL;
     q->head = (h + 1) & (q->capacity - 1);
     return ret;
 }
@@ -68,8 +69,6 @@ static void queue_free(queue *q) {
 }
 
 bool isSymmetric_101_2(struct TreeNode *root) {
-    if (root == NULL) return true;
-
     queue *q = queue_create();
     queue_offer(q, root->left);
     queue_offer(q, root->right);

@@ -10,19 +10,15 @@ static bool isSymmetric(TreeNode *Root1, TreeNode *Root2) {
     return false;
   if (Root1->val != Root2->val)
     return false;
-  return isSymmetric(Root1->left, Root2->right)
-      && isSymmetric(Root1->right, Root2->left);
+  return isSymmetric(Root1->left, Root2->right) &&
+         isSymmetric(Root1->right, Root2->left);
 }
 
 bool Solution101_1::isSymmetric(TreeNode *root) {
-  if (root == nullptr)
-    return true;
   return ::isSymmetric(root->left, root->right);
 }
 
 bool Solution101_2::isSymmetric(TreeNode *root) {
-  if (root == nullptr)
-    return true;
   std::queue<TreeNode *> Queue;
   Queue.push(root->left);
   Queue.push(root->right);
@@ -34,9 +30,8 @@ bool Solution101_2::isSymmetric(TreeNode *root) {
     Queue.pop();
     if (Node1 == nullptr && Node2 == nullptr) {
       continue;
-    } else if (Node1 == nullptr || Node2 == nullptr) {
-      return false;
-    } else if (Node1->val != Node2->val) {
+    } else if (Node1 == nullptr || Node2 == nullptr ||
+               Node1->val != Node2->val) {
       return false;
     } else {
       Queue.push(Node1->left);
