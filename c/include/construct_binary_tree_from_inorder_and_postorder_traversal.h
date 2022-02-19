@@ -1,21 +1,29 @@
 /*
- * Given inorder and postorder traversal of a tree, construct the binary tree.
+ * Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.
  *
- * Note:
- * You may assume that duplicates do not exist in the tree.
  *
- * For example, given
  *
- * inorder = [9,3,15,20,7]
- * postorder = [9,15,7,20,3]
+ * Example 1:
+ * https://assets.leetcode.com/uploads/2021/02/19/tree.jpg
  *
- * Return the following binary tree:
+ * Input: inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]
+ * Output: [3,9,20,null,null,15,7]
  *
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
+ * Example 2:
+ *
+ * Input: inorder = [-1], postorder = [-1]
+ * Output: [-1]
+ *
+ *
+ * Constraints:
+ *
+ * 1 <= inorder.length <= 3000
+ * postorder.length == inorder.length
+ * -3000 <= inorder[i], postorder[i] <= 3000
+ * inorder and postorder consist of unique values.
+ * Each value of postorder also appears in inorder.
+ * inorder is guaranteed to be the inorder traversal of the tree.
+ * postorder is guaranteed to be the postorder traversal of the tree.
  */
 
 #ifndef LEETCODE_CONSTRUCT_BINARY_TREE_FROM_INORDER_AND_POSTORDER_TRAVERSAL_H
@@ -23,6 +31,7 @@
 
 #include "common.h"
 
-struct TreeNode *buildTree_106_1(int *inorder, int inorderSize, int *postorder, int postorderSize);
+struct TreeNode *buildTree_106_1(int *inorder, int inorderSize, int *postorder,
+                                 int postorderSize);
 
 #endif //LEETCODE_CONSTRUCT_BINARY_TREE_FROM_INORDER_AND_POSTORDER_TRAVERSAL_H
