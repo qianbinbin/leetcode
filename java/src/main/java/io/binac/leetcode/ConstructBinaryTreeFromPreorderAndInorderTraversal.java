@@ -3,48 +3,47 @@ package io.binac.leetcode;
 import io.binac.leetcode.util.TreeNode;
 
 /**
- * Given preorder and inorder traversal of a tree, construct the binary tree.
- * <p>
- * <p>Note:
- * <p>You may assume that duplicates do not exist in the tree.
- * <p>
- * <p>For example, given
- * <blockquote><pre>
- *     preorder = [3,9,20,15,7]
- *     inorder = [9,3,15,20,7]
- * </blockquote></pre>
- * Return the following binary tree:
- * <blockquote><pre>
- *         3
- *        / \
- *       9  20
- *         /  \
- *        15   7
- * </blockquote></pre>
+ * <p>Given two integer arrays <code>preorder</code> and <code>inorder</code> where <code>preorder</code> is the preorder traversal of a binary tree and <code>inorder</code> is the inorder traversal of the same tree, construct and return <em>the binary tree</em>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <img alt="" src="https://assets.leetcode.com/uploads/2021/02/19/tree.jpg" style="width: 277px; height: 302px;">
+ * <pre><strong>Input:</strong> preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+ * <strong>Output:</strong> [3,9,20,null,null,15,7]
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> preorder = [-1], inorder = [-1]
+ * <strong>Output:</strong> [-1]
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= preorder.length &lt;= 3000</code></li>
+ * 	<li><code>inorder.length == preorder.length</code></li>
+ * 	<li><code>-3000 &lt;= preorder[i], inorder[i] &lt;= 3000</code></li>
+ * 	<li><code>preorder</code> and <code>inorder</code> consist of <strong>unique</strong> values.</li>
+ * 	<li>Each value of <code>inorder</code> also appears in <code>preorder</code>.</li>
+ * 	<li><code>preorder</code> is <strong>guaranteed</strong> to be the preorder traversal of the tree.</li>
+ * 	<li><code>inorder</code> is <strong>guaranteed</strong> to be the inorder traversal of the tree.</li>
+ * </ul>
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
     public static class Solution1 {
-        private TreeNode buildTree(int[] preOrder, int preOffset, int[] inOrder, int inOffset, int len) {
+        private TreeNode buildTree(int[] preOrder, int prePos, int[] inOrder, int inPos, int len) {
             if (len == 0)
                 return null;
 
-            final int rootVal = preOrder[preOffset];
-            int index = inOffset;
-            while (index < inOffset + len && inOrder[index] != rootVal) ++index;
-            if (index >= inOffset + len)
-                throw new IllegalArgumentException("can't construct binary tree");
-            final int left = index - inOffset, right = len - left - 1;
-            TreeNode leftTree = buildTree(preOrder, preOffset + 1, inOrder, inOffset, left);
-            TreeNode rightTree = buildTree(preOrder, preOffset + 1 + left, inOrder, index + 1, right);
-            TreeNode root = new TreeNode(rootVal);
-            root.left = leftTree;
-            root.right = rightTree;
-            return root;
+            int pos = inPos;
+            for (int e = inPos + len; pos < e && inOrder[pos] != preOrder[prePos]; ++pos) ;
+            final int left = pos - inPos, right = len - left - 1;
+            return new TreeNode(preOrder[prePos], buildTree(preOrder, prePos + 1, inOrder, inPos, left), buildTree(preOrder, prePos + 1 + left, inOrder, pos + 1, right));
         }
 
         public TreeNode buildTree(int[] preorder, int[] inorder) {
-            if (preorder.length != inorder.length)
-                throw new IllegalArgumentException("can't construct binary tree");
             return buildTree(preorder, 0, inorder, 0, preorder.length);
         }
     }

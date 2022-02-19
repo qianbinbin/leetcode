@@ -1,20 +1,30 @@
-// Given preorder and inorder traversal of a tree, construct the binary tree.
+// Given two integer arrays preorder and inorder where preorder is the preorder
+// traversal of a binary tree and inorder is the inorder traversal of the same
+// tree, construct and return the binary tree.
 //
-// Note:
-// You may assume that duplicates do not exist in the tree.
 //
-// For example, given
 //
-// preorder = [3,9,20,15,7]
-// inorder = [9,3,15,20,7]
+// Example 1:
+// https://assets.leetcode.com/uploads/2021/02/19/tree.jpg
 //
-// Return the following binary tree:
+// Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+// Output: [3,9,20,null,null,15,7]
 //
-//     3
-//    / \
-//   9  20
-//     /  \
-//    15   7
+// Example 2:
+//
+// Input: preorder = [-1], inorder = [-1]
+// Output: [-1]
+//
+//
+// Constraints:
+//
+// 1 <= preorder.length <= 3000
+// inorder.length == preorder.length
+// -3000 <= preorder[i], inorder[i] <= 3000
+// preorder and inorder consist of unique values.
+// Each value of inorder also appears in preorder.
+// preorder is guaranteed to be the preorder traversal of the tree.
+// inorder is guaranteed to be the inorder traversal of the tree.
 
 #ifndef LEETCODECPP_CONSTRUCTBINARYTREEFROMPREORDERANDINORDERTRAVERSAL_H
 #define LEETCODECPP_CONSTRUCTBINARYTREEFROMPREORDERANDINORDERTRAVERSAL_H
@@ -29,6 +39,6 @@ public:
   TreeNode *buildTree(std::vector<int> &preorder, std::vector<int> &inorder);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_CONSTRUCTBINARYTREEFROMPREORDERANDINORDERTRAVERSAL_H
+#endif // LEETCODECPP_CONSTRUCTBINARYTREEFROMPREORDERANDINORDERTRAVERSAL_H
