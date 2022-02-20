@@ -1,24 +1,21 @@
 #include "BalancedBinaryTree.h"
 #include <algorithm>
-#include <cstddef>
+#include <cstdlib>
 
 using namespace lcpp;
 
-#define ABS(A, B) ((A) >= (B) ? (A) - (B) : (B) - (A))
-
-static std::size_t depth(TreeNode *Root, bool &IsBalanced) {
+static int depth(TreeNode *Root) {
   if (Root == nullptr)
     return 0;
-  auto LeftDepth = depth(Root->left, IsBalanced),
-      RightDepth = depth(Root->right, IsBalanced);
-  if (IsBalanced
-      && ABS(LeftDepth, RightDepth) > 1)
-    IsBalanced = false;
-  return std::max(LeftDepth, RightDepth) + 1;
+  int Left = depth(Root->left);
+  if (Left == -1)
+    return -1;
+  int Right = depth(Root->right);
+  if (Right == -1)
+    return -1;
+  if (std::abs(Left - Right) > 1)
+    return -1;
+  return std::max(Left, Right) + 1;
 }
 
-bool Solution110_1::isBalanced(TreeNode *root) {
-  bool IsBalanced = true;
-  depth(root, IsBalanced);
-  return IsBalanced;
-}
+bool Solution110_1::isBalanced(TreeNode *root) { return depth(root) != -1; }

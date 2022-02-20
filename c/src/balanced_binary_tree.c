@@ -2,19 +2,22 @@
 
 #include <stdlib.h>
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) >= (b) ? (a) : (b))
 
-static int depth(struct TreeNode *root, bool *balanced) {
-    if (root == NULL) return 0;
-    int left = depth(root->left, balanced);
-    int right = depth(root->right, balanced);
+static int depth(struct TreeNode *root) {
+    if (root == NULL)
+        return 0;
+    int left = depth(root->left);
+    if (left == -1)
+        return -1;
+    int right = depth(root->right);
+    if (right == -1)
+        return -1;
     if (abs(left - right) > 1)
-        *balanced = false;
+        return -1;
     return MAX(left, right) + 1;
 }
 
 bool isBalanced_110_1(struct TreeNode *root) {
-    bool balanced = true;
-    depth(root, &balanced);
-    return balanced;
+    return depth(root) != -1;
 }
