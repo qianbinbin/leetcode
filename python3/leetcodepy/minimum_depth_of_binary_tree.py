@@ -5,33 +5,58 @@ The minimum depth is the number of nodes along the shortest path from the root n
 
 Note: A leaf is a node with no children.
 
-Example:
 
-Given binary tree [3,9,20,null,null,15,7],
 
-    3
-   / \
-  9  20
-    /  \
-   15   7
+Example 1:
+https://assets.leetcode.com/uploads/2020/10/12/ex_depth.jpg
 
-return its minimum depth = 2.
+Input: root = [3,9,20,null,null,15,7]
+Output: 2
+
+Example 2:
+
+Input: root = [2,null,3,null,4,null,5,null,6]
+Output: 5
+
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 10^5].
+-1000 <= Node.val <= 1000
 """
+from typing import Optional
+
 from .utils import TreeNode
 
 
 class Solution1:
-    def minDepth(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
+    def minDepth(self, root: Optional[TreeNode]) -> int:
         if root is None:
             return 0
-        left_depth = self.minDepth(root.left)
-        right_depth = self.minDepth(root.right)
-        if left_depth == 0:
-            return right_depth + 1
-        if right_depth == 0:
-            return left_depth + 1
-        return min(left_depth, right_depth) + 1
+        left = self.minDepth(root.left)
+        right = self.minDepth(root.right)
+        if left == 0:
+            return right + 1
+        if right == 0:
+            return left + 1
+        return min(left, right) + 1
+
+
+class Solution2:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+        queue = [root]
+        level = 1
+        while queue:
+            _next = []
+            for node in queue:
+                if node.left is None and node.right is None:
+                    return level
+                if node.left:
+                    _next.append(node.left)
+                if node.right:
+                    _next.append(node.right)
+            queue = _next
+            level += 1
+        return level
