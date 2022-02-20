@@ -1,17 +1,17 @@
 #include "ConvertSortedListToBinarySearchTree.h"
-#include <cstddef>
 
 using namespace lcpp;
 
-static TreeNode *sortedListToBST(ListNode *&Head,
-                                 std::size_t Begin, std::size_t End) {
+static TreeNode *sortedListToBST(ListNode *&Head, std::size_t Begin,
+                                 std::size_t End) {
   if (Begin == End)
     return nullptr;
   auto Mid = Begin + (End - Begin) / 2;
   auto Left = sortedListToBST(Head, Begin, Mid);
   auto Root = new TreeNode(Head->val);
   Root->left = Left;
-  Root->right = sortedListToBST(Head = Head->next, Mid + 1, End);
+  Head = Head->next;
+  Root->right = sortedListToBST(Head, Mid + 1, End);
   return Root;
 }
 

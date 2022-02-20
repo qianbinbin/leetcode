@@ -11,16 +11,17 @@ static int list_len(struct ListNode *head) {
     return ret;
 }
 
-static struct TreeNode *sorted_list_to_bst(struct ListNode **p_node, int start, int end) {
+static struct TreeNode *
+sorted_list_to_bst(struct ListNode **node, int start, int end) {
     if (start == end) return NULL;
 
     int mid = start + (end - start) / 2;
-    struct TreeNode *left = sorted_list_to_bst(p_node, start, mid);
+    struct TreeNode *left = sorted_list_to_bst(node, start, mid);
     struct TreeNode *root = (struct TreeNode *) malloc(sizeof(struct TreeNode));
-    root->val = (*p_node)->val;
+    root->val = (*node)->val;
     root->left = left;
-    *p_node = (*p_node)->next;
-    root->right = sorted_list_to_bst(p_node, mid + 1, end);
+    *node = (*node)->next;
+    root->right = sorted_list_to_bst(node, mid + 1, end);
     return root;
 }
 
