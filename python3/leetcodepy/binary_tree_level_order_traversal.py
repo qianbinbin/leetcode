@@ -53,14 +53,14 @@ class Solution2:
             return result
         queue = [root]
         while queue:
+            level = []
             nex = []
-            values = []
             for node in queue:
-                values.append(node.val)
+                level.append(node.val)
                 if node.left is not None:
                     nex.append(node.left)
                 if node.right is not None:
                     nex.append(node.right)
             queue = nex
-            result.append(values)
+            result.append(level)
         return result
