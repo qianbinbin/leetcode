@@ -8,10 +8,8 @@ static TreeNode *sortedArrayToBST(It Begin, It End) {
   if (Begin == End)
     return nullptr;
   auto Mid = Begin + (End - Begin) / 2;
-  auto Root = new TreeNode(*Mid);
-  Root->left = sortedArrayToBST(Begin, Mid);
-  Root->right = sortedArrayToBST(Mid + 1, End);
-  return Root;
+  return new TreeNode(*Mid, sortedArrayToBST(Begin, Mid),
+                      sortedArrayToBST(Mid + 1, End));
 }
 
 TreeNode *Solution108_1::sortedArrayToBST(std::vector<int> &nums) {
