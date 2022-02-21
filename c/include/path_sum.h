@@ -25,6 +25,6 @@
 
 #include <stdbool.h>
 
-bool hasPathSum_112_1(struct TreeNode *root, int sum);
+bool hasPathSum_112_1(struct TreeNode *root, int targetSum);
 
 #endif //LEETCODE_PATH_SUM_H
