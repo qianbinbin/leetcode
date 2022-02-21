@@ -2,30 +2,24 @@
 
 using namespace lcpp;
 
-template<typename T> using TwoDimVec = std::vector<std::vector<T>>;
+template <typename T> using TwoDimVec = std::vector<std::vector<T>>;
 
-static void pathSum(TreeNode *Root, int Sum,
-                    TwoDimVec<int> &Result, std::vector<int> &Path) {
-  Path.push_back(Root->val);
-  Sum -= Root->val;
-  if (Root->left == nullptr && Root->right == nullptr) {
-    if (Sum == 0)
-      Result.push_back(Path);
-    Path.pop_back();
+static void pathSum(TreeNode *Root, int Target, TwoDimVec<int> &Result,
+                    std::vector<int> &Path) {
+  if (Root == nullptr)
     return;
-  }
-  if (Root->left != nullptr)
-    pathSum(Root->left, Sum, Result, Path);
-  if (Root->right != nullptr)
-    pathSum(Root->right, Sum, Result, Path);
+  Path.push_back(Root->val);
+  if (Root->left == nullptr && Root->right == nullptr && Root->val == Target)
+    Result.push_back(Path);
+  pathSum(Root->left, Target - Root->val, Result, Path);
+  pathSum(Root->right, Target - Root->val, Result, Path);
   Path.pop_back();
 }
 
-std::vector<std::vector<int>> Solution113_1::pathSum(TreeNode *root, int sum) {
+std::vector<std::vector<int>> Solution113_1::pathSum(TreeNode *root,
+                                                     int targetSum) {
   TwoDimVec<int> Result;
-  if (root == nullptr)
-    return Result;
   std::vector<int> Path;
-  ::pathSum(root, sum, Result, Path);
+  ::pathSum(root, targetSum, Result, Path);
   return Result;
 }
