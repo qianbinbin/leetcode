@@ -2,28 +2,29 @@
 
 #include <stddef.h>
 
-void connect_116_1(struct TreeLinkNode *root) {
-    if (root == NULL) return;
-    if (root->left != NULL) {
-        root->left->next = root->right;
-        if (root->next != NULL)
-            root->right->next = root->next->left;
+struct Node *connect_116_1(struct Node *root) {
+    if (root == NULL)
+        return NULL;
+    struct Node dummy, *tail, *node = root;
+    while (node->left != NULL) {
+        tail = &dummy;
+        while (node != NULL) {
+            tail = tail->next = node->left;
+            tail = tail->next = node->right;
+            node = node->next;
+        }
+        node = dummy.next;
     }
-    connect_116_1(root->left);
-    connect_116_1(root->right);
+    return root;
 }
 
-void connect_116_2(struct TreeLinkNode *root) {
-    if (root == NULL) return;
-    struct TreeLinkNode *leading = root, *p = NULL;
-    while (leading->left != NULL) {
-        p = leading;
-        leading = leading->left;
-        while (p != NULL) {
-            p->left->next = p->right;
-            if (p->next != NULL)
-                p->right->next = p->next->left;
-            p = p->next;
-        }
-    }
+struct Node *connect_116_2(struct Node *root) {
+    if (root == NULL || root->left == NULL)
+        return root;
+    root->left->next = root->right;
+    if (root->next != NULL)
+        root->right->next = root->next->left;
+    connect_116_1(root->left);
+    connect_116_1(root->right);
+    return root;
 }

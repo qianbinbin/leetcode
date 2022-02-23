@@ -14,33 +14,35 @@
 //
 // Initially, all next pointers are set to NULL.
 //
-// Example:
 //
-// https://assets.leetcode.com/uploads/2019/02/14/116_sample.png
 //
-// Input: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,
-// "next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,
-// "next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5",
-// "left":{"$id":"6","left":null,"next":null,"right":null,"val":6},"next":null,
-// "right":{"$id":"7","left":null,"next":null,"right":null,"val":7},"val":3},
-// "val":1}
+// Example 1:
 //
-// Output: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,
-// "next":{"$id":"4","left":null,"next":{"$id":"5","left":null,
-// "next":{"$id":"6","left":null,"next":null,"right":null,"val":7},"right":null,
-// "val":6},"right":null,"val":5},"right":null,"val":4},"next":{"$id":"7",
-// "left":{"$ref":"5"},"next":null,"right":{"$ref":"6"},"val":3},
-// "right":{"$ref":"4"},"val":2},"next":null,"right":{"$ref":"7"},"val":1}
 //
+// Input: root = [1,2,3,4,5,6,7]
+// Output: [1,#,2,3,#,4,5,6,7,#]
 // Explanation: Given the above perfect binary tree (Figure A), your function
 // should populate each next pointer to point to its next right node, just like
-// in Figure B.
+// in Figure B. The serialized output is in level order as connected by the next
+// pointers, with '#' signifying the end of each level.
 //
-// Note:
+// Example 2:
+//
+// Input: root = []
+// Output: []
+//
+//
+// Constraints:
+//
+// The number of nodes in the tree is in the range [0, 2^12 - 1].
+// -1000 <= Node.val <= 1000
+//
+//
+// Follow-up:
 //
 // You may only use constant extra space.
-// Recursive approach is fine, implicit stack space does not count as extra
-// space for this problem.
+// The recursive approach is fine. You may assume implicit stack space does not
+// count as extra space for this problem.
 
 #ifndef LEETCODECPP_POPULATINGNEXTRIGHTPOINTERSINEACHNODE_H
 #define LEETCODECPP_POPULATINGNEXTRIGHTPOINTERSINEACHNODE_H
@@ -49,16 +51,32 @@
 
 namespace lcpp {
 
+class Node {
+public:
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+
+  Node() : val(0), left(nullptr), right(nullptr), next(nullptr) {}
+
+  explicit Node(int _val)
+      : val(_val), left(nullptr), right(nullptr), next(nullptr) {}
+
+  Node(int _val, Node *_left, Node *_right, Node *_next)
+      : val(_val), left(_left), right(_right), next(_next) {}
+};
+
 class Solution116_1 {
 public:
-  TreeLinkNode *connect(TreeLinkNode *root);
+  Node *connect(Node *root);
 };
 
 class Solution116_2 {
 public:
-  TreeLinkNode *connect(TreeLinkNode *root);
+  Node *connect(Node *root);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_POPULATINGNEXTRIGHTPOINTERSINEACHNODE_H
+#endif // LEETCODECPP_POPULATINGNEXTRIGHTPOINTERSINEACHNODE_H
