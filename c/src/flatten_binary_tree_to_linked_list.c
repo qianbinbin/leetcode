@@ -19,7 +19,8 @@ void flatten_114_1(struct TreeNode *root) {
     flatten_pre_order(root, &pre);
 }
 
-static void flatten_reverse_pre_order(struct TreeNode *root, struct TreeNode **pre) {
+static void
+flatten_reverse_pre_order(struct TreeNode *root, struct TreeNode **pre) {
     if (root == NULL) return;
     flatten_reverse_pre_order(root->right, pre);
     flatten_reverse_pre_order(root->left, pre);
