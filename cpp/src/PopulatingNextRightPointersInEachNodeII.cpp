@@ -2,28 +2,19 @@
 
 using namespace lcpp;
 
-typedef TreeLinkNode Node;
-
 Node *Solution117_1::connect(Node *root) {
-  if (root == nullptr)
-    return nullptr;
-  Node Dummy{}, *Tail = &Dummy, *TLNode = root;
-  while (TLNode != nullptr) {
-    if (TLNode->left != nullptr) {
-      Tail->next = TLNode->left;
-      Tail = Tail->next;
+  Node Dummy, *Tail, *Node = root;
+  while (Node != nullptr) {
+    Dummy.next = nullptr;
+    Tail = &Dummy;
+    while (Node != nullptr) {
+      if (Node->left != nullptr)
+        Tail = Tail->next = Node->left;
+      if (Node->right != nullptr)
+        Tail = Tail->next = Node->right;
+      Node = Node->next;
     }
-    if (TLNode->right != nullptr) {
-      Tail->next = TLNode->right;
-      Tail = Tail->next;
-    }
-    if (TLNode->next != nullptr) {
-      TLNode = TLNode->next;
-    } else {
-      TLNode = Dummy.next;
-      Dummy.next = nullptr;
-      Tail = &Dummy;
-    }
+    Node = Dummy.next;
   }
   return root;
 }
