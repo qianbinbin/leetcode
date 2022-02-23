@@ -1,7 +1,4 @@
 #include "DistinctSubsequences.h"
-#include <cassert>
-#include <cstdint>
-#include <limits>
 #include <vector>
 
 using namespace lcpp;
@@ -10,7 +7,7 @@ int Solution115_1::numDistinct(std::string s, std::string t) {
   if (s.size() < t.size())
     return 0;
   const auto M = s.size() + 1, N = t.size() + 1;
-  std::vector<std::vector<uint64_t>> Dp(M, std::vector<uint64_t>(N));
+  std::vector<std::vector<int>> Dp(M, std::vector<int>(N));
   Dp[0][0] = 1;
   std::string::size_type I, J, JE;
   for (I = 1; I != M; ++I) {
@@ -22,7 +19,5 @@ int Solution115_1::numDistinct(std::string s, std::string t) {
         Dp[I][J] = Dp[I - 1][J];
     }
   }
-  assert(Dp[M - 1][N - 1] <= std::numeric_limits<int>::max() &&
-         "Result overflow!");
   return Dp[M - 1][N - 1];
 }
