@@ -2,18 +2,25 @@ from unittest import TestCase
 
 from leetcodepy.triangle import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-triangle = [
+TRIANGLE1 = [
     [2],
     [3, 4],
     [6, 5, 7],
     [4, 1, 8, 3]
 ]
 
-expected = 11
+EXPECTED1 = 11
+
+TRIANGLE2 = [
+    [-10]
+]
+
+EXPECTED2 = -10
 
 
 class TestTriangle(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.minimumTotal(triangle))
+        self.assertEqual(EXPECTED1, SOLUTION1.minimumTotal(TRIANGLE1))
+        self.assertEqual(EXPECTED2, SOLUTION1.minimumTotal(TRIANGLE2))
