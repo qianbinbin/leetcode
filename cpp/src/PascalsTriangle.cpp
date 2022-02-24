@@ -1,23 +1,15 @@
 #include "PascalsTriangle.h"
-#include <cassert>
 
 using namespace lcpp;
 
 std::vector<std::vector<int>> Solution118_1::generate(int numRows) {
-  assert(numRows >= 0 && "numRows must be non-negative!");
-  std::vector<std::vector<int>> Triangle;
-  if (numRows == 0)
-    return Triangle;
-  Triangle.push_back({1});
-  std::vector<int>::size_type I, J;
-  for (I = 1; I != numRows; ++I) {
-    Triangle.emplace_back(I + 1);
-    auto &Row = Triangle[I];
-    Row[0] = 1;
-    Row[I] = 1;
-    const auto &LastRow = Triangle[I - 1];
+  std::vector<std::vector<int>> Result{{1}};
+  for (int I = 1, J; I != numRows; ++I) {
+    Result.emplace_back(I + 1);
+    auto &Pre = Result[I - 1], &Cur = Result[I];
+    Cur[0] = Cur[I] = 1;
     for (J = 1; J != I; ++J)
-      Row[J] = LastRow[J - 1] + LastRow[J];
+      Cur[J] = Pre[J - 1] + Pre[J];
   }
-  return Triangle;
+  return Result;
 }
