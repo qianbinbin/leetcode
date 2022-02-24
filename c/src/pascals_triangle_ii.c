@@ -3,8 +3,6 @@
 #include <stdlib.h>
 
 int *getRow_119_1(int rowIndex, int *returnSize) {
-    if (rowIndex < 0 || returnSize == NULL) return NULL;
-
     int *ret = (int *) malloc((rowIndex + 1) * sizeof(int));
     for (int i = 0; i <= rowIndex; ++i) {
         ret[i] = 1;

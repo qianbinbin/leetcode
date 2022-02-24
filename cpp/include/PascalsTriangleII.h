@@ -1,22 +1,35 @@
-// Given a non-negative index k where k ≤ 33, return the kth index row of the
+// Given an integer rowIndex, return the rowIndexth (0-indexed) row of the
 // Pascal's triangle.
 //
-// Note that the row index starts from 0.
-//
-// https://upload.wikimedia.org/wikipedia/commons/0/0d/
-// PascalTriangleAnimated2.gif
-//
 // In Pascal's triangle, each number is the sum of the two numbers directly
-// above it.
+// above it as shown:
 //
-// Example:
+// https://upload.wikimedia.org/wikipedia/commons/0/0d/PascalTriangleAnimated2.gif
 //
-// Input: 3
+//
+// Example 1:
+//
+// Input: rowIndex = 3
 // Output: [1,3,3,1]
 //
-// Follow up:
+// Example 2:
 //
-// Could you optimize your algorithm to use only O(k) extra space?
+// Input: rowIndex = 0
+// Output: [1]
+//
+// Example 3:
+//
+// Input: rowIndex = 1
+// Output: [1,1]
+//
+//
+// Constraints:
+//
+// 0 <= rowIndex <= 33
+//
+//
+// Follow up: Could you optimize your algorithm to use only O(rowIndex) extra
+// space?
 
 #ifndef LEETCODECPP_PASCALSTRIANGLEII_H
 #define LEETCODECPP_PASCALSTRIANGLEII_H
@@ -30,6 +43,6 @@ public:
   std::vector<int> getRow(int rowIndex);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_PASCALSTRIANGLEII_H
+#endif // LEETCODECPP_PASCALSTRIANGLEII_H
