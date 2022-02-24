@@ -1,36 +1,44 @@
 package io.binac.leetcode;
 
 /**
- * Say you have an array for which the ith element is the price of a given stock on day i.
- * <p>
- * <p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
- * <p>
- * <p>Note that you cannot sell a stock before you buy one.
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: [7,1,5,3,6,4]
- *     Output: 5
- *     Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
- *                  Not 7-1 = 6, as selling price needs to be larger than buying price.
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: [7,6,4,3,1]
- *     Output: 0
- *     Explanation: In this case, no transaction is done, i.e. max profit = 0.
- * </blockquote></pre>
+ * <p>You are given an array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p>
+ *
+ * <p>You want to maximize your profit by choosing a <strong>single day</strong> to buy one stock and choosing a <strong>different day in the future</strong> to sell that stock.</p>
+ *
+ * <p>Return <em>the maximum profit you can achieve from this transaction</em>. If you cannot achieve any profit, return <code>0</code>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> prices = [7,1,5,3,6,4]
+ * <strong>Output:</strong> 5
+ * <strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+ * Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> prices = [7,6,4,3,1]
+ * <strong>Output:</strong> 0
+ * <strong>Explanation:</strong> In this case, no transactions are done and the max profit = 0.
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= prices.length &lt;= 10<sup>5</sup></code></li>
+ * 	<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>
+ * </ul>
  */
 public class BestTimeToBuyAndSellStock {
     public static class Solution1 {
         public int maxProfit(int[] prices) {
-            if (prices.length == 0) return 0;
-
-            int min = prices[0];
+            int min = Integer.MAX_VALUE;
             int result = 0;
-            for (int i = 1; i < prices.length; ++i) {
-                result = Math.max(result, prices[i] - min);
-                min = Math.min(min, prices[i]);
+            for (int price : prices) {
+                result = Math.max(result, price - min);
+                min = Math.min(min, price);
             }
             return result;
         }

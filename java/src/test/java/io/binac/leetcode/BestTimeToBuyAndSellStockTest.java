@@ -5,14 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BestTimeToBuyAndSellStockTest {
-    private final BestTimeToBuyAndSellStock.Solution1 solution1 = new BestTimeToBuyAndSellStock.Solution1();
+    private static final BestTimeToBuyAndSellStock.Solution1 SOLUTION1 = new BestTimeToBuyAndSellStock.Solution1();
+
+    private final int[] PRICES1 = {7, 1, 5, 3, 6, 4};
+    private final int EXPECTED1 = 5;
+
+    private final int[] PRICES2 = {7, 6, 4, 3, 1};
+    private final int EXPECTED2 = 0;
 
     @Test
     void test1() {
-        int prices1[] = {7, 1, 5, 3, 6, 4};
-        assertEquals(5, solution1.maxProfit(prices1));
-
-        int prices2[] = {7, 6, 4, 3, 1};
-        assertEquals(0, solution1.maxProfit(prices2));
+        assertEquals(EXPECTED1, SOLUTION1.maxProfit(PRICES1));
+        assertEquals(EXPECTED2, SOLUTION1.maxProfit(PRICES2));
     }
 }
