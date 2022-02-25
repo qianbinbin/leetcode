@@ -1,51 +1,47 @@
 package io.binac.leetcode;
 
 /**
- * Say you have an array for which the ith element is the price of a given stock on day i.
- * <p>
- * <p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
- * <p>
- * <p>Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
- * <p>
- * <p>Example 1:
- * <blockquote><pre>
- *     Input: [7,1,5,3,6,4]
- *     Output: 7
- *     Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
- *                  Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
- * </blockquote></pre>
- * Example 2:
- * <blockquote><pre>
- *     Input: [1,2,3,4,5]
- *     Output: 4
- *     Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
- *                  Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are
- *                  engaging multiple transactions at the same time. You must sell before buying again.
- * </blockquote></pre>
- * Example 3:
- * <blockquote><pre>
- *     Input: [7,6,4,3,1]
- *     Output: 0
- *     Explanation: In this case, no transaction is done, i.e. max profit = 0.
- * </blockquote></pre>
+ * <p>You are given an integer array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p>
+ *
+ * <p>On each day, you may decide to buy and/or sell the stock. You can only hold <strong>at most one</strong> share of the stock at any time. However, you can buy it then immediately sell it on the <strong>same day</strong>.</p>
+ *
+ * <p>Find and return <em>the <strong>maximum</strong> profit you can achieve</em>.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> prices = [7,1,5,3,6,4]
+ * <strong>Output:</strong> 7
+ * <strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+ * Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+ * Total profit is 4 + 3 = 7.
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> prices = [1,2,3,4,5]
+ * <strong>Output:</strong> 4
+ * <strong>Explanation:</strong> Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+ * Total profit is 4.
+ * </pre>
+ *
+ * <p><strong>Example 3:</strong></p>
+ *
+ * <pre><strong>Input:</strong> prices = [7,6,4,3,1]
+ * <strong>Output:</strong> 0
+ * <strong>Explanation:</strong> There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= prices.length &lt;= 3 * 10<sup>4</sup></code></li>
+ * 	<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>
+ * </ul>
  */
 public class BestTimeToBuyAndSellStockII {
     public static class Solution1 {
-        public int maxProfit(int[] prices) {
-            int result = 0;
-            int valley;
-            int i = 1;
-            while (i < prices.length) {
-                while (i < prices.length && prices[i] <= prices[i - 1]) ++i;
-                valley = prices[i - 1];
-                while (i < prices.length && prices[i] >= prices[i - 1]) ++i;
-                result += prices[i - 1] - valley;
-            }
-            return result;
-        }
-    }
-
-    public static class Solution2 {
         public int maxProfit(int[] prices) {
             int result = 0;
             for (int i = 1; i < prices.length; ++i) {
