@@ -17,8 +17,6 @@ int Solution123_1::maxProfit(std::vector<int> &prices) {
 
 int Solution123_2::maxProfit(std::vector<int> &prices) {
   const auto &Size = prices.size();
-  if (Size < 2)
-    return 0;
   std::vector<int> Dp1(Size), Dp2(Size);
   int Min = prices[0];
   for (std::vector<int>::size_type I = 1; I != Size; ++I) {
