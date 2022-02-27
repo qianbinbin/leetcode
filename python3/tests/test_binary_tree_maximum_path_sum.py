@@ -3,18 +3,16 @@ from unittest import TestCase
 from leetcodepy.binary_tree_maximum_path_sum import *
 from leetcodepy.utils import trees
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-root1 = trees.from_values(1, 2, 3)
+ROOT1 = trees.from_values(1, 2, 3)
+EXPECTED1 = 6
 
-expected1 = 6
-
-root2 = trees.from_values(-10, 9, 20, None, None, 15, 7)
-
-expected2 = 42
+ROOT2 = trees.from_values(-10, 9, 20, None, None, 15, 7)
+EXPECTED2 = 42
 
 
 class TestBinaryTreeMaximumPathSum(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.maxPathSum(root1))
-        self.assertEqual(expected2, solution1.maxPathSum(root2))
+        self.assertEqual(EXPECTED1, SOLUTION1.maxPathSum(ROOT1))
+        self.assertEqual(EXPECTED2, SOLUTION1.maxPathSum(ROOT2))

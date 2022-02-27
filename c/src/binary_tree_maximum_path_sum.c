@@ -2,17 +2,17 @@
 
 #include <stddef.h>
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) >= (b) ? (a) : (b))
 
-static int max_single_path_sum(struct TreeNode *root, int *max_sum) {
+static int max_single_path_sum(struct TreeNode *root, int *max_path_sum) {
     if (root == NULL) return 0;
 
-    int left = max_single_path_sum(root->left, max_sum);
+    int left = max_single_path_sum(root->left, max_path_sum);
     left = MAX(left, 0);
-    int right = max_single_path_sum(root->right, max_sum);
+    int right = max_single_path_sum(root->right, max_path_sum);
     right = MAX(right, 0);
 
-    *max_sum = MAX(*max_sum, root->val + left + right);
+    *max_path_sum = MAX(*max_path_sum, root->val + left + right);
 
     return MAX(left, right) + root->val;
 }

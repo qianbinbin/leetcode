@@ -1,6 +1,5 @@
 #include "BinaryTreeMaximumPathSum.h"
 #include <algorithm>
-#include <cassert>
 
 using namespace lcpp;
 
@@ -14,8 +13,7 @@ static int maxSinglePathSum(TreeNode *Root, int &MaxPathSum) {
 }
 
 int Solution124_1::maxPathSum(TreeNode *root) {
-  assert(root != nullptr);
-  int MaxPathSum = root->val;
-  ::maxSinglePathSum(root, MaxPathSum);
-  return MaxPathSum;
+  int Result = root->val;
+  ::maxSinglePathSum(root, Result);
+  return Result;
 }
