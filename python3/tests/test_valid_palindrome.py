@@ -2,14 +2,20 @@ from unittest import TestCase
 
 from leetcodepy.valid_palindrome import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "A man, a plan, a canal: Panama"
+S1 = "A man, a plan, a canal: Panama"
+EXPECTED1 = True
 
-s2 = "race a car"
+S2 = "race a car"
+EXPECTED2 = False
+
+S3 = " "
+EXPECTED3 = True
 
 
 class TestValidPalindrome(TestCase):
     def test1(self):
-        self.assertTrue(solution1.isPalindrome(s1))
-        self.assertFalse(solution1.isPalindrome(s2))
+        self.assertEqual(EXPECTED1, SOLUTION1.isPalindrome(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.isPalindrome(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.isPalindrome(S3))

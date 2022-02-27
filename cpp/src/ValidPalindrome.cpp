@@ -1,17 +1,16 @@
 #include "ValidPalindrome.h"
+#include <cctype>
 
 using namespace lcpp;
 
 bool Solution125_1::isPalindrome(std::string s) {
-  if (s.empty())
-    return true;
-  auto I = s.cbegin(), J = s.cend() - 1;
+  auto I = s.begin(), J = s.end() - 1;
   while (I < J) {
-    if (!isalnum(*I)) {
+    if (!std::isalnum(*I)) {
       ++I;
-    } else if (!isalnum(*J)) {
+    } else if (!std::isalnum(*J)) {
       --J;
-    } else if (tolower(*I) != tolower(*J)) {
+    } else if (std::tolower(*I) != std::tolower(*J)) {
       return false;
     } else {
       ++I;

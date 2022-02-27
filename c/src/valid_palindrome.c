@@ -4,8 +4,6 @@
 #include <string.h>
 
 bool isPalindrome_125_1(char *s) {
-    if (s == NULL) return false;
-
     int i = 0, j = strlen(s) - 1;
     while (i < j) {
         if (!isalnum(s[i]))

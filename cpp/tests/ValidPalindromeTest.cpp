@@ -4,6 +4,9 @@
 using namespace lcpp;
 
 TEST(ValidPalindrome, Solution125_1) {
-  EXPECT_TRUE(Solution125_1().isPalindrome("A man, a plan, a canal: Panama"));
-  EXPECT_FALSE(Solution125_1().isPalindrome("race a car"));
+  auto S125_1 = Solution125_1();
+
+  EXPECT_TRUE(S125_1.isPalindrome("A man, a plan, a canal: Panama"));
+  EXPECT_FALSE(S125_1.isPalindrome("race a car"));
+  EXPECT_TRUE(S125_1.isPalindrome(" "));
 }
