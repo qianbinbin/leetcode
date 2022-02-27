@@ -44,12 +44,9 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         }
 
         public int[] searchRange(int[] nums, int target) {
-            int[] result = new int[2];
+            int[] result = {-1, -1};
             int index = insertIndex(nums, 0, nums.length, target, true);
-            if (index == nums.length || nums[index] != target) {
-                result[0] = -1;
-                result[1] = -1;
-            } else {
+            if (index != nums.length && nums[index] == target) {
                 result[0] = index;
                 result[1] = insertIndex(nums, index, nums.length, target, false) - 1;
             }

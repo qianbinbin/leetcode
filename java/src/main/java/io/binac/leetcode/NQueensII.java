@@ -48,7 +48,7 @@ public class NQueensII {
         }
 
         public int totalNQueens(int n) {
-            int[] result = new int[1];
+            int[] result = {0};
             totalNQueens(n, 0, result, new boolean[n], new boolean[2 * n - 1], new boolean[2 * n - 1]);
             return result[0];
         }
