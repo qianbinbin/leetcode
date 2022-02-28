@@ -1,56 +1,47 @@
 """
-Given two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
+A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
 
-1. Only one letter can be changed at a time.
-2. Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+Every adjacent pair of words differs by a single letter.
+Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+sk == endWord
+Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
 
-Note:
 
-Return 0 if there is no such transformation sequence.
-All words have the same length.
-All words contain only lowercase alphabetic characters.
-You may assume no duplicates in the word list.
-You may assume beginWord and endWord are non-empty and are not the same.
 
 Example 1:
 
-Input:
-beginWord = "hit",
-endWord = "cog",
-wordList = ["hot","dot","dog","lot","log","cog"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
 Output: 5
-
-Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
-return its length 5.
+Explanation: One shortest transformation sequence is "hit" -> "hot" -> "dot" -> "dog" -> cog", which is 5 words long.
 
 Example 2:
 
-Input:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
-
+Input: beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log"]
 Output: 0
+Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence.
 
-Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
+
+Constraints:
+
+1 <= beginWord.length <= 10
+endWord.length == beginWord.length
+1 <= wordList.length <= 5000
+wordList[i].length == beginWord.length
+beginWord, endWord, and wordList[i] consist of lowercase English letters.
+beginWord != endWord
+All the words in wordList are unique.
 """
 import string
-from queue import Queue
 from typing import List
 
 
 class Solution1:
-    def ladderLength(self, beginWord, endWord, wordList):
-        """
-        :type beginWord: str
-        :type endWord: str
-        :type wordList: List[str]
-        :rtype: int
-        """
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         word_set = set(wordList)
         if endWord not in word_set:
             return 0
+        word_set.remove(endWord)
+        word_set.discard(beginWord)
         width = len(beginWord)
         s1, s2 = {beginWord}, {endWord}
         depth = 1
@@ -58,9 +49,7 @@ class Solution1:
             depth += 1
             if len(s1) > len(s2):
                 s1, s2 = s2, s1
-            word_set -= s1
-            word_set -= s2
-            s = set()
+            _next = set()
             for word in s1:
                 for i in range(width):
                     old = word[i]
@@ -71,7 +60,8 @@ class Solution1:
                         guess = left + ch + right
                         if guess in s2:
                             return depth
-                        elif guess in word_set and guess not in s:
-                            s.add(guess)
-            s1 = s
+                        if guess in word_set:
+                            word_set.remove(guess)
+                            _next.add(guess)
+            s1 = _next
         return 0
