@@ -6,14 +6,15 @@ using namespace lcpp;
 
 typedef std::unordered_map<std::string, std::vector<std::string>> GraphType;
 
-static void findLadders(GraphType &Graph,
-                        std::string &End,
+static void findLadders(GraphType &Graph, std::string &End,
                         std::vector<std::string> &Path,
                         std::vector<std::vector<std::string>> &Result) {
   if (Path.back() == End) {
     Result.push_back(Path);
     return;
   }
+  if (Graph.find(Path.back()) == Graph.end())
+    return;
   for (auto &Next : Graph[Path.back()]) {
     Path.push_back(Next);
     findLadders(Graph, End, Path, Result);
@@ -22,26 +23,21 @@ static void findLadders(GraphType &Graph,
 }
 
 std::vector<std::vector<std::string>>
-Solution126_1::findLadders(std::string beginWord,
-                           std::string endWord,
+Solution126_1::findLadders(std::string beginWord, std::string endWord,
                            std::vector<std::string> &wordList) {
   std::vector<std::vector<std::string>> Result;
   std::unordered_set<std::string> WordSet(wordList.begin(), wordList.end());
-  auto EndIt = WordSet.find(endWord);
-  if (EndIt == WordSet.end())
+  if (!WordSet.erase(endWord))
     return Result;
-  WordSet.erase(EndIt);
-  auto BeginIt = WordSet.find(beginWord);
-  if (BeginIt != WordSet.end())
-    WordSet.erase(BeginIt);
+  WordSet.erase(beginWord);
 
   GraphType Graph;
-  std::unordered_set<std::string> Set1({beginWord}), Set2({endWord}), Tmp;
-  bool Flip = false, Found = false;
+  std::unordered_set<std::string> Set1({beginWord}), Set2({endWord}), Next;
+  bool Reverse = false, Found = false;
   while (!Found && !Set1.empty() && !Set2.empty()) {
     if (Set1.size() > Set2.size()) {
       std::swap(Set1, Set2);
-      Flip = !Flip;
+      Reverse = !Reverse;
     }
     const auto &S2E = Set2.end(), &WSE = WordSet.end();
     for (auto &Word : Set1) {
@@ -54,19 +50,21 @@ Solution126_1::findLadders(std::string beginWord,
           Ch = C;
           if (Set2.find(Guess) != S2E) {
             Found = true;
-            Flip ? Graph[Guess].push_back(Word) : Graph[Word].push_back(Guess);
+            Reverse ? Graph[Guess].push_back(Word)
+                    : Graph[Word].push_back(Guess);
           } else if (!Found && WordSet.find(Guess) != WSE) {
-            Tmp.insert(Guess);
-            Flip ? Graph[Guess].push_back(Word) : Graph[Word].push_back(Guess);
+            Next.insert(Guess);
+            Reverse ? Graph[Guess].push_back(Word)
+                    : Graph[Word].push_back(Guess);
           }
         }
         Ch = Origin;
       }
     }
-    for (const auto &S : Tmp)
+    for (const auto &S : Next)
       WordSet.erase(S);
     Set1.clear();
-    std::swap(Set1, Tmp);
+    std::swap(Set1, Next);
   }
   if (!Found)
     return Result;
