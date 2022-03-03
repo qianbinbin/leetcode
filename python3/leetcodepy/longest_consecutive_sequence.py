@@ -1,29 +1,38 @@
 """
-Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
-Your algorithm should run in O(n) complexity.
+You must write an algorithm that runs in O(n) time.
 
-Example:
 
-Input: [100, 4, 200, 1, 3, 2]
+
+Example 1:
+
+Input: nums = [100,4,200,1,3,2]
 Output: 4
 Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+Example 2:
+
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+
+
+Constraints:
+
+0 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
 """
 from typing import List
 
 
 class Solution1:
-    def longestConsecutive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+    def longestConsecutive(self, nums: List[int]) -> int:
         result = 0
-        set_ = set(nums)
+        _set = set(nums)
         for num in nums:
-            if num - 1 not in set_:
+            if num - 1 not in _set:
                 end = num + 1
-                while end in set_:
+                while end in _set:
                     end += 1
                 result = max(result, end - num)
         return result
@@ -32,8 +41,6 @@ class Solution1:
 class Solution2:
     class UnionFind:
         def __init__(self, n):
-            if n <= 0:
-                raise ValueError
             self.__parent = [i for i in range(n)]
             self.__rank = [0] * n
 
@@ -62,22 +69,18 @@ class Solution2:
                 result = max(result, size[root])
             return result
 
-    def longestConsecutive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+    def longestConsecutive(self, nums: List[int]) -> int:
         n = len(nums)
         if n == 0:
             return 0
-        dict_ = {}
+        _dict = {}
         uf = self.UnionFind(n)
         for i, num in enumerate(nums):
-            if num in dict_:
+            if num in _dict:
                 continue
-            dict_[num] = i
-            if num - 1 in dict_:
-                uf.union(dict_[num - 1], i)
-            if num + 1 in dict_:
-                uf.union(dict_[num + 1], i)
+            _dict[num] = i
+            if num - 1 in _dict:
+                uf.union(_dict[num - 1], i)
+            if num + 1 in _dict:
+                uf.union(_dict[num + 1], i)
         return uf.max_size()

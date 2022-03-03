@@ -6,16 +6,31 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
- * <p>
- * <p>Your algorithm should run in O(n) complexity.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: [100, 4, 200, 1, 3, 2]
- *     Output: 4
- *     Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
- * </blockquote></pre>
+ * <p>Given an unsorted array of integers <code>nums</code>, return <em>the length of the longest consecutive elements sequence.</em></p>
+ *
+ * <p>You must write an algorithm that runs in&nbsp;<code>O(n)</code>&nbsp;time.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [100,4,200,1,3,2]
+ * <strong>Output:</strong> 4
+ * <strong>Explanation:</strong> The longest consecutive elements sequence is <code>[1, 2, 3, 4]</code>. Therefore its length is 4.
+ * </pre>
+ *
+ * <p><strong>Example 2:</strong></p>
+ *
+ * <pre><strong>Input:</strong> nums = [0,3,7,2,5,8,4,6,0,1]
+ * <strong>Output:</strong> 9
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>0 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+ * 	<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+ * </ul>
  */
 public class LongestConsecutiveSequence {
     public static class Solution1 {
@@ -26,11 +41,11 @@ public class LongestConsecutiveSequence {
             for (int num : nums) set.add(num);
             int result = 1;
             for (int num : nums) {
-                if (!set.contains(num - 1)) {
-                    int n = num + 1;
-                    while (set.contains(n)) ++n;
-                    result = Math.max(result, n - num);
-                }
+                if (set.contains(num - 1))
+                    continue;
+                int n = num + 1;
+                while (set.contains(n)) ++n;
+                result = Math.max(result, n - num);
             }
             return result;
         }
@@ -38,12 +53,10 @@ public class LongestConsecutiveSequence {
 
     public static class Solution2 {
         private static class UnionFind {
-            private final int parent[];
-            private final int rank[];
+            private final int[] parent;
+            private final int[] rank;
 
             public UnionFind(int n) {
-                if (n <= 0)
-                    throw new IllegalArgumentException();
                 parent = new int[n];
                 for (int i = 0; i < n; ++i) parent[i] = i;
                 rank = new int[n];
@@ -65,15 +78,14 @@ public class LongestConsecutiveSequence {
             public int find(int i) {
                 if (i == parent[i])
                     return i;
-                parent[i] = find(parent[i]);
-                return parent[i];
+                return parent[i] = find(parent[i]);
             }
 
             public int getMaxSetSize() {
-                int result = 1;
-                int size[] = new int[parent.length];
-                for (int i = 0; i < parent.length; ++i) {
-                    int root = find(i);
+                int result = 0;
+                int[] size = new int[parent.length];
+                for (int i = 0, root; i < parent.length; ++i) {
+                    root = find(i);
                     ++size[root];
                     result = Math.max(result, size[root]);
                 }
