@@ -19,11 +19,7 @@ static void mark(BoardType &Board, SizeType I, SizeType J) {
 
 void Solution130_1::solve(BoardType &board) {
   const auto &M = board.size();
-  if (M == 0)
-    return;
   const auto &N = board[0].size();
-  if (N == 0)
-    return;
   for (SizeType J = 0; J != N; ++J) {
     if (board[0][J] == 'O')
       mark(board, 0, J);
@@ -36,16 +32,12 @@ void Solution130_1::solve(BoardType &board) {
     if (board[I][N - 1] == 'O')
       mark(board, I, N - 1);
   }
-  for (SizeType I = 1, IE = M - 1; I < IE; ++I) {
-    for (SizeType J = 1, JE = N - 1; J < JE; ++J) {
-      if (board[I][J] == 'O')
-        board[I][J] = 'X';
-    }
-  }
   for (auto &Row : board) {
     for (auto &Ch : Row) {
       if (Ch == 'M')
         Ch = 'O';
+      else if (Ch == 'O')
+        Ch = 'X';
     }
   }
 }

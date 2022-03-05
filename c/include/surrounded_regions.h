@@ -1,30 +1,34 @@
 /*
- * Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
+ * Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
  *
  * A region is captured by flipping all 'O's into 'X's in that surrounded region.
  *
- * Example:
  *
- * X X X X
- * X O O X
- * X X O X
- * X O X X
  *
- * After running your function, the board should be:
+ * Example 1:
+ * https://assets.leetcode.com/uploads/2021/02/19/xogrid.jpg
  *
- * X X X X
- * X X X X
- * X X X X
- * X O X X
+ * Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
+ * Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+ * Explanation: Surrounded regions should not be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
  *
- * Explanation:
+ * Example 2:
  *
- * Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
+ * Input: board = [["X"]]
+ * Output: [["X"]]
+ *
+ *
+ * Constraints:
+ *
+ * m == board.length
+ * n == board[i].length
+ * 1 <= m, n <= 200
+ * board[i][j] is 'X' or 'O'.
  */
 
 #ifndef LEETCODE_SURROUNDED_REGIONS_H
 #define LEETCODE_SURROUNDED_REGIONS_H
 
-void solve_130_1(char **board, int boardRowSize, int boardColSize);
+void solve_130_1(char **board, int boardSize, int *boardColSize);
 
 #endif //LEETCODE_SURROUNDED_REGIONS_H
