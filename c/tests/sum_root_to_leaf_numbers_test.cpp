@@ -9,11 +9,11 @@ extern "C" {
 TEST(sum_root_to_leaf_numbers_test, sumNumbers_129_1) {
     int nums1[] = {1, 2, 3};
     struct TreeNode *root1 = tree_create(nums1, ARR_SIZE(nums1));
-    EXPECT_EQ(sumNumbers_129_1(root1), 25);
+    EXPECT_EQ(25, sumNumbers_129_1(root1));
     tree_free(root1);
 
     int nums2[] = {4, 9, 0, 5, 1};
     struct TreeNode *root2 = tree_create(nums2, ARR_SIZE(nums2));
-    EXPECT_EQ(sumNumbers_129_1(root2), 1026);
+    EXPECT_EQ(1026, sumNumbers_129_1(root2));
     tree_free(root2);
 }

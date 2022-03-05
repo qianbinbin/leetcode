@@ -2,19 +2,17 @@
 
 #include <stddef.h>
 
-static void sum_numbers(struct TreeNode *root, int *ret, int path) {
+static int sum_numbers(struct TreeNode *root, int path) {
+    if (root == NULL)
+        return 0;
     path = path * 10 + root->val;
     if (root->left == NULL && root->right == NULL) {
-        *ret += path;
-        return;
+        return path;
     }
-    if (root->left != NULL) sum_numbers(root->left, ret, path);
-    if (root->right != NULL) sum_numbers(root->right, ret, path);
+    return sum_numbers(root->left, path) +
+           sum_numbers(root->right, path);
 }
 
 int sumNumbers_129_1(struct TreeNode *root) {
-    if (root == NULL) return 0;
-    int ret = 0;
-    sum_numbers(root, &ret, 0);
-    return ret;
+    return sum_numbers(root, 0);
 }
