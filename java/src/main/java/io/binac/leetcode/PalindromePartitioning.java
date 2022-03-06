@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given a string s, partition s such that every substring of the partition is a palindrome.
- * <p>
- * <p>Return all possible palindrome partitioning of s.
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     Input: "aab"
- *     Output:
- *     [
- *       ["aa","b"],
- *       ["a","a","b"]
- *     ]
- * </blockquote></pre>
+ * <p>Given a string <code>s</code>, partition <code>s</code> such that every substring of the partition is a <strong>palindrome</strong>. Return all possible palindrome partitioning of <code>s</code>.</p>
+ *
+ * <p>A <strong>palindrome</strong> string is a string that reads the same backward as forward.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ * <pre><strong>Input:</strong> s = "aab"
+ * <strong>Output:</strong> [["a","a","b"],["aa","b"]]
+ * </pre><p><strong>Example 2:</strong></p>
+ * <pre><strong>Input:</strong> s = "a"
+ * <strong>Output:</strong> [["a"]]
+ * </pre>
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= s.length &lt;= 16</code></li>
+ * 	<li><code>s</code> contains only lowercase English letters.</li>
+ * </ul>
  */
 public class PalindromePartitioning {
     public static class Solution1 {
@@ -35,9 +41,9 @@ public class PalindromePartitioning {
         }
 
         public List<List<String>> partition(String s) {
-            final char chars[] = s.toCharArray();
+            final char[] chars = s.toCharArray();
             final int len = chars.length;
-            boolean dp[][] = new boolean[len][len];
+            boolean[][] dp = new boolean[len][len];
             for (int i = len - 1; i >= 0; --i) {
                 dp[i][i] = true;
                 if (i + 1 < len && chars[i] == chars[i + 1]) dp[i][i + 1] = true;
