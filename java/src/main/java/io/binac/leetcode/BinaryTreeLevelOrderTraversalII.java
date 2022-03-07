@@ -60,7 +60,7 @@ public class BinaryTreeLevelOrderTraversalII {
             if (root == null) return Collections.emptyList();
 
             LinkedList<List<Integer>> result = new LinkedList<>();
-            Queue<TreeNode> queue = new LinkedList<>();
+            Queue<TreeNode> queue = new ArrayDeque<>();
             queue.offer(root);
             while (!queue.isEmpty()) {
                 List<Integer> level = new ArrayList<>();
