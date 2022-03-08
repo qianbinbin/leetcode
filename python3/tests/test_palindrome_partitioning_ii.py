@@ -2,18 +2,26 @@ from unittest import TestCase
 
 from leetcodepy.palindrome_partitioning_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
-solution2 = Solution2()
+S1 = "aab"
+EXPECTED1 = 1
 
-s = "aab"
+S2 = "a"
+EXPECTED2 = 0
 
-expected = 1
+S3 = "ab"
+EXPECTED3 = 1
 
 
 class TestPalindromePartitioningII(TestCase):
     def test1(self):
-        self.assertEqual(expected, solution1.minCut(s))
+        self.assertEqual(EXPECTED1, SOLUTION1.minCut(S1))
+        self.assertEqual(EXPECTED2, SOLUTION1.minCut(S2))
+        self.assertEqual(EXPECTED3, SOLUTION1.minCut(S3))
 
     def test2(self):
-        self.assertEqual(expected, solution2.minCut(s))
+        self.assertEqual(EXPECTED1, SOLUTION2.minCut(S1))
+        self.assertEqual(EXPECTED2, SOLUTION2.minCut(S2))
+        self.assertEqual(EXPECTED3, SOLUTION2.minCut(S3))

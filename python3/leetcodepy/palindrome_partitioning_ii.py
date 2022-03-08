@@ -3,20 +3,34 @@ Given a string s, partition s such that every substring of the partition is a pa
 
 Return the minimum cuts needed for a palindrome partitioning of s.
 
-Example:
 
-Input: "aab"
+
+Example 1:
+
+Input: s = "aab"
 Output: 1
 Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+
+Example 2:
+
+Input: s = "a"
+Output: 0
+
+Example 3:
+
+Input: s = "ab"
+Output: 1
+
+
+Constraints:
+
+1 <= s.length <= 2000
+s consists of lower-case English letters only.
 """
 
 
 class Solution1:
-    def minCut(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+    def minCut(self, s: str) -> int:
         size = len(s)
         dp = [[False] * size for _ in range(size)]
         cut = [size - 1 - i for i in range(size + 1)]
@@ -29,20 +43,16 @@ class Solution1:
 
 
 class Solution2:
-    def minCut(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+    def minCut(self, s: str) -> int:
         size = len(s)
         cut = [i - 1 for i in range(size + 1)]
         for i in range(size):
-            len_ = 0
-            while i - len_ >= 0 and i + len_ < size and s[i - len_] == s[i + len_]:
-                cut[i + len_ + 1] = min(cut[i + len_ + 1], cut[i - len_] + 1)
-                len_ += 1
-            len_ = 0
-            while i - len_ >= 0 and i + len_ + 1 < size and s[i - len_] == s[i + len_ + 1]:
-                cut[i + len_ + 2] = min(cut[i + len_ + 2], cut[i - len_] + 1)
-                len_ += 1
+            _len = 0
+            while i - _len >= 0 and i + _len < size and s[i - _len] == s[i + _len]:
+                cut[i + _len + 1] = min(cut[i + _len + 1], cut[i - _len] + 1)
+                _len += 1
+            _len = 0
+            while i - _len >= 0 and i + _len + 1 < size and s[i - _len] == s[i + _len + 1]:
+                cut[i + _len + 2] = min(cut[i + _len + 2], cut[i - _len] + 1)
+                _len += 1
         return cut[size]
