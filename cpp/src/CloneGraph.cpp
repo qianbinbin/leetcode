@@ -4,15 +4,12 @@
 
 using namespace lcpp;
 
-typedef UndirectedGraphNode Node;
-
 static Node *cloneGraph(Node *UGNode,
                         std::unordered_map<int, Node *> &Visited) {
   auto &Copy = Visited[UGNode->val];
   if (Copy != nullptr)
     return Copy;
-  Copy = new Node();
-  Copy->val = UGNode->val;
+  Copy = new Node(UGNode->val);
   for (const auto &Neighbor : UGNode->neighbors)
     Copy->neighbors.push_back(cloneGraph(Neighbor, Visited));
   return Copy;
@@ -28,8 +25,7 @@ Node *Solution133_1::cloneGraph(Node *node) {
 Node *Solution133_2::cloneGraph(Node *node) {
   if (node == nullptr)
     return nullptr;
-  auto Copy = new Node();
-  Copy->val = node->val;
+  auto Copy = new Node(node->val);
   std::unordered_map<int, Node *> Visited{{Copy->val, Copy}};
   std::queue<Node *> Queue;
   Queue.push(node);

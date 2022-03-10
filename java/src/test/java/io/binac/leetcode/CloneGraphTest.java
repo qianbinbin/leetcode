@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CloneGraphTest {
-    private final CloneGraph.Solution1 solution1 = new CloneGraph.Solution1();
-
-    private final CloneGraph.Solution2 solution2 = new CloneGraph.Solution2();
+    private static final CloneGraph.Solution1 SOLUTION1 = new CloneGraph.Solution1();
+    private static final CloneGraph.Solution2 SOLUTION2 = new CloneGraph.Solution2();
 
     @Test
     void test1() {

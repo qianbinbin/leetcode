@@ -2,9 +2,8 @@ from unittest import TestCase
 
 from leetcodepy.clone_graph import *
 
-solution1 = Solution1()
-
-solution2 = Solution2()
+SOLUTION1 = Solution1()
+SOLUTION2 = Solution2()
 
 
 class TestCloneGraph(TestCase):

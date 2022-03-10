@@ -46,14 +46,6 @@ void tree_postorder_print(struct TreeNode *root);
 
 void tree_free(struct TreeNode *root);
 
-#define NEIGHBORS_MAX_SIZE 100
-
-struct UndirectedGraphNode {
-    int label;
-    struct UndirectedGraphNode *neighbors[NEIGHBORS_MAX_SIZE];
-    int neighborsCount;
-};
-
 struct RandomListNode {
     int label;
     struct RandomListNode *next;
