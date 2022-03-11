@@ -5,14 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CandyTest {
-    private final Candy.Solution1 solution1 = new Candy.Solution1();
+    private static final Candy.Solution1 SOLUTION1 = new Candy.Solution1();
+
+    private final int[] RATINGS1 = {1, 0, 2};
+    private final int EXPECTED1 = 5;
+
+    private final int[] RATINGS2 = {1, 2, 2};
+    private final int EXPECTED2 = 4;
 
     @Test
     void test1() {
-        int ratings1[] = {1, 0, 2};
-        assertEquals(5, solution1.candy(ratings1));
-
-        int ratings2[] = {1, 2, 2};
-        assertEquals(4, solution1.candy(ratings2));
+        assertEquals(EXPECTED1, SOLUTION1.candy(RATINGS1));
+        assertEquals(EXPECTED2, SOLUTION1.candy(RATINGS2));
     }
 }

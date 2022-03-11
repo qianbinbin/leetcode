@@ -8,8 +8,8 @@ extern "C" {
 
 TEST(candy_test, candy_135_1) {
     int ratings1[] = {1, 0, 2};
-    EXPECT_EQ(candy_135_1(ratings1, ARR_SIZE(ratings1)), 5);
+    EXPECT_EQ(5, candy_135_1(ratings1, ARR_SIZE(ratings1)));
 
     int ratings2[] = {1, 2, 2};
-    EXPECT_EQ(candy_135_1(ratings2, ARR_SIZE(ratings2)), 4);
+    EXPECT_EQ(4, candy_135_1(ratings2, ARR_SIZE(ratings2)));
 }

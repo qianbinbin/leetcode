@@ -2,12 +2,9 @@
 
 #include <stdlib.h>
 
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) >= (b) ? (a) : (b))
 
 int candy_135_1(int *ratings, int ratingsSize) {
-    if (ratings == NULL || ratingsSize < 0) return -1;
-    if (ratingsSize == 0) return 0;
-
     int *candies = (int *) malloc(ratingsSize * sizeof(int));
     for (int i = 0; i < ratingsSize; ++i) candies[i] = 1;
 
