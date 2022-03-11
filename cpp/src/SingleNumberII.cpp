@@ -1,14 +1,12 @@
 #include "SingleNumberII.h"
-#include <cassert>
 
 using namespace lcpp;
 
 int Solution137_1::singleNumber(std::vector<int> &nums) {
-  int LowBit = 0, HighBit = 0;
+  int One = 0, Two = 0;
   for (const auto &N : nums) {
-    LowBit = (LowBit ^ N) & ~HighBit;
-    HighBit = (HighBit ^ N) & ~LowBit;
+    One = (One ^ N) & ~Two;
+    Two = (Two ^ N) & ~One;
   }
-  assert(HighBit == 0);
-  return LowBit;
+  return One;
 }

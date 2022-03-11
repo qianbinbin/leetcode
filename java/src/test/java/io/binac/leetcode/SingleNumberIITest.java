@@ -5,14 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SingleNumberIITest {
-    private final SingleNumberII.Solution1 solution1 = new SingleNumberII.Solution1();
+    private static final SingleNumberII.Solution1 SOLUTION1 = new SingleNumberII.Solution1();
+
+    private final int[] NUMS1 = {2, 2, 3, 2};
+    private final int EXPECTED1 = 3;
+
+    private final int[] NUMS2 = {0, 1, 0, 1, 0, 1, 99};
+    private final int EXPECTED2 = 99;
 
     @Test
     void test1() {
-        int nums1[] = {2, 2, 3, 2};
-        assertEquals(3, solution1.singleNumber(nums1));
-
-        int nums2[] = {0, 1, 0, 1, 0, 1, 99};
-        assertEquals(99, solution1.singleNumber(nums2));
+        assertEquals(EXPECTED1, SOLUTION1.singleNumber(NUMS1));
+        assertEquals(EXPECTED2, SOLUTION1.singleNumber(NUMS2));
     }
 }
