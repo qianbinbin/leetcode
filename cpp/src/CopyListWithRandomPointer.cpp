@@ -2,12 +2,12 @@
 
 using namespace lcpp;
 
-RandomListNode *Solution138_1::copyRandomList(RandomListNode *head) {
+Node *Solution138_1::copyRandomList(Node *head) {
   if (head == nullptr)
     return nullptr;
-  RandomListNode *P, *Copy;
+  Node *P, *Copy;
   for (P = head; P != nullptr; P = Copy->next) {
-    Copy = new RandomListNode(P->label);
+    Copy = new Node(P->val);
     Copy->next = P->next;
     P->next = Copy;
   }

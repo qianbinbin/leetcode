@@ -46,12 +46,6 @@ void tree_postorder_print(struct TreeNode *root);
 
 void tree_free(struct TreeNode *root);
 
-struct RandomListNode {
-    int label;
-    struct RandomListNode *next;
-    struct RandomListNode *random;
-};
-
 struct Point {
     int x;
     int y;

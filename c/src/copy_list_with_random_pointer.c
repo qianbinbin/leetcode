@@ -2,25 +2,27 @@
 
 #include <stdlib.h>
 
-struct RandomListNode *copyRandomList_138_1(struct RandomListNode *head) {
+struct Node *copyRandomList_138_1(struct Node *head) {
     if (head == NULL) return NULL;
 
-    struct RandomListNode *copy;
-    for (struct RandomListNode *p = head; p != NULL; p = copy->next) {
-        copy = (struct RandomListNode *) malloc(sizeof(struct RandomListNode));
-        copy->label = p->label;
-        copy->next = p->next;
-        p->next = copy;
+    struct Node *node, *copy;
+    for (node = head; node != NULL; node = copy->next) {
+        copy = (struct Node *) malloc(sizeof(struct Node));
+        copy->val = node->val;
+        copy->next = node->next;
+        node->next = copy;
     }
 
-    for (struct RandomListNode *p = head; p != NULL; p = p->next->next) {
-        p->next->random = p->random != NULL ? p->random->next : NULL;
+    for (node = head; node != NULL; node = copy->next) {
+        copy = node->next;
+        copy->random = node->random == NULL ? NULL : node->random->next;
     }
 
-    struct RandomListNode *ret = head->next;
-    for (struct RandomListNode *pre = head, *p = head->next; pre != NULL; pre = pre->next, p = p->next) {
-        pre->next = p->next;
-        p->next = pre->next != NULL ? pre->next->next : NULL;
+    struct Node *ret = head->next;
+    for (node = head; node != NULL;) {
+        copy = node->next;
+        node = node->next = copy->next;
+        copy->next = node == NULL ? NULL : node->next;
     }
     return ret;
 }

@@ -23,10 +23,3 @@ def equals(l1: Optional[ListNode], l2: Optional[ListNode]) -> bool:
         l1 = l1.next
         l2 = l2.next
     return l1 is None and l2 is None
-
-
-class RandomListNode(object):
-    def __init__(self, x):
-        self.label = x
-        self.next = None
-        self.random = None
