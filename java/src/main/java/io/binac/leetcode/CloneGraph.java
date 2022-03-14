@@ -114,15 +114,12 @@ public class CloneGraph {
             queue.offer(node);
             while (!queue.isEmpty()) {
                 node = Objects.requireNonNull(queue.poll());
-                Node clonedNode = visited.get(node.val);
+                Node clone = visited.get(node.val);
                 for (Node neighbor : node.neighbors) {
-                    Node clonedNeighbor = visited.get(neighbor.val);
-                    if (clonedNeighbor == null) {
-                        clonedNeighbor = new Node(neighbor.val);
-                        visited.put(clonedNeighbor.val, clonedNeighbor);
+                    clone.neighbors.add(visited.computeIfAbsent(neighbor.val, k -> {
                         queue.offer(neighbor);
-                    }
-                    clonedNode.neighbors.add(clonedNeighbor);
+                        return new Node(k);
+                    }));
                 }
             }
             return newNode;
