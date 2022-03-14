@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListCycleIITest {
-    private final LinkedListCycle.Solution1 solution1 = new LinkedListCycle.Solution1();
+    private static final LinkedListCycle.Solution1 SOLUTION1 = new LinkedListCycle.Solution1();
 
     @Test
     void test1() {
