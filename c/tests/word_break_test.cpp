@@ -6,17 +6,16 @@ extern "C" {
 
 #define ARR_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
-char *s1 = "leetcode";
-char *dict1[] = {"leet", "code"};
-
-char *s2 = "applepenapple";
-char *dict2[] = {"apple", "pen"};
-
-char *s3 = "catsandog";
-char *dict3[] = {"cats", "dog", "sand", "and", "cat"};
-
 TEST(word_break_test, wordBreak_139_1) {
-    EXPECT_TRUE(wordBreak_139_1(s1, dict1, ARR_SIZE(dict1)));
-    EXPECT_TRUE(wordBreak_139_1(s2, dict2, ARR_SIZE(dict2)));
-    EXPECT_FALSE(wordBreak_139_1(s3, dict3, ARR_SIZE(dict3)));
+    char *s1 = "leetcode";
+    char *word_dict1[] = {"leet", "code"};
+    EXPECT_TRUE(wordBreak_139_1(s1, word_dict1, ARR_SIZE(word_dict1)));
+
+    char *s2 = "applepenapple";
+    char *word_dict2[] = {"apple", "pen"};
+    EXPECT_TRUE(wordBreak_139_1(s2, word_dict2, ARR_SIZE(word_dict2)));
+
+    char *s3 = "catsandog";
+    char *word_dict3[] = {"cats", "dog", "sand", "and", "cat"};
+    EXPECT_FALSE(wordBreak_139_1(s3, word_dict3, ARR_SIZE(word_dict3)));
 }

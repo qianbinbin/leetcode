@@ -2,23 +2,23 @@ from unittest import TestCase
 
 from leetcodepy.word_break import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "leetcode"
+S1 = "leetcode"
+WORDDICT1 = ["leet", "code"]
+EXPECTED1 = True
 
-wordDict1 = ["leet", "code"]
+S2 = "applepenapple"
+WORDDICT2 = ["apple", "pen"]
+EXPECTED2 = True
 
-s2 = "applepenapple"
-
-wordDict2 = ["apple", "pen"]
-
-s3 = "catsandog"
-
-wordDict3 = ["cats", "dog", "sand", "and", "cat"]
+S3 = "catsandog"
+WORDDICT3 = ["cats", "dog", "sand", "and", "cat"]
+EXPECTED3 = False
 
 
 class TestWordBreak(TestCase):
     def test1(self):
-        self.assertTrue(solution1.wordBreak(s1, wordDict1))
-        self.assertTrue(solution1.wordBreak(s2, wordDict2))
-        self.assertFalse(solution1.wordBreak(s3, wordDict3))
+        self.assertEqual(EXPECTED1, SOLUTION1.wordBreak(S1, WORDDICT1))
+        self.assertEqual(EXPECTED2, SOLUTION1.wordBreak(S2, WORDDICT2))
+        self.assertEqual(EXPECTED3, SOLUTION1.wordBreak(S3, WORDDICT3))
