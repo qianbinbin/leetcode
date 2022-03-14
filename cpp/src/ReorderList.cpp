@@ -10,8 +10,7 @@ void Solution143_1::reorderList(ListNode *head) {
     Slow = Slow->next;
     Fast = Fast->next->next;
   }
-  ListNode Dummy(0);
-  Dummy.next = Slow;
+  ListNode Dummy(0, Slow);
   for (auto P = Slow->next; P != nullptr; P = Slow->next) {
     Slow->next = P->next;
     P->next = Dummy.next;
@@ -19,11 +18,9 @@ void Solution143_1::reorderList(ListNode *head) {
   }
   ListNode *Tail = &Dummy, *P1 = head, *P2 = Dummy.next;
   while (P1 != Slow) {
-    Tail->next = P1;
-    Tail = P1;
+    Tail = Tail->next = P1;
     P1 = P1->next;
-    Tail->next = P2;
-    Tail = P2;
+    Tail = Tail->next = P2;
     P2 = P2->next;
   }
 }

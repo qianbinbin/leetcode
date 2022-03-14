@@ -1,55 +1,64 @@
 """
-Given a singly linked list L: L0→L1→…→Ln-1→Ln,
-reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+You are given the head of a singly linked-list. The list can be represented as:
 
-You may not modify the values in the list's nodes, only nodes itself may be changed.
+L0 → L1 → … → Ln - 1 → Ln
+
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+
 
 Example 1:
+https://assets.leetcode.com/uploads/2021/03/04/reorder1linked-list.jpg
 
-Given 1->2->3->4, reorder it to 1->4->2->3.
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
 
 Example 2:
+https://assets.leetcode.com/uploads/2021/03/09/reorder2-linked-list.jpg
 
-Given 1->2->3->4->5, reorder it to 1->5->2->4->3.
+Input: head = [1,2,3,4,5]
+Output: [1,5,2,4,3]
+
+
+Constraints:
+
+The number of nodes in the list is in the range [1, 5 * 10^4].
+1 <= Node.val <= 1000
 """
+from typing import Optional
 
 from .utils import ListNode
 
 
 class Solution1:
-    def reorderList(self, head):
+    def reorderList(self, head: Optional[ListNode]) -> None:
         """
-        :type head: ListNode
-        :rtype: void Do not return anything, modify head in-place instead.
+        Do not return anything, modify head in-place instead.
         """
         if not head:
             return
-        dummy1 = ListNode(0)
-        dummy1.next = head
-        slow, fast = dummy1, head
-        while fast and fast.next:
+        fast, slow = head, head
+        while fast is not None and fast.next is not None:
             fast = fast.next.next
             slow = slow.next
-        dummy2 = ListNode(0)
-        dummy2.next = slow.next
-        slow.next = None
 
-        first = dummy2.next
-        p = first.next
-        while p:
-            first.next = p.next
-            p.next = dummy2.next
-            dummy2.next = p
-            p = first.next
+        dummy = ListNode(0, slow)
+        p = slow.next
+        while p is not None:
+            slow.next = p.next
+            p.next = dummy.next
+            dummy.next = p
+            p = slow.next
 
-        dummy = ListNode(0)
-        tail = dummy
-        n1, n2 = dummy1.next, dummy2.next
-        while n1:
-            tail.next = n1
-            tail = n1
-            n1 = n1.next
-            tail.next = n2
-            tail = n2
-            n2 = n2.next
-        tail.next = n2
+        p1, p2, tail = head, dummy.next, dummy
+        while p1 is not slow:
+            tail.next = p1
+            tail = p1
+            p1 = p1.next
+            tail.next = p2
+            tail = p2
+            p2 = p2.next

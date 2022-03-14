@@ -10,24 +10,18 @@ void reorderList_143_1(struct ListNode *head) {
         slow = slow->next;
         fast = fast->next->next;
     }
-    struct ListNode *dummy = (struct ListNode *) malloc(sizeof(struct ListNode));
-    dummy->next = slow;
-    struct ListNode *p = slow->next;
-    while (p != NULL) {
+    struct ListNode dummy = {0, slow};
+    struct ListNode *p;
+    while ((p = slow->next) != NULL) {
         slow->next = p->next;
-        p->next = dummy->next;
-        dummy->next = p;
-        p = slow->next;
+        p->next = dummy.next;
+        dummy.next = p;
     }
-    struct ListNode *p1 = head;
-    p = dummy->next;
-    while (p1->next != slow) {
-        dummy->next = p->next;
-        p->next = p1->next;
-        p1->next = p;
-        p1 = p->next;
-        p = dummy->next;
+    struct ListNode *p1 = head, *p2 = dummy.next, *tail = &dummy;
+    while (p1 != slow) {
+        tail = tail->next = p1;
+        p1 = p1->next;
+        tail = tail->next = p2;
+        p2 = p2->next;
     }
-    p1->next = dummy->next;
-    free(dummy);
 }
