@@ -21,11 +21,11 @@ static void wordBreak(const std::string &S, std::string::size_type I,
     Result.push_back(join(Path));
     return;
   }
-  for (std::string::size_type J = I; J != Size; ++J) {
+  for (std::string::size_type J = I + 1; J <= Size; ++J) {
     if (!ValidWord[I][J])
       continue;
-    Path.emplace_back(S, I, J - I + 1);
-    wordBreak(S, J + 1, ValidWord, Path, Result);
+    Path.emplace_back(S, I, J - I);
+    wordBreak(S, J, ValidWord, Path, Result);
     Path.pop_back();
   }
 }
@@ -38,11 +38,11 @@ Solution140_1::wordBreak(std::string s, std::vector<std::string> &wordDict) {
   std::vector<bool> DP(Size + 1);
   DP[0] = true;
   std::vector<std::vector<bool>> ValidWord(Size, std::vector<bool>(Size + 1));
-  for (std::string::size_type End = 1, E = Size + 1; End != E; ++End) {
-    for (std::string::size_type Begin = End - 1; Begin != -1; --Begin) {
+  for (std::string::size_type Begin, End = 1, E = Size + 1; End != E; ++End) {
+    for (Begin = End - 1; Begin != -1; --Begin) {
       if (DP[Begin] && Set.find(s.substr(Begin, End - Begin)) != SE) {
         DP[End] = true;
-        ValidWord[Begin][End - 1] = true;
+        ValidWord[Begin][End] = true;
       }
     }
   }

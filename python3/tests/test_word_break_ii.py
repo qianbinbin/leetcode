@@ -2,36 +2,30 @@ from unittest import TestCase
 
 from leetcodepy.word_break_ii import *
 
-solution1 = Solution1()
+SOLUTION1 = Solution1()
 
-s1 = "catsanddog"
-
-wordDict1 = ["cat", "cats", "and", "sand", "dog"]
-
-expected1 = [
+S1 = "catsanddog"
+WORDDICT1 = ["cat", "cats", "and", "sand", "dog"]
+EXPECTED1 = [
     "cat sand dog",
     "cats and dog"
 ]
 
-s2 = "pineapplepenapple"
-
-wordDict2 = ["apple", "pen", "applepen", "pine", "pineapple"]
-
-expected2 = [
+S2 = "pineapplepenapple"
+WORDDICT2 = ["apple", "pen", "applepen", "pine", "pineapple"]
+EXPECTED2 = [
     "pine apple pen apple",
     "pine applepen apple",
     "pineapple pen apple"
 ]
 
-s3 = "catsandog"
-
-wordDict3 = ["cats", "dog", "sand", "and", "cat"]
-
-expected3 = []
+S3 = "catsandog"
+WORDDICT3 = ["cats", "dog", "sand", "and", "cat"]
+EXPECTED3 = []
 
 
 class TestWordBreakII(TestCase):
     def test1(self):
-        self.assertEqual(expected1, solution1.wordBreak(s1, wordDict1))
-        self.assertEqual(expected2, solution1.wordBreak(s2, wordDict2))
-        self.assertEqual(expected3, solution1.wordBreak(s3, wordDict3))
+        self.assertEqual(EXPECTED1, SOLUTION1.wordBreak(S1, WORDDICT1))
+        self.assertEqual(EXPECTED2, SOLUTION1.wordBreak(S2, WORDDICT2))
+        self.assertEqual(EXPECTED3, SOLUTION1.wordBreak(S3, WORDDICT3))
