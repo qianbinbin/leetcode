@@ -50,7 +50,7 @@ public class WordBreakII {
                 return;
             }
             for (int j = i + 1; j <= len; ++j) {
-                if (!valid[i][j - 1]) continue;
+                if (!valid[i][j]) continue;
                 path.add(s.substring(i, j));
                 wordBreak(s, j, valid, result, path);
                 path.remove(path.size() - 1);
@@ -62,12 +62,12 @@ public class WordBreakII {
             Set<String> dict = new HashSet<>(wordDict);
             boolean[] dp = new boolean[len + 1];
             dp[0] = true;
-            boolean[][] valid = new boolean[len][len];
+            boolean[][] valid = new boolean[len][len + 1];
             for (int i, j = 1; j <= len; ++j) {
                 for (i = j - 1; i >= 0; --i) {
                     if (dp[i] && dict.contains(s.substring(i, j))) {
                         dp[j] = true;
-                        valid[i][j - 1] = true;
+                        valid[i][j] = true;
                     }
                 }
             }

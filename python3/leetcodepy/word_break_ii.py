@@ -39,12 +39,12 @@ class Solution1:
         word_set = set(wordDict)
         dp = [False] * (size + 1)
         dp[0] = True
-        valid = [[False] * size for _ in range(size)]
+        valid = [[False] * (size + 1) for _ in range(size)]
         for j in range(1, size + 1):
             for i in range(j - 1, -1, -1):
                 if dp[i] and s[i:j] in word_set:
                     dp[j] = True
-                    valid[i][j - 1] = True
+                    valid[i][j] = True
         result = []
         if not dp[size]:
             return result
@@ -55,8 +55,8 @@ class Solution1:
         if i == len(s):
             result.append(' '.join(path))
             return
-        for j in range(i, len(s)):
+        for j in range(i + 1, len(s) + 1):
             if valid[i][j]:
-                path.append(s[i:j + 1])
-                self.__word_break(s, j + 1, valid, result, path)
+                path.append(s[i:j])
+                self.__word_break(s, j, valid, result, path)
                 path.pop()
