@@ -20,6 +20,28 @@ std::vector<int> Solution145_1::postorderTraversal(TreeNode *root) {
 
 std::vector<int> Solution145_2::postorderTraversal(TreeNode *root) {
   std::vector<int> Result;
+  TreeNode *Node = root, *Peek, *Pre = nullptr;
+  std::stack<TreeNode *> Stack;
+  while (Node != nullptr || !Stack.empty()) {
+    if (Node != nullptr) {
+      Stack.push(Node);
+      Node = Node->left;
+    } else {
+      Peek = Stack.top();
+      if (Peek->right == nullptr || Peek->right == Pre) {
+        Result.push_back(Peek->val);
+        Pre = Peek;
+        Stack.pop();
+      } else {
+        Node = Peek->right;
+      }
+    }
+  }
+  return Result;
+}
+
+std::vector<int> Solution145_3::postorderTraversal(TreeNode *root) {
+  std::vector<int> Result;
   if (root == nullptr)
     return Result;
   std::stack<TreeNode *> Stack;
@@ -27,35 +49,12 @@ std::vector<int> Solution145_2::postorderTraversal(TreeNode *root) {
   while (!Stack.empty()) {
     auto Node = Stack.top();
     Stack.pop();
+    Result.push_back(Node->val);
     if (Node->left != nullptr)
       Stack.push(Node->left);
     if (Node->right != nullptr)
       Stack.push(Node->right);
-    Result.push_back(Node->val);
   }
   std::reverse(Result.begin(), Result.end());
-  return Result;
-}
-
-std::vector<int> Solution145_3::postorderTraversal(TreeNode *root) {
-  std::vector<int> Result;
-  TreeNode *Node = root, *Pre = nullptr;
-  std::stack<TreeNode *> Stack;
-  while (Node != nullptr || !Stack.empty()) {
-    if (Node != nullptr) {
-      Stack.push(Node);
-      Node = Node->left;
-    } else {
-      Node = Stack.top();
-      if (Node->right == nullptr || Node->right == Pre) {
-        Result.push_back(Node->val);
-        Pre = Node;
-        Stack.pop();
-        Node = nullptr;
-      } else {
-        Node = Node->right;
-      }
-    }
-  }
   return Result;
 }

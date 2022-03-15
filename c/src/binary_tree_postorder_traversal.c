@@ -2,57 +2,40 @@
 
 #include <stdlib.h>
 
-static void post_order_traversal(struct TreeNode *root, int **result, int *size, int *capacity) {
+static void
+post_order_traversal(struct TreeNode *root, int **result, int *size) {
     if (root == NULL) return;
-    post_order_traversal(root->left, result, size, capacity);
-    post_order_traversal(root->right, result, size, capacity);
-    if (*size >= *capacity) {
-        *capacity *= 2;
-        *result = (int *) realloc(*result, *capacity * sizeof(int));
-    }
+    post_order_traversal(root->left, result, size);
+    post_order_traversal(root->right, result, size);
     (*result)[(*size)++] = root->val;
 }
 
 int *postorderTraversal_145_1(struct TreeNode *root, int *returnSize) {
-    if (root == NULL || returnSize == NULL) return NULL;
-
-    int capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int *ret = (int *) malloc(100 * sizeof(int));
     *returnSize = 0;
-    post_order_traversal(root, &ret, returnSize, &capacity);
+    post_order_traversal(root, &ret, returnSize);
     ret = (int *) realloc(ret, *returnSize * sizeof(int));
     return ret;
 }
 
 int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize) {
-    if (root == NULL || returnSize == NULL) return NULL;
-
-    int capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int *ret = (int *) malloc(100 * sizeof(int));
     *returnSize = 0;
 
-    int stack_capacity = 16;
-    struct TreeNode **stack = (struct TreeNode **) malloc(stack_capacity * sizeof(struct TreeNode *));
+    struct TreeNode **stack = (struct TreeNode **) malloc(
+            100 * sizeof(struct TreeNode *));
     int top = -1;
 
-    struct TreeNode *p = root, *parent, *pre = NULL;
-    while (top != -1 || p != NULL) {
-        if (p != NULL) {
-            if (top + 1 >= stack_capacity) {
-                stack_capacity *= 2;
-                stack = (struct TreeNode **) realloc(stack, stack_capacity * sizeof(struct TreeNode *));
-            }
-            stack[++top] = p;
-            p = p->left;
+    struct TreeNode *node = root, *parent, *pre = NULL;
+    while (top != -1 || node != NULL) {
+        if (node != NULL) {
+            stack[++top] = node;
+            node = node->left;
         } else {
             parent = stack[top];
             if (parent->right != NULL && parent->right != pre) {
-                p = parent->right;
+                node = parent->right;
             } else {
-                if (*returnSize >= capacity) {
-                    capacity *= 2;
-                    ret = (int *) realloc(ret, capacity * sizeof(int));
-                }
                 ret[(*returnSize)++] = parent->val;
                 pre = parent;
                 --top;
@@ -65,36 +48,25 @@ int *postorderTraversal_145_2(struct TreeNode *root, int *returnSize) {
 }
 
 int *postorderTraversal_145_3(struct TreeNode *root, int *returnSize) {
-    if (root == NULL || returnSize == NULL) return NULL;
-
-    int stack_capacity = 16;
-    void **stack = (void **) malloc(stack_capacity * sizeof(void *));
-    int top = -1;
-    stack[++top] = root;
-
-    int capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int *ret = (int *) malloc(100 * sizeof(int));
     *returnSize = 0;
 
+    if (root == NULL) goto ret;
+
+    void **stack = (void **) malloc(100 * sizeof(void *));
+    int top = -1;
+    stack[++top] = root;
     struct TreeNode *node;
     while (top != -1) {
         node = stack[top--];
-        if (top + 1 + 2 >= stack_capacity) {
-            stack_capacity *= 2;
-            stack = (void **) realloc(stack, stack_capacity * sizeof(void *));
-        }
+        ret[(*returnSize)++] = node->val;
         if (node->left != NULL) stack[++top] = node->left;
         if (node->right != NULL) stack[++top] = node->right;
-
-        if (*returnSize >= capacity) {
-            capacity *= 2;
-            ret = (int *) realloc(ret, capacity * sizeof(int));
-        }
-        ret[(*returnSize)++] = node->val;
     }
     free(stack);
-    ret = (int *) realloc(ret, *returnSize * sizeof(int));
 
+    ret:
+    ret = (int *) realloc(ret, *returnSize * sizeof(int));
     const int half = *returnSize / 2;
     int tmp;
     for (int i = 0; i < half; ++i) {
