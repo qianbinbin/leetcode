@@ -19,17 +19,18 @@ std::vector<int> Solution144_1::preorderTraversal(TreeNode *root) {
 
 std::vector<int> Solution144_2::preorderTraversal(TreeNode *root) {
   std::vector<int> Result;
+  if (root == nullptr)
+    return Result;
   std::stack<TreeNode *> Stack;
-  auto Node = root;
-  while (Node != nullptr || !Stack.empty()) {
-    if (Node != nullptr) {
-      Result.push_back(Node->val);
-      Stack.push(Node);
-      Node = Node->left;
-    } else {
-      Node = Stack.top()->right;
-      Stack.pop();
-    }
+  Stack.push(root);
+  while (!Stack.empty()) {
+    auto Node = Stack.top();
+    Stack.pop();
+    Result.push_back(Node->val);
+    if (Node->right != nullptr)
+      Stack.push(Node->right);
+    if (Node->left != nullptr)
+      Stack.push(Node->left);
   }
   return Result;
 }
