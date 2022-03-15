@@ -3,54 +3,38 @@
 #include <stdlib.h>
 
 static void
-in_order(struct TreeNode *root, int **ret, int *capacity, int *size) {
+in_order(struct TreeNode *root, int **ret, int *size) {
     if (root == NULL) return;
-    in_order(root->left, ret, capacity, size);
-    if (*size >= *capacity) {
-        *capacity *= 2;
-        *ret = (int *) realloc(*ret, *capacity * sizeof(int));
-    }
+    in_order(root->left, ret, size);
     (*ret)[(*size)++] = root->val;
-    in_order(root->right, ret, capacity, size);
+    in_order(root->right, ret, size);
 }
 
 int *inorderTraversal_94_1(struct TreeNode *root, int *returnSize) {
-    int capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int *ret = (int *) malloc(100 * sizeof(int));
     *returnSize = 0;
-    in_order(root, &ret, &capacity, returnSize);
+    in_order(root, &ret, returnSize);
     ret = (int *) realloc(ret, *returnSize * sizeof(int));
     return ret;
 }
 
 int *inorderTraversal_94_2(struct TreeNode *root, int *returnSize) {
-    int capacity = 16;
-    int *ret = (int *) malloc(capacity * sizeof(int));
+    int *ret = (int *) malloc(100 * sizeof(int));
     *returnSize = 0;
 
-    int stack_capacity = 16;
     struct TreeNode **stack = (struct TreeNode **) malloc(
-            stack_capacity * sizeof(struct TreeNode *));
+            100 * sizeof(struct TreeNode *));
     int top = -1;
 
-    struct TreeNode *p = root;
-    while (top != -1 || p != NULL) {
-        if (p != NULL) {
-            if (top + 1 >= stack_capacity) {
-                stack_capacity *= 2;
-                stack = (struct TreeNode **) realloc(stack, stack_capacity *
-                                                            sizeof(struct TreeNode *));
-            }
-            stack[++top] = p;
-            p = p->left;
+    struct TreeNode *node = root;
+    while (top != -1 || node != NULL) {
+        if (node != NULL) {
+            stack[++top] = node;
+            node = node->left;
         } else {
-            p = stack[top--];
-            if (*returnSize >= capacity) {
-                capacity *= 2;
-                ret = (int *) realloc(ret, capacity * sizeof(int));
-            }
-            ret[(*returnSize)++] = p->val;
-            p = p->right;
+            node = stack[top--];
+            ret[(*returnSize)++] = node->val;
+            node = node->right;
         }
     }
     free(stack);
