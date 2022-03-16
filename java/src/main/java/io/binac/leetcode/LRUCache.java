@@ -1,46 +1,65 @@
 package io.binac.leetcode;
 
 /**
- * Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
- * <p>
- * <p>get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
- * <p>put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
- * <p>
- * <p>Follow up:
- * <p>Could you do both operations in O(1) time complexity?
- * <p>
- * <p>Example:
- * <blockquote><pre>
- *     LRUCache cache = new LRUCache( 2 capacity );
+ * <p>Design a data structure that follows the constraints of a <strong><a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank">Least Recently Used (LRU) cache</a></strong>.</p>
  *
- *     cache.put(1,1);
- *     cache.put(2,2);
- *     cache.get(1);       // returns 1
- *     cache.put(3,3);    // evicts key 2
- *     cache.get(2);       // returns -1 (not found)
- *     cache.put(4,4);    // evicts key 1
- *     cache.get(1);       // returns -1 (not found)
- *     cache.get(3);       // returns 3
- *     cache.get(4);       // returns 4
- * </blockquote></pre>
- * Your LRUCache object will be instantiated and called as such:
- * <blockquote><pre>
- *     LRUCache obj = new LRUCache(capacity);
- *     int param_1 = obj.get(key);
- *     obj.put(key,value);
- * </blockquote></pre>
+ * <p>Implement the <code>LRUCache</code> class:</p>
+ *
+ * <ul>
+ * 	<li><code>LRUCache(int capacity)</code> Initialize the LRU cache with <strong>positive</strong> size <code>capacity</code>.</li>
+ * 	<li><code>int get(int key)</code> Return the value of the <code>key</code> if the key exists, otherwise return <code>-1</code>.</li>
+ * 	<li><code>void put(int key, int value)</code>&nbsp;Update the value of the <code>key</code> if the <code>key</code> exists. Otherwise, add the <code>key-value</code> pair to the cache. If the number of keys exceeds the <code>capacity</code> from this operation, <strong>evict</strong> the least recently used key.</li>
+ * </ul>
+ *
+ * <p>The functions&nbsp;<code data-stringify-type="code">get</code>&nbsp;and&nbsp;<code data-stringify-type="code">put</code>&nbsp;must each run in <code>O(1)</code> average time complexity.</p>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Example 1:</strong></p>
+ *
+ * <pre><strong>Input</strong>
+ * ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+ * [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+ * <strong>Output</strong>
+ * [null, null, null, 1, null, -1, null, -1, 3, 4]
+ *
+ * <strong>Explanation</strong>
+ * LRUCache lRUCache = new LRUCache(2);
+ * lRUCache.put(1, 1); // cache is {1=1}
+ * lRUCache.put(2, 2); // cache is {1=1, 2=2}
+ * lRUCache.get(1);    // return 1
+ * lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+ * lRUCache.get(2);    // returns -1 (not found)
+ * lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+ * lRUCache.get(1);    // return -1 (not found)
+ * lRUCache.get(3);    // return 3
+ * lRUCache.get(4);    // return 4
+ * </pre>
+ *
+ * <p>&nbsp;</p>
+ * <p><strong>Constraints:</strong></p>
+ *
+ * <ul>
+ * 	<li><code>1 &lt;= capacity &lt;= 3000</code></li>
+ * 	<li><code>0 &lt;= key &lt;= 10<sup>4</sup></code></li>
+ * 	<li><code>0 &lt;= value &lt;= 10<sup>5</sup></code></li>
+ * 	<li>At most 2<code>&nbsp;* 10<sup>5</sup></code>&nbsp;calls will be made to <code>get</code> and <code>put</code>.</li>
+ * </ul>
  */
 public class LRUCache {
-
     private static class Entry {
         int key;
         int value;
         Entry next;
         Node node;
 
-        Entry(int key, int value) {
+        Entry() {
+        }
+
+        Entry(int key, int value, Entry next, Node node) {
             this.key = key;
             this.value = value;
+            this.next = next;
+            this.node = node;
         }
     }
 
@@ -49,8 +68,13 @@ public class LRUCache {
         Node prev;
         Node next;
 
-        Node(int key) {
+        Node() {
+        }
+
+        Node(int key, Node prev, Node next) {
             this.key = key;
+            this.prev = prev;
+            this.next = next;
         }
     }
 
@@ -58,19 +82,19 @@ public class LRUCache {
 
     private int size;
 
-    private final Entry table[];
+    private final Entry[] table;
 
-    private Node head;
+    private final Entry dummy = new Entry();
 
-    private Node tail;
+    private final Node head;
+
+    private final Node tail;
 
     public LRUCache(int capacity) {
-        if (capacity <= 0)
-            throw new IllegalArgumentException("capacity must be positive: " + capacity);
         this.capacity = capacity;
         table = new Entry[tableSize(capacity)];
-        head = new Node(0);
-        tail = new Node(0);
+        head = new Node();
+        tail = new Node();
         head.next = tail;
         tail.prev = head;
     }
@@ -87,92 +111,53 @@ public class LRUCache {
 
     public int get(int key) {
         int i = key & (table.length - 1);
-        Entry e = table[i];
-        while (e != null) {
-            if (e.key == key) {
-                reorderNode(e.node);
-                return e.value;
-            }
-            e = e.next;
+        for (Entry e = table[i]; e != null; e = e.next) {
+            if (e.key != key)
+                continue;
+            reorderNode(e.node);
+            return e.value;
         }
         return -1;
     }
 
     public void put(int key, int value) {
-        if (value <= 0)
-            throw new IllegalArgumentException("value must be positive: " + value);
         int i = key & (table.length - 1);
-        Entry e = table[i];
-        while (e != null) {
-            if (e.key == key) {
-                e.value = value;
-                reorderNode(e.node);
-                return;
-            }
-            e = e.next;
-        }
-
-        e = new Entry(key, value);
-        e.node = addFirstNode(key);
-        if (table[i] == null) {
-            table[i] = e;
-        } else {
-            e.next = table[i].next;
-            table[i].next = e;
-        }
-        if (++size > capacity) {
-            remove(tail.prev.key);
-            removeLastNode();
-        }
-    }
-
-    private void remove(int key) {
-        int i = key & (table.length - 1);
-        Entry e = table[i];
-        if (e == null)
-            return;
-        if (e.key == key) {
-            table[i] = e.next;
-            --size;
+        for (Entry e = table[i]; e != null; e = e.next) {
+            if (e.key != key)
+                continue;
+            e.value = value;
+            reorderNode(e.node);
             return;
         }
-        Entry pre = table[i];
-        e = pre.next;
-        while (e != null) {
-            if (e.key == key) {
-                pre.next = e.next;
-                --size;
-                return;
-            }
-            pre = e;
-            e = e.next;
-        }
-    }
 
-    private Node addFirstNode(int key) {
-        Node node = new Node(key), nx = head.next;
-        node.next = nx;
-        node.prev = head;
-        nx.prev = node;
+        Node node = new Node(key, head, head.next);
+        head.next.prev = node;
         head.next = node;
-        return node;
+        table[i] = new Entry(key, value, table[i], node);
+        if (++size > capacity)
+            pop();
+    }
+
+    private void pop() {
+        Node node = tail.prev;
+        node.prev.next = tail;
+        tail.prev = node.prev;
+        int i = node.key & (table.length - 1);
+        dummy.next = table[i];
+        Entry e = dummy;
+        while (e.next.key != node.key)
+            e = e.next;
+        e.next = e.next.next;
+        table[i] = dummy.next;
+        --size;
     }
 
     private void reorderNode(Node node) {
-        if (node.prev == head) return;
-
         node.prev.next = node.next;
         node.next.prev = node.prev;
-        Node nx = head.next;
-        node.next = nx;
+        node.next = head.next;
         node.prev = head;
-        nx.prev = node;
+        head.next.prev = node;
         head.next = node;
-    }
-
-    private void removeLastNode() {
-        Node pre = tail.prev.prev;
-        pre.next = tail;
-        tail.prev = pre;
     }
 }

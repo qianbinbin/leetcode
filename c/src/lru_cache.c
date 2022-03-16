@@ -21,31 +21,12 @@ static node *node_create(int key) {
 }
 
 static void node_reorder(LRUCache *cache, node *n) {
-    node *pre = n->prev, *nx = n->next, *h = cache->head;
-    if (pre == h) return;
-
-    pre->next = nx;
-    nx->prev = pre;
-    n->next = h->next;
-    n->prev = h;
-    h->next->prev = n;
-    h->next = n;
-}
-
-static node *node_add_first(LRUCache *cache, int key) {
-    node *n = node_create(key), *h = cache->head;
-    n->next = h->next;
-    n->prev = h;
-    h->next->prev = n;
-    h->next = n;
-    return n;
-}
-
-static void node_remove_last(LRUCache *cache) {
-    node *rm = cache->tail->prev, *pre = rm->prev, *nx = rm->next;
-    pre->next = nx;
-    nx->prev = pre;
-    free(rm);
+    n->prev->next = n->next;
+    n->next->prev = n->prev;
+    n->next = cache->head->next;
+    n->prev = cache->head;
+    cache->head->next->prev = n;
+    cache->head->next = n;
 }
 
 static entry *entry_create(int key, int value) {
@@ -57,26 +38,19 @@ static entry *entry_create(int key, int value) {
     return e;
 }
 
-static void lru_remove(LRUCache *cache, int key) {
-    if (cache == NULL) return;
-
-    int i = key & (cache->table_size - 1);
-    entry *pre = cache->table + i, *e = pre->next;
-    while (e != NULL) {
-        if (e->key == key) {
-            pre->next = e->next;
-            free(e);
-            --cache->size;
-            return;
-        }
-        pre = e;
+static void lru_pop(LRUCache *cache) {
+    node *n = cache->tail->prev;
+    n->prev->next = n->next;
+    n->next->prev = n->prev;
+    int i = n->key & (cache->table_size - 1);
+    entry *e = cache->table + i;
+    while (e->next->key != n->key)
         e = e->next;
-    }
+    e->next = e->next->next;
+    --cache->size;
 }
 
 LRUCache *lRUCacheCreate(int capacity) {
-    if (capacity < 1) return NULL;
-
     LRUCache *cache = (LRUCache *) malloc(sizeof(LRUCache));
     cache->size = 0;
     cache->capacity = capacity;
@@ -89,17 +63,11 @@ LRUCache *lRUCacheCreate(int capacity) {
     tail->prev = head;
     cache->head = head;
     cache->tail = tail;
-
-    entry *table = (entry *) malloc(t_size * sizeof(entry));
-    for (int i = 0; i < t_size; ++i)
-        (table + i)->next = NULL;
-    cache->table = table;
+    cache->table = (entry *) calloc(t_size, sizeof(entry));
     return cache;
 }
 
 int lRUCacheGet(LRUCache *obj, int key) {
-    if (obj == NULL) return -1;
-
     int i = key & (obj->table_size - 1);
     entry *e = (obj->table + i)->next;
     while (e != NULL) {
@@ -113,8 +81,6 @@ int lRUCacheGet(LRUCache *obj, int key) {
 }
 
 void lRUCachePut(LRUCache *obj, int key, int value) {
-    if (obj == NULL || value < 0) return;
-
     int i = key & (obj->table_size - 1);
     entry *h = obj->table + i, *e = h->next;
     while (e != NULL) {
@@ -125,14 +91,18 @@ void lRUCachePut(LRUCache *obj, int key, int value) {
         }
         e = e->next;
     }
+
     e = entry_create(key, value);
-    e->node = node_add_first(obj, key);
+    node *n = node_create(key), *head = obj->head;
+    n->next = head->next;
+    n->prev = head;
+    head->next->prev = n;
+    head->next = n;
+    e->node = n;
     e->next = h->next;
     h->next = e;
-    if (++obj->size > obj->capacity) {
-        lru_remove(obj, obj->tail->prev->key);
-        node_remove_last(obj);
-    }
+    if (++obj->size > obj->capacity)
+        lru_pop(obj);
 }
 
 void lRUCacheFree(LRUCache *obj) {
@@ -141,20 +111,17 @@ void lRUCacheFree(LRUCache *obj) {
     entry *h, *e;
     for (int i = 0; i < size; ++i) {
         h = table + i;
-        e = h->next;
-        while (e != NULL) {
+        while ((e = h->next) != NULL) {
             h->next = e->next;
             free(e);
-            e = h->next;
         }
     }
     free(table);
 
-    node *pre = obj->head, *p = pre->next;
-    while (p != NULL) {
+    node *pre = obj->head, *p;
+    while ((p = pre->next) != NULL) {
         pre->next = p->next;
         free(p);
-        p = pre->next;
     }
     free(pre);
     free(obj);
