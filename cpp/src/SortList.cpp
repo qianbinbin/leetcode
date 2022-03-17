@@ -6,13 +6,12 @@ static ListNode *mergeTwoSortedLists(ListNode *Head1, ListNode *Head2) {
   ListNode Dummy(0), *Tail = &Dummy;
   while (Head1 != nullptr && Head2 != nullptr) {
     if (Head1->val <= Head2->val) {
-      Tail->next = Head1;
+      Tail = Tail->next = Head1;
       Head1 = Head1->next;
     } else {
-      Tail->next = Head2;
+      Tail = Tail->next = Head2;
       Head2 = Head2->next;
     }
-    Tail = Tail->next;
   }
   Tail->next = Head1 != nullptr ? Head1 : Head2;
   return Dummy.next;
@@ -21,8 +20,7 @@ static ListNode *mergeTwoSortedLists(ListNode *Head1, ListNode *Head2) {
 ListNode *Solution148_1::sortList(ListNode *head) {
   if (head == nullptr || head->next == nullptr)
     return head;
-  ListNode Dummy(0), *H1 = &Dummy, *H2 = H1;
-  Dummy.next = head;
+  ListNode Dummy(0, head), *H1 = &Dummy, *H2 = H1;
   while (H2 != nullptr && H2->next != nullptr) {
     H1 = H1->next;
     H2 = H2->next->next;
