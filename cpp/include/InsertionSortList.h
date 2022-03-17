@@ -1,30 +1,37 @@
-// Sort a linked list using insertion sort.
+// Given the head of a singly linked list, sort the list using insertion sort,
+// and return the sorted list's head.
 //
-// https://upload.wikimedia.org/wikipedia/commons/0/0f/
-// Insertion-sort-example-300px.gif
+// The steps of the insertion sort algorithm:
 //
-// A graphical example of insertion sort. The partial sorted list (black)
-// initially contains only the first element in the list.
-// With each iteration one element (red) is removed from the input data and
-// inserted in-place into the sorted list
+// Insertion sort iterates, consuming one input element each repetition and
+// growing a sorted output list. At each iteration, insertion sort removes one
+// element from the input data, finds the location it belongs within the sorted
+// list and inserts it there. It repeats until no input elements remain. The
+// following is a graphical example of the insertion sort algorithm. The
+// partially sorted list (black) initially contains only the first element in
+// the list. One element (red) is removed from the input data and inserted
+// in-place into the sorted list with each iteration.
 //
-// Algorithm of Insertion Sort:
+// https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif
 //
-// 1. Insertion sort iterates, consuming one input element each repetition, and
-// growing a sorted output list.
-// 2. At each iteration, insertion sort removes one element from the input data,
-// finds the location it belongs within the sorted list, and inserts it there.
-// 3. It repeats until no input elements remain.
 //
 // Example 1:
+// https://assets.leetcode.com/uploads/2021/03/04/sort1linked-list.jpg
 //
-// Input: 4->2->1->3
-// Output: 1->2->3->4
+// Input: head = [4,2,1,3]
+// Output: [1,2,3,4]
 //
 // Example 2:
+// https://assets.leetcode.com/uploads/2021/03/04/sort2linked-list.jpg
 //
-// Input: -1->5->3->4->0
-// Output: -1->0->3->4->5
+// Input: head = [-1,5,3,4,0]
+// Output: [-1,0,3,4,5]
+//
+//
+// Constraints:
+//
+// The number of nodes in the list is in the range [1, 5000].
+// -5000 <= Node.val <= 5000
 
 #ifndef LEETCODECPP_INSERTIONSORTLIST_H
 #define LEETCODECPP_INSERTIONSORTLIST_H
@@ -38,6 +45,6 @@ public:
   ListNode *insertionSortList(ListNode *head);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_INSERTIONSORTLIST_H
+#endif // LEETCODECPP_INSERTIONSORTLIST_H
