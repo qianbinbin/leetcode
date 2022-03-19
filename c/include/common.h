@@ -46,9 +46,4 @@ void tree_postorder_print(struct TreeNode *root);
 
 void tree_free(struct TreeNode *root);
 
-struct Point {
-    int x;
-    int y;
-};
-
 #endif //LEETCODE_COMMON_H

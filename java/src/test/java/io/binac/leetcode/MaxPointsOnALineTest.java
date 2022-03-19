@@ -1,26 +1,21 @@
 package io.binac.leetcode;
 
-import io.binac.leetcode.util.Point;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaxPointsOnALineTest {
+    private static final MaxPointsOnALine.Solution1 SOLUTION1 = new MaxPointsOnALine.Solution1();
 
-    private final MaxPointsOnALine.Solution1 solution1 = new MaxPointsOnALine.Solution1();
+    private final int[][] POINTS1 = {{0, 0}, {1, 1}, {0, 0}};
+    private final int EXPECTED1 = 3;
 
-    private final Point points1[] = {new Point(0, 0), new Point(1, 1), new Point(0, 0)};
-
-    private final int expected1 = 3;
-
-    private final Point points2[] = {new Point(1, 1), new Point(3, 2), new Point(5, 3),
-            new Point(4, 1), new Point(2, 3), new Point(1, 4)};
-
-    private final int expected2 = 4;
+    private final int[][] POINTS2 = {{1, 1}, {3, 2}, {5, 3}, {4, 1}, {2, 3}, {1, 4}};
+    private final int EXPECTED2 = 4;
 
     @Test
     void test1() {
-        assertEquals(expected1, solution1.maxPoints(points1));
-        assertEquals(expected2, solution1.maxPoints(points2));
+        assertEquals(EXPECTED1, SOLUTION1.maxPoints(POINTS1));
+        assertEquals(EXPECTED2, SOLUTION1.maxPoints(POINTS2));
     }
 }

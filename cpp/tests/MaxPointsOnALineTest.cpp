@@ -4,14 +4,14 @@
 using namespace lcpp;
 
 TEST(MaxPointsOnALine, Solution149_1) {
-  std::vector<Point> Points1{Point(1, 1), Point(2, 2), Point(3, 3)};
-  const int Expected1 = 3;
-  EXPECT_EQ(Expected1, Solution149_1().maxPoints(Points1));
+  auto S149_1 = Solution149_1();
 
-  std::vector<Point> Points2{
-      Point(1, 1), Point(3, 2), Point(5, 3),
-      Point(4, 1), Point(2, 3), Point(1, 4)
-  };
-  const int Expected2 = 4;
-  EXPECT_EQ(Expected2, Solution149_1().maxPoints(Points2));
+  std::vector<std::vector<int>> Points1{{1, 1}, {2, 2}, {3, 3}};
+  int const Expected1 = 3;
+  EXPECT_EQ(Expected1, S149_1.maxPoints(Points1));
+
+  std::vector<std::vector<int>> Points2{{1, 1}, {3, 2}, {5, 3},
+                                        {4, 1}, {2, 3}, {1, 4}};
+  int const Expected2 = 4;
+  EXPECT_EQ(Expected2, S149_1.maxPoints(Points2));
 }

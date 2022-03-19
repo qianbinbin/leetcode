@@ -1,46 +1,41 @@
-// Given n points on a 2D plane, find the maximum number of points that lie on
-// the same straight line.
+// Given an array of points where points[i] = [xi, yi] represents a point on the
+// X-Y plane, return the maximum number of points that lie on the same straight
+// line.
+//
+//
 //
 // Example 1:
+// https://assets.leetcode.com/uploads/2021/02/25/plane1.jpg
 //
-// Input: [[1,1],[2,2],[3,3]]
+// Input: points = [[1,1],[2,2],[3,3]]
 // Output: 3
-// Explanation:
-// ^
-// |
-// |        o
-// |     o
-// |  o
-// +------------->
-// 0  1  2  3  4
 //
 // Example 2:
+// https://assets.leetcode.com/uploads/2021/02/25/plane2.jpg
 //
-// Input: [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+// Input: points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
 // Output: 4
-// Explanation:
-// ^
-// |
-// |  o
-// |     o        o
-// |        o
-// |  o        o
-// +------------------->
-// 0  1  2  3  4  5  6
+//
+//
+// Constraints:
+//
+// 1 <= points.length <= 300
+// points[i].length == 2
+// -10^4 <= xi, yi <= 10^4
+// All the points are unique.
 
 #ifndef LEETCODECPP_MAXPOINTSONALINE_H
 #define LEETCODECPP_MAXPOINTSONALINE_H
 
-#include "Point.h"
 #include <vector>
 
 namespace lcpp {
 
 class Solution149_1 {
 public:
-  int maxPoints(std::vector<Point> &points);
+  int maxPoints(std::vector<std::vector<int>> &points);
 };
 
-}
+} // namespace lcpp
 
-#endif //LEETCODECPP_MAXPOINTSONALINE_H
+#endif // LEETCODECPP_MAXPOINTSONALINE_H
