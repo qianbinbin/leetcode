@@ -6,7 +6,7 @@ using namespace lcpp;
 int Solution150_1::evalRPN(std::vector<std::string> &tokens) {
   std::stack<int> Stack;
   int Value;
-  for (const auto &Token : tokens) {
+  for (auto const &Token : tokens) {
     if (Token == "+") {
       Value = Stack.top();
       Stack.pop();
