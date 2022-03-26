@@ -1,7 +1,6 @@
 package io.binac.leetcode;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 
 /**
@@ -31,46 +30,32 @@ import java.util.List;
  * int param_4 = obj.getMin();
  */
 public class MinStack {
-
     private final List<Integer> data = new ArrayList<>();
-
     private final List<Integer> min = new ArrayList<>();
 
-    /**
-     * initialize your data structure here.
-     */
     public MinStack() {
-
     }
 
-    public void push(int x) {
-        data.add(x);
+    public void push(int val) {
+        data.add(val);
         int size = min.size();
-        if (size == 0 || min.get(size - 1) >= x)
-            min.add(x);
+        if (size == 0 || min.get(size - 1) >= val)
+            min.add(val);
         else
             min.add(min.get(size - 1));
     }
 
     public void pop() {
         int size = data.size();
-        if (size == 0)
-            throw new EmptyStackException();
         data.remove(size - 1);
         min.remove(size - 1);
     }
 
     public int top() {
-        int size = data.size();
-        if (size == 0)
-            throw new EmptyStackException();
-        return data.get(size - 1);
+        return data.get(data.size() - 1);
     }
 
     public int getMin() {
-        int size = min.size();
-        if (size == 0)
-            throw new EmptyStackException();
-        return min.get(size - 1);
+        return min.get(min.size() - 1);
     }
 }
