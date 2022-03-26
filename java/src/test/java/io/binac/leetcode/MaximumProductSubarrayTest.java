@@ -5,20 +5,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaximumProductSubarrayTest {
+    private static final MaximumProductSubarray.Solution1 SOLUTION1 = new MaximumProductSubarray.Solution1();
 
-    private final MaximumProductSubarray.Solution1 solution1 = new MaximumProductSubarray.Solution1();
+    private final int[] NUMS1 = {2, 3, -2, 4};
+    private final int EXPECTED1 = 6;
 
-    private final int nums1[] = {2, 3, -2, 4};
-
-    private final int expected1 = 6;
-
-    private final int nums2[] = {-2, 0, -1};
-
-    private final int expected2 = 0;
+    private final int[] NUMS2 = {-2, 0, -1};
+    private final int EXPECTED2 = 0;
 
     @Test
     void test1() {
-        assertEquals(expected1, solution1.maxProduct(nums1));
-        assertEquals(expected2, solution1.maxProduct(nums2));
+        assertEquals(EXPECTED1, SOLUTION1.maxProduct(NUMS1));
+        assertEquals(EXPECTED2, SOLUTION1.maxProduct(NUMS2));
     }
 }
