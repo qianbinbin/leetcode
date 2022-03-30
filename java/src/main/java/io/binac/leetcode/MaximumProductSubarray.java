@@ -35,16 +35,18 @@ public class MaximumProductSubarray {
     public static class Solution1 {
         public int maxProduct(int[] nums) {
             int result = nums[0];
-            int dp_max = result, dp_min = result, tmp;
+            int preMax = result, preMin = result, max, min;
             for (int i = 1; i < nums.length; ++i) {
-                if (nums[i] < 0) {
-                    tmp = dp_max;
-                    dp_max = dp_min;
-                    dp_min = tmp;
+                if (nums[i] >= 0) {
+                    max = Math.max(nums[i], nums[i] * preMax);
+                    min = Math.min(nums[i], nums[i] * preMin);
+                } else {
+                    max = Math.max(nums[i], nums[i] * preMin);
+                    min = Math.min(nums[i], nums[i] * preMax);
                 }
-                dp_max = Math.max(nums[i], nums[i] * dp_max);
-                dp_min = Math.min(nums[i], nums[i] * dp_min);
-                result = Math.max(result, dp_max);
+                result = Math.max(result, max);
+                preMax = max;
+                preMin = min;
             }
             return result;
         }
