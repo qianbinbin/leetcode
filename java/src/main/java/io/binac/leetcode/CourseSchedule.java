@@ -51,7 +51,7 @@ public class CourseSchedule {
             Queue<Integer> queue = new ArrayDeque<>();
             for (int i = 0; i < numCourses; ++i) {
                 if (inDegrees[i] == 0)
-                    queue.add(i);
+                    queue.offer(i);
             }
             int count = 0;
             while (!queue.isEmpty()) {
