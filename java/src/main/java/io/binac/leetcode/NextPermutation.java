@@ -1,7 +1,5 @@
 package io.binac.leetcode;
 
-import java.util.Arrays;
-
 /**
  * <p>Implement <strong>next permutation</strong>, which rearranges numbers into the lexicographically next greater permutation of numbers.</p>
  *
@@ -33,15 +31,12 @@ import java.util.Arrays;
  */
 public class NextPermutation {
     public static class Solution1 {
-        private void reverse(int[] array, int beginIndex, int endIndex) {
-            final int sum = beginIndex + endIndex;
-            final int half = sum >>> 1;
-            int tmp, i, j;
-            for (i = beginIndex; i < half; ++i) {
-                j = sum - 1 - i;
-                tmp = array[i];
-                array[i] = array[j];
-                array[j] = tmp;
+        private void reverse(int[] nums, int i, int j) {
+            int tmp;
+            for (; i < j; ++i, --j) {
+                tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
             }
         }
 
@@ -55,7 +50,7 @@ public class NextPermutation {
                 nums[i] = nums[j];
                 nums[j] = tmp;
             }
-            reverse(nums, i + 1, nums.length);
+            reverse(nums, i + 1, nums.length - 1);
         }
     }
 }

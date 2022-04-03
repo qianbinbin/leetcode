@@ -1,13 +1,11 @@
 #include "next_permutation.h"
 
-static void reverse(int *nums, int begin, int end) {
-    int const sum = begin + end;
-    int const half = begin + (end - begin) / 2;
+static void reverse(int *nums, int i, int j) {
     int tmp;
-    for (int i = begin; i < half; ++i) {
+    for (; i < j; ++i, --j) {
         tmp = nums[i];
-        nums[i] = nums[sum - 1 - i];
-        nums[sum - 1 - i] = tmp;
+        nums[i] = nums[j];
+        nums[j] = tmp;
     }
 }
 
@@ -21,5 +19,5 @@ void nextPermutation_31_1(int *nums, int numsSize) {
         nums[i] = nums[j - 1];
         nums[j - 1] = tmp;
     }
-    reverse(nums, i + 1, numsSize);
+    reverse(nums, i + 1, numsSize - 1);
 }
