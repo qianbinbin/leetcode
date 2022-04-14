@@ -55,16 +55,16 @@ public class FractionToRecurringDecimal {
             sb.append('.');
             Map<Long, Integer> map = new HashMap<>();
             map.put(n, sb.length());
+            Integer i;
             while (n != 0) {
                 n *= 10;
                 sb.append(n / m);
                 n %= m;
-                if (map.containsKey(n)) {
-                    sb.insert(map.get(n), "(");
+                if ((i = map.put(n, sb.length())) != null) {
+                    sb.insert(i, "(");
                     sb.append(')');
                     return sb.toString();
                 }
-                map.put(n, sb.length());
             }
             return sb.toString();
         }
