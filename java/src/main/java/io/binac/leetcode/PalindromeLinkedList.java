@@ -31,11 +31,11 @@ import io.binac.leetcode.util.ListNode;
  */
 public class PalindromeLinkedList {
     public static class Solution1 {
-        private boolean isPalindrome(ListNode head, ListNode[] pre) {
+        private boolean isPalindrome(ListNode head, ListNode[] node) {
             if (head == null)
                 return true;
-            boolean result = isPalindrome(head.next, pre) && head.val == pre[0].val;
-            pre[0] = pre[0].next;
+            boolean result = isPalindrome(head.next, node) && head.val == node[0].val;
+            node[0] = node[0].next;
             return result;
         }
 
