@@ -36,7 +36,7 @@ public class CountPrimes {
             if (n < 3)
                 return 0;
             int result = 1;
-            boolean[] composites = new boolean[(n + 1) / 2];
+            boolean[] composites = new boolean[n / 2];
             for (int i = 3, j, step; i < n; i += 2) {
                 if (composites[i / 2])
                     continue;
