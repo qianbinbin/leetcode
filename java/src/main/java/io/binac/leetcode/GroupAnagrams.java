@@ -32,7 +32,7 @@ public class GroupAnagrams {
         private String sort(String str) {
             char[] s = str.toCharArray();
             Arrays.sort(s);
-            return new String(s);
+            return String.valueOf(s);
         }
 
         public List<List<String>> groupAnagrams(String[] strs) {
